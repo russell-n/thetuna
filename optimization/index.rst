@@ -22,5 +22,6 @@ Auto-Generated Documentation
    :maxdepth: 1
 
    Explorations <explorations/index.rst>
+   Simulated Data <simulations/index.rst>
 
 

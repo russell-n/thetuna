@@ -1,0 +1,37 @@
+The BaseSimulation
+==================
+
+This is a base-class for data-simulation classes.
+
+
+
+Dependencies
+------------
+
+.. currentmodule:: numpy
+.. autosummary::
+   :toctree: api
+
+   arange
+   abs
+   argmin
+
+The BaseSimulation Class
+------------------------
+
+.. uml::
+
+   BaseSimulation : domain
+   BaseSimulation : domain_start
+   BaseSimulation : domain_end
+   BaseSimulation : domain_step
+   BaseSimulation : __call__
+
+.. currentmodule:: optimization.simulations.basesimulation
+.. autosummary::
+   :toctree: api
+
+   BaseSimulation
+   BaseSimulation.domain
+   BaseSimulation.nearest_index  
+

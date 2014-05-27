@@ -1,0 +1,124 @@
+Data Types
+==========
+
+<<name='imports', echo=False>>=
+# third party
+import scipy
+import scipy.stats
+import matplotlib.pyplot as plt
+@
+
+In [EOM] four types of data are identified:
+
+    * Unimodal
+    * Needle in a haystack
+    * Noisy
+    * Decpetive
+
+Here are how we can approximate some of these types.
+
+Unimodal
+--------
+
+A normal distribution.
+
+.. currentmodule:: scipy
+.. autosummary::
+   :toctree: api
+
+   arange
+   stats
+   stats.norm
+   stats.norm.pdf
+
+<<name='normal_distribution'>>=
+x = scipy.arange(-4, 4.1, 0.1)
+y = scipy.stats.norm.pdf(x)
+@
+
+<<name='plot_function', echo=False>>=
+def plot(x, y, name, title):
+    output = 'figures/{0}.svg'.format(name)
+    figure = plt.figure()
+    axe = figure.gca()
+    axe.plot(x, y)
+    axe.set_title(title)
+    figure.savefig(output)
+    print ".. figure:: " + output
+    return output
+@
+
+<<name='plot_normal', echo=False, results='sphinx'>>=
+plot(x, y, 'normal_plot', 'Normal Plot (Unimodal)')
+@
+
+A Beta Distribution.
+
+.. autosummary::
+   :toctree: api
+
+   stats.beta
+   stats.beta.pdf
+
+<<name='beta_distribution'>>=
+x = scipy.arange(0, 1.01, 0.01)
+y = scipy.stats.beta.pdf(x, 2, 5)
+@
+
+<<name='plot_beta', echo=False, results='sphinx'>>=
+plot(x, y, 'beta_plot', 'Beta Plot (Unimodal)')
+@
+
+Needle In A Haystack
+--------------------
+
+This is another normal distribution but with long tails.
+
+<<name='haystack_distribution'>>=
+x = scipy.arange(-100, 100.1, 0.1)
+y =  scipy.stats.norm.pdf(x)
+@
+
+<<name='print_haystack', echo=False, results='sphinx'>>=
+plot(x, y, 'print_haystack', 'Normal (Needle in a Haystack)')
+@
+
+Noisy
+-----
+
+This is a random sampling from a normal distribution with additional terms added.
+
+.. math::
+
+   y &= randomSample()\\
+   y' &= y^2 + \sin (y)\\
+
+.. '   
+   
+<<name='noisy'>>=
+y = scipy.stats.norm.rvs(size=100)
+y += y**2 + scipy.sin(y)
+@
+<<name='plot_noisy', echo=False, results='sphinx'>>=
+plot(scipy.arange(len(y)), y, 'noisy_plot', 'Normal Random (Noisy)')
+@
+
+Deceptive
+---------
+
+This isn't really the same as the 'deceptive' data described in [EOM] but it does have local and global maxima.
+
+.. '
+
+.. math::
+
+   y = cdf(x) + \cos^2 x - \sin x\\
+
+<<name='deceptive'>>=
+x = scipy.arange(-4, 4.1, 0.1)
+y = scipy.stats.norm.cdf(x) + scipy.cos(x)**2 - scipy.sin(x)
+@
+<<name='deceptive_plot', echo=False, results='sphinx'>>=
+plot(x,y,'deceptive', 'Normal Sine Cosine (Deceptive)')
+@
+

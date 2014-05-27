@@ -6,12 +6,12 @@ The purpose of the Optimizer is to provide a way to optimize 'outcomes'. Initial
 Layers
 ------
 
-User Interface
-Control
-Tests
-Optimizers
-Components
-Connections
-Devices
-Hardware
+* User Interface
+* Control
+* Tests
+* Optimizers
+* Components
+* Connections
+* Devices
+* Hardware
 
