@@ -2,14 +2,12 @@ The Normally Distributed Data
 =============================
 
 
-
 This creates data that is normally distributed.
 
-.. currentmodule:: scipy.stats
+.. currentmodule:: scipy.stats.normal
 .. autosummary::
    :toctree: api
       
-   normal
    normal.pdf
 
 .. uml::
@@ -21,6 +19,10 @@ This creates data that is normally distributed.
    :toctree: api
 
    NormalSimulation
+   NormalSimulation.ideal_solution
+   NormalSimulation.nearest_index
+   NormalSimulation.domain
+   NormalSimulation.range
    NormalSimulation.ideal_solution
 
 

@@ -1,6 +1,5 @@
 The Normally Distributed Data
 =============================
-
 <<name='imports', echo=False>>=
 # third-party
 import scipy
@@ -17,11 +16,10 @@ IN_PWEAVE = __name__ == '__builtin__'
 
 This creates data that is normally distributed.
 
-.. currentmodule:: scipy.stats
+.. currentmodule:: scipy.stats.normal
 .. autosummary::
    :toctree: api
       
-   normal
    normal.pdf
 
 .. uml::
@@ -33,6 +31,10 @@ This creates data that is normally distributed.
    :toctree: api
 
    NormalSimulation
+   NormalSimulation.ideal_solution
+   NormalSimulation.nearest_index
+   NormalSimulation.domain
+   NormalSimulation.range
    NormalSimulation.ideal_solution
 
 <<name='NormalSimulation', echo=False>>=
@@ -72,6 +74,18 @@ class NormalSimulation(BaseSimulation):
         The maximal solution from our data set
         """
         return self.range.max()
+
+    def __call__(self, target):
+        """
+        Gets the value of the height of the curve
+
+        :param:
+
+         - `target`: Solution object with inputs and output
+        """
+        if target.output is None:
+            target.output = scipy.stats.norm.pdf(target.inputs[0])
+        return target.output
 # end NormalSimulation    
 @
 

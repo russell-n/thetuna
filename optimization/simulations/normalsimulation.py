@@ -47,6 +47,18 @@ class NormalSimulation(BaseSimulation):
         The maximal solution from our data set
         """
         return self.range.max()
+
+    def __call__(self, target):
+        """
+        Gets the value of the height of the curve
+
+        :param:
+
+         - `target`: Solution object with inputs and output
+        """
+        if target.output is None:
+            target.output = scipy.stats.norm.pdf(target.inputs[0])
+        return target.output
 # end NormalSimulation    
 
 

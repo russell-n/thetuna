@@ -21,7 +21,7 @@ Auto-Generated Documentation
 qhhu}q(h‰h	ˆh
 UtoctreeqhhhˆhUsphinxqhKhU
 create_toctree()
-qh‰h‰hˆh‰hhhU“
+qh‰h‰hˆh‰hhhUá
 
 .. toctree::
    :maxdepth: 1
@@ -30,7 +30,9 @@ qh‰h‰hˆh‰hhhU“
 .. toctree::
    :maxdepth: 1
 
+   The Components <components/index.rst>
    Explorations <explorations/index.rst>
+   Optimizers <optimizers/index.rst>
    Simulated Data <simulations/index.rst>
 
 ue.

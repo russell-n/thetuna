@@ -21,7 +21,9 @@ Auto-Generated Documentation
 .. toctree::
    :maxdepth: 1
 
+   The Components <components/index.rst>
    Explorations <explorations/index.rst>
+   Optimizers <optimizers/index.rst>
    Simulated Data <simulations/index.rst>
 
 

@@ -9,4 +9,5 @@ Testing the BaseSimulation
 
    TestBaseSimulation.test_constructor
    TestBaseSimulation.test_nearest_index
+   TestBaseSimulation.test_nearest_value
 

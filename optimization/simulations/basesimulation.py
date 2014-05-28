@@ -37,7 +37,7 @@ class BaseSimulation(object):
                                         self.domain_step)
         return self._domain
 
-    def nearest_index(self, target):
+    def nearest_domain_index(self, target):
         """
         Returns the index for the domain value that's closest to the target
 
@@ -46,4 +46,15 @@ class BaseSimulation(object):
          - `target`: value within the range of the domain
         """
         return numpy.abs(self.domain - target).argmin()
+
+    def __call__(self, target):
+        """
+        This is defined as the `nearest_range_value` so it can be used where the `Quality` function is expected
+
+        :param:
+
+         - `target`: a collection with 1-value to map to the range
+        """
+        index = numpy.abs(self.range - target[0]).argmin()
+        return self.range[index]
 # end BaseSimulation    

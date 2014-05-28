@@ -25,7 +25,6 @@ The BaseSimulation Class
    BaseSimulation : domain_start
    BaseSimulation : domain_end
    BaseSimulation : domain_step
-   BaseSimulation : __call__
 
 .. currentmodule:: optimization.simulations.basesimulation
 .. autosummary::
@@ -33,5 +32,6 @@ The BaseSimulation Class
 
    BaseSimulation
    BaseSimulation.domain
-   BaseSimulation.nearest_index  
+   BaseSimulation.nearest_domain_index
+   BaseSimulation.__call__
 

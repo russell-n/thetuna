@@ -44,9 +44,19 @@ class TestBaseSimulation(unittest.TestCase):
         Does it get the index of the nearest value in X?
         """
         target = random.randrange(50) + random.random()
-        for index, value in enumerate(self.expected):
-            if target <= value:
-                break
-        self.assertEqual(index, self.simulator.nearest_index(target)) 
+        nearest  = min(((abs(target-value),index) for index, value in enumerate(self.expected)))
+        self.assertEqual(nearest[1], self.simulator.nearest_domain_index(target)) 
+        return
+
+    def test_nearest_value(self):
+        """
+        Does it get the nearest value?
+        """
+        target = numpy.random.uniform(high=50, size=1)
+        self.simulator.range = self.expected
+
+        nearest  = min(((abs(target[0]-value),index) for index, value in enumerate(self.expected)))
+        print target
+        self.assertEqual(self.expected[nearest[1]], self.simulator(target))
         return
 # end TestBaseSimulation    
