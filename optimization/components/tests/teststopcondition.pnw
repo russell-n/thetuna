@@ -20,6 +20,7 @@ from optimization.components.stopcondition import StopCondition, StopConditionId
    TestStopCondition.test_constructor
    TestStopCondition.test_end_time
    TestStopCondition.test_call
+   TestStopCondition.test_set_time
 
 <<name='TestStopCondition', echo=False>>=
 class TestStopCondition(unittest.TestCase):
@@ -69,12 +70,25 @@ class TestStopCondition(unittest.TestCase):
         self.time_mock.return_value = self.condition._end_time + 1
         with patch('time.time', self.time_mock):
             self.assertTrue(self.condition())
-        return    
+        return
+
+    def test_set_time(self):
+        """
+        Does setting the total time reset the time?
+        """
+        new_time = random.randrange(100)
+        ctime = random.randrange(20)
+        self.condition.time_limit = new_time
+        self.time_mock.return_value = ctime
+        with patch('time.time', self.time_mock):
+            self.assertEqual(self.condition.end_time,
+                             new_time + ctime)
+        return
 @
 
 
 Testing the Stop Condition with Ideal Limit
-===========================================
+-------------------------------------------
 
 .. autosummary::
    :toctree: api
@@ -150,3 +164,73 @@ class TestStopConditionIdeal(unittest.TestCase):
         return
 @
 
+Testing the StopConditionGenerator
+----------------------------------
+
+.. autosummary::
+   :toctree: api 
+
+   TestStopconditionGenerator.test_constructor
+   TestStopConditionGenerator.test_stop_condition
+   TestStopConditionGenerator.test_end_time
+
+<<name='StopConditionGenratorImports', echo=False>>=
+# this package
+from optimization.components.stopcondition import StopConditionGenerator
+@
+<<name='TestStopconditionGenerator', echo=False>>=
+class TestStopConditionGenerator(unittest.TestCase):
+    def setUp(self):
+        self.time_limit = random.randrange(1, 100)
+        self.maximum_time = random.randrange(100, 200)
+        self.minimum_time = random.randrange(100)
+
+        self.end_time = random.randrange(100)
+        self.ideal = random.randrange(100)
+        self.delta = random.random()
+        self.random_uniform = MagicMock()
+        self.generator = StopConditionGenerator(time_limit=self.time_limit,
+                                                end_time=self.end_time,
+                                                minimum_time=self.minimum_time,
+                                                maximum_time=self.maximum_time,
+                                                ideal=self.ideal,
+                                                delta=self.delta,
+                                                random_function=self.random_uniform,
+                                                use_singleton=False)
+        return
+    
+    def test_constructor(self):
+        """
+        Does it build correctly?
+        """
+        self.assertEqual(self.time_limit, self.generator.time_limit)
+        self.assertEqual(self.minimum_time, self.generator.minimum_time)
+        self.assertEqual(self.end_time, self.generator.end_time)
+        self.assertEqual(self.ideal, self.generator.ideal)
+        self.assertEqual(self.delta, self.generator.delta)
+        self.assertFalse(self.generator.use_singleton)
+        self.assertEqual(self.random_uniform, self.generator.random_function)
+        self.assertEqual(self.maximum_time, self.generator.maximum_time)
+        return
+
+    def test_stop_condition(self):
+        """
+        Does it create a stop-condition?
+        """
+        # default is to create a singleton
+        # with no ideal given, it should be the time-based one only
+        generator = StopConditionGenerator(time_limit=self.time_limit,
+                                           maximum_time=self.maximum_time,
+                                           minimum_time=self.minimum_time,
+                                           random_function=self.random_uniform)
+        #condition = generator.stop_condition
+        return
+
+    def test_end_time(self):
+        """
+        Does it set a ctime based on the time-limit?
+        """
+        time_mock = MagicMock()
+        ctime = random.randrange(100)
+        return
+@
