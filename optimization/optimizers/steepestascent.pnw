@@ -1,73 +1,70 @@
-The Hill Climber
-================
+The Steepest Ascent Hill Climber (With Replacement)
+===================================================
+
+*Steepest Ascent Hill-Climbing With Replacement* makes the search more aggresive than a regular hill-climber by sampling multiple times around the current candidate solution _[EOM].
 
 <<name='imports', echo=False>>=
 # this package
 from optimization.optimizers.baseclimber import BaseClimber
 @
 
-The HillClimber is the most basic of the local optimizers.
-
 .. uml::
 
-   BaseClimber <|-- HillClimber
+   BaseClimber <|-- SteepestAscent
 
-.. currentmodule:: optimization.optimizers.hillclimber
+.. currentmodule:: optimization.optimizers.steepestascent
 .. autosummary::
    :toctree: api
 
-   HillClimber
-   HillClimber.__call__
+   SteepestAscent
+   SteepestAscent.__call__
 
-Since this isn't a production-level searcher I'll save the solutions to a list, but once better heuristics are created they should be sent to a persistent target.
-   
-<<name='HillClimber', echo=False>>=
-class HillClimber(BaseClimber):
+<<name='SteepestAscent', echo=False>>=
+class SteepestAscent(BaseClimber):
     """
-    A Hill-Climbing optimizer
+    Steepest Ascent with Replacement
     """
-    def __init__(self, emit=True, *args, **kwargs):
+    def __init__(self, local_searches, emit=True, *args, **kwargs):
         """
-        HillClimber constructor
+        Steepest Ascent Constructor
 
         :param:
 
-         - `emit`: if True, print new solutions as they appear
+         - `local_searches`: number of tweaks per repetition
+         - `emit`: if True, print candidates as they appear
         """
-        super(HillClimber, self).__init__(*args, **kwargs)
+        super(SteepestAscent, self).__init__(*args, **kwargs)
         self.emit = emit
+        self.local_searches = local_searches
         self.solutions = []
         return
-    
+
     def __call__(self):
         """
-        runs the hill-climber
+        Runs the algorithm (sets self.solutions as side-effect)
 
-        :return: `best` solution found
+        :return: best solution found
         """
+        current = self.solution
         while not self.stop_condition(self.solution):
-            candidate = self.tweak(self.solution)
-            if self.quality(candidate) > self.quality(self.solution):
+            candidate = self.tweak(current)
+            
+            for search in xrange(self.local_searches):
+                # search around the current spot
+                new_candidate = self.tweak(current)
+                if self.quality(new_candidate) > self.quality(candidate):
+                    candidate = new_candidate
+            current = candidate
+            if self.quality(current) > self.quality(self.solution):
+                self.solutions.append(current)
                 if self.emit:
-                    print candidate
-                self.solutions.append(candidate)
-                self.solution = candidate
+                    print current
+                self.solution = current
         return self.solution
-# end HillClimber    
+# end SteepestAscent    
 @
 
-The HillClimber implements a simple hill-climbing optimization. It has three dependencies:
-
-   * StopCondition
-   * Tweak
-   * Quality
-
-As well as an initial solution to start the search.
-
-Simulating a Hill Climb
------------------------
-
-I'll use the simulated data-sets to create an example of how this might work. The first case will be a :ref:`standard-normal curve <optimization-simulations-normal-data>`.
+The SteepestAscent climber is more aggresive than the hill-climber but still has a problem with local-optima so I'll just test it on the normal-data here.
 
 .. '
 
@@ -148,10 +145,11 @@ if IN_PWEAVE:
     # right now the simulator is setting the .output as a side-effect
     simulator(candidate)
     
-    climber = HillClimber(solution=candidate,
-                          stop_condition=stop,
-                          tweak=xytweak,
-                          quality=simulator)
+    climber = SteepestAscent(solution=candidate,
+                             stop_condition=stop,
+                             tweak=xytweak,
+                             quality=simulator,
+                             local_searches=4)
     run_climber(climber)
 
 def plot_solutions(filename, climber, title):
@@ -163,13 +161,32 @@ def plot_solutions(filename, climber, title):
     axe.set_title(title)
     figure.savefig(output)
     print '.. figure:: '  + output
-    return    
+    return
+
+def plot_dataset(filename, climber, simulator, title):
+    output = 'figures/{0}.svg'.format(filename)
+    figure = plt.figure()
+    axe = figure.gca()
+    axe.plot(simulator.domain, simulator.range)
+    axe.axhline(climber.solution.output, color='r')
+    figure.savefig(output)
+    print ".. figure:: " + output
+    return
 @
 
 <<name='plot_climber', echo=False, results='sphinx'>>=
 if IN_PWEAVE:
-    plot_solutions('normal_hill_climb', climber,
-                   "Normal Hill Climbing (Tweak Half-range=0.1)")    
+    plot_solutions('normal_steepest_ascent', climber,
+                   "Normal Hill Climbing (Tweak Half-range=0.1)")
+@
+
+
+<<name='plot_solution', echo=False, results='sphinx'>>=
+#import pudb; pudb.set_trace()
+if IN_PWEAVE:
+    plot_dataset('steepest_ascent_normal_data',
+                 climber, simulator,
+                 "Dataset and Solution")
 @
 
 Now a :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>` case.
@@ -185,12 +202,13 @@ if IN_PWEAVE:
     candidate.output = None
     simulator(candidate)
     climber.solution = candidate
+    climber.emit = False
 
     stop._end_time = None
     stop.ideal_value = simulator.ideal_solution
 
     # this takes forever, make it lenient
-    tweak = UniformConvolution(half_range=1,
+    tweak = UniformConvolution(half_range=0.1,
                                lower_bound=simulator.domain_start,
                                upper_bound=simulator.domain_end)
 
@@ -205,9 +223,12 @@ if IN_PWEAVE:
 
 <<name='plot_needle_in_a_haystack', echo=False, results='sphinx'>>=
 if IN_PWEAVE:
-    plot_solutions('needle_haystack_hill_climb',
+    plot_solutions('needle_haystack_steepest_ascent',
                    climber,
-                   "Needle In a Haystack Hill Climbing (Tweak Half-range=10)")    
+                   "Needle In a Haystack Hill Climbing (Tweak Half-range=0.1)")
+    print
+    plot_dataset('steepest_ascent_needle_haystack_data',
+                  climber, simulator,
+                  "Dataset and Solution")
 @
 
-Running this code can be either very fast (less than a second) or very slow (never reaches the end before timing out). I'm not going to bother trying it on the harder data-sets.

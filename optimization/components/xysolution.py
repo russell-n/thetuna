@@ -91,6 +91,9 @@ class XYSolution(object):
         Returns the domain value matching the index
         """
         return self.inputs[index]
+
+    def __str__(self):
+        return "Inputs: {0} Output: {1}".format(self.inputs, self.output)
 # end XYSolution    
 
 

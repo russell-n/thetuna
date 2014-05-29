@@ -4,6 +4,18 @@ The Normally Distributed Data
 
 This creates data that is normally distributed.
 
+Contents:
+
+    * :ref:`Normal Simulation Implementation <optimization-simulations-normalsimulation>`
+    * :ref:`Normal Data Example <optimization-simulations-normal-data>`
+    * :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>`
+    * :ref:`Normal But Noisy <optimization-simulations-normal-noisy>`
+
+.. _optimization-simulations-normalsimulation:
+
+Normal Simulation Implementation
+--------------------------------
+
 .. currentmodule:: scipy.stats.normal
 .. autosummary::
    :toctree: api
@@ -20,17 +32,19 @@ This creates data that is normally distributed.
 
    NormalSimulation
    NormalSimulation.ideal_solution
-   NormalSimulation.nearest_index
+   NormalSimulation.nearest_domain_index
    NormalSimulation.domain
    NormalSimulation.range
-   NormalSimulation.ideal_solution
+   NormalSimulation.__call__
 
 
 
 It is just a front-end for `scipy.stats`, and can be used to simulate various unimodal cases.
 
+.. _optimization-simulations-normal-data:
+
 Normal Data Set
-~~~~~~~~~~~~~~~
+---------------
 
 ::
 
@@ -44,8 +58,10 @@ Normal Data Set
 
 
 
+.. _optimization-simulations-needle-in-haystack:
+
 Needle In a Haystack
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 To create the needle in a haystack scenario, you can widen the domain to the point that it becomes rare to find the center.
 
@@ -60,6 +76,8 @@ To create the needle in a haystack scenario, you can widen the domain to the poi
 .. figure:: figures/plot_needle_in_haystack.svg
 
 
+
+.. _optimization-simulations-normal-noisy:
 
 Normal But Noisy
 ----------------

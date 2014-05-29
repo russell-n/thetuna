@@ -3,38 +3,48 @@
 from optimization.optimizers.baseclimber import BaseClimber
 
 
-class HillClimber(BaseClimber):
+class SteepestAscent(BaseClimber):
     """
-    A Hill-Climbing optimizer
+    Steepest Ascent with Replacement
     """
-    def __init__(self, emit=True, *args, **kwargs):
+    def __init__(self, local_searches, emit=True, *args, **kwargs):
         """
-        HillClimber constructor
+        Steepest Ascent Constructor
 
         :param:
 
-         - `emit`: if True, print new solutions as they appear
+         - `local_searches`: number of tweaks per repetition
+         - `emit`: if True, print candidates as they appear
         """
-        super(HillClimber, self).__init__(*args, **kwargs)
+        super(SteepestAscent, self).__init__(*args, **kwargs)
         self.emit = emit
+        self.local_searches = local_searches
         self.solutions = []
         return
-    
+
     def __call__(self):
         """
-        runs the hill-climber
+        Runs the algorithm (sets self.solutions as side-effect)
 
-        :return: `best` solution found
+        :return: best solution found
         """
+        current = self.solution
         while not self.stop_condition(self.solution):
-            candidate = self.tweak(self.solution)
-            if self.quality(candidate) > self.quality(self.solution):
+            candidate = self.tweak(current)
+            
+            for search in xrange(self.local_searches):
+                # search around the current spot
+                new_candidate = self.tweak(current)
+                if self.quality(new_candidate) > self.quality(candidate):
+                    candidate = new_candidate
+            current = candidate
+            if self.quality(current) > self.quality(self.solution):
+                self.solutions.append(current)
                 if self.emit:
-                    print candidate
-                self.solutions.append(candidate)
-                self.solution = candidate
+                    print current
+                self.solution = current
         return self.solution
-# end HillClimber    
+# end SteepestAscent    
 
 
 IN_PWEAVE = __name__ == '__builtin__'
@@ -80,10 +90,11 @@ if IN_PWEAVE:
     # right now the simulator is setting the .output as a side-effect
     simulator(candidate)
     
-    climber = HillClimber(solution=candidate,
-                          stop_condition=stop,
-                          tweak=xytweak,
-                          quality=simulator)
+    climber = SteepestAscent(solution=candidate,
+                             stop_condition=stop,
+                             tweak=xytweak,
+                             quality=simulator,
+                             local_searches=4)
     run_climber(climber)
 
 def plot_solutions(filename, climber, title):
@@ -95,12 +106,29 @@ def plot_solutions(filename, climber, title):
     axe.set_title(title)
     figure.savefig(output)
     print '.. figure:: '  + output
-    return    
+    return
+
+def plot_dataset(filename, climber, simulator, title):
+    output = 'figures/{0}.svg'.format(filename)
+    figure = plt.figure()
+    axe = figure.gca()
+    axe.plot(simulator.domain, simulator.range)
+    axe.axhline(climber.solution.output, color='r')
+    figure.savefig(output)
+    print ".. figure:: " + output
+    return
 
 
 if IN_PWEAVE:
-    plot_solutions('normal_hill_climb', climber,
-                   "Normal Hill Climbing (Tweak Half-range=0.1)")    
+    plot_solutions('normal_steepest_ascent', climber,
+                   "Normal Hill Climbing (Tweak Half-range=0.1)")
+
+
+#import pudb; pudb.set_trace()
+if IN_PWEAVE:
+    plot_dataset('steepest_ascent_normal_data',
+                 climber, simulator,
+                 "Dataset and Solution")
 
 
 if IN_PWEAVE:
@@ -113,12 +141,13 @@ if IN_PWEAVE:
     candidate.output = None
     simulator(candidate)
     climber.solution = candidate
+    climber.emit = False
 
     stop._end_time = None
     stop.ideal_value = simulator.ideal_solution
 
     # this takes forever, make it lenient
-    tweak = UniformConvolution(half_range=1,
+    tweak = UniformConvolution(half_range=0.1,
                                lower_bound=simulator.domain_start,
                                upper_bound=simulator.domain_end)
 
@@ -132,6 +161,10 @@ if IN_PWEAVE:
 
 
 if IN_PWEAVE:
-    plot_solutions('needle_haystack_hill_climb',
+    plot_solutions('needle_haystack_steepest_ascent',
                    climber,
-                   "Needle In a Haystack Hill Climbing (Tweak Half-range=10)")    
+                   "Needle In a Haystack Hill Climbing (Tweak Half-range=10)")
+    print
+    plot_dataset('steepest_ascent_needle_haystack_data',
+                  climber, simulator,
+                  "Dataset and Solution")

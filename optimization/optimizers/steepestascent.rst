@@ -1,37 +1,24 @@
-The Hill Climber
-================
+The Steepest Ascent Hill Climber (With Replacement)
+===================================================
+
+*Steepest Ascent Hill-Climbing With Replacement* makes the search more aggresive than a regular hill-climber by sampling multiple times around the current candidate solution _[EOM].
 
 
-
-The HillClimber is the most basic of the local optimizers.
 
 .. uml::
 
-   BaseClimber <|-- HillClimber
+   BaseClimber <|-- SteepestAscent
 
-.. currentmodule:: optimization.optimizers.hillclimber
+.. currentmodule:: optimization.optimizers.steepestascent
 .. autosummary::
    :toctree: api
 
-   HillClimber
-   HillClimber.__call__
-
-Since this isn't a production-level searcher I'll save the solutions to a list, but once better heuristics are created they should be sent to a persistent target.
-   
+   SteepestAscent
+   SteepestAscent.__call__
 
 
-The HillClimber implements a simple hill-climbing optimization. It has three dependencies:
 
-   * StopCondition
-   * Tweak
-   * Quality
-
-As well as an initial solution to start the search.
-
-Simulating a Hill Climb
------------------------
-
-I'll use the simulated data-sets to create an example of how this might work. The first case will be a :ref:`standard-normal curve <optimization-simulations-normal-data>`.
+The SteepestAscent climber is more aggresive than the hill-climber but still has a problem with local-optima so I'll just test it on the normal-data here.
 
 .. '
 
@@ -113,10 +100,11 @@ I'll use the simulated data-sets to create an example of how this might work. Th
         # right now the simulator is setting the .output as a side-effect
         simulator(candidate)
         
-        climber = HillClimber(solution=candidate,
-                              stop_condition=stop,
-                              tweak=xytweak,
-                              quality=simulator)
+        climber = SteepestAscent(solution=candidate,
+                                 stop_condition=stop,
+                                 tweak=xytweak,
+                                 quality=simulator,
+                                 local_searches=4)
         run_climber(climber)
     
     def plot_solutions(filename, climber, title):
@@ -128,30 +116,61 @@ I'll use the simulated data-sets to create an example of how this might work. Th
         axe.set_title(title)
         figure.savefig(output)
         print '.. figure:: '  + output
-        return    
+        return
+    
+    def plot_dataset(filename, climber, simulator, title):
+        output = 'figures/{0}.svg'.format(filename)
+        figure = plt.figure()
+        axe = figure.gca()
+        axe.plot(simulator.domain, simulator.range)
+        axe.axhline(climber.solution.output, color='r')
+        figure.savefig(output)
+        print ".. figure:: " + output
+        return
     
 
 ::
 
-    Inputs: [ 1.54432061] Output: 0.129517595666
-    Inputs: [ 1.44609179] Output: 0.149727465636
-    Inputs: [ 1.34655045] Output: 0.171368592048
-    Inputs: [ 1.24993255] Output: 0.194186054983
-    Inputs: [ 1.14995792] Output: 0.217852177033
-    Inputs: [ 1.04997088] Output: 0.241970724519
-    Inputs: [ 0.94999884] Output: 0.266085249899
-    Inputs: [ 0.84999965] Output: 0.289691552761
-    Inputs: [ 0.74999983] Output: 0.312253933367
-    Inputs: [ 0.64999994] Output: 0.333224602892
-    Inputs: [ 0.54999995] Output: 0.352065326764
-    Inputs: [ 0.45] Output: 0.368270140303
-    solution: Inputs: [ 0.45] Output: 0.368270140303
+    Inputs: [ 3.04371109] Output: 0.00443184841194
+    Inputs: [ 2.91879339] Output: 0.00595253241978
+    Inputs: [ 2.83437595] Output: 0.00791545158298
+    Inputs: [ 2.74013943] Output: 0.0104209348144
+    Inputs: [ 2.60469089] Output: 0.0135829692337
+    Inputs: [ 2.51023048] Output: 0.0175283004936
+    Inputs: [ 2.42960723] Output: 0.0223945302948
+    Inputs: [ 2.32910777] Output: 0.0283270377416
+    Inputs: [ 2.22511114] Output: 0.0354745928462
+    Inputs: [ 2.1332202] Output: 0.0439835959804
+    Inputs: [ 2.02296916] Output: 0.0539909665132
+    Inputs: [ 1.93743168] Output: 0.0656158147747
+    Inputs: [ 1.81336704] Output: 0.0789501583009
+    Inputs: [ 1.74424518] Output: 0.0940490773769
+    Inputs: [ 1.57852444] Output: 0.110920834679
+    Inputs: [ 1.4977735] Output: 0.129517595666
+    Inputs: [ 1.43816743] Output: 0.149727465636
+    Inputs: [ 1.34152775] Output: 0.171368592048
+    Inputs: [ 1.2476231] Output: 0.194186054983
+    Inputs: [ 1.14875645] Output: 0.217852177033
+    Inputs: [ 1.04290908] Output: 0.241970724519
+    Inputs: [ 0.90005964] Output: 0.266085249899
+    Inputs: [ 0.84635775] Output: 0.289691552761
+    Inputs: [ 0.69487702] Output: 0.312253933367
+    Inputs: [ 0.6119632] Output: 0.333224602892
+    Inputs: [ 0.54331945] Output: 0.352065326764
+    Inputs: [ 0.41271049] Output: 0.368270140303
+    Inputs: [ 0.33811882] Output: 0.381387815461
+    Inputs: [ 0.19625808] Output: 0.391042693975
+    Inputs: [ 0.14073304] Output: 0.396952547477
+    Inputs: [ 0.04524628] Output: 0.398942280401
+    solution: Inputs: [ 0.04524628] Output: 0.398942280401
     Ideal: 0.398942280401
-    Difference: -0.0306721400981
-    Elapsed: 300.000026941
+    Difference: 0.0
+    Elapsed: 0.0172560214996
     
 
-.. figure:: figures/normal_hill_climb.svg
+.. figure:: figures/normal_steepest_ascent.svg
+
+.. figure:: figures/steepest_ascent_normal_data.svg
 
 
 
@@ -169,12 +188,13 @@ Now a :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>` 
         candidate.output = None
         simulator(candidate)
         climber.solution = candidate
+        climber.emit = False
     
         stop._end_time = None
         stop.ideal_value = simulator.ideal_solution
     
         # this takes forever, make it lenient
-        tweak = UniformConvolution(half_range=1,
+        tweak = UniformConvolution(half_range=0.1,
                                    lower_bound=simulator.domain_start,
                                    upper_bound=simulator.domain_end)
     
@@ -190,19 +210,13 @@ Now a :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>` 
 ::
 
     Ideal: 0.398942280401
-    Inputs: [ 0.90391236] Output: 0.2660852499
-    Inputs: [ 0.40796778] Output: 0.368270140304
-    Inputs: [ 0.3038038] Output: 0.381387815461
-    Inputs: [ 0.19617259] Output: 0.391042693976
-    Inputs: [ 0.01917687] Output: 0.398942280401
-    solution: Inputs: [ 0.01917687] Output: 0.398942280401
+    solution: Inputs: [ 0.03161969] Output: 0.398942280401
     Ideal: 0.398942280401
     Difference: 0.0
-    Elapsed: 0.00193190574646
+    Elapsed: 0.00948214530945
     
 
-.. figure:: figures/needle_haystack_hill_climb.svg
+.. figure:: figures/needle_haystack_steepest_ascent.svg
 
+.. figure:: figures/steepest_ascent_needle_haystack_data.svg
 
-
-Running this code can be either very fast (less than a second) or very slow (never reaches the end before timing out). I'm not going to bother trying it on the harder data-sets.

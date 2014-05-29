@@ -57,7 +57,11 @@ class NormalSimulation(BaseSimulation):
          - `target`: Solution object with inputs and output
         """
         if target.output is None:
-            target.output = scipy.stats.norm.pdf(target.inputs[0])
+            #target.output = scipy.stats.norm.pdf(target.inputs[0])
+            # get the domain value closest to the input-value
+            index = self.nearest_domain_index(target.inputs[0])
+            # set it to the range value
+            target.output = self.range[index]
         return target.output
 # end NormalSimulation    
 

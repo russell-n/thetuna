@@ -47,6 +47,17 @@ class BaseSimulation(object):
         """
         return numpy.abs(self.domain - target).argmin()
 
+    def reset(self):
+        """
+        Resets the properties to None
+        """
+        self._domain = None
+        self._range = None
+        self.domain_start = None
+        self.domain_end = None
+        self.domain_step = None
+        return
+
     def __call__(self, target):
         """
         This is defined as the `nearest_range_value` so it can be used where the `Quality` function is expected

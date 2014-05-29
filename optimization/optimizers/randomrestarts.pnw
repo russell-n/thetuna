@@ -1,0 +1,36 @@
+Hill-Climbing with Random Restarts
+==================================
+
+*Hill-Climbing With Random Restarts* generalizes hill-climbing to make a global classifier _[EOM]. It does this by periodically restarting in a new spot. To enable the restarting, an inner-loop is created that runs for the amount of time (repetitions?) chosen from a distribution of times. Once the time for the inner loop is finished a new candidate is randomly generated and process restarts until the total time expires or the ideal solution is found (in the theoretical case).
+
+
+<<name='RandomRestarts', echo=False>>
+class RandomRestarts(BaseClimber):
+    """
+    Hill-climbing with random restarts
+    """
+    def __init__(self, time_iterator, solution_storage, candidates,
+                 emit=True, *args, **kwargs):
+        """
+        Random Restarts constructor
+
+        :param:
+
+         - `time_iterator`: generator of random time amounts between restarts
+         - `solution_storage`: object to append solutions to
+         
+         - `emit`: if true, print new solutions
+        """
+        super(RandomRestarts, self).__init__(*args, **kwargs)
+        self.solutions = solution_storage
+        self.time_iterator = time_iterator
+        self.emit = emit
+        return
+
+    def __call__(self):
+        """
+        Finds the best solution within given time
+        """
+        
+@
+

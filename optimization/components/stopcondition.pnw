@@ -117,8 +117,8 @@ class StopConditionIdeal(StopCondition):
 
          - `solution`: Candidate solution to test against ideal
         """
-        return (abs(solution - self.ideal_value) <= self.delta or
-                time.time() >=self.end_time)
+        return (abs(solution.output - self.ideal_value) <= self.delta or
+                time.time() >= self.end_time)
 # end StopConditionIdeal
 @
 
