@@ -15,3 +15,16 @@ Testing the XYSolution
    TestXYSolution.test_multiply
    TestXYSolution.test_less_than
 
+
+
+Testing the XYSolution Generator
+--------------------------------
+
+.. autosummary::
+   :toctree: api
+
+   TestXYSolutionGenerator.test_constructor
+   TestXYSolutionGenerator.test_candidate
+   TestXYSolutionGenerator.test_random_function
+   TestXYSolutionGenerator.test_generator
+

@@ -4,6 +4,7 @@ The Stop Conditions
 
     # python standard library
     import time
+    import random
     
     
 
@@ -70,6 +71,11 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
    :toctree: api
 
    StopConditionGenerator
+   StopConditionGenerator.random_function
+   StopConditionGenerator.end_time
+   StopConditionGenerator.stop_condition
+   StopConditionGenerator.global_stop_condition
+   StopConditionGenerator.__iter__
 
 ::
 
@@ -79,7 +85,7 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
         """
         def __init__(self, time_limit, maximum_time, minimum_time=1, 
                      end_time=None, ideal=None, delta=0, use_singleton=True, ra
-    ndom_function=None):
+    ndom_function=random.uniform):
             """
             StopConditionGenerator
     
@@ -98,24 +104,91 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
             self.time_limit = time_limit
             self.maximum_time = maximum_time
             self.minimum_time = minimum_time
-            self.end_time = end_time
+            self._end_time = end_time
             self.ideal = ideal
             self.delta = delta
             self.use_singleton = use_singleton
             self.random_function = random_function
             self._stop_condition = None
+            self._global_stop_condition = None
             return
     
         @property
+        def end_time(self):
+            """
+            The ctime to stop all stop-conditions (time-limit + now)
+            """
+            if self._end_time is None:
+                self._end_time = time.time() + self.time_limit
+            return self._end_time
+    
+        @property
+        def global_stop_condition(self):
+            """
+            A stop condition using the total time instead of the random-times
+            """
+            if self._global_stop_condition is None:
+                if self.ideal is None:
+                    self._global_stop_condition = StopCondition(time_limit=self
+    .time_limit,
+                                                                end_time=self.e
+    nd_time)
+                else:
+                    self._global_stop_condition = StopConditionIdeal(time_limit
+    =self.time_limit,
+                                                                     end_time=s
+    elf.end_time,
+                                                                     ideal_valu
+    e=self.ideal,
+                                                                     delta=self
+    .delta)
+            return self._global_stop_condition
+        
+        @property
         def stop_condition(self):
             """
-            A Stop-Condition object
+            A Stop-Condition object with new end-time set every time it's retri
+    eved
+            Or a new StopCondition object every-time it's retrieved if not use_
+    singleton
             """
-            #if if self._stop_condition is None or not self.use_singleton:
-            #    time_limit = self.random_function(self.minimum_time, self.time
-    #_limit)
-            #    if self.ideal is None:
-            #        self._stop_condition = StopCondition()
+            time_limit = self.random_function(self.minimum_time,
+                                              self.maximum_time)
+            # set an upper-bound on times
+            end_time = min(time_limit + time.time(), self.end_time)
+    
+            # this probably isn't necessary, but for checks there should be
+            # some consistency, I think
+            if end_time == self.end_time:
+                time_limit = self.time_limit
+    
+            if self._stop_condition is None or not self.use_singleton:         
+           
+                if self.ideal is None:                
+                    self._stop_condition = StopCondition(time_limit=time_limit,
+    
+                                                         end_time=end_time)
+                else:
+                    self._stop_condition = StopConditionIdeal(time_limit=time_l
+    imit,
+                                                              end_time=end_time
+    ,
+                                                              ideal_value=self.
+    ideal,
+                                                              delta=self.delta)
+    
+            elif self.use_singleton:
+                # the object existed, we need to give it new times
+                self._stop_condition.time_limit = time_limit
+                self._stop_condition.end_time = end_time
+            return self._stop_condition
+    
+        def __iter__(self):
+            """
+            generates stop-conditions
+            """
+            while time.time() < self.end_time:
+                yield self.stop_condition
     
     
 
@@ -126,7 +199,8 @@ The StopConditionGenerator generates StopConditions. The first time it generates
 .. csv-table:: StopConditionGenerator Parameters
    :header: Name, Description
 
-   ``time_limit``, Upper-bound for the amount of time each StopCondition will run
+   ``time_limit``, Seconds to generate stop-conditions
+   ``maximum_time``,Upper-bound for the amount of time each StopCondition will run
    ``minimum_time``, Lower-bound for the amount of time each StopCondition will run
    ``end_time``, c-time to stop generation
    ``ideal``, If set the conditions will stop when the test value is close enough to it
@@ -137,3 +211,14 @@ The StopConditionGenerator generates StopConditions. The first time it generates
 Right now the times are generated uniformly, so the expected call will be ``random.uniform(minimum_time, time_limit)``. If you want to use a different function you can pass it into the constructor, so long as it can be called with the same values.
 
 The ``use_singleton`` is a little misleading -- the ``StopConditionGenerator`` stores the object but creating a new ``StopConditionGenerator`` will create a new StopCondition so it's not a True singleton.
+
+.. '
+
+Although you could pull the `stop_condition` property to get new stop-conditions, the intention is to use it as and iterator. Let's assume you have a StopConditionGenerator object named `stop_generator`, then the way to used it might be something like::
+
+    for stop_condition in stop_generator:
+        while not stop_condition(candidate):
+            new_candidate = Tweak(candidate)
+            if Quality(new_candidate) > Quality(candidate):
+                candidate = new_candidate
+    return candidate

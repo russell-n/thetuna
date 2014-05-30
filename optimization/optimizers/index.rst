@@ -7,6 +7,7 @@ Optimizers
 
    The Base Climber <baseclimber.rst>
    The Hill Climber <hillclimber.rst>
+   Hill-Climbing with Random Restarts <randomrestarts.rst>
    The Steepest Ascent Hill Climber (With Replacement) <steepestascent.rst>
 
 

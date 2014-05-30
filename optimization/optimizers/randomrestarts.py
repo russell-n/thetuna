@@ -1,23 +1,8 @@
-Hill-Climbing with Random Restarts
-==================================
-<<name='imports', echo=False>>=
+
 # python standard library
 import itertools
-@
 
-*Hill-Climbing With Random Restarts* generalizes hill-climbing to make a global classifier _[EOM]. It does this by periodically restarting in a new spot. To enable the restarting, an inner-loop is created that runs for the amount of time (repetitions?) chosen from a distribution of times. Once the time for the inner loop is finished a new candidate is randomly generated and process restarts until the total time expires or the ideal solution is found (in the theoretical case).
 
-.. currentmodule:: optimization.optimizers.randomrestarts
-.. autosummary::
-   :toctree: api
-
-   RandomRestarts
-   RandomRestarts.__call__
-   RandomRestarts.solution
-   RandomRestarts.solutions
-   RandomRestarts.is_ideal
-
-<<name='RandomRestarts', echo=False>>=
 class RandomRestarts(object):
     """
     Hill-climbing with random restarts
@@ -108,16 +93,8 @@ class RandomRestarts(object):
                 break
         return self.solution
 # end RandomRestarts        
-@
 
-Example Use
------------
 
-First we'll start with the normal distribution. 
-
-.. '
-
-<<name='normal_distribution_test', wrap=False>>=
 IN_PWEAVE = __name__ == '__builtin__'
 if IN_PWEAVE:
     # helpers for weaving
@@ -151,10 +128,8 @@ if IN_PWEAVE:
                              tweak=xy_tweak)
 
     run_climber(climber, simulator)    
-@
 
-<<name='plot_dataset', echo=False, results='sphinx'>>=
+
 if IN_PWEAVE:
     plot_dataset("random_restart_normal", climber, simulator,
                  "Random Restarts Normal Dataset")
-@
