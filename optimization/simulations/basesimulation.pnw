@@ -43,7 +43,7 @@ class BaseSimulation(object):
     """
     A base simulated-data class
     """
-    def __init__(self, domain_start, domain_end, domain_step):
+    def __init__(self, domain_start, domain_end, steps):
         """
         BaseSimulation constructor
 
@@ -51,11 +51,11 @@ class BaseSimulation(object):
 
          - `domain_start`: start of the range of domain data (x)
          - `domain_end`: end of the range of domain data (x)
-         - `domain_step`: increment for steps from domain start to domain end
+         - `steps`: number of points to put in the domain
         """
         self.domain_start = domain_start
         self.domain_end = domain_end
-        self.domain_step = domain_step
+        self.steps = steps
         self._domain = None
         self._range = None
         return
@@ -68,9 +68,9 @@ class BaseSimulation(object):
         :rtype: numpy.array
         """
         if self._domain is None:
-            self._domain = numpy.arange(self.domain_start,
-                                        self.domain_end + self.domain_step,
-                                        self.domain_step)
+            self._domain = numpy.linspace(start=self.domain_start,
+                                          stop=self.domain_end,
+                                          num=self.steps)
         return self._domain
 
     def nearest_domain_index(self, target):

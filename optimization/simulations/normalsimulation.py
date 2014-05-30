@@ -57,7 +57,6 @@ class NormalSimulation(BaseSimulation):
          - `target`: Solution object with inputs and output
         """
         if target.output is None:
-            #target.output = scipy.stats.norm.pdf(target.inputs[0])
             # get the domain value closest to the input-value
             index = self.nearest_domain_index(target.inputs[0])
             # set it to the range value
@@ -67,7 +66,7 @@ class NormalSimulation(BaseSimulation):
 
 
 if IN_PWEAVE:
-    simulator = NormalSimulation(domain_start=-4, domain_end=4, domain_step=0.1)
+    simulator = NormalSimulation(domain_start=-4, domain_end=4, steps=1000)
 
 
 if IN_PWEAVE:
@@ -80,7 +79,7 @@ if IN_PWEAVE:
 
 
 if IN_PWEAVE:
-    simulator = NormalSimulation(domain_start=-100, domain_end=150, domain_step=0.1)    
+    simulator = NormalSimulation(domain_start=-100, domain_end=150, steps=1000)
 
 
 if IN_PWEAVE:
@@ -125,7 +124,7 @@ class NoisySimulation(BaseSimulation):
 if IN_PWEAVE:
     squared = lambda x: scipy.power(x, 2)
     sine = lambda x: scipy.sin(x)
-    noisy = NoisySimulation(domain_start=0, domain_end=100, domain_step=1,
+    noisy = NoisySimulation(domain_start=0, domain_end=100, steps=1000,
                             functions=[squared, sine])
 
 
@@ -143,7 +142,7 @@ if IN_PWEAVE:
     sine = lambda x: -scipy.sin(x)
     simulator = NormalSimulation(domain_start=-4,
                                  domain_end=4.1,
-                                 domain_step=0.1,
+                                 steps=1000,
                                  functions=[cosine_squared, sine])
 
 
@@ -153,5 +152,20 @@ if IN_PWEAVE:
     axe = figure.gca()
 
     axe.plot(simulator.range)
+    figure.savefig(output)
+    print ".. figure:: " + output
+
+
+if IN_PWEAVE:
+    simulator._range = None
+    simulator.functions = None
+    new_range = (simulator.range * 10) + 2
+
+
+if IN_PWEAVE:
+    output = 'figures/plot_shift.svg'
+    figure = plt.figure()
+    axe = figure.gca()
+    axe.plot(new_range)
     figure.savefig(output)
     print ".. figure:: " + output

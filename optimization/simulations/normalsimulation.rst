@@ -49,8 +49,8 @@ Normal Data Set
 ::
 
     if IN_PWEAVE:
-        simulator = NormalSimulation(domain_start=-4, domain_end=4, domain_step
-    =0.1)
+        simulator = NormalSimulation(domain_start=-4, domain_end=4, steps=1000)
+    
     
     
 
@@ -68,8 +68,8 @@ To create the needle in a haystack scenario, you can widen the domain to the poi
 ::
 
     if IN_PWEAVE:
-        simulator = NormalSimulation(domain_start=-100, domain_end=150, domain_
-    step=0.1)    
+        simulator = NormalSimulation(domain_start=-100, domain_end=150, steps=1
+    000)
     
     
 
@@ -103,7 +103,7 @@ The `NormalSimulation` produces a unimodal distribution, to make a noisy distrib
     if IN_PWEAVE:
         squared = lambda x: scipy.power(x, 2)
         sine = lambda x: scipy.sin(x)
-        noisy = NoisySimulation(domain_start=0, domain_end=100, domain_step=1,
+        noisy = NoisySimulation(domain_start=0, domain_end=100, steps=1000,
                                 functions=[squared, sine])
     
     
@@ -124,10 +124,28 @@ The same idea that was used to alter the noisy data can also be used to alter th
         sine = lambda x: -scipy.sin(x)
         simulator = NormalSimulation(domain_start=-4,
                                      domain_end=4.1,
-                                     domain_step=0.1,
+                                     steps=1000,
                                      functions=[cosine_squared, sine])
     
     
 
 .. figure:: figures/plot_local_optima.svg
+
+
+
+Increasing the Range
+--------------------
+
+The functions are being applied to the domain then added to the range, so adding a function that multiplies the values will give you a straight line. Instead you have to apply the function to the range outside of the NormalSimulation. Adding values will raise the curve (or lower it if the value is negative) and multiplying values will make the curve taller.
+
+::
+
+    if IN_PWEAVE:
+        simulator._range = None
+        simulator.functions = None
+        new_range = (simulator.range * 10) + 2
+    
+    
+
+.. figure:: figures/plot_shift.svg
 

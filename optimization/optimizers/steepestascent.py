@@ -62,7 +62,7 @@ def run_climber(climber):
 if IN_PWEAVE:
     from optimization.simulations.normalsimulation import NormalSimulation
     from optimization.components.stopcondition import StopConditionIdeal
-    from optimization.components.convolutions import UniformConvolution
+    from optimization.components.convolutions import UniformConvolution, GaussianConvolution
     from optimization.components.xysolution import XYSolution, XYTweak
     import time
     import numpy
@@ -70,11 +70,11 @@ if IN_PWEAVE:
 
     simulator = NormalSimulation(domain_start=-4,
                                  domain_end=4,
-                                 domain_step=0.1)
+                                 steps=1000)
 
     stop = StopConditionIdeal(ideal_value=simulator.ideal_solution,
-                              delta=0.0001,
-                              time_limit=300)
+                                  delta=0.0001,
+                                  time_limit=300)
     
     tweak = UniformConvolution(half_range=0.1,
                                lower_bound=simulator.domain_start,
@@ -146,7 +146,6 @@ if IN_PWEAVE:
     stop._end_time = None
     stop.ideal_value = simulator.ideal_solution
 
-    # this takes forever, make it lenient
     tweak = UniformConvolution(half_range=0.1,
                                lower_bound=simulator.domain_start,
                                upper_bound=simulator.domain_end)
@@ -163,8 +162,39 @@ if IN_PWEAVE:
 if IN_PWEAVE:
     plot_solutions('needle_haystack_steepest_ascent',
                    climber,
-                   "Needle In a Haystack Hill Climbing (Tweak Half-range=10)")
+                   "Needle In a Haystack Hill Climbing (Tweak Half-range=0.1)")
     print
     plot_dataset('steepest_ascent_needle_haystack_data',
+                  climber, simulator,
+                  "Dataset and Solution")
+
+
+if IN_PWEAVE:
+    # change the randomization
+    tweak = GaussianConvolution(lower_bound=simulator.domain_start,
+                                upper_bound=simulator.domain_end)
+    tweaker = XYTweak(tweak)
+    climber.tweak = tweaker
+
+    # change the dataset
+    simulator.functions = [lambda x: numpy.sin(x), 
+                           lambda x: numpy.cos(x)**2]
+    simulator._range = None
+    candidate.output = None
+    simulator(candidate)    
+    climber.solution = candidate
+    stop.ideal_value = simulator.ideal_solution
+    stop._end_time = None
+
+    # run the optimization
+    run_climber(climber)
+
+
+if IN_PWEAVE:
+    plot_solutions('gaussian_convolution_steepest_ascent_solutions',
+                   climber,
+                   "Steepest Ascent with Gaussian Convolution")
+    print
+    plot_dataset('gaussian_convolution_steepest_ascent_dataplot',
                   climber, simulator,
                   "Dataset and Solution")

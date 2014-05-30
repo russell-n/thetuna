@@ -117,7 +117,7 @@ def run_climber(climber):
 if IN_PWEAVE:
     from optimization.simulations.normalsimulation import NormalSimulation
     from optimization.components.stopcondition import StopConditionIdeal
-    from optimization.components.convolutions import UniformConvolution
+    from optimization.components.convolutions import UniformConvolution, GaussianConvolution
     from optimization.components.xysolution import XYSolution, XYTweak
     import time
     import numpy
@@ -125,11 +125,11 @@ if IN_PWEAVE:
 
     simulator = NormalSimulation(domain_start=-4,
                                  domain_end=4,
-                                 domain_step=0.1)
+                                 steps=1000)
 
     stop = StopConditionIdeal(ideal_value=simulator.ideal_solution,
-                              delta=0.0001,
-                              time_limit=300)
+                                  delta=0.0001,
+                                  time_limit=300)
     
     tweak = UniformConvolution(half_range=0.1,
                                lower_bound=simulator.domain_start,
@@ -152,13 +152,15 @@ if IN_PWEAVE:
                              local_searches=4)
     run_climber(climber)
 
-def plot_solutions(filename, climber, title):
+def plot_solutions(filename, climber, title, xlabel, ylabel):
     output = 'figures/{0}.svg'.format(filename)
     figure = plt.figure()
     axe = figure.gca()
     data = [solution.output for solution in climber.solutions]
     axe.plot(data)
     axe.set_title(title)
+    axe.set_xlabel(xlabel)
+    axe.set_ylabel(ylabel)
     figure.savefig(output)
     print '.. figure:: '  + output
     return
@@ -169,6 +171,7 @@ def plot_dataset(filename, climber, simulator, title):
     axe = figure.gca()
     axe.plot(simulator.domain, simulator.range)
     axe.axhline(climber.solution.output, color='r')
+    axe.set_title(title)
     figure.savefig(output)
     print ".. figure:: " + output
     return
@@ -177,8 +180,11 @@ def plot_dataset(filename, climber, simulator, title):
 <<name='plot_climber', echo=False, results='sphinx'>>=
 if IN_PWEAVE:
     plot_solutions('normal_steepest_ascent', climber,
-                   "Normal Hill Climbing (Tweak Half-range=0.1)")
+                   "Normal Hill Climbing Solutions (Tweak Half-range=0.1)",
+                   xlabel="Solution Changes", ylabel='Solution Quality')
 @
+
+The x-axis in the figure shows the number of times a better solution was found and the y-axis is the value (quality) of the solution. In this case the solution is a point on the x-axis and the quality is the height of the curve for the solution.
 
 
 <<name='plot_solution', echo=False, results='sphinx'>>=
@@ -207,7 +213,6 @@ if IN_PWEAVE:
     stop._end_time = None
     stop.ideal_value = simulator.ideal_solution
 
-    # this takes forever, make it lenient
     tweak = UniformConvolution(half_range=0.1,
                                lower_bound=simulator.domain_start,
                                upper_bound=simulator.domain_end)
@@ -232,3 +237,44 @@ if IN_PWEAVE:
                   "Dataset and Solution")
 @
 
+Since the solutions are randomly generated, the figures don't look exactly the same every time, but often the solutions-plot for the *needle in a haystack* case will show a large dip in them as the hill-climber accidentally overshoots the peak. Since we're using *Steepest Ascent Hill Climbing* it can usually find its way back, as long as the curve has information for it and the amount of randomization is small-enough that it will eventually find the peak. In this case I'm actually cheating by using a Normal Curve, since it always has a slope leading to the peak. A true needle in the haystack case would have flat ends, but this hill climber has no real way to find that case except by chance.
+
+Using Gaussian Convolution
+--------------------------
+
+The UniformConvolution used as the tweak tends to get stuck in local optima. You can make the half-range larger but then it will have a harder time finding an optima as it approaches randomness. One way to improve the hill-climbers is to sample random values from a normal distribution. Since 68% of the points are within one standard deviation from the mean and 95% are within two standard deviations from the mean, you will tend to get most sampled points centered around the mean (0 for the standard-normal distribution) and only occasionally will you get samples that are far from the mean.
+
+As a comparison, I'll first use a data-set that has local optima. Using the UniformConvolution doesn't always find the solution (because it's stuck at a local optima) so I'm only going to run the gaussian convolution version.
+
+<<name='local_optima', wrap=False>>=
+if IN_PWEAVE:
+    # change the randomization
+    tweak = GaussianConvolution(lower_bound=simulator.domain_start,
+                                upper_bound=simulator.domain_end)
+    tweaker = XYTweak(tweak)
+    climber.tweak = tweaker
+
+    # change the dataset
+    simulator.functions = [lambda x: numpy.sin(x), 
+                           lambda x: numpy.cos(x)**2]
+    simulator._range = None
+    candidate.output = None
+    simulator(candidate)    
+    climber.solution = candidate
+    stop.ideal_value = simulator.ideal_solution
+    stop._end_time = None
+
+    # run the optimization
+    run_climber(climber)
+@
+
+<<name='plot_gaussian_convolution', echo=False, results='sphinx'>>=
+if IN_PWEAVE:
+    plot_solutions('gaussian_convolution_steepest_ascent_solutions',
+                   climber,
+                   "Steepest Ascent with Gaussian Convolution")
+    print
+    plot_dataset('gaussian_convolution_steepest_ascent_dataplot',
+                  climber, simulator,
+                  "Dataset and Solution")
+@

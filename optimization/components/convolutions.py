@@ -32,3 +32,39 @@ class UniformConvolution(object):
         tweaked = vector + tweak
         return tweaked.clip(self.lower_bound, self.upper_bound)
 # end UniformConvolution    
+
+
+class GaussianConvolution(object):
+    """
+    A Tweak that uses the Normal distribution
+    """
+    def __init__(self, lower_bound, upper_bound,
+                 mean=0, standard_deviation=1):
+        """
+        GaussianConvolution constructor
+
+        :param:
+
+         - `lower_bound`: minimum value to allow in tweaked arrays
+         - `upper_bound`: maximum value to allow in tweaked arrays
+         - `mean`: Center of the distribution
+         - `standard_deviation`: Spread of the distribution
+        """
+        self.lower_bound = lower_bound
+        self.upper_bound = upper_bound
+        self.mean = mean
+        self.standard_deviation = standard_deviation
+        return
+
+    def __call__(self, vector):
+        """
+        Adds normally distributed random noise to the vector
+
+        :return: vector + noise, bounded by upper and lower bounds
+        """
+        tweak = numpy.random.normal(loc=self.mean,
+                                    scale=self.standard_deviation,
+                                    size=len(vector))
+        tweaked = vector + tweak
+        return tweaked.clip(self.lower_bound, self.upper_bound)
+# class GaussianConvolution        

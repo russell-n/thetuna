@@ -72,7 +72,7 @@ The SteepestAscent climber is more aggresive than the hill-climber but still has
     if IN_PWEAVE:
         from optimization.simulations.normalsimulation import NormalSimulation
         from optimization.components.stopcondition import StopConditionIdeal
-        from optimization.components.convolutions import UniformConvolution
+        from optimization.components.convolutions import UniformConvolution, GaussianConvolution
         from optimization.components.xysolution import XYSolution, XYTweak
         import time
         import numpy
@@ -80,11 +80,11 @@ The SteepestAscent climber is more aggresive than the hill-climber but still has
     
         simulator = NormalSimulation(domain_start=-4,
                                      domain_end=4,
-                                     domain_step=0.1)
+                                     steps=1000)
     
         stop = StopConditionIdeal(ideal_value=simulator.ideal_solution,
-                                  delta=0.0001,
-                                  time_limit=300)
+                                      delta=0.0001,
+                                      time_limit=300)
         
         tweak = UniformConvolution(half_range=0.1,
                                    lower_bound=simulator.domain_start,
@@ -131,41 +131,20 @@ The SteepestAscent climber is more aggresive than the hill-climber but still has
 
 ::
 
-    Inputs: [ 3.04371109] Output: 0.00443184841194
-    Inputs: [ 2.91879339] Output: 0.00595253241978
-    Inputs: [ 2.83437595] Output: 0.00791545158298
-    Inputs: [ 2.74013943] Output: 0.0104209348144
-    Inputs: [ 2.60469089] Output: 0.0135829692337
-    Inputs: [ 2.51023048] Output: 0.0175283004936
-    Inputs: [ 2.42960723] Output: 0.0223945302948
-    Inputs: [ 2.32910777] Output: 0.0283270377416
-    Inputs: [ 2.22511114] Output: 0.0354745928462
-    Inputs: [ 2.1332202] Output: 0.0439835959804
-    Inputs: [ 2.02296916] Output: 0.0539909665132
-    Inputs: [ 1.93743168] Output: 0.0656158147747
-    Inputs: [ 1.81336704] Output: 0.0789501583009
-    Inputs: [ 1.74424518] Output: 0.0940490773769
-    Inputs: [ 1.57852444] Output: 0.110920834679
-    Inputs: [ 1.4977735] Output: 0.129517595666
-    Inputs: [ 1.43816743] Output: 0.149727465636
-    Inputs: [ 1.34152775] Output: 0.171368592048
-    Inputs: [ 1.2476231] Output: 0.194186054983
-    Inputs: [ 1.14875645] Output: 0.217852177033
-    Inputs: [ 1.04290908] Output: 0.241970724519
-    Inputs: [ 0.90005964] Output: 0.266085249899
-    Inputs: [ 0.84635775] Output: 0.289691552761
-    Inputs: [ 0.69487702] Output: 0.312253933367
-    Inputs: [ 0.6119632] Output: 0.333224602892
-    Inputs: [ 0.54331945] Output: 0.352065326764
-    Inputs: [ 0.41271049] Output: 0.368270140303
-    Inputs: [ 0.33811882] Output: 0.381387815461
-    Inputs: [ 0.19625808] Output: 0.391042693975
-    Inputs: [ 0.14073304] Output: 0.396952547477
-    Inputs: [ 0.04524628] Output: 0.398942280401
-    solution: Inputs: [ 0.04524628] Output: 0.398942280401
-    Ideal: 0.398942280401
-    Difference: 0.0
-    Elapsed: 0.0172560214996
+    Inputs: [-0.70676498] Output: 0.310344424928
+    Inputs: [-0.61621343] Output: 0.330686117249
+    Inputs: [-0.53941553] Output: 0.344717316188
+    Inputs: [-0.49130111] Output: 0.353379417987
+    Inputs: [-0.41103855] Output: 0.366417995819
+    Inputs: [-0.31231803] Output: 0.379475008075
+    Inputs: [-0.22884812] Output: 0.388686335818
+    Inputs: [-0.16143114] Output: 0.393602615166
+    Inputs: [-0.06681276] Output: 0.398019148061
+    Inputs: [ 0.01906361] Output: 0.398862340139
+    solution: Inputs: [ 0.01906361] Output: 0.398862340139
+    Ideal: 0.398939082483
+    Difference: -7.67423442817e-05
+    Elapsed: 0.00426912307739
     
 
 .. figure:: figures/normal_steepest_ascent.svg
@@ -193,7 +172,6 @@ Now a :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>` 
         stop._end_time = None
         stop.ideal_value = simulator.ideal_solution
     
-        # this takes forever, make it lenient
         tweak = UniformConvolution(half_range=0.1,
                                    lower_bound=simulator.domain_start,
                                    upper_bound=simulator.domain_end)
@@ -209,14 +187,58 @@ Now a :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>` 
 
 ::
 
-    Ideal: 0.398942280401
-    solution: Inputs: [ 0.03161969] Output: 0.398942280401
-    Ideal: 0.398942280401
+    Ideal: 0.396948572009
+    solution: Inputs: [-0.02136199] Output: 0.396948572009
+    Ideal: 0.396948572009
     Difference: 0.0
-    Elapsed: 0.00948214530945
+    Elapsed: 0.0036768913269
     
 
 .. figure:: figures/needle_haystack_steepest_ascent.svg
 
 .. figure:: figures/steepest_ascent_needle_haystack_data.svg
+
+
+
+Using Gaussian Convolution
+--------------------------
+
+The UniformConvolution used as the tweak tends to get stuck in local optima. You can make the half-range larger but then it will have a harder time finding an optima as it approaches randomness. One way to improve the hill-climbers is to sample random values from a normal distribution. Since 68% of the points are within one standard deviation from the mean and 95% are within two standard deviations from the mean, you will tend to get most sampled points centered around the mean (0 for the standard-normal distribution) and only occasionally will you get samples that are far from the mean.
+
+As a comparison, I'll first use a data-set that has local optima. Using the UniformConvolution doesn't always find the solution (because it's stuck at a local optima) so I'm only going to run the gaussian convolution version.
+
+::
+
+    if IN_PWEAVE:
+        # change the randomization
+        tweak = GaussianConvolution(lower_bound=simulator.domain_start,
+                                    upper_bound=simulator.domain_end)
+        tweaker = XYTweak(tweak)
+        climber.tweak = tweaker
+    
+        # change the dataset
+        simulator.functions = [lambda x: numpy.sin(x), 
+                               lambda x: numpy.cos(x)**2]
+        simulator._range = None
+        candidate.output = None
+        simulator(candidate)    
+        climber.solution = candidate
+        stop.ideal_value = simulator.ideal_solution
+        stop._end_time = None
+    
+        # run the optimization
+        run_climber(climber)
+    
+
+::
+
+    solution: Inputs: [ 0.39468829] Output: 1.60061650761
+    Ideal: 1.60061650761
+    Difference: 0.0
+    Elapsed: 0.000446081161499
+    
+
+.. figure:: figures/gaussian_convolution_steepest_ascent_solutions.svg
+
+.. figure:: figures/gaussian_convolution_steepest_ascent_dataplot.svg
 

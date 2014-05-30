@@ -96,7 +96,6 @@ class NormalSimulation(BaseSimulation):
          - `target`: Solution object with inputs and output
         """
         if target.output is None:
-            #target.output = scipy.stats.norm.pdf(target.inputs[0])
             # get the domain value closest to the input-value
             index = self.nearest_domain_index(target.inputs[0])
             # set it to the range value
@@ -114,7 +113,7 @@ Normal Data Set
 
 <<name='normal_data'>>=
 if IN_PWEAVE:
-    simulator = NormalSimulation(domain_start=-4, domain_end=4, domain_step=0.1)
+    simulator = NormalSimulation(domain_start=-4, domain_end=4, steps=1000)
 @
 <<name='plot_normal', echo=False, results='sphinx'>>=
 if IN_PWEAVE:
@@ -135,7 +134,7 @@ To create the needle in a haystack scenario, you can widen the domain to the poi
 
 <<name='needle_in_a_haystack'>>=
 if IN_PWEAVE:
-    simulator = NormalSimulation(domain_start=-100, domain_end=150, domain_step=0.1)    
+    simulator = NormalSimulation(domain_start=-100, domain_end=150, steps=1000)
 @
 
 <<name='plot_needle_in_haystack', echo=False, results='sphinx'>>=
@@ -204,7 +203,7 @@ class NoisySimulation(BaseSimulation):
 if IN_PWEAVE:
     squared = lambda x: scipy.power(x, 2)
     sine = lambda x: scipy.sin(x)
-    noisy = NoisySimulation(domain_start=0, domain_end=100, domain_step=1,
+    noisy = NoisySimulation(domain_start=0, domain_end=100, steps=1000,
                             functions=[squared, sine])
 @
 <<name='plot_noisy', echo=False, results='sphinx'>>=
@@ -228,7 +227,7 @@ if IN_PWEAVE:
     sine = lambda x: -scipy.sin(x)
     simulator = NormalSimulation(domain_start=-4,
                                  domain_end=4.1,
-                                 domain_step=0.1,
+                                 steps=1000,
                                  functions=[cosine_squared, sine])
 @
 <<name='plot_local_optima', echo=False, results='sphinx'>>=
@@ -242,3 +241,27 @@ if IN_PWEAVE:
     print ".. figure:: " + output
 @
 
+Increasing the Range
+--------------------
+
+The functions are being applied to the domain then added to the range, so adding a function that multiplies the values will give you a straight line. Instead you have to apply the function to the range outside of the NormalSimulation. Adding values will raise the curve (or lower it if the value is negative) and multiplying values will make the curve taller.
+
+In the example below multipyling the range by 10 changes the peak of the curve from about 0.4 to about 4, then adding 2 shifts it up to about 6.
+
+<<name='shifting'>>=
+if IN_PWEAVE:
+    simulator._range = None
+    simulator.functions = None
+    new_range = (simulator.range * 10) + 2
+@
+
+
+<<name='plot_shift', echo=False, results='sphinx'>>=
+if IN_PWEAVE:
+    output = 'figures/plot_shift.svg'
+    figure = plt.figure()
+    axe = figure.gca()
+    axe.plot(new_range)
+    figure.savefig(output)
+    print ".. figure:: " + output
+@
