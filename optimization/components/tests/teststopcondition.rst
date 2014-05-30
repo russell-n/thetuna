@@ -36,4 +36,8 @@ Testing the StopConditionGenerator
    TestStopconditionGenerator.test_constructor
    TestStopConditionGenerator.test_stop_condition
    TestStopConditionGenerator.test_end_time
+   TestStopConditionGenerator.test_ideal_stop_condition
+   TestStopConditionGenerator.test_iterator
+   TestStopConditionGenerator.test_random_function
+   TestStopConditionGenerator.test_global_stop_condition
 

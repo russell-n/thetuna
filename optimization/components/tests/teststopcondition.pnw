@@ -173,6 +173,10 @@ Testing the StopConditionGenerator
    TestStopconditionGenerator.test_constructor
    TestStopConditionGenerator.test_stop_condition
    TestStopConditionGenerator.test_end_time
+   TestStopConditionGenerator.test_ideal_stop_condition
+   TestStopConditionGenerator.test_iterator
+   TestStopConditionGenerator.test_random_function
+   TestStopConditionGenerator.test_global_stop_condition
 
 <<name='StopConditionGenratorImports', echo=False>>=
 # this package
@@ -181,6 +185,7 @@ from optimization.components.stopcondition import StopConditionGenerator
 <<name='TestStopconditionGenerator', echo=False>>=
 class TestStopConditionGenerator(unittest.TestCase):
     def setUp(self):
+        self.time_mock = MagicMock()
         self.time_limit = random.randrange(1, 100)
         self.maximum_time = random.randrange(100, 200)
         self.minimum_time = random.randrange(100)
@@ -223,14 +228,97 @@ class TestStopConditionGenerator(unittest.TestCase):
                                            maximum_time=self.maximum_time,
                                            minimum_time=self.minimum_time,
                                            random_function=self.random_uniform)
-        #condition = generator.stop_condition
+        random_value = random.randrange(self.minimum_time,
+                                        self.maximum_time)
+        ctime = random.randrange(100)
+        global_end = self.time_limit + ctime
+        self.time_mock.return_value = ctime
+        self.random_uniform.return_value = random_value
+        
+        with patch('time.time', self.time_mock):
+            condition = generator.stop_condition            
+            self.assertEqual(generator.end_time, global_end)
+            self.assertIsInstance(condition, StopCondition)
+            if ctime + random_value  > global_end:
+                self.assertEqual(condition.end_time, generator.end_time)
+            else:
+                self.assertEqual(condition.end_time,
+                                 random_value + ctime)
+
+            # default re-cycles the object
+            new_condition = generator.stop_condition
+            self.assertIs(new_condition, condition)
+
+            # but this should re-cycle it
+            generator.use_singleton = False
+            even_newer_condition = generator.stop_condition
+            self.assertIsNot(even_newer_condition,
+                             condition)
+        return
+
+    def test_ideal_stop_condition(self):
+        """
+        If you give it an ideal-value, does it use the StopConditionIdeal instead?
+        """
+        generator = StopConditionGenerator(time_limit=self.time_limit,
+                                           maximum_time=self.maximum_time,
+            minimum_time=self.minimum_time,
+            ideal=self.ideal,
+            delta=self.delta,
+            random_function=self.random_uniform)
+        condition = generator.stop_condition
+        self.assertIsInstance(condition, StopConditionIdeal)
         return
 
     def test_end_time(self):
         """
         Does it set a ctime based on the time-limit?
         """
-        time_mock = MagicMock()
         ctime = random.randrange(100)
+        self.time_mock.return_value = ctime
+        self.generator._end_time = None
+        with patch('time.time', self.time_mock):
+            self.assertEqual(self.generator.end_time,
+                             self.time_limit+ctime)
         return
+
+    def test_iterator(self):
+        """
+        Does it generate the stop-conditions?
+        """
+        # these are the times
+        times = range(11)
+        times.reverse()
+        def ctime_return():
+            return times.pop()
+        self.time_mock.side_effect = ctime_return
+        self.random_uniform.return_value = 1
+        self.generator._end_time = 10
+        with patch('time.time', self.time_mock):
+            for index, stop_condition in enumerate(self.generator):
+                pass
+
+        # each iteration calls time 2x
+        # once to see if end_time is reached
+        # once to create the new stop_condition
+        self.assertEqual(index, 4)
+        return
+
+    def test_random_function(self):
+        """
+        Does it set the default to uniform?
+        """
+        generator = StopConditionGenerator(time_limit=1, maximum_time=1,
+                                           minimum_time=1)
+        self.assertIs(generator.random_function, random.uniform)
+        return
+
+    def test_global_stop_condition(self):
+        """
+        Does it build a global stop-condition?
+        """
+        self.assertIsInstance(self.generator.global_stop_condition,
+                              StopConditionIdeal)
+        return
+# end TestStopConditionGenerator    
 @

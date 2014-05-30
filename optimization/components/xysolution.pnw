@@ -1,16 +1,50 @@
 The XY Solution
 ===============
 
+<<name='imports', echo=False>>=
+# python standard library
+import itertools
+# third-party
+import numpy
+@
+
+Contents:
+
+    * :ref:`XYSolution Class <optimization-components-xysolution-xysolution>`
+    * :ref:`XYTweak <optimization-components-xysolution-tweak>`
+    * :ref:`XYSolution Generator <optimization-components-xysolution-generator>`
+
+.. _optimization-components-xysolution-xysolution:    
+
 The XYSolution
 --------------
 
 This is a Solution for the optimizations to use when mapping a collection of inputs (:math:`x_0, x_1, \ldots x_n`) to an output (`y`) with the goal of maximizing `y`.
+
+.. uml::
+
+   XYSolution : <narray> inputs
+   XYSolution : <float> output
 
 .. currentmodule:: optimization.components.xysolution
 .. autosummary::
    :toctree: api
 
    XYSolution
+   XYSolution.__eq__
+   XYSolution.__le__
+   XYSolution.__ge__
+   XYSolution.__lt__
+   XYSolution.__add__
+   XYSolution.__radd__
+   XYSolution.__sub__
+   XYSolution.__rsub__
+   XYSolution.__mul__
+   XYSolution.__rmul__
+   XYSolution.__len__
+   XYSolution.__getitem__
+   XYSolution.__str__
+   
 
 <<name='XYSolution', echo=False>>=
 class XYSolution(object):
@@ -111,6 +145,23 @@ class XYSolution(object):
 # end XYSolution    
 @
 
+.. _optimization-components-xysolution-xytweak:
+
+The XYTweak
+-----------
+
+.. uml::
+
+   XYTweak : <convolution> tweak
+   XYTweak o- Convolution
+   XYTweak : <XYSolution> __call__(vector)
+
+.. autosummary::
+   :toctree: api
+
+   XYTweak
+   XYTweak.__call__
+
 <<name='XYTweak', echo=False>>=
 class XYTweak(object):
     """
@@ -134,3 +185,87 @@ class XYTweak(object):
         tweaked = self.tweak(vector)
         return XYSolution(inputs=tweaked)
 @
+
+.. _optimization-components-xysolution-generator:
+
+XYSolution Generator
+--------------------
+
+A generator of XYSolution candidates.
+
+Responsibility
+~~~~~~~~~~~~~~
+
+The XYSolutionGenerator generates XYSolution objects with random input values.
+
+.. autosummary::
+   :toctree: api
+
+   XYSolutionGenerator
+   XYSolutionGenerator.candidate
+   XYSolutionGenerator.random_function
+   XYSolutionGenerator.__iter__
+
+Collaborators
+~~~~~~~~~~~~~
+
+.. currentmodule:: numpy.random
+.. autosummary::
+   :toctree: api
+
+   uniform
+
+.. currentmodule:: itertools
+.. autosummary::
+   :toctree: api
+
+   repeat
+
+<<name='XYSolutionGenerator', echo=False>>=
+class XYSolutionGenerator(object):
+    """
+    A generator of candidate XYSolutions
+    """
+    def __init__(self, low, high, size=1, random_function=numpy.random.uniform,
+                 repetitions=None):
+        """
+        XYSolutionGenerator constructor
+
+        :param:
+
+         - `low`: The low (or loc) for the random-function
+         - `high`: The high (or scale) for the random-function
+         - `size`: Size of the array to give the XYSolution
+         - `random_function`: function to create initial XYSolution inputs
+         - `repetitions`: number of candidates to generate (default: infinite)
+        """
+        self.low = low
+        self.high = high
+        self.size = size
+        self.random_function = random_function
+        self.repetitions = repetitions
+        return
+
+    @property
+    def candidate(self):
+        """
+        A candidate XYSolution with random inputs
+        """
+        return XYSolution(self.random_function(self.low,
+                                               self.high,
+                                               self.size))
+
+    def __iter__(self):
+        """
+        Yields XYSolution candidates
+        """
+        if self.repetitions is None:
+            candidates = itertools.repeat(True)
+        else:
+            candidates = xrange(self.repetitions)
+        for candidate in candidates:
+            yield self.candidate
+# end XYSolutionGenerator    
+@
+
+Although this was created to generate XYSolution candidates, since the candidate property is public, it can be used to create initial candidates to start the optimizations as well.

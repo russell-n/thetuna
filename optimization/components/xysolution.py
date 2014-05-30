@@ -1,4 +1,10 @@
 
+# python standard library
+import itertools
+# third-party
+import numpy
+
+
 class XYSolution(object):
     """
     A holder for n-space solutions
@@ -118,3 +124,58 @@ class XYTweak(object):
         """
         tweaked = self.tweak(vector)
         return XYSolution(inputs=tweaked)
+
+
+class XYSolutionGenerator(object):
+    """
+    A generator of candidate XYSolutions
+    """
+    def __init__(self, low, high, size=1, random_function=None,
+                 repetitions=None):
+        """
+        XYSolutionGenerator constructor
+
+        :param:
+
+         - `low`: The low (or loc) for the random-function
+         - `high`: The high (or scale) for the random-function
+         - `size`: Size of the array to give the XYSolution
+         - `random_function`: function to create initial XYSolution inputs
+         - `repetitions`: number of candidates to generate (default: infinite)
+        """
+        self.low = low
+        self.high = high
+        self.size = size
+        self._random_function = random_function
+        self.repetitions = repetitions
+        return
+
+    @property
+    def random_function(self):
+        """
+        Function to create random array (default: uniform)
+        """
+        if self._random_function is None:
+            self._random_function = numpy.random.uniform
+        return self._random_function
+
+    @property
+    def candidate(self):
+        """
+        A candidate XYSolution with random inputs
+        """
+        return XYSolution(self.random_function(self.low,
+                                               self.high,
+                                               self.size))
+
+    def __iter__(self):
+        """
+        Yields XYSolution candidates
+        """
+        if self.repetitions is None:
+            candidates = itertools.repeat(True)
+        else:
+            candidates = xrange(self.repetitions)
+        for candidate in candidates:
+            yield self.candidate
+# end XYSolutionGenerator    

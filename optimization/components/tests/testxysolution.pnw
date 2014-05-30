@@ -8,9 +8,11 @@ import random
 
 # third-party
 import numpy
+from mock import MagicMock
 
 # this package
 from optimization.components.xysolution import XYSolution
+from optimization.components.xysolution import XYSolutionGenerator
 @
 
 .. currentmodule:: optimization.components.tests.testxysolution
@@ -135,5 +137,82 @@ class TestXYSolution(unittest.TestCase):
         self.assertTrue(other <=self.solution)
         self.assertTrue(self.solution >= other)
         
+@
+
+Testing the XYSolution Generator
+--------------------------------
+
+.. autosummary::
+   :toctree: api
+
+   TestXYSolutionGenerator.test_constructor
+   TestXYSolutionGenerator.test_candidate
+   TestXYSolutionGenerator.test_random_function
+   TestXYSolutionGenerator.test_generator
+
+<<name='TestXYSolutionGenerator', echo=False>>=
+class TestXYSolutionGenerator(unittest.TestCase):
+    def setUp(self):
+        self.low = random.randrange(10)
+        self.high = random.randrange(11, 100)
+        self.size = random.randrange(1, 20)
+        self.random_function = MagicMock()
+        self.repetitions = random.randrange(1, 10)
+        self.generator = XYSolutionGenerator(low=self.low,
+                                             high=self.high,
+                                             size=self.size,
+                                             repetitions=self.repetitions,
+                                             random_function=self.random_function)
+        return
+
+    def test_constructor(self):
+        """
+        Does it build correctly?
+        """
+        self.assertEqual(self.low, self.generator.low)
+        self.assertEqual(self.high, self.generator.high)
+        self.assertEqual(self.size, self.generator.size)
+        self.assertEqual(self.random_function, self.generator.random_function)
+        self.assertEqual(self.repetitions, self.generator.repetitions)
+        return
+
+    def test_candidate(self):
+        """
+        Does it create XYSolution candidates?
+        """
+        self.random_function.return_value = 3
+        candidate = self.generator.candidate
+        self.assertIsInstance(candidate, XYSolution)
+        self.assertEqual(candidate.inputs, 3)
+        self.random_function.assert_called_with(self.low,
+                                                self.high,
+                                                self.size)
+        return
+
+    def test_random_function(self):
+        """
+        If not passed in, does it use numpy.random.uniform as the default?
+        """
+        generator = XYSolutionGenerator(1,2,3)
+        self.assertIs(generator.random_function,
+                         numpy.random.uniform)
+        return
+
+    def test_generator(self):
+        """
+        Does it generate candidate XYSolutions?
+        """
+        for index, candidate in enumerate(self.generator):
+            self.assertIsInstance(candidate, XYSolution)
+        self.assertEqual(index, self.repetitions-1)
+
+        # try the infinite generator
+        self.generator.repetitions = None
+        stop = random.randrange(100)
+        for index, candidate in enumerate(self.generator):
+            pass
+            if index == stop:
+                break
+        return
 @
 
