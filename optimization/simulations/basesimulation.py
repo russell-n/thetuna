@@ -55,7 +55,7 @@ class BaseSimulation(object):
         self._range = None
         self.domain_start = None
         self.domain_end = None
-        self.domain_step = None
+        self.steps = None
         return
 
     def __call__(self, target):

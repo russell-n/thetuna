@@ -7,7 +7,8 @@ class SteepestAscent(BaseClimber):
     """
     Steepest Ascent with Replacement
     """
-    def __init__(self, local_searches, emit=True, *args, **kwargs):
+    def __init__(self, local_searches, emit=False, solutions_storage=None,
+                 *args, **kwargs):
         """
         Steepest Ascent Constructor
 
@@ -15,12 +16,22 @@ class SteepestAscent(BaseClimber):
 
          - `local_searches`: number of tweaks per repetition
          - `emit`: if True, print candidates as they appear
+         - `solutions_storage`: object with `append` method to store solutions
         """
         super(SteepestAscent, self).__init__(*args, **kwargs)
         self.emit = emit
         self.local_searches = local_searches
-        self.solutions = []
+        self._solutions = solutions_storage
         return
+
+    @property
+    def solutions(self):
+        """
+        Object to store the solutions (defaults to a list)
+        """
+        if self._solutions is None:
+            self._solutions = []
+        return self._solutions
 
     def __call__(self):
         """
@@ -29,6 +40,10 @@ class SteepestAscent(BaseClimber):
         :return: best solution found
         """
         current = self.solution
+        
+        # this sets the output value for the first check
+        self.quality(current)
+        
         while not self.stop_condition(self.solution):
             candidate = self.tweak(current)
             
@@ -49,25 +64,28 @@ class SteepestAscent(BaseClimber):
 
 IN_PWEAVE = __name__ == '__builtin__'
 #IN_PWEAVE = True
-def run_climber(climber):
-    start = time.time()
-    solution = climber()
-    end = time.time()
-    print "solution: {0}".format(solution)
-    print "Ideal: {0}".format(simulator.ideal_solution)
-    print "Difference: {0}".format(solution.output - simulator.ideal_solution)
-    print "Elapsed: {0}".format(end - start)
-    return
+
 
 if IN_PWEAVE:
+    from pweave_helpers import run_climber
+    from pweave_helpers import plot_solutions
+    from pweave_helpers import plot_dataset
+
+
+if IN_PWEAVE:
+    # python standard library
+    from collections import OrderedDict
+    
+    # third party
+    import numpy
+    
+    # this package
     from optimization.simulations.normalsimulation import NormalSimulation
     from optimization.components.stopcondition import StopConditionIdeal
     from optimization.components.convolutions import UniformConvolution, GaussianConvolution
-    from optimization.components.xysolution import XYSolution, XYTweak
-    import time
-    import numpy
-    import matplotlib.pyplot as plt
+    from optimization.components.xysolution import XYSolution, XYTweak        
 
+    outcomes = OrderedDict()
     simulator = NormalSimulation(domain_start=-4,
                                  domain_end=4,
                                  steps=1000)
@@ -81,92 +99,69 @@ if IN_PWEAVE:
                                upper_bound=simulator.domain_end)
 
     xytweak = XYTweak(tweak)
-    inputs = numpy.random.uniform(simulator.domain_start,
-                                  simulator.domain_end,
-                                  size=1)
+    # try a bad-case to start 
+    inputs = numpy.array([simulator.domain_start])
     candidate = XYSolution(inputs=inputs)
 
-    # this is a kludge until I get the call-ordering worked out
-    # right now the simulator is setting the .output as a side-effect
-    simulator(candidate)
-    
     climber = SteepestAscent(solution=candidate,
                              stop_condition=stop,
                              tweak=xytweak,
                              quality=simulator,
                              local_searches=4)
-    run_climber(climber)
-
-def plot_solutions(filename, climber, title):
-    output = 'figures/{0}.svg'.format(filename)
-    figure = plt.figure()
-    axe = figure.gca()
-    data = [solution.output for solution in climber.solutions]
-    axe.plot(data)
-    axe.set_title(title)
-    figure.savefig(output)
-    print '.. figure:: '  + output
-    return
-
-def plot_dataset(filename, climber, simulator, title):
-    output = 'figures/{0}.svg'.format(filename)
-    figure = plt.figure()
-    axe = figure.gca()
-    axe.plot(simulator.domain, simulator.range)
-    axe.axhline(climber.solution.output, color='r')
-    figure.savefig(output)
-    print ".. figure:: " + output
-    return
+    outcomes['Uniform Normal'] = run_climber(climber)
 
 
 if IN_PWEAVE:
     plot_solutions('normal_steepest_ascent', climber,
-                   "Normal Hill Climbing (Tweak Half-range=0.1)")
+                   "Normal Hill Climbing Solutions (Tweak Half-range=0.1)",
+                   xlabel="Solution Changes", ylabel='Solution Quality')
 
 
-#import pudb; pudb.set_trace()
 if IN_PWEAVE:
     plot_dataset('steepest_ascent_normal_data',
                  climber, simulator,
-                 "Dataset and Solution")
+                 "Dataset and Solution",
+                 y_offset=0.1)
 
 
 if IN_PWEAVE:
-    # make the target different so we know the data changed
+    candidate.output = None
+    climber._solutions = None
+    climber.solution = candidate
+    stop._end_time = None
+    climber.local_searches = 8
+    tweak.half_range = 1
+    run_climber(climber)
+
+
+if IN_PWEAVE:
     simulator.reset()
-    #simulator.functions = [lambda x: 10 * x + 5]
     simulator.domain_start = -100
     simulator.domain_end = 150
-    simulator.domain_step = 0.1
+    simulator.steps = 10000
+    
     candidate.output = None
-    simulator(candidate)
+    climber._solutions = None
     climber.solution = candidate
     climber.emit = False
 
     stop._end_time = None
     stop.ideal_value = simulator.ideal_solution
-
-    tweak = UniformConvolution(half_range=0.1,
-                               lower_bound=simulator.domain_start,
-                               upper_bound=simulator.domain_end)
-
-    xytweak = XYTweak(tweak)
-
     stop.delta = 0.001
 
-    climber.tweak = xytweak
-    print "Ideal: {0}".format(simulator.ideal_solution)
-    run_climber(climber)
+    outcomes['Uniform Needle'] = run_climber(climber)
 
 
 if IN_PWEAVE:
     plot_solutions('needle_haystack_steepest_ascent',
                    climber,
-                   "Needle In a Haystack Hill Climbing (Tweak Half-range=0.1)")
+                   "Needle In a Haystack Hill Climbing (Tweak Half-range=0.1)",
+                   xlabel='Solutions', ylabel="Quality")
     print
-    plot_dataset('steepest_ascent_needle_haystack_data',
-                  climber, simulator,
-                  "Dataset and Solution")
+    plot_dataset('steepest_ascent_uniform_needle_haystack_data',
+                    climber, simulator,
+                  "Dataset and Solution",
+                  y_offset=0.1)
 
 
 if IN_PWEAVE:
@@ -174,12 +169,15 @@ if IN_PWEAVE:
     tweak = GaussianConvolution(lower_bound=simulator.domain_start,
                                 upper_bound=simulator.domain_end)
     tweaker = XYTweak(tweak)
+    climber._solutions = None
     climber.tweak = tweaker
 
     # change the dataset
     simulator.functions = [lambda x: numpy.sin(x), 
                            lambda x: numpy.cos(x)**2]
     simulator._range = None
+    simulator.quality_checks = 0
+    
     candidate.output = None
     simulator(candidate)    
     climber.solution = candidate
@@ -187,7 +185,7 @@ if IN_PWEAVE:
     stop._end_time = None
 
     # run the optimization
-    run_climber(climber)
+    outcomes['Gaussian Noise'] = run_climber(climber)
 
 
 if IN_PWEAVE:
@@ -198,3 +196,56 @@ if IN_PWEAVE:
     plot_dataset('gaussian_convolution_steepest_ascent_dataplot',
                   climber, simulator,
                   "Dataset and Solution")
+
+
+if IN_PWEAVE:
+    simulator.reset()
+    simulator.domain_start = -4
+    simulator.domain_end = 4
+    simulator.steps = 1000
+    candidate.output = None
+    climber._solutions = None
+    climber.solution = candidate
+    stop._end_time = None
+    stop.ideal_value = simulator.ideal_solution
+    outcomes['Gaussian Normal'] = run_climber(climber)
+
+
+if IN_PWEAVE:
+    plot_solutions('steepest_ascent_gaussian_convolution_normal_solutions',
+                   climber,
+                   "Gaussian Convolution Normal Dataset",
+        xlabel='Solutions', ylabel="Quality")
+    print
+    plot_dataset('steepest_ascent_gaussian_convolution_normal_dataset',
+                  climber, simulator,
+                  "Dataset and Solution", y_offset=0.1)
+
+
+if IN_PWEAVE:
+    simulator.reset()
+    simulator.domain_start = -100
+    simulator.domain_end = 150
+    simulator.steps = 10000
+    candidate.output = None
+    climber._solutions = None
+    climber.solution = candidate
+    stop._end_time = None
+    stop.ideal_value = simulator.ideal_solution
+    outcomes['Gaussian Needle'] = run_climber(climber)
+
+
+if IN_PWEAVE:
+    plot_solutions('steepest_ascent_gaussian_convolution_needle_solutions',
+                   climber,
+                   "Gaussian Convolution Needle Dataset",
+        xlabel='Solutions', ylabel="Quality")
+    print
+    plot_dataset('steepest_ascent_gaussian_convolution_needle_dataset',
+                  climber, simulator,
+                  "Dataset and Solution", y_offset=0.1)
+
+
+if IN_PWEAVE:
+    for name, data in outcomes.iteritems():
+        print "   {0},{1:3}".format(name, data)

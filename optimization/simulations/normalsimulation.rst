@@ -138,6 +138,8 @@ Increasing the Range
 
 The functions are being applied to the domain then added to the range, so adding a function that multiplies the values will give you a straight line. Instead you have to apply the function to the range outside of the NormalSimulation. Adding values will raise the curve (or lower it if the value is negative) and multiplying values will make the curve taller.
 
+In the example below multipyling the range by 10 changes the peak of the curve from about 0.4 to about 4, then adding 2 shifts it up to about 6.
+
 ::
 
     if IN_PWEAVE:

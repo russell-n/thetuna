@@ -25,7 +25,7 @@ class NormalSimulation(BaseSimulation):
         """
         super(NormalSimulation, self).__init__(*args, **kwargs)
         self.functions = functions
-        self._range = None
+        self.quality_checks = 0
         return
     
     @property
@@ -55,13 +55,21 @@ class NormalSimulation(BaseSimulation):
         :param:
 
          - `target`: Solution object with inputs and output
+        :postcondition: self.quality checks is incremented by 1
         """
+        self.quality_checks += 1
         if target.output is None:
             # get the domain value closest to the input-value
             index = self.nearest_domain_index(target.inputs[0])
             # set it to the range value
             target.output = self.range[index]
         return target.output
+
+    def reset(self):
+        super(NormalSimulation, self).reset()
+        self.quality_checks = 0
+        self.functions = None
+        return
 # end NormalSimulation    
 
 
