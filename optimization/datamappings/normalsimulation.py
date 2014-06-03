@@ -1,55 +1,16 @@
-The Normally Distributed Data
-=============================
-<<name='imports', echo=False>>=
+
 # third-party
 import scipy
 from scipy import stats
 import matplotlib.pyplot as plt
 
 # this package
-from optimization.simulations.basesimulation import BaseSimulation
-@
+from optimization.datamappings.basesimulation import BaseSimulation
 
-<<name='constants', echo=False>>=
+
 IN_PWEAVE = __name__ == '__builtin__'
-@
 
-This creates data that is normally distributed.
 
-Contents:
-
-    * :ref:`Normal Simulation Implementation <optimization-simulations-normalsimulation>`
-    * :ref:`Normal Data Example <optimization-simulations-normal-data>`
-    * :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>`
-    * :ref:`Normal But Noisy <optimization-simulations-normal-noisy>`
-
-.. _optimization-simulations-normalsimulation:
-
-Normal Simulation Implementation
---------------------------------
-
-.. currentmodule:: scipy.stats.normal
-.. autosummary::
-   :toctree: api
-      
-   normal.pdf
-
-.. uml::
-
-   BaseSimulation <|-- NormalSimulation
-
-.. currentmodule:: optimization.simulations.normalsimulation
-.. autosummary::
-   :toctree: api
-
-   NormalSimulation
-   NormalSimulation.ideal_solution
-   NormalSimulation.nearest_domain_index
-   NormalSimulation.domain
-   NormalSimulation.range
-   NormalSimulation.__call__
-
-<<name='NormalSimulation', echo=False>>=
 class NormalSimulation(BaseSimulation):
     """
     Normal data
@@ -110,20 +71,12 @@ class NormalSimulation(BaseSimulation):
         self.functions = None
         return
 # end NormalSimulation    
-@
 
-It is just a front-end for `scipy.stats`, and can be used to simulate various unimodal cases.
 
-.. _optimization-simulations-normal-data:
-
-Normal Data Set
----------------
-
-<<name='normal_data'>>=
 if IN_PWEAVE:
     simulator = NormalSimulation(domain_start=-4, domain_end=4, steps=1000)
-@
-<<name='plot_normal', echo=False, results='sphinx'>>=
+
+
 if IN_PWEAVE:
     output = 'figures/plot_normal.svg'
     figure = plt.figure()
@@ -131,21 +84,12 @@ if IN_PWEAVE:
     axe.plot(simulator.domain, simulator.range)
     figure.savefig(output)
     print ".. figure:: "  + output
-@
 
-.. _optimization-simulations-needle-in-haystack:
 
-Needle In a Haystack
---------------------
-
-To create the needle in a haystack scenario, you can widen the domain to the point that it becomes rare to find the center.
-
-<<name='needle_in_a_haystack'>>=
 if IN_PWEAVE:
     simulator = NormalSimulation(domain_start=-100, domain_end=150, steps=1000)
-@
 
-<<name='plot_needle_in_haystack', echo=False, results='sphinx'>>=
+
 if IN_PWEAVE:
     output = 'figures/plot_needle_in_haystack.svg'
     figure = plt.figure()
@@ -153,30 +97,8 @@ if IN_PWEAVE:
     axe.plot(simulator.domain, simulator.range)
     figure.savefig(output)
     print ".. figure:: "  + output
-@
 
-.. _optimization-simulations-normal-noisy:
 
-Normal But Noisy
-----------------
-
-The `NormalSimulation` produces a unimodal distribution, to make a noisy distribution, values can be randomly chosen from the distribution and other functions added to the output (which is what we're doing here).
-
-.. '
-
-.. currentmodule:: scipy.stats
-.. autosummary::
-   :toctree: api
-
-   norm.rvs
-
-.. currentmodule:: optimization.simulations.normalsimulation
-.. autosummary::
-   :toctree: api
-
-   NoisySimulation
-
-<<name='NoisySimulation', echo=False>>=
 class NoisySimulation(BaseSimulation):
     """
     A noisy data set
@@ -205,16 +127,15 @@ class NoisySimulation(BaseSimulation):
                     self._range += function(self._range)
         return self._range
 # end NoisySimulation        
-@
 
-<<name='noisy_data'>>=
+
 if IN_PWEAVE:
     squared = lambda x: scipy.power(x, 2)
     sine = lambda x: scipy.sin(x)
     noisy = NoisySimulation(domain_start=0, domain_end=100, steps=1000,
                             functions=[squared, sine])
-@
-<<name='plot_noisy', echo=False, results='sphinx'>>=
+
+
 if IN_PWEAVE:
     output = 'figures/noisy_data.svg'
     figure = plt.figure()
@@ -222,14 +143,8 @@ if IN_PWEAVE:
     axe.plot(noisy.range)
     figure.savefig(output)
     print ".. figure:: " + output
-@
 
-Local Optima
-------------
 
-The same idea that was used to alter the noisy data can also be used to alter the normal distribution to create something multimodal.
-
-<<name='local_optima'>>=
 if IN_PWEAVE:
     cosine_squared = lambda x: scipy.cos(x)**2
     sine = lambda x: -scipy.sin(x)
@@ -237,8 +152,8 @@ if IN_PWEAVE:
                                  domain_end=4.1,
                                  steps=1000,
                                  functions=[cosine_squared, sine])
-@
-<<name='plot_local_optima', echo=False, results='sphinx'>>=
+
+
 if IN_PWEAVE:
     output = 'figures/plot_local_optima.svg'
     figure = plt.figure()
@@ -247,24 +162,14 @@ if IN_PWEAVE:
     axe.plot(simulator.range)
     figure.savefig(output)
     print ".. figure:: " + output
-@
 
-Increasing the Range
---------------------
 
-The functions are being applied to the domain then added to the range, so adding a function that multiplies the values will give you a straight line. Instead you have to apply the function to the range outside of the NormalSimulation. Adding values will raise the curve (or lower it if the value is negative) and multiplying values will make the curve taller.
-
-In the example below multipyling the range by 10 changes the peak of the curve from about 0.4 to about 4, then adding 2 shifts it up to about 6.
-
-<<name='shifting'>>=
 if IN_PWEAVE:
     simulator._range = None
     simulator.functions = None
     new_range = (simulator.range * 10) + 2
-@
 
 
-<<name='plot_shift', echo=False, results='sphinx'>>=
 if IN_PWEAVE:
     output = 'figures/plot_shift.svg'
     figure = plt.figure()
@@ -272,4 +177,3 @@ if IN_PWEAVE:
     axe.plot(new_range)
     figure.savefig(output)
     print ".. figure:: " + output
-@

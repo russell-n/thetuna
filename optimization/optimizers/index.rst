@@ -14,5 +14,6 @@ Optimizers
 .. toctree::
    :maxdepth: 1
 
+   Optimizer Examples <examples/index.rst>
 
 

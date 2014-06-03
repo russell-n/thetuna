@@ -6,10 +6,10 @@ Testing The Normal Simulation
 import unittest
 
 # this package
-from optimization.simulations.normalsimulation import NormalSimulation
+from optimization.datamappings.normalsimulation import NormalSimulation
 @
 
-.. currentmodule:: optimization.simulations.tests.testnormalsimulation
+.. currentmodule:: optimization.datamappings.tests.testnormalsimulation
 .. autosummary:: 
    :toctree: api
 
@@ -21,7 +21,7 @@ class TestNormalSimulation(unittest.TestCase):
         """
         Does it build?
         """
-        simulator = NormalSimulation(domain_start=-4, domain_end=4, domain_step=0.1)
+        simulator = NormalSimulation(domain_start=-4, domain_end=4, steps=100)
         self.assertEqual(simulator.ideal_solution, simulator.range.max())
         return
 @

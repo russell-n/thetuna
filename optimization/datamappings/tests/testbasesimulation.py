@@ -1,7 +1,4 @@
-Testing the BaseSimulation
-==========================
 
-<<name='imports', echo=False>>=
 # python standard library
 import unittest
 import random
@@ -10,29 +7,20 @@ import random
 import numpy
 
 # this package
-from optimization.simulations.basesimulation import BaseSimulation
-@
+from optimization.datamappings.basesimulation import BaseSimulation
 
-.. currentmodule:: optimization.simulations.tests.testbasesimulation
-.. autosummary::
-   :toctree: api
 
-   TestBaseSimulation.test_constructor
-   TestBaseSimulation.test_nearest_index
-   TestBaseSimulation.test_nearest_value
-
-<<name='TestBaseSimulation', echo=False>>=
 class TestBaseSimulation(unittest.TestCase):
     def setUp(self):
         self.start_x = random.randrange(10)
         self.end_x = random.randrange(11, 100)
-        self.step_size = random.random()
-        self.expected = numpy.arange(self.start_x,
-                                     self.end_x+self.step_size,
-                                     self.step_size)
+        self.steps = random.randrange(1, 100)
+        self.expected = numpy.linspace(self.start_x,
+                                     self.end_x,
+                                     self.steps)
         self.simulator = BaseSimulation(self.start_x,
                                         self.end_x,
-                                        self.step_size)
+                                        self.steps)
         return
     
     def test_constructor(self):
@@ -41,13 +29,13 @@ class TestBaseSimulation(unittest.TestCase):
         """
         start_x = 0
         end_x = 100
-        step_size = 0.1
+        steps = 1000
         simulator = BaseSimulation(domain_start=start_x, domain_end=end_x,
-                                   domain_step=step_size)
+                                   steps=steps)
         self.assertEqual(start_x, simulator.domain_start)
         self.assertEqual(end_x, simulator.domain_end)
-        self.assertEqual(step_size, simulator.domain_step)
-        expected = numpy.arange(start_x, end_x + step_size, step_size)
+        self.assertEqual(steps, simulator.steps)
+        expected = numpy.linspace(start_x, end_x, steps)
         self.assertTrue(all(expected == simulator.domain))
         return
 
@@ -72,5 +60,3 @@ class TestBaseSimulation(unittest.TestCase):
         self.assertEqual(self.expected[nearest[1]], self.simulator(target))
         return
 # end TestBaseSimulation    
-@
-

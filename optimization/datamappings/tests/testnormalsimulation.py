@@ -3,7 +3,7 @@
 import unittest
 
 # this package
-from optimization.simulations.normalsimulation import NormalSimulation
+from optimization.datamappings.normalsimulation import NormalSimulation
 
 
 class TestNormalSimulation(unittest.TestCase):
@@ -11,6 +11,6 @@ class TestNormalSimulation(unittest.TestCase):
         """
         Does it build?
         """
-        simulator = NormalSimulation(domain_start=-4, domain_end=4, domain_step=0.1)
+        simulator = NormalSimulation(domain_start=-4, domain_end=4, steps=100)
         self.assertEqual(simulator.ideal_solution, simulator.range.max())
         return

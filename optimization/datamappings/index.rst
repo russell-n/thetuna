@@ -1,7 +1,7 @@
-Simulated Data
-==============
+Data Quality Modules
+====================
 
-In order to test the optimizers we'll create and use simulated data sets.
+These are modules to map the candidate solutions to their quality-values.
 
 
 .. toctree::
@@ -9,6 +9,7 @@ In order to test the optimizers we'll create and use simulated data sets.
 
    The BaseSimulation <basesimulation.rst>
    The Normally Distributed Data <normalsimulation.rst>
+   The Quality Mapping <qualitymapping.rst>
 
 .. toctree::
    :maxdepth: 1

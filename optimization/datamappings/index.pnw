@@ -1,7 +1,7 @@
-Simulated Data
-==============
+Data Quality Modules
+====================
 
-In order to test the optimizers we'll create and use simulated data sets.
+These are modules to map the candidate solutions to their quality-values.
 
 <<name='imports', echo=False>>=
 # this package
