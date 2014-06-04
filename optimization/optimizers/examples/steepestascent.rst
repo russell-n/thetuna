@@ -107,14 +107,14 @@ The SteepestAscent climber with UniformConvolution is more aggresive than the hi
 
 ::
 
-    Solution: Inputs: [ 0.00913689] Output: 0.398913500061
+    Solution: Inputs: [-0.00538732] Output: 0.398939082483
     Ideal: 0.398939082483
-    Difference: -2.5582421894e-05
-    Elapsed: 0.00817608833313
-    Quality Checks: 571
-    Comparisons: 285.0
-    Solutions: 56
-    Solutions/Comparisons: 0.19649122807
+    Difference: 0.0
+    Elapsed: 0.00937700271606
+    Quality Checks: 631
+    Comparisons: 315.0
+    Solutions: 62
+    Solutions/Comparisons: 0.196825396825
     
 
 
@@ -162,14 +162,14 @@ The two main parameters that will affect the performance of the climber will be 
 
 ::
 
-    Solution: Inputs: [-0.01098354] Output: 0.398913500061
+    Solution: Inputs: [-0.0021412] Output: 0.398939082483
     Ideal: 0.398939082483
-    Difference: -2.5582421894e-05
-    Elapsed: 0.00263786315918
-    Quality Checks: 752
-    Comparisons: 375.5
-    Solutions: 8
-    Solutions/Comparisons: 0.0213049267643
+    Difference: 0.0
+    Elapsed: 0.00165200233459
+    Quality Checks: 740
+    Comparisons: 369.5
+    Solutions: 6
+    Solutions/Comparisons: 0.0162381596752
     
     
 
@@ -205,14 +205,14 @@ Now a :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>` 
 
 ::
 
-    Solution: Inputs: [-0.01139957] Output: 0.398897392943
+    Solution: Inputs: [-0.02358178] Output: 0.398897392943
     Ideal: 0.398922329796
     Difference: -2.49368534488e-05
-    Elapsed: 0.00332808494568
-    Quality Checks: 127
-    Comparisons: 63.0
-    Solutions: 7
-    Solutions/Comparisons: 0.111111111111
+    Elapsed: 0.0044629573822
+    Quality Checks: 163
+    Comparisons: 81.0
+    Solutions: 8
+    Solutions/Comparisons: 0.0987654320988
     
 
 .. figure:: figures/needle_haystack_steepest_ascent.svg
@@ -261,14 +261,14 @@ As a comparison, I'll first use a data-set that has local optima. Using the Unif
 
 ::
 
-    Solution: Inputs: [ 0.41943897] Output: 1.60650305185
+    Solution: Inputs: [ 0.44376603] Output: 1.60675092559
     Ideal: 1.60675092559
-    Difference: -0.000247873745468
-    Elapsed: 0.360948085785
-    Quality Checks: 14330
-    Comparisons: 7164.5
-    Solutions: 9
-    Solutions/Comparisons: 0.00125619373299
+    Difference: 0.0
+    Elapsed: 0.401551961899
+    Quality Checks: 16130
+    Comparisons: 8064.5
+    Solutions: 7
+    Solutions/Comparisons: 0.000868001736003
     
 
 .. figure:: figures/gaussian_convolution_steepest_ascent_solutions.svg
@@ -301,14 +301,14 @@ To see how the two algorithms compare we can re-run the normal example using the
 
 ::
 
-    Solution: Inputs: [-0.0199305] Output: 0.398862340139
+    Solution: Inputs: [ 0.01967659] Output: 0.398862340139
     Ideal: 0.398939082483
     Difference: -7.67423442817e-05
-    Elapsed: 0.00109219551086
-    Quality Checks: 73
-    Comparisons: 36.0
-    Solutions: 4
-    Solutions/Comparisons: 0.111111111111
+    Elapsed: 0.00234389305115
+    Quality Checks: 163
+    Comparisons: 81.0
+    Solutions: 5
+    Solutions/Comparisons: 0.0617283950617
     
     
 
@@ -339,14 +339,14 @@ Gaussian Convolution Needle Example
 
 ::
 
-    Solution: Inputs: [-0.00386552] Output: 0.398897392943
+    Solution: Inputs: [-0.02611703] Output: 0.398897392943
     Ideal: 0.398922329796
     Difference: -2.49368534488e-05
-    Elapsed: 0.00235295295715
-    Quality Checks: 91
-    Comparisons: 45.0
-    Solutions: 5
-    Solutions/Comparisons: 0.111111111111
+    Elapsed: 0.00197887420654
+    Quality Checks: 73
+    Comparisons: 36.0
+    Solutions: 3
+    Solutions/Comparisons: 0.0833333333333
     
     
 
@@ -366,7 +366,10 @@ This uses a 3-d spherical dataset.
 
     from optimization.datamappings.examples.functions import SphereMapping
     # for plotting only we want few steps
-    sphere = SphereMapping(steps=120)
+    plot_sphere = SphereMapping(steps=120)
+    
+    # for data we want more
+    data_sphere = SphereMapping()
     
     
 
@@ -376,9 +379,43 @@ This uses a 3-d spherical dataset.
     figure = plt.figure()
     axe = figure.add_subplot(111, projection='3d')
     
-    surface = axe.plot_wireframe(sphere.x, sphere.y, sphere.z,
+    surface = axe.plot_wireframe(plot_sphere.x, plot_sphere.y, plot_sphere.z,
                                  rstride=5, cstride=5)
     figure.savefig(output)
+    
+    
+
+::
+
+    # change the data source to the sphere mapping
+    simulator = data_sphere.mapping
+    climber.quality = simulator
+    
+    # change the limits of the tweak
+    tweak.lower_bound = data_sphere.start
+    tweak.upper_bound = data_sphere.stop
+    
+    # change the candidate to 2D
+    candidate.inputs = numpy.array([0,0])
+    candidate.output = None
+    climber._solutions = None
+    climber.solution = candidate
+    stop._end_time = None
+    stop.ideal_value = simulator.ideal
+    outcomes['Gaussian Sphere'] = run_climber(climber)
+    
+    
+
+::
+
+    Solution: Inputs: [-5.12  5.12] Output: 52.4288
+    Ideal: 52.4288
+    Difference: 0.0
+    Elapsed: 0.00175595283508
+    Quality Checks: 109
+    Comparisons: 54.0
+    Solutions: 6
+    Solutions/Comparisons: 0.111111111111
     
     
 
@@ -390,9 +427,10 @@ This uses a 3-d spherical dataset.
 .. csv-table:: Run-Time Comparisons
    :header: ,Solutions, Comparisons, Solutions/Comparisons
 
-   Uniform Normal,56.000,285.000,0.196
-   Uniform Needle,7.000,63.000,0.111
-   Gaussian Noise,9.000,7164.500,0.001
-   Gaussian Normal,4.000,36.000,0.111
-   Gaussian Needle,5.000,45.000,0.111
+   Uniform Normal,62.000,315.000,0.197
+   Uniform Needle,8.000,81.000,0.099
+   Gaussian Noise,7.000,8064.500,0.001
+   Gaussian Normal,5.000,81.000,0.062
+   Gaussian Needle,3.000,36.000,0.083
+   Gaussian Sphere,6.000,54.000,0.111
 

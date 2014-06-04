@@ -5,6 +5,11 @@ This is a generalization of the `Quality` function used by the optimizers to ass
 
 .. '
 
+.. _optimization-datamappings-qualitymapping-QualityMapping:
+
+QualityMapping Class
+--------------------
+
 .. currentmodule:: optimization.datamappings.qualitymapping
 .. autosummary::
    :toctree: api

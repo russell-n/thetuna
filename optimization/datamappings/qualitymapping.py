@@ -20,6 +20,7 @@ class QualityMapping(object):
         self._ideal = ideal
         self.maxima = maxima
         self._image = None
+        self.quality_checks = 0
         return
 
     @property
@@ -33,6 +34,8 @@ class QualityMapping(object):
             else:
                 self._ideal = self.image.min()
         return self._ideal
+
+    ideal_solution = ideal
 
     @ideal.setter
     def ideal(self, ideal):
@@ -67,5 +70,8 @@ class QualityMapping(object):
 
         :return: mapping(argument)
         """
-        return self.mapping(argument)        
+        self.quality_checks += 1
+        if argument.output is None:
+            argument.output = self.mapping(argument.inputs)
+        return argument.output   
 # end QualityMapping    

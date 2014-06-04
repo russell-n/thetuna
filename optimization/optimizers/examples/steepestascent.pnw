@@ -326,8 +326,16 @@ figure.savefig(output)
 @
 
 <<name='gaussianconvolution_sphere'>>=
+# change the data source to the sphere mapping
 simulator = data_sphere.mapping
 climber.quality = simulator
+
+# change the limits of the tweak
+tweak.lower_bound = data_sphere.start
+tweak.upper_bound = data_sphere.stop
+
+# change the candidate to 2D
+candidate.inputs = numpy.array([0,0])
 candidate.output = None
 climber._solutions = None
 climber.solution = candidate
