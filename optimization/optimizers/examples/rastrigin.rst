@@ -12,3 +12,5 @@ This module uses the `Rastrigin Function <http://en.wikipedia.org/wiki/Rastrigin
 .. include:: rastrigin_plot.rst
 
 .. include:: rastrigin_steepestascent.rst
+
+.. include:: rastrigin_randomrestarts.rst
