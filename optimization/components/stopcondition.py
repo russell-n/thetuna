@@ -72,6 +72,13 @@ class StopCondition(object):
          - `solution`: Candidate solution, not used here
         """
         return time.time() >= self.end_time
+
+    def reset(self):
+        """
+        Resets the end_time to None
+        """
+        self._end_time = None
+        return
 # end StopCondition    
 
 
@@ -138,6 +145,7 @@ class StopConditionGenerator(object):
         self.random_function = random_function
         self._stop_condition = None
         self._global_stop_condition = None
+        self.abort = False
         return
 
     @property
@@ -202,3 +210,15 @@ class StopConditionGenerator(object):
         """
         while time.time() < self.end_time:
             yield self.stop_condition
+            if self.abort:
+                break
+        return
+
+    def reset(self):
+        """
+        Resets some values (assumes iter already done)
+        """
+        self.abort = False
+        self._end_time = None
+        self._global_stop_condition = None
+        return

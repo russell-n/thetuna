@@ -16,6 +16,7 @@ import itertools
    RandomRestarts.solution
    RandomRestarts.solutions
    RandomRestarts.is_ideal
+   RandomRestarts.reset
 
 <<name='RandomRestarts', echo=False>>=
 class RandomRestarts(object):
@@ -107,6 +108,13 @@ class RandomRestarts(object):
             if self.is_ideal(self.solution):
                 break
         return self.solution
+
+    def reset(self):
+        """
+        Resets solutions (this only works if it is a list)
+        """
+        self._solutions = None
+        return        
 # end RandomRestarts        
 @
 

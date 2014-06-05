@@ -1,0 +1,151 @@
+Steepest Ascent
+---------------
+
+First, I'll try the same parameters as with the normal data-sets (4 local searches and a Standard Normal distribution for the convolution).
+
+.. '
+
+::
+
+    # third-party
+    import numpy
+    
+    # this package
+    from optimization.datamappings.examples.functions import RastriginMapping
+    from optimization.components.stopcondition import StopConditionIdeal
+    from optimization.components.convolutions import GaussianConvolution
+    from optimization.components.xysolution import XYSolution, XYTweak
+    from optimization.optimizers.steepestascent import SteepestAscent
+    from pweave_helpers import run_climber
+    
+    
+
+::
+
+    rastrigin_data = RastriginMapping()
+    simulator = rastrigin_data.mapping
+    
+    stop = StopConditionIdeal(ideal_value=simulator.ideal_solution,
+                                       delta=0.001,
+                                       time_limit=300)
+    
+    tweak = GaussianConvolution(lower_bound=rastrigin_data.start,
+                                upper_bound=rastrigin_data.stop)
+    xytweak = XYTweak(tweak)
+    candidate = XYSolution(inputs=numpy.array([0,0]))
+    climber = SteepestAscent(solution=candidate,
+                             stop_condition=stop,
+                             tweak=xytweak,
+                             quality=simulator,
+                             local_searches=4)
+    
+    
+
+
+
+To try and make the outcomes predictable I'll set  the numpy seed to YYYYMMDDHHMM.
+
+.. '
+::
+
+    tweak.set_seed(201406041238)
+    run_climber(climber)
+    
+    
+
+::
+
+    Solution: Inputs: [ 4.52241057  4.51943379] Output: 80.7040489751
+    Ideal: 80.7041689429
+    Difference: -0.000119967791164
+    Elapsed: 4.66973686218
+    Quality Checks: 221991
+    Comparisons: 110995.0
+    Solutions: 13
+    Solutions/Comparisons: 0.000117122392901
+    
+    
+
+
+
+More Agressive Search
+~~~~~~~~~~~~~~~~~~~~~
+
+Now I'll try a more aggresive search, turning up both the number of local searches and the spread for the convolution.
+
+::
+
+    climber.local_searches = 8
+    tweak.standard_deviation = 2
+    
+    candidate = XYSolution(inputs=numpy.array([0,0]))
+    
+    # reset the counters
+    rastrigin_data.reset()
+    climber.reset()
+    climber.solution = candidate
+    stop.reset()
+    
+    tweak.set_seed(201406041241)
+    run_climber(climber)
+    
+    
+
+::
+
+    Solution: Inputs: [ 4.51912495  4.52186726] Output: 80.703421832
+    Ideal: 80.7041689429
+    Difference: -0.000747110867877
+    Elapsed: 9.48477697372
+    Quality Checks: 452665
+    Comparisons: 226332.0
+    Solutions: 28
+    Solutions/Comparisons: 0.000123712068996
+    
+    
+
+
+
+This took longer, probably because of all the extra searching.
+
+Even More Aggressive Search
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+What if we make it even more aggressive? Will it do better?
+
+::
+
+    climber.local_searches = 16
+    tweak.standard_deviation = 4
+    
+    candidate = XYSolution(inputs=numpy.array([0,0]))
+    
+    # reset the counters
+    rastrigin_data.reset()
+    climber.reset()
+    climber.solution = candidate
+    stop.reset()
+    
+    tweak.set_seed(201406041413)
+    run_climber(climber)
+    
+    
+
+::
+
+    Solution: Inputs: [-4.52619713 -4.52250986] Output: 80.7045426072
+    Ideal: 80.7041689429
+    Difference: 0.000373664302643
+    Elapsed: 20.7312529087
+    Quality Checks: 998683
+    Comparisons: 499341.0
+    Solutions: 39
+    Solutions/Comparisons: 7.81029396745e-05
+    
+    
+
+
+
+I tried these twice -- once with a delta of 0.0001 and once with a delta of 0.001. When the delta is smaller, the initial and really aggresive search never finishes, although the values are close, and the second, somewhat agressive search does much better (9 seconds instead of timing out). But with the larger delta, the first searcher finishes in under 5 seconds, better than the other two and the really aggressive finishes but takes longer than the other two. So it appears that it isn't just the shape of the data and the parameters to the search that matter but also how much of a difference you are willing to tolerate. But in any case, being too aggressive always does poorly (for this dataset). Additionally, the the more aggresive search, increasing the standard deviation without increasing the local-searches also increased the search time, presumably because it picks more sub-optimal values.
+
+Of course, in a real data-set, we wouldn't have the actual maximum so all of them would time out.

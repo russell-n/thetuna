@@ -28,12 +28,19 @@ SteepestAscent Class
 
    BaseClimber <|-- SteepestAscent
 
+.. currentmodule:: optimization.optimizers.baseclimber
+.. autosummary::
+   :toctree: api
+
+   BaseClimber
+
 .. currentmodule:: optimization.optimizers.steepestascent
 .. autosummary::
    :toctree: api
 
    SteepestAscent
    SteepestAscent.__call__
+   SteepestAscent.reset
 
 <<name='SteepestAscent', echo=False>>=
 class SteepestAscent(BaseClimber):
@@ -92,6 +99,12 @@ class SteepestAscent(BaseClimber):
                     print current
                 self.solution = current
         return self.solution
+
+    def reset(self):
+        """
+        Resets some of the parameters to get ready for another trial
+        """
+        self._solution = None
 # end SteepestAscent    
 @
 

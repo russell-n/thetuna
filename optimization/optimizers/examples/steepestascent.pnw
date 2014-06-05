@@ -307,6 +307,7 @@ Gaussian Convolution Sphere
 This uses a 3-d spherical dataset.
 
 <<name='sphere_mapping'>>=
+import numpy
 from optimization.datamappings.examples.functions import SphereMapping
 # for plotting only we want few steps
 plot_sphere = SphereMapping(steps=120)
@@ -320,7 +321,13 @@ output = 'figures/sphere_plot.svg'
 figure = plt.figure()
 axe = figure.add_subplot(111, projection='3d')
 
-surface = axe.plot_wireframe(plot_sphere.x, plot_sphere.y, plot_sphere.z,
+X = numpy.linspace(-5.12, 5.12, 100)
+Y = numpy.linspace(-5.12, 5.12, 100)
+X, Y = numpy.meshgrid(X, Y)
+Z = X**2 + Y**2
+surface = axe.plot_wireframe(X,
+                             Y,
+                             Z,
                              rstride=5, cstride=5)
 figure.savefig(output)
 @

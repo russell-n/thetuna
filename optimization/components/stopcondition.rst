@@ -34,6 +34,10 @@ The Stop Condition
    :toctree: api
 
    StopCondition
+   StopCondition.time_limit
+   StopCondition.end_time
+   StopCondition.__call__
+   StopCondition.reset
 
 
 
@@ -111,6 +115,7 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
             self.random_function = random_function
             self._stop_condition = None
             self._global_stop_condition = None
+            self.abort = False
             return
     
         @property
@@ -189,6 +194,18 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
             """
             while time.time() < self.end_time:
                 yield self.stop_condition
+                if self.abort:
+                    break
+            return
+    
+        def reset(self):
+            """
+            Resets some values (assumes iter already done)
+            """
+            self.abort = False
+            self._end_time = None
+            self._global_stop_condition = None
+            return
     
     
 

@@ -59,4 +59,10 @@ class SteepestAscent(BaseClimber):
                     print current
                 self.solution = current
         return self.solution
+
+    def reset(self):
+        """
+        Resets some of the parameters to get ready for another trial
+        """
+        self._solution = None
 # end SteepestAscent    

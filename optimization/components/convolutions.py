@@ -56,6 +56,13 @@ class GaussianConvolution(object):
         self.standard_deviation = standard_deviation
         return
 
+    def set_seed(self, seed):
+        """
+        Sets the numpy random seed (for reproducibility)
+        """
+        numpy.random.seed(seed)
+        return
+
     def __call__(self, vector):
         """
         Adds normally distributed random noise to the vector

@@ -73,6 +73,13 @@ class SphereMapping(object):
             self._mapping = QualityMapping(ideal=self.z.max(),
                                            mapping=mapping_function)
         return self._mapping
+
+    def reset(self):
+        """
+        Resets the mapping function
+        """
+        self.mapping.reset()
+        return
 # end SphereMapping
 
 
@@ -103,6 +110,7 @@ class RastriginMapping(object):
         self._x = None
         self._y = None
         self._z = None
+        self.meshed = False
         return
 
     @property
@@ -133,12 +141,13 @@ class RastriginMapping(object):
         2-d array (meshgrid for z-axis)
         """
         if self._z is None:
-            if len(self.x.shape) == 1:
-                
-                # apply meshgrid
+            # apply meshgrid
+            if not self.meshed:
+                self.meshed = True
+                # this doesn't work for plotting
                 self._x, self._y = numpy.meshgrid(self.x, self.y)
-            self._z = (20 + (self.x**2-10 * numpy.cos(two_pi*self.x)) +
-                       (self.y**2-10 * numpy.cos(two_pi*self.y)))
+                self._z = (20 + (self.x**2-10 * numpy.cos(two_pi*self.x)) +
+                           (self.y**2-10 * numpy.cos(two_pi*self.y)))
         return self._z
 
     @property
@@ -150,4 +159,11 @@ class RastriginMapping(object):
             self._mapping = QualityMapping(ideal=self.z.max(),
                                            mapping=rastrigin)
         return self._mapping
+
+    def reset(self):
+        """
+        Resetes the mapping
+        """
+        self.mapping.reset()
+        return
 # end RastriginMapping

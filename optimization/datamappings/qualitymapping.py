@@ -73,5 +73,12 @@ class QualityMapping(object):
         self.quality_checks += 1
         if argument.output is None:
             argument.output = self.mapping(argument.inputs)
-        return argument.output   
+        return argument.output
+
+    def reset(self):
+        """
+        Resets counters 
+        """
+        self.quality_checks = 0
+        return
 # end QualityMapping    
