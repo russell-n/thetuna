@@ -2,7 +2,7 @@ try:
     from setuptools import setup, find_packages
 except ImportError:
     from ez_setup import use_setuptools
-    use_setuptools
+    use_setuptools()
 
     from setuptools import setup, find_packages
 
@@ -14,13 +14,20 @@ setup(name='optimization',
       url = '',
       author_email="russellnakamura@us.allion.com",
       license = "",
-      install_requires = ['pudb', 'scipy', 'docopt'],
+      install_requires = ['pudb', 'scipy', 'docopt',
+                          'paramiko'],
       packages = find_packages(),
       include_package_data = True,
-      package_data = {"ape":["*.txt", "*.rst", "*.ini"]},
+      package_data = {"optimization":["*.txt", "*.rst", "*.ini"]},
       entry_points = """
 	  [console_scripts]
-      optimize=optimize.main:main
+      optimizer=optimization.main:main
+
+      [optimization.subcommands]
+      subcommands=optimization.infrastructure.arguments
+
+      [optimization.plugins]
+      plugins=optimization.optimizers
       """
       )
 

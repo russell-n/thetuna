@@ -3,12 +3,6 @@ The Main Entry Point
 
 This module bundles together the components needed to use the The Optimizer as a command-line command.
 
-.. uml::
-
-   main o- ArgumentClinic
-   main o- SubCommands
-
-
 .. currentmodule:: optimization.main
 .. autosummary::
    :toctree: api
@@ -18,7 +12,7 @@ This module bundles together the components needed to use the The Optimizer as a
     
 <<Name='imports', echo=False>>=
 # this package
-import optimization.interface.arguments
+import optimization.infrastructure.arguments
 from optimization.log_setter import set_logger
 @
 <<name='enable_debugging', echo=False>>=
@@ -49,7 +43,7 @@ def main():
        3. Enables debugging (if asked for)
        4. Calls the function set by the argparse subcommand
     """
-    argue = optimization.control.arguments.ArgumentBuilder()
+    argue = optimization.infrastructure.arguments.ArgumentBuilder()
     args = argue()
     set_logger(args)
     enable_debugging(args)

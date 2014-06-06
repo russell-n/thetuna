@@ -5,6 +5,7 @@ import random
 
 # third-party
 from mock import MagicMock
+import numpy
 
 # this package
 from optimization.optimizers.simulatedannealing import SimulatedAnnealing
@@ -17,7 +18,7 @@ class TestSimulatedAnnealing(unittest.TestCase):
         self.temperature_schedule = MagicMock()
         self.quality = MagicMock()
         self.candidate = MagicMock()
-        self.optimizer = SimulatedAnnealing(temperature_schedule=self.temperature_schedule,
+        self.optimizer = SimulatedAnnealing(temperatures=self.temperature_schedule,
                                             candidates=self.candidates,
                                             candidate=self.candidate,
                                             quality=self.quality)
@@ -28,13 +29,32 @@ class TestSimulatedAnnealing(unittest.TestCase):
         Does it build?
         """
         self.assertEqual(self.temperature_schedule,
-                         self.optimizer.temperature_schedule)
+                         self.optimizer.temperatures)
         self.assertEqual(self.candidates,
                          self.optimizer.candidates)
         self.assertEqual(self.quality,
                          self.optimizer.quality)
         self.assertEqual(self.candidate,
-                         self.optimizer.candidate)
+                         self.optimizer.solution)
+        return
+
+    def test_call(self):
+        """
+        Does it implement the simulated annealing algorithm?
+        """
+        self.optimizer.solution = 9
+        qualities = dict(zip(xrange(10), reversed(xrange(10))))
+        def quality_side_effect(value):
+            return qualities[value]
+
+        loops = 20
+        candidates = numpy.random.choice(9, loops)
+        self.optimizer.candidates = candidates
+        self.optimizer.temperatures = numpy.random.choice(numpy.arange(1, 11), loops)
+        self.quality.side_effect = quality_side_effect
+        output = self.optimizer()
+        self.assertEqual(len(self.quality.mock_calls), 4*loops)
+        self.assertEqual(output, min(candidates))
         return
 
 
