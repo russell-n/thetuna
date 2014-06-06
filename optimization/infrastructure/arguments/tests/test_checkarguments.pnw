@@ -45,7 +45,7 @@ class TestCheck(unittest.TestCase):
         """
         Does it get the list of config-files?
         """
-        default = ['ape.ini']
+        default = ['optimizer.ini']
         self.assertEqual(self.arguments.configfiles, default)
 
         self.arguments.reset()

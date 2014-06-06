@@ -8,9 +8,9 @@ import string
 from mock import MagicMock
 
 # the ape
-from ape.interface.arguments.helparguments import Help
-from ape.interface.arguments.helparguments import HelpStrategy
-from ape.interface.arguments.basestrategy import BaseStrategy
+from optimization.infrastructure.arguments.helparguments import Help
+from optimization.infrastructure.arguments.helparguments import HelpStrategy
+from optimization.infrastructure.arguments.basestrategy import BaseStrategy
 
 
 class TestHelp(unittest.TestCase):
@@ -58,7 +58,7 @@ class TestHelp(unittest.TestCase):
         """
         Does it get the name of the plugin?
         """
-        self.assertEqual('Ape', self.arguments.name)
+        self.assertEqual('Optimizer', self.arguments.name)
 
         self.arguments.reset()
         name = ''.join([random.choice(string.letters) for letter in xrange(random.randrange(1, 10))])

@@ -6,12 +6,12 @@ import unittest
 from mock import MagicMock
 
 # the ape
-from ape.interface.arguments.fetcharguments import Fetch, FetchStrategy
-from ape.interface.arguments.basestrategy import BaseStrategy
-import ape.interface.arguments.fetcharguments
+from optimization.infrastructure.arguments.fetcharguments import Fetch, FetchStrategy
+from optimization.infrastructure.arguments.basestrategy import BaseStrategy
+import optimization.infrastructure.arguments.fetcharguments
 
 
-fetch_usage = ape.interface.arguments.fetcharguments.__doc__
+fetch_usage = optimization.infrastructure.arguments.fetcharguments.__doc__
 class TestFetchArguments(unittest.TestCase):
     def setUp(self):
         self.args = ['fetch']
@@ -34,7 +34,7 @@ class TestFetchArguments(unittest.TestCase):
         Does it get the list of plugin names?
         """
         # default
-        self.assertEqual(['Ape'], self.arguments.names)
+        self.assertEqual(['Optimizer'], self.arguments.names)
 
         # positionl arguments
         self.arguments.reset()

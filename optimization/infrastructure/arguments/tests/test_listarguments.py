@@ -6,8 +6,8 @@ import unittest
 from mock import MagicMock, patch
 
 # the ape
-from ape.interface.arguments.listarguments import List, ListStrategy
-from ape.interface.arguments.basestrategy import BaseStrategy
+from optimization.infrastructure.arguments.listarguments import List, ListStrategy
+from optimization.infrastructure.arguments.basestrategy import BaseStrategy
 
 
 class TestList(unittest.TestCase):
