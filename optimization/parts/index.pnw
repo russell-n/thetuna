@@ -1,5 +1,7 @@
-Testing The Components
-======================
+The Parts
+=========
+
+Parts are meant to be bundled into components.
 
 <<name='imports', echo=False>>=
 # this package

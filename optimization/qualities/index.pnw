@@ -1,5 +1,7 @@
-Testing The Components
-======================
+Quality Modules
+===============
+
+These are modules to map the candidate solutions to their quality-values.
 
 <<name='imports', echo=False>>=
 # this package

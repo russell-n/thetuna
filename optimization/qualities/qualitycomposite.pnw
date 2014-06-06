@@ -1,0 +1,43 @@
+Quality Composite
+=================
+
+This is a composite with the call overriden so that it takes arguments and passes them to the components and then retrieves an output and returns it. This assumes that the components take arguments, and can filter out what they need, which is different from the default Component definition. This was implemented so that the composite can pass along tweaked candidates to the components that know what to do with them. This requires that the creator of components for this composite be careful to not have conflicting parameter names, that all components take arguments, even if they don't use them, and that only one of the components returns a valid output (because that is all that will be returned). Additionally, unless only one component takes arguments (and even in that case) it will be safer for the caller of the composite to use keyword arguments only.
+
+.. '
+
+<<name='imports', echo=False>>=
+# this package
+from optimization.components.component import Composite
+@
+
+.. uml::
+
+   Composite <|-- QualityComposite
+   Composite : __call__(*args, **kwargs)
+
+.. currentmodule:: optimization.qualities.qualitycomposite
+.. autosummary::
+   :toctree: api
+
+   QualityComposite
+   QualityComposite.__call__
+
+<<name='QualityComposite', echo=False>>=
+class QualityComposite(Composite):
+    """
+    A quality for the optimizer
+    """
+    def __call__(self, *args, **kwargs):
+        """
+        Calls the components, passing along the arguments
+
+        :return: last output from the components not None
+        """
+        output = None
+        for component in self.components:
+            returned = component(*args, **kwargs)
+            if returned is not None:
+                output = returned
+        return output
+# end QualityComposite    
+@

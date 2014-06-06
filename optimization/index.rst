@@ -22,8 +22,10 @@ Auto-Generated Documentation
    :maxdepth: 1
 
    The Components <components/index.rst>
-   Data Quality Modules <datamappings/index.rst>
    Explorations <explorations/index.rst>
    Optimizers <optimizers/index.rst>
+   The Parts <parts/index.rst>
+   Quality Modules <qualities/index.rst>
+   Tweaks <tweaks/index.rst>
 
 

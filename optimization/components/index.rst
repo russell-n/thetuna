@@ -1,19 +1,37 @@
 The Components
-==============
+=============
 
-Components are parts that are meant to be used by other code.
+
+
+Components bundle parts for the Composite.
+
+.. digraph:: Components
+
+   rankdir="BT"
+   component1 [label="Component"]
+   component2 [label="Component"]
+   part1 [label="Part"]
+   part2 [label="Part"]
+   part3 [label="Part"]
+   part4 [label="Part"]
+   part5 [label="Part"]
+   component1 -> Composite
+   component2 -> Composite
+   part1 -> component2
+   part2 -> component2
+   part3 -> component1
+   part4 -> component1
+   part5 -> component1
 
 
 .. toctree::
    :maxdepth: 1
 
-   The Convolutions <convolutions.rst>
-   The Stop Conditions <stopcondition.rst>
-   The XY Solution <xysolution.rst>
+   The Component <component.rst>
 
 .. toctree::
    :maxdepth: 1
 
-   The Components <tests/index.rst>
+   Testing The Components <tests/index.rst>
 
 

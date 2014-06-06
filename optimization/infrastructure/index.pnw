@@ -1,5 +1,7 @@
-Testing The Components
-======================
+The Infrastructure
+==================
+
+This is code that supports up the other code. The items here tend to be generic and are generally stolen from other places.
 
 <<name='imports', echo=False>>=
 # this package
