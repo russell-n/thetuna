@@ -6,7 +6,7 @@ except ImportError:
 
     from setuptools import setup, find_packages
 
-setup(name='optimization',
+setup(name='tuna',
       version= '2014.05.23',
       description="A program to optimize.",
       author="russell",
@@ -18,16 +18,16 @@ setup(name='optimization',
                           'paramiko'],
       packages = find_packages(),
       include_package_data = True,
-      package_data = {"optimization":["*.txt", "*.rst", "*.ini"]},
+      package_data = {"tuna":["*.txt", "*.rst", "*.ini"]},
       entry_points = """
 	  [console_scripts]
-      optimizer=optimization.main:main
+      tuna=tuna.main:main
 
-      [optimization.subcommands]
-      subcommands=optimization.infrastructure.arguments
+      [tuna.subcommands]
+      subcommands=tuna.infrastructure.arguments
 
-      [optimization.plugins]
-      plugins=optimization.optimizers
+      [tuna.plugins]
+      plugins=tuna.optimizers
       """
       )
 
