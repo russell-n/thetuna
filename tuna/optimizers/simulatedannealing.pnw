@@ -2,7 +2,6 @@ The Simulated Annealing Optimizer
 =================================
 <<name='imports', echo=False>>=
 # python standard library
-import itertools
 import random
 import math
 @
@@ -44,19 +43,19 @@ class SimulatedAnnealing(object):
     """
     a Simulated Annealing optimizer
     """
-    def __init__(self, temperatures, candidates, quality, candidate):
+    def __init__(self, temperatures, tweak, quality, candidate):
         """
         SimulatedAnnealing Constructor
 
         :param:
 
          - `temperatures`: a generator of temperatures
-         - `candidates`: a generator of candidate solutions
+         - `tweak`: callable that tweaks the best solution so far
          - `quality`: Quality checker for candidates
          - `candidate`: initial candidate solution
         """
         self.temperatures = temperatures
-        self.candidates = candidates
+        self.tweak = tweak
         self.quality = quality
         self.solution = candidate
         return
@@ -67,17 +66,16 @@ class SimulatedAnnealing(object):
 
         :return: last non-None output given
         """
-        candidates_and_temperatures = itertools.izip(self.candidates,
-                                                     self.temperatures)
         solution = self.solution
-        for candidate, temperature in candidates_and_temperatures:
+        for temperature in self.temperatures:
+            candidate = self.tweak(solution)
+            
             quality_difference = self.quality(candidate) - self.quality(solution)
             if (quality_difference > 0 or
                 random.random() < math.exp(quality_difference/float(temperature))):
                 solution = candidate
             if self.quality(solution) > self.quality(self.solution):
                 self.solution = solution
-            print candidate, self.solution
         return self.solution
 # SimulatedAnnealing    
 @
