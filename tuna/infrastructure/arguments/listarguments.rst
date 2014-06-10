@@ -4,8 +4,8 @@ The List Sub-Command Arguments
 
     """list subcommand
     
-    usage: optimizer list -h
-           optimizer list [<module> ...]
+    usage: tuna list -h
+           tuna list [<module> ...]
     
     Positional Arguments:
       <module> ...  Space-separated list of importable module with plugins
@@ -19,17 +19,17 @@ The List Sub-Command Arguments
 
 
 
-See the :ref:`developer documentation <docopt-reproducingoptimizer-list-sub-command>` for more information.
+See the :ref:`developer documentation <docopt-reproducingtuna-list-sub-command>` for more information.
 
 Contents:
 
-    * :ref:`The List Arguments Constants <optimizer-interface-arguments-list-arguments-constants>`
-    * :ref:`The List Arguments Class <optimizer-interface-arguments-list-arguments-class>`
-    * :ref:`The List Strategy <optimizer-interface-arguments-list-strategy>`
+    * :ref:`The List Arguments Constants <tuna-interface-arguments-list-arguments-constants>`
+    * :ref:`The List Arguments Class <tuna-interface-arguments-list-arguments-class>`
+    * :ref:`The List Strategy <tuna-interface-arguments-list-strategy>`
 
 
 
-.. _optimizer-interface-arguments-list-arguments-constants:
+.. _tuna-interface-arguments-list-arguments-constants:
 
 The ListArguments Constants
 ---------------------------
@@ -48,7 +48,7 @@ The ListArguments Constants
 
 
 
-.. _optimizer-interface-arguments-list-arguments-class:
+.. _tuna-interface-arguments-list-arguments-class:
 
 The List Class
 --------------
@@ -57,7 +57,7 @@ The List Class
 
    BaseArguments <|-- List
 
-.. currentmodule:: optimizer.interface.arguments.listarguments
+.. currentmodule:: tuna.interface.arguments.listarguments
 .. autosummary::
    :toctree: api
 
@@ -69,7 +69,7 @@ The List Class
 
 
 
-.. _optimizer-interface-arguments-list-strategy:
+.. _tuna-interface-arguments-list-strategy:
 
 The List Strategy
 -----------------
@@ -78,7 +78,7 @@ The List Strategy
 
    BaseStrategy <|-- ListStrategy
 
-.. currentmodule:: optimizer.interface.arguments.listarguments
+.. currentmodule:: tuna.interface.arguments.listarguments
 .. autosummary::
    :toctree: api
 

@@ -6,7 +6,7 @@ This is a module to hold base-classes for others to sub-class.
 API
 ---
 
-.. currentmodule:: optimization.infrastructure.baseclass
+.. currentmodule:: tuna.infrastructure.baseclass
 
 .. autosummary::
    :toctree: api
@@ -33,7 +33,7 @@ import threading
 from abc import abstractmethod, ABCMeta
 
 # this package
-from optimization.infrastructure.constants import RED, BOLD, RESET
+from tuna.infrastructure.constants import RED, BOLD, RESET
 @
 
 <<name="contstants", echo=False>>=
@@ -44,7 +44,7 @@ RED_ERROR = "{red}{bold}{{error}}{reset}{red}{{message}}{reset}".format(red=RED,
 
 @
 
-.. _ape-baseclass-baseclass:
+.. _tuna-infrastructure-baseclass:
 
 Class BaseClass
 ---------------
@@ -110,7 +110,7 @@ This will raise a ``TypeError`` if the child class doesn't implement run and it 
 
 .. '
 
-.. currentmodule::: optimization.infrastructure.baseclass
+.. currentmodule::: tuna.infrastructure.baseclass
 .. autosummary::
    :toctree: api
 

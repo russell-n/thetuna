@@ -6,11 +6,11 @@ import unittest
 from mock import MagicMock, patch
 
 # the ape
-from optimization.infrastructure.arguments.runarguments import Run
-from optimization.infrastructure.arguments.arguments import BaseArguments
-from optimization.infrastructure.arguments.runarguments import RunArgumentsConstants
-from optimization.infrastructure.arguments.runarguments import RunStrategy
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
+from tuna.infrastructure.arguments.runarguments import Run
+from tuna.infrastructure.arguments.arguments import BaseArguments
+from tuna.infrastructure.arguments.runarguments import RunArgumentsConstants
+from tuna.infrastructure.arguments.runarguments import RunStrategy
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
 
 
 
@@ -85,23 +85,6 @@ class TestRunStrategy(unittest.TestCase):
         self.ape.close.assert_called_with()
         return
 
-    def test_trace(self):
-        """
-        Does it trace the calls?
-        """
-        self.args.trace = True
-        self.build_ape.return_value = self.ape
-
-        # trace mocks the module import
-        trace = MagicMock()
-        # tracer mocks the Trace object
-        tracer = MagicMock()
-        trace.return_value = tracer
-        with patch('trace.Trace', trace):
-            self.strategy.function(self.args)
-            print tracer.mock_calls
-            tracer.runfunc.assert_called_with(self.ape)            
-        return
 
     def test_errors(self):
         """

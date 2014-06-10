@@ -4,11 +4,11 @@ from ConfigParser import NoSectionError
 import datetime
 
 # this package
-from optimization import BaseClass
+from tuna import BaseClass
 
-from optimization.infrastructure.crash_handler import try_except, log_error
-from optimization import RED, BOLD, RESET
-from optimization.infrastructure.quartermaster import QuarterMaster
+from tuna.infrastructure.crash_handler import try_except, log_error
+from tuna import RED, BOLD, RESET
+from tuna.infrastructure.quartermaster import QuarterMaster
 
 
 RED_ERROR = "{red}{bold}{{error}}{reset}".format(red=RED,
@@ -32,33 +32,33 @@ class BaseStrategy(BaseClass):
         self._logger = None
         self.error = (Exception, KeyboardInterrupt)
         self.error_message = "Oops, I Crapped My Pants"
-        self.optimizer = None
+        self.tuna = None
         return
 
     quartermaster = QuarterMaster()
 
-    def build_optimizer(self, configfiles):
+    def build_tuna(self, configfiles):
         """
-        Tries to build the optimization plugin
-        (has a side-effect of setting self.optimizer so that crash-handling can get to it)
+        Tries to build the tuna plugin
+        (has a side-effect of setting self.tuna so that crash-handling can get to it)
 
         :return: optimizer or None
-        :postcondition: self.optimizer set to optimizer (or None on failure)
+        :postcondition: self.tuna set to tuna (or None on failure)
 
         :param: `configfiles`: a list of configuration files for the optimizer
         """
-        plugin = self.quartermaster.get_plugin('Optimizer')
+        plugin = self.quartermaster.get_plugin('Tuna')
         
-        # The optimizer needs the config-filenames
+        # The tuna needs the config-filenames
         try:
-            self.optimizer = plugin(configfiles=configfiles).product
+            self.tuna = plugin(configfiles=configfiles).product
         except NoSectionError as error:
             self.logger.error(error)
             self.logger.error(RED_ERROR.format(error='missing section in {0}'.format(configfiles)))
             self.logger.error(RED_ERROR.format(error='check the name of the config file'))
-            self.logger.info("Try `optimizer help` and `optimizer fetch`")
+            self.logger.info("Try `tuna help` and `tuna fetch`")
             return 
-        return self.optimizer
+        return self.tuna
     
     def clean_up(self, error):
         """
@@ -66,8 +66,8 @@ class BaseStrategy(BaseClass):
         """
         if type(error) is KeyboardInterrupt:
             log_error(error, self.logger, 'Oh, I am slain!')
-            if self.optimizer is not None:                
-                self.optimizer.clean_up(error)
+            if self.tuna is not None:                
+                self.tuna.clean_up(error)
         else:
             log_error(error, self.logger, self.error_message)
         return

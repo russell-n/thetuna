@@ -1,6 +1,6 @@
 
 # this package
-from optimization import RED, BOLD, RESET
+from tuna import RED, BOLD, RESET
 
 
 def try_except(method):

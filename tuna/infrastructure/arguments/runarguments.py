@@ -1,8 +1,8 @@
 
 """`run` sub-command
 
-Usage: optimizer run -h
-       optimizer run [<configuration>...]
+Usage: tuna run -h
+       tuna run [<configuration>...]
 
 Positional Arguments:
 
@@ -18,11 +18,11 @@ Options;
 # python standard library
 import datetime
 
-# the OPTIMIZER
-from optimization import RED, BOLD, RESET
-from optimization.infrastructure.arguments.arguments import BaseArguments
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
-from optimization.infrastructure.crash_handler import try_except
+# the TUNA
+from tuna import RED, BOLD, RESET
+from tuna.infrastructure.arguments.arguments import BaseArguments
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
+from tuna.infrastructure.crash_handler import try_except
 
 
 class RunArgumentsConstants(object):
@@ -33,7 +33,7 @@ class RunArgumentsConstants(object):
     configfiles = '<configuration>'
     
     # defaults
-    default_configfiles = ['optimizer.ini']
+    default_configfiles = ['tuna.ini']
 # RunArgumentsConstants    
 
 
@@ -90,41 +90,18 @@ class RunStrategy(BaseStrategy):
         """
         Builds and runs the test
         """
-        self.logger.info(INFO_STRING.format("Starting The OPTIMIZER"))
+        self.logger.info(INFO_STRING.format("Starting The TUNA"))
         start = datetime.datetime.now()
         
-        optimizer = self.build_optimizer(args.configfiles)
+        tuna = self.build_tuna(args.configfiles)
         
-        if optimizer is None:
+        if tuna is None:
             return
         
-        if args.trace:
-            import trace
-        
-            tracer = trace.Trace(trace=True,
-                                 ignoremods= ['__init__', 'handlers',
-                                              'threading', 'genericpath',
-                                              'posixpath'],
-                                              timing=True)
-            tracer.runfunc(optimizer)
+        # the main run (the others are for debugging)
+        tuna()
 
-        elif args.callgraph:
-            from pycallgraph import PyCallGraph
-            from pycallgraph import GlobbingFilter
-            from pycallgraph import Config
-            from pycallgraph.output import GraphvizOutput
-            
-            config = Config(max_depth=10)
-            graphviz = GraphvizOutput()
-            graphviz.output_file = 'optimizer_callgraph.png'
-            with PyCallGraph(output=graphviz, config=config):
-                optimizer()
-
-        else:
-            # the main run (the others are for debugging)
-            optimizer()
-
-        optimizer.close()
+        tuna.close()
         end = datetime.datetime.now()
         self.logger.info(INFO_STRING.format("Total Elapsed Time: {0}".format(end-start)))
         return

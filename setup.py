@@ -27,7 +27,7 @@ setup(name='tuna',
       subcommands=tuna.infrastructure.arguments
 
       [tuna.plugins]
-      plugins=tuna.optimizers
+      plugins=tuna.plugins
       """
       )
 

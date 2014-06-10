@@ -1,8 +1,8 @@
 
 """list subcommand
 
-usage: optimizer list -h
-       optimizer list [<module> ...]
+usage: tuna list -h
+       tuna list [<module> ...]
 
 Positional Arguments:
   <module> ...  Space-separated list of importable module with plugins
@@ -14,10 +14,10 @@ optional arguments:
 """
 
 
-# the optimizer
-from optimization.infrastructure.crash_handler import try_except
-from optimization.infrastructure.arguments.arguments import BaseArguments
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
+# the tuna
+from tuna.infrastructure.crash_handler import try_except
+from tuna.infrastructure.arguments.arguments import BaseArguments
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
 
 
 class ListArgumentsConstants(object):

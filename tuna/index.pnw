@@ -1,5 +1,9 @@
-The Optimizer
-=============
+The Tuna
+========
+
+.. image:: figures/tuning_fork.jpg
+
+   Source: `Wikimedia <http://commons.wikimedia.org/wiki/Category:Tuning_forks#mediaviewer/File:Tuning-fork.jpg>`_
 
 <<name='imports', echo=False>>=
 # this package

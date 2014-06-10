@@ -5,7 +5,7 @@ import threading
 from abc import abstractmethod, ABCMeta
 
 # this package
-from optimization.infrastructure.constants import RED, BOLD, RESET
+from tuna.infrastructure.constants import RED, BOLD, RESET
 
 
 DOT_JOIN = "{0}.{1}"

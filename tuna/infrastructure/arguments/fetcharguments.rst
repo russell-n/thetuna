@@ -4,8 +4,8 @@ The Fetch Sub-Command Arguments
 
     """fetch subcommand
         
-    usage: optimizer fetch -h
-           optimizer fetch [<name>...]  [--module <module> ...] 
+    usage: tuna fetch -h
+           tuna fetch [<name>...]  [--module <module> ...] 
     
     positional arguments:
         <name>                         List of plugin-names (default=['Optimize
@@ -47,7 +47,7 @@ The Fetch Arguments Constants
         modules = '--module'
         
         # defaults
-        default_names = ['Optimizer']
+        default_names = ['Tuna']
     
     
 

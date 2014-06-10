@@ -5,17 +5,17 @@ This is a module to help with catching exceptions.
 
 <<name='imports', echo=False>>=
 # this package
-from optimization import RED, BOLD, RESET
+from tuna import RED, BOLD, RESET
 @
 
-.. _optimization-infrastructure-try-except-decorator:
+.. _tuna-infrastructure-try-except-decorator:
 
 The try-except Decorator
 ------------------------
 
 This decorator allows exceptions to be caught and logged, rather than having the interpreter dump the stack-trace to standard-error (it still logs the stack-trace and displays some of the output).
 
-.. currentmodule:: optimization.infrastructure.crash_handler
+.. currentmodule:: tuna.infrastructure.crash_handler
 .. autosummary::
    :toctree: api
 
@@ -51,7 +51,7 @@ def try_except(method):
 The log_error Function
 ----------------------
 
-.. currentmodule:: optimization.infrastructure.crash_handler
+.. currentmodule:: tuna.infrastructure.crash_handler
 .. autosummary::
    :toctree: api
 

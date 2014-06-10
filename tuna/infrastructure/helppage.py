@@ -6,8 +6,8 @@ import shlex
 from itertools import izip
 
 # this package
-from optimization import BaseClass
-from optimization import NEWLINE, BLUE, BOLD, RED, RESET
+from tuna import BaseClass
+from tuna import NEWLINE, BLUE, BOLD, RED, RESET
 
 
 output_documentation = __name__ == '__builtin__'

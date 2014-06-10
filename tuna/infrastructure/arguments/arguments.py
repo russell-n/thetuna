@@ -1,9 +1,8 @@
 
-"""optimizer (a metaheuristic maximizer)
+"""tuna (a metaheuristic maximizer)
 
-Usage: optimizer -h | -v
-       optimizer [--debug|--silent] [--pudb|--pdb] <command> [<argument>...]
-       optimizer [--debug|--silent] [--trace|--callgraph] <command> [<argument>...]
+Usage: tuna -h | -v
+       tuna [--debug|--silent] [--pudb|--pdb] <command> [<argument>...]
 
 Help Options:
 
@@ -35,7 +34,7 @@ Available Sub-Commands:
 
 To get help for a sub-command pass `-h` as the argument. e.g.:
 
-    optimizer run -h
+    tuna run -h
 
 """     
 
@@ -44,8 +43,8 @@ To get help for a sub-command pass `-h` as the argument. e.g.:
 import docopt
 
 # this package
-from optimization import BaseClass, VERSION
-from optimization.infrastructure.ryemother import RyeMother
+from tuna import BaseClass, VERSION
+from tuna.infrastructure.ryemother import RyeMother
 
 
 document_this = __name__ == '__builtin__'

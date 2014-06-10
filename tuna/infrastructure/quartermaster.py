@@ -5,9 +5,9 @@ import importlib
 import inspect
 
 # this package
-from optimization import BaseClass
-from optimization.infrastructure.ryemother import RyeMother
-from base_plugin import BasePlugin
+from tuna import BaseClass
+from tuna.infrastructure.ryemother import RyeMother
+from tuna.plugins.base_plugin import BasePlugin
 
 
 document_this = __name__ == '__builtin__'
@@ -38,8 +38,9 @@ class QuarterMaster(BaseClass):
         """
         if self._import_plugins is None:
             # the group and name values are created in setup.py entry_points
-            self._rye_mother = RyeMother(group='optimization.plugins', name='plugins',
-                                         parent=BasePlugin)
+            self._import_plugins = RyeMother(group='tuna.plugins', name='plugins',
+                                             exclusions=['tuna.plugins.index'],
+                                             parent=BasePlugin)
         return self._import_plugins
 
     @property

@@ -1,17 +1,17 @@
 
 """`check` sub-command
 
-usage: optimizer check -h
-       optimizer check  [<config-file-name> ...] [--module <module> ...]
+usage: tuna check -h
+       tuna check  [<config-file-name> ...] [--module <module> ...]
 
 Positional Arguments:
 
-    <config-file-name> ...    List of config files (e.g. *.ini - default='['optimizer.ini']')
+    <config-file-name> ...    List of config files (e.g. *.ini - default='['tuna.ini']')
 
 optional arguments:
 
     -h, --help                  Show this help message and exit
-    -m, --module <module>       Non-optimizer module with plugins
+    -m, --module <module>       Non-tuna module with plugins
 
 """
 
@@ -20,9 +20,9 @@ optional arguments:
 import docopt
 
 # this package
-from optimization.infrastructure.arguments.arguments import BaseArguments, ArgumentsConstants
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
-from optimization.infrastructure.crash_handler import try_except
+from tuna.infrastructure.arguments.arguments import BaseArguments, ArgumentsConstants
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
+from tuna.infrastructure.crash_handler import try_except
 
 
 class CheckArgumentsConstants(object):
@@ -35,7 +35,7 @@ class CheckArgumentsConstants(object):
     modules = "--module"
 
     #defaults
-    default_configfilenames = ['optimizer.ini']
+    default_configfilenames = ['tuna.ini']
 
 
 class Check(BaseArguments):
@@ -98,15 +98,15 @@ class CheckStrategy(BaseStrategy):
     @try_except
     def function(self, args):
         """
-        Builds the optimizer and checks the configuration(s)
+        Builds the tuna and checks the configuration(s)
 
         :param:
 
-         - `args`: object with configfiles for to build the optimizer
+         - `args`: object with configfiles for to build the tuna
         """
-        optimizer = self.build_optimizer(args.configfiles)
-        if optimizer is None:
+        tuna = self.build_tuna(args.configfiles)
+        if tuna is None:
             return
-        optimizer.check_rep()
+        tuna.check_rep()
         return
 # end CheckStrategy    

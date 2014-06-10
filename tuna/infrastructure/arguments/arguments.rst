@@ -2,11 +2,10 @@ The Arguments
 =============
 ::
 
-    """optimizer (a metaheuristic maximizer)
+    """tuna (a metaheuristic maximizer)
     
-    Usage: optimizer -h | -v
-           optimizer [--debug|--silent] [--pudb|--pdb] <command> [<argument>...]
-           optimizer [--debug|--silent] [--trace|--callgraph] <command> [<argument>...]
+    Usage: tuna -h | -v
+           tuna [--debug|--silent] [--pudb|--pdb] <command> [<argument>...]
     
     Help Options:
     
@@ -38,22 +37,22 @@ The Arguments
     
     To get help for a sub-command pass `-h` as the argument. e.g.:
     
-        optimizer run -h
+        tuna run -h
     
     """     
     
 
 
-.. currentmodule:: optimizer.infrastructure.arguments
+.. currentmodule:: tuna.infrastructure.arguments
 
 
 Contents:
 
-   * :ref:`The Argument Constants <optimization-interface-arguments-argumentconstants>`
-   * :ref:`The BaseArguments <optimization-interface-arguments-basearguments>`
+   * :ref:`The Argument Constants <tuna-interface-arguments-argumentconstants>`
+   * :ref:`The BaseArguments <tuna-interface-arguments-basearguments>`
 
    
-.. _optimization-interface-arguments-argumentconstants:
+.. _tuna-interface-arguments-argumentconstants:
 
 The ArgumentConstants
 ---------------------
@@ -79,7 +78,7 @@ The ArgumentConstants
 
 
 
-.. _optimization-interface-arguments-basearguments:
+.. _tuna-interface-arguments-basearguments:
 
 The BaseArguments
 -----------------
@@ -100,7 +99,7 @@ The BaseArguments
    BaseArguments o-- ListArguments
    BaseArguments o-- HelpArguments
 
-.. currentmodule:: optimization.infrastructure.arguments.arguments
+.. currentmodule:: tuna.infrastructure.arguments.arguments
 .. autosummary::
    :toctree: api
 

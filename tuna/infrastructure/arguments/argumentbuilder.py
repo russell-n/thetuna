@@ -3,9 +3,9 @@
 import sys
 
 # this package
-from optimization.infrastructure.ryemother import RyeMother
-from optimization import BaseClass
-from optimization.infrastructure.arguments import BaseArguments
+from tuna.infrastructure.ryemother import RyeMother
+from tuna import BaseClass
+from tuna.infrastructure.arguments import BaseArguments
 
 
 class ArgumentBuilder(BaseClass):
@@ -32,7 +32,7 @@ class ArgumentBuilder(BaseClass):
         A gatherer of children
         """
         if self._rye_mother is None:
-            self._rye_mother = RyeMother(group='optimization.subcommands',
+            self._rye_mother = RyeMother(group='tuna.subcommands',
                                          name='subcommands',
                                          keyfunction=lambda k: getattr(k, 'lower')())
         return self._rye_mother

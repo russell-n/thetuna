@@ -4,16 +4,16 @@ The Help Sub-Command Arguments
 
     """`help` sub-command
     
-    usage: optimizer help -h
-           optimizer help [-w WIDTH] [--module <module>...] [<name>]
+    usage: tuna help -h
+           tuna help [-w WIDTH] [--module <module>...] [<name>]
     
     positional arguments:
-        <name>                A specific plugin to inquire about [default: Optimizer].
+        <name>                A specific plugin to inquire about [default: Tuna].
     
     optional arguments:
         -h, --help            show this help message and exit
         -w , --width <width>  Number of characters to wide to format the page. [default: 80]
-        -m, --module <module>     non-optimizer module with plugins
+        -m, --module <module>     non-tuna module with plugins
         
     """
     
@@ -22,18 +22,18 @@ The Help Sub-Command Arguments
 
 Contents:
 
-   * :ref:`Help Constants <optimizer-interface-arguments-help-constants>`
-   * :ref:`Help Arguments Class <optimizer-interface-help-arguments-class>`
-   * :ref:`Help Strategy <optimizer-interface-arguments-help-strategy>`
+   * :ref:`Help Constants <tuna-interface-arguments-help-constants>`
+   * :ref:`Help Arguments Class <tuna-interface-help-arguments-class>`
+   * :ref:`Help Strategy <tuna-interface-arguments-help-strategy>`
 
 
 
-.. _optimizer-interface-arguments-help-constants:
+.. _tuna-interface-arguments-help-constants:
 
 The Help Arguments Constants
 ----------------------------
 
-.. currentmodule:: optimizer.interface.arguments.helparguments
+.. currentmodule:: tuna.interface.arguments.helparguments
 .. autosummary::
    :toctree: api
 
@@ -41,7 +41,7 @@ The Help Arguments Constants
 
 
 
-.. _optimizer-interface-help-arguments-class:
+.. _tuna-interface-help-arguments-class:
 
 The Help Class
 --------------
@@ -62,7 +62,7 @@ The Help Class
 
 
 
-.. _optimizer-interface-arguments-help-strategy:
+.. _tuna-interface-arguments-help-strategy:
 
 The Help Strategy
 -----------------

@@ -1,7 +1,7 @@
 
 # this package
-import optimization.infrastructure.arguments
-from optimization.log_setter import set_logger
+import tuna.infrastructure.arguments
+from tuna.log_setter import set_logger
 
 
 def enable_debugging(args):
@@ -31,7 +31,7 @@ def main():
        3. Enables debugging (if asked for)
        4. Calls the function set by the argparse subcommand
     """
-    argue = optimization.infrastructure.arguments.ArgumentBuilder()
+    argue = tuna.infrastructure.arguments.ArgumentBuilder()
     args = argue()
     set_logger(args)
     enable_debugging(args)

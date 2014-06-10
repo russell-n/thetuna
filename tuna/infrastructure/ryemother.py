@@ -24,7 +24,7 @@ class RyeMother(object):
         
          - `exclusions`: list of filenames to ignore
          - `parent`: class definiton for parent of classes to import
-         - `base_package`: the top-level package (e.g. 'ape')
+         - `base_package`: the top-level package (e.g. 'tuna')
          - `group`: group-name from the setup.py entry_points
          - `name`: name of entry in group
          - `module`: name of module (to use instead of an entry point)
@@ -83,7 +83,7 @@ class RyeMother(object):
 
     def from_module_name(self, parent, modulename, keyfunction):
         """
-        Retrieves the definitions using the modulename (dot-notation: ape.plugins)
+        Retrieves the definitions using the modulename (dot-notation: tuna.plugins)
 
         :param:
 
@@ -130,7 +130,8 @@ class RyeMother(object):
         module = pkg_resources.load_entry_point(self.base_package, group, name)
         dirname = os.path.dirname(module.__file__)
         prefix = module.__name__ + '.'
-        names = (name for loader, name, is_pkg in pkgutil.iter_modules([dirname],prefix) if not is_pkg)
+        names = (name for loader, name, is_pkg in pkgutil.iter_modules([dirname],prefix) if not is_pkg
+                 and not name in self.exclusions)
         modules = (importlib.import_module(name) for name in names)
 
         for module in modules:

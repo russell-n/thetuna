@@ -12,12 +12,12 @@ The `Rye Mother <http://www.pitt.edu/~dash/gerchange.html#GrimmRyeMother>`_ gath
 
 Contents:
 
-   * :ref:`The Entry Points <ape-commoncode-rye-mother-entry-points>`
-   * :ref:`The RyeMother Class <ape-commoncode-rye-mother-class>`
-   * :ref:`Dependencies <ape-commoncode-rye-mother-dependecies>`
-   * :ref:`What it does <ape-commoncode-rye-mother-algorithm>`
+   * :ref:`The Entry Points <tuna-commoncode-rye-mother-entry-points>`
+   * :ref:`The RyeMother Class <tuna-commoncode-rye-mother-class>`
+   * :ref:`Dependencies <tuna-commoncode-rye-mother-dependecies>`
+   * :ref:`What it does <tuna-commoncode-rye-mother-algorithm>`
 
-.. _ape-commoncode-rye-mother-entry-points:
+.. _tuna-commoncode-rye-mother-entry-points:
    
 The Entry Points
 ----------------
@@ -27,18 +27,18 @@ The RyeMother uses entry points defined in the `setup.py` file. The entry_points
     [group]
     name = module:object
 
-In this case, the RyeMother wants to search the folder for class-definitions so the `object` is left out. As a concrete example, for the ape subcommands, the entry points would look like this::
+In this case, the RyeMother wants to search the folder for class-definitions so the `object` is left out. As a concrete example, for the tuna subcommands, the entry points would look like this::
 
       entry_points = """
-        [ape.subcommands]
-        ape_subcommands = ape.interface.arguments
+        [tuna.subcommands]
+        subcommands = tuna.interface.arguments
         """
 
 .. note:: The actual `setup.py` has other entries, this is just the sub-commands entry.
 
-The `[ape.subcommands]` defines a group name, you can put multiple entries under it for other modules or objects. `ape_subcommands` is the name that is used to reference the `ape.interface.arguments` module in the code.
+The `[tuna.subcommands]` defines a group name, you can put multiple entries under it for other modules or objects. `subcommands` is the name that is used to reference the `tuna.interface.arguments` module in the code.
 
-.. _ape-commoncode-rye-mother-dependecies:
+.. _tuna-commoncode-rye-mother-dependecies:
 
 Dependencies
 ------------
@@ -80,7 +80,7 @@ The methods used:
 
    getmembers
 
-.. _ape-commoncode-rye-mother-algorithm:
+.. _tuna-commoncode-rye-mother-algorithm:
 
 What the RyeMother Does
 -----------------------
@@ -93,7 +93,7 @@ The RyeMother's __call__ method converts the parameters to a dictionary of class
    :header: Parameter, Description
 
    `parent`, The Base Class of the child-classes that we want to import
-   `group`, Group name in the `entry_points` variable in `setup.py` (see :ref:`Entry Points <ape-commoncode-rye-mother-entry-points>`)
+   `group`, Group name in the `entry_points` variable in `setup.py` (see :ref:`Entry Points <tuna-commoncode-rye-mother-entry-points>`)
    `name`, name of the module in the `entry_points` variable in `setup.py`
    `keyfunction`, function to transform the keys of the dictionary (default uses the actual class names)
 
@@ -107,12 +107,12 @@ The idea here is that to identify the classes that we're interested in we'll def
 
 The `parent` parameter for the RyeMother is the actual class definition object. For example, if the user of the RyeMother did the following::
 
-   from ape.interface.arguments import BaseArguments
+   from tuna.interface.arguments import BaseArguments
 
-Then `BaseArguments` is what would be passed to the call and all the classes that inherit from it will be returned. If we defined `ape.subcommands` as the group and  `ape_subcommands` as the name in the `setup.py` `entry_points` variable as mentioned :ref:`earlier <ape-commoncode-rye-mother-entry-points>`, and we wanted to retrieve the `Run` class, we could use something like this::
+Then `BaseArguments` is what should be passed to the call and all the classes that inherit from it will be returned. If we defined `tuna.subcommands` as the group and  `subcommands` as the name in the `setup.py` `entry_points` variable as mentioned :ref:`earlier <tuna-commoncode-rye-mother-entry-points>`, and we wanted to retrieve the `Run` class, we could use something like this::
 
    mother = RyeMother()
-   children = mother(parent=BaseArguments, group='ape.subcommands', name='ape_subcommands')
+   children = mother(parent=BaseArguments, group='tuna.subcommands', name='subcommands')
    Run = children['Run']
    run_instance = Run()
 
@@ -138,12 +138,12 @@ This is the main path for the ``__call__``:
     #. For each member, if `keyfunction` is defined, transform its name
     #. For each member, add it to the children dictionary, using the name as a key and the class-definition object as the value
 
-.. _ape-commoncode-rye-mother-class:
+.. _tuna-commoncode-rye-mother-class:
 
 The RyeMother Class
 -------------------
 
-.. currentmodule:: ape.commoncode.ryemother 
+.. currentmodule:: tuna.infrastructure.ryemother 
 .. autosummary::
    :toctree: api
 

@@ -4,18 +4,18 @@ The Check Sub-Command Arguments
 
     """`check` sub-command
     
-    usage: optimizer check -h
-           optimizer check  [<config-file-name> ...] [--module <module> ...]
+    usage: tuna check -h
+           tuna check  [<config-file-name> ...] [--module <module> ...]
     
     Positional Arguments:
     
         <config-file-name> ...    List of config files (e.g. *.ini - default='[
-    'optimizer.ini']')
+    'tuna.ini']')
     
     optional arguments:
     
         -h, --help                  Show this help message and exit
-        -m, --module <module>       Non-optimizer module with plugins
+        -m, --module <module>       Non-tuna module with plugins
     
     """
     
@@ -23,17 +23,17 @@ The Check Sub-Command Arguments
 
 
 
-See the :ref:`developer documentation <docopt-reproducingoptimizer-check-sub-command>` for more information about this.
+See the :ref:`developer documentation <docopt-reproducingtuna-check-sub-command>` for more information about this.
 
 Contents:
 
-   * :ref:`Check Arguments Constants <optimizer-interface-arguments-check-arguments-constants>`
-   * :ref:`Check Arguments Class <optimizer-interface-arguments-check-arguments-class>`
-   * :ref:`Check Strategy <optimizer-interface-arguments-check-strategy>`
+   * :ref:`Check Arguments Constants <tuna-interface-arguments-check-arguments-constants>`
+   * :ref:`Check Arguments Class <tuna-interface-arguments-check-arguments-class>`
+   * :ref:`Check Strategy <tuna-interface-arguments-check-strategy>`
 
 
 
-.. _optimizer-interface-arguments-check-arguments-constants:
+.. _tuna-interface-arguments-check-arguments-constants:
 
 The CheckArgumentsConstants
 ---------------------------
@@ -50,13 +50,13 @@ The CheckArgumentsConstants
         modules = "--module"
     
         #defaults
-        default_configfilenames = ['optimizer.ini']
+        default_configfilenames = ['tuna.ini']
     
     
 
 
 
-.. _optimizer-interface-arguments-check-arguments-class:
+.. _tuna-interface-arguments-check-arguments-class:
 
 The Check Class
 ---------------
@@ -65,7 +65,7 @@ The Check Class
 
    BaseArguments <|-- Check
 
-.. currentmodule:: optimizer.interface.arguments.checkarguments
+.. currentmodule:: tuna.interface.arguments.checkarguments
 .. autosummary::
    :toctree: api
 
@@ -77,7 +77,7 @@ The Check Class
 
 
 
-.. _optimizer-interface-arguments-check-strategy:
+.. _tuna-interface-arguments-check-strategy:
 
 The Check Strategy
 ------------------

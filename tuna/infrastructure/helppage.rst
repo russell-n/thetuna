@@ -1,7 +1,7 @@
 Help Page
 =========
 
-.. currentmodule:: optimization.infrastructure.helppage
+.. currentmodule:: tuna.infrastructure.helppage
 .. _help-page:
 
 This is a module to help with creating help-pages.

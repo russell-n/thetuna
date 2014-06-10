@@ -4,8 +4,8 @@ The Run Sub-Command Arguments
 
     """`run` sub-command
     
-    Usage: optimizer run -h
-           optimizer run [<configuration>...]
+    Usage: tuna run -h
+           tuna run [<configuration>...]
     
     Positional Arguments:
     
@@ -26,13 +26,13 @@ See the :ref:`developer documentation <docopt-reproducingoptimizer-run-sub-comma
 
 Contents:
 
-    * :ref:`Run Arguments Constants <optimizer-interface-run-arguments-constants>`
-    * :ref:`Run Arguments Class <optimizer-interface-run-arguments-class>`
-    * :ref:`Run Strategy <optimizer-interface-run-strategy>`
+    * :ref:`Run Arguments Constants <tuna-interface-run-arguments-constants>`
+    * :ref:`Run Arguments Class <tuna-interface-run-arguments-class>`
+    * :ref:`Run Strategy <tuna-interface-run-strategy>`
 
 
 
-.. _optimizer-interface-run-arguments-constants:
+.. _tuna-interface-run-arguments-constants:
 
 The RunArguments Constants
 --------------------------
@@ -47,14 +47,14 @@ The RunArguments Constants
         configfiles = '<configuration>'
         
         # defaults
-        default_configfiles = ['optimizer.ini']
+        default_configfiles = ['tuna.ini']
     # RunArgumentsConstants    
     
     
 
 
 
-.. _optimizer-interface-run-arguments-class:
+.. _tuna-interface-run-arguments-class:
 
 The RunArguments Class
 ----------------------
@@ -63,7 +63,7 @@ The RunArguments Class
 
    BaseArguments <|-- RunArguments
 
-.. currentmodule:: optimizer.interface.arguments.runarguments
+.. currentmodule:: tuna.interface.arguments.runarguments
 .. autosummary::
    :toctree: api
 
@@ -73,12 +73,12 @@ The RunArguments Class
 
 
 
-.. _optimizer-interface-run-strategy:
+.. _tuna-interface-run-strategy:
 
 The Run Strategy
 ----------------
 
-This is the strategy for the `run` sub-command than runs the OPTIMIZER.
+This is the strategy for the `run` sub-command than runs the TUNA.
 
 .. uml::
 

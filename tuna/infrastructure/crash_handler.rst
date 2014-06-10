@@ -5,14 +5,14 @@ This is a module to help with catching exceptions.
 
 
 
-.. _optimization-infrastructure-try-except-decorator:
+.. _tuna-infrastructure-try-except-decorator:
 
 The try-except Decorator
 ------------------------
 
 This decorator allows exceptions to be caught and logged, rather than having the interpreter dump the stack-trace to standard-error (it still logs the stack-trace and displays some of the output).
 
-.. currentmodule:: optimization.infrastructure.crash_handler
+.. currentmodule:: tuna.infrastructure.crash_handler
 .. autosummary::
    :toctree: api
 
@@ -31,7 +31,7 @@ I have now added a call to a  `self.close` method after an exception is caught s
 The log_error Function
 ----------------------
 
-.. currentmodule:: optimization.infrastructure.crash_handler
+.. currentmodule:: tuna.infrastructure.crash_handler
 .. autosummary::
    :toctree: api
 

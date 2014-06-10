@@ -1,8 +1,8 @@
 
 """fetch subcommand
     
-usage: optimizer fetch -h
-       optimizer fetch [<name>...]  [--module <module> ...] 
+usage: tuna fetch -h
+       tuna fetch [<name>...]  [--module <module> ...] 
 
 positional arguments:
     <name>                         List of plugin-names (default=['Optimizer'])
@@ -13,10 +13,10 @@ optional arguments:
 """
 
 
-# the OPTIMIZER
-from optimization.infrastructure.arguments.arguments import BaseArguments
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
-from optimization.infrastructure.crash_handler import try_except
+# the Tuna
+from tuna.infrastructure.arguments.arguments import BaseArguments
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
+from tuna.infrastructure.crash_handler import try_except
 
 
 class FetchArgumentsConstants(object):
@@ -29,7 +29,7 @@ class FetchArgumentsConstants(object):
     modules = '--module'
     
     # defaults
-    default_names = ['Optimizer']
+    default_names = ['Tuna']
 
 
 class Fetch(BaseArguments):

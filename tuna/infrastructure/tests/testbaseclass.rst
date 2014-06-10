@@ -3,7 +3,7 @@ Testing the Base Class(es)
 
 
 
-.. currentmodule:: optimization.infrastructure.tests.testbaseclass
+.. currentmodule:: tuna.infrastructure.tests.testbaseclass
 .. autosummary:: 
    :toctree: api
 

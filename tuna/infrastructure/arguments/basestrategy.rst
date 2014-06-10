@@ -1,25 +1,24 @@
 The BaseStrategy
 ================
 
-.. currentmodule:: optimization.infrastructure.arguments.basestrategy
+.. currentmodule:: tuna.infrastructure.arguments.basestrategy
 
 Contents:
 
-    * :ref:`Introduction <optimization-infrastructure-arguments-base-strategy>`
-    * :ref:`Class Model <optimization-infrastructure-arguments-basestrategy-class-model>`
-    * :ref:`Error Explanations <optimization-infrastructure-arguments-basestrategy-errors>`
-    * :ref:`UbootKommandant API <ubootkommandant-api>`
+    * :ref:`Introduction <tuna-infrastructure-arguments-base-strategy>`
+    * :ref:`Class Model <tuna-infrastructure-arguments-basestrategy-class-model>`
+    * :ref:`Error Explanations <tuna-infrastructure-arguments-basestrategy-errors>`
 
 
 
-.. _optimization-infrastructure-arguments-base-strategy:
+.. _tuna-infrastructure-arguments-base-strategy:
 
 The BaseStrategy
 ----------------
 
 This is a holder of sub-commands for the arguments. Its main purpose is to  provide the QuarterMaster and Optimization-plugin, since one or both is being used by various sub-commands.
 
-.. _optimization-infrastructure-arguments-basestrategy-class-model:
+.. _tuna-infrastructure-arguments-basestrategy-class-model:
 
 Class Model
 -----------
@@ -27,12 +26,12 @@ Class Model
 .. uml::
 
    BaseStrategy o- QuarterMaster
-   BaseStrategy o- TheOptimizer
+   BaseStrategy o- Tuna
    BaseStrategy --|> BaseClass
 
 
 
-.. _optimization-infrastructure-arguments-basestrategy-errors:
+.. _tuna-infrastructure-arguments-basestrategy-errors:
 
 The Errors
 ----------

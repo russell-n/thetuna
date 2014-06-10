@@ -6,7 +6,7 @@ This is a module to hold base-classes for others to sub-class.
 API
 ---
 
-.. currentmodule:: optimization.infrastructure.baseclass
+.. currentmodule:: tuna.infrastructure.baseclass
 
 .. autosummary::
    :toctree: api

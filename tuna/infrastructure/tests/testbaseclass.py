@@ -8,7 +8,7 @@ import threading
 from mock import MagicMock, patch
 
 # this package
-from optimization.infrastructure.baseclass import BaseClass, BaseThreadClass
+from tuna.infrastructure.baseclass import BaseClass, BaseThreadClass
 
 
 class TestBaseClass(unittest.TestCase):

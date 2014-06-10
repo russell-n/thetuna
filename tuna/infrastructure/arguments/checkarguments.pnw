@@ -3,40 +3,40 @@ The Check Sub-Command Arguments
 <<name='docstring'>>=
 """`check` sub-command
 
-usage: optimizer check -h
-       optimizer check  [<config-file-name> ...] [--module <module> ...]
+usage: tuna check -h
+       tuna check  [<config-file-name> ...] [--module <module> ...]
 
 Positional Arguments:
 
-    <config-file-name> ...    List of config files (e.g. *.ini - default='['optimizer.ini']')
+    <config-file-name> ...    List of config files (e.g. *.ini - default='['tuna.ini']')
 
 optional arguments:
 
     -h, --help                  Show this help message and exit
-    -m, --module <module>       Non-optimizer module with plugins
+    -m, --module <module>       Non-tuna module with plugins
 
 """
 @
 
-See the :ref:`developer documentation <docopt-reproducingoptimizer-check-sub-command>` for more information about this.
+See the :ref:`developer documentation <docopt-reproducingtuna-check-sub-command>` for more information about this.
 
 Contents:
 
-   * :ref:`Check Arguments Constants <optimizer-interface-arguments-check-arguments-constants>`
-   * :ref:`Check Arguments Class <optimizer-interface-arguments-check-arguments-class>`
-   * :ref:`Check Strategy <optimizer-interface-arguments-check-strategy>`
+   * :ref:`Check Arguments Constants <tuna-interface-arguments-check-arguments-constants>`
+   * :ref:`Check Arguments Class <tuna-interface-arguments-check-arguments-class>`
+   * :ref:`Check Strategy <tuna-interface-arguments-check-strategy>`
 
 <<name='imports', echo=False>>=
 # third-party
 import docopt
 
 # this package
-from optimization.infrastructure.arguments.arguments import BaseArguments, ArgumentsConstants
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
-from optimization.infrastructure.crash_handler import try_except
+from tuna.infrastructure.arguments.arguments import BaseArguments, ArgumentsConstants
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
+from tuna.infrastructure.crash_handler import try_except
 @
 
-.. _optimizer-interface-arguments-check-arguments-constants:
+.. _tuna-interface-arguments-check-arguments-constants:
 
 The CheckArgumentsConstants
 ---------------------------
@@ -52,10 +52,10 @@ class CheckArgumentsConstants(object):
     modules = "--module"
 
     #defaults
-    default_configfilenames = ['optimizer.ini']
+    default_configfilenames = ['tuna.ini']
 @
 
-.. _optimizer-interface-arguments-check-arguments-class:
+.. _tuna-interface-arguments-check-arguments-class:
 
 The Check Class
 ---------------
@@ -64,7 +64,7 @@ The Check Class
 
    BaseArguments <|-- Check
 
-.. currentmodule:: optimizer.interface.arguments.checkarguments
+.. currentmodule:: tuna.interface.arguments.checkarguments
 .. autosummary::
    :toctree: api
 
@@ -128,7 +128,7 @@ class Check(BaseArguments):
 #end Check    
 @
 
-.. _optimizer-interface-arguments-check-strategy:
+.. _tuna-interface-arguments-check-strategy:
 
 The Check Strategy
 ------------------
@@ -153,16 +153,16 @@ class CheckStrategy(BaseStrategy):
     @try_except
     def function(self, args):
         """
-        Builds the optimizer and checks the configuration(s)
+        Builds the tuna and checks the configuration(s)
 
         :param:
 
-         - `args`: object with configfiles for to build the optimizer
+         - `args`: object with configfiles for to build the tuna
         """
-        optimizer = self.build_optimizer(args.configfiles)
-        if optimizer is None:
+        tuna = self.build_tuna(args.configfiles)
+        if tuna is None:
             return
-        optimizer.check_rep()
+        tuna.check_rep()
         return
 # end CheckStrategy    
 @

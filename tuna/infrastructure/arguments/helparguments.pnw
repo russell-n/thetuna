@@ -3,39 +3,39 @@ The Help Sub-Command Arguments
 <<name='docstring', wrap=False>>=
 """`help` sub-command
 
-usage: optimizer help -h
-       optimizer help [-w WIDTH] [--module <module>...] [<name>]
+usage: tuna help -h
+       tuna help [-w WIDTH] [--module <module>...] [<name>]
 
 positional arguments:
-    <name>                A specific plugin to inquire about [default: Optimizer].
+    <name>                A specific plugin to inquire about [default: Tuna].
 
 optional arguments:
     -h, --help            show this help message and exit
     -w , --width <width>  Number of characters to wide to format the page. [default: 80]
-    -m, --module <module>     non-optimizer module with plugins
+    -m, --module <module>     non-tuna module with plugins
     
 """
 @
 
 Contents:
 
-   * :ref:`Help Constants <optimizer-interface-arguments-help-constants>`
-   * :ref:`Help Arguments Class <optimizer-interface-help-arguments-class>`
-   * :ref:`Help Strategy <optimizer-interface-arguments-help-strategy>`
+   * :ref:`Help Constants <tuna-interface-arguments-help-constants>`
+   * :ref:`Help Arguments Class <tuna-interface-help-arguments-class>`
+   * :ref:`Help Strategy <tuna-interface-arguments-help-strategy>`
 
 <<name='imports', echo=False>>=
-# the optimizer
-from optimization.infrastructure.crash_handler import try_except
-from optimization.infrastructure.arguments.arguments import BaseArguments
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
+# the tuna
+from tuna.infrastructure.crash_handler import try_except
+from tuna.infrastructure.arguments.arguments import BaseArguments
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
 @
 
-.. _optimizer-interface-arguments-help-constants:
+.. _tuna-interface-arguments-help-constants:
 
 The Help Arguments Constants
 ----------------------------
 
-.. currentmodule:: optimizer.interface.arguments.helparguments
+.. currentmodule:: tuna.interface.arguments.helparguments
 .. autosummary::
    :toctree: api
 
@@ -51,10 +51,10 @@ class HelpArgumentsConstants(object):
     modules = '--module'
     name = "<name>"
 
-    default_name = 'Optimizer'
+    default_name = 'Tuna'
 @
 
-.. _optimizer-interface-help-arguments-class:
+.. _tuna-interface-help-arguments-class:
 
 The Help Class
 --------------
@@ -137,7 +137,7 @@ class Help(BaseArguments):
 # end Help    
 @
 
-.. _optimizer-interface-arguments-help-strategy:
+.. _tuna-interface-arguments-help-strategy:
 
 The Help Strategy
 -----------------

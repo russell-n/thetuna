@@ -7,7 +7,7 @@ This is an adapter to make the `docopt` based argument-parsers look like argpars
 
    ArgumentBuilder o- BaseArguments
 
-.. currentmodule:: optimization.interface.arguments.argumentbuilder
+.. currentmodule:: tuna.interface.arguments.argumentbuilder
 .. autosummary::
    :toctree: api
 

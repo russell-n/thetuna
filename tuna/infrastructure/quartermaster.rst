@@ -1,7 +1,7 @@
 The QuarterMaster
 =================
 
-.. currentmodule:: optimization.infrastructure.quartermaster
+.. currentmodule:: tuna.infrastructure.quartermaster
 
 The `QuarterMaster <http://en.wikipedia.org/wiki/Quartermaster>`_ handles finding and interacting with the plugins.
 
@@ -13,7 +13,7 @@ The `QuarterMaster <http://en.wikipedia.org/wiki/Quartermaster>`_ handles findin
    QuarterMaster o- RyeMother
    
 
-.. _optimization-infrastructure-quartermaster:   
+.. _tuna-infrastructure-quartermaster:   
 
 Public Methods and Properties
 -----------------------------

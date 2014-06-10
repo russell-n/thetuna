@@ -11,10 +11,10 @@ import threading
 from mock import MagicMock, patch
 
 # this package
-from optimization.infrastructure.baseclass import BaseClass, BaseThreadClass
+from tuna.infrastructure.baseclass import BaseClass, BaseThreadClass
 @
 
-.. currentmodule:: optimization.infrastructure.tests.testbaseclass
+.. currentmodule:: tuna.infrastructure.tests.testbaseclass
 .. autosummary:: 
    :toctree: api
 

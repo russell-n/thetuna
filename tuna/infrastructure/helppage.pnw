@@ -1,7 +1,7 @@
 Help Page
 =========
 
-.. currentmodule:: optimization.infrastructure.helppage
+.. currentmodule:: tuna.infrastructure.helppage
 .. _help-page:
 
 This is a module to help with creating help-pages.
@@ -14,8 +14,8 @@ import shlex
 from itertools import izip
 
 # this package
-from optimization import BaseClass
-from optimization import NEWLINE, BLUE, BOLD, RED, RESET
+from tuna import BaseClass
+from tuna import NEWLINE, BLUE, BOLD, RED, RESET
 @
 <<name='check_weave', echo=False>>=
 output_documentation = __name__ == '__builtin__'

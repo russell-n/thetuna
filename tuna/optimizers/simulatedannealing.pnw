@@ -37,13 +37,16 @@ Simulated Annealing
    :toctree: api
 
    SimulatedAnnealing
+   SimulatedAnnealing.__call__
+   SimulatedAnnealing.solutions
 
 <<name='SimulatedAnnealing'>>=
 class SimulatedAnnealing(object):
     """
     a Simulated Annealing optimizer
     """
-    def __init__(self, temperatures, tweak, quality, candidate):
+    def __init__(self, temperatures, tweak, quality, candidate, stop_condition,
+                 solution_storage=None):
         """
         SimulatedAnnealing Constructor
 
@@ -53,12 +56,25 @@ class SimulatedAnnealing(object):
          - `tweak`: callable that tweaks the best solution so far
          - `quality`: Quality checker for candidates
          - `candidate`: initial candidate solution
+         - `stop_condition`: a condition to decide to prematurely stop
+         - `solution_storage`: a callable to send solutions to
         """
         self.temperatures = temperatures
         self.tweak = tweak
         self.quality = quality
         self.solution = candidate
+        self.stop_condition = stop_condition
+        self._solutions = solution_storage
         return
+
+    @property
+    def solutions(self):
+        """
+        object with `append` method to save solutions
+        """
+        if self._solutions is None:
+            self._solutions = []
+        return self._solutions
 
     def __call__(self):
         """
@@ -75,7 +91,9 @@ class SimulatedAnnealing(object):
                 random.random() < math.exp(quality_difference/float(temperature))):
                 solution = candidate
             if self.quality(solution) > self.quality(self.solution):
+                self.solutions.append(solution)
                 self.solution = solution
+            if self.stop_condition(self.solution)
         return self.solution
 # SimulatedAnnealing    
 @

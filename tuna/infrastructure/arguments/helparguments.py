@@ -1,24 +1,24 @@
 
 """`help` sub-command
 
-usage: optimizer help -h
-       optimizer help [-w WIDTH] [--module <module>...] [<name>]
+usage: tuna help -h
+       tuna help [-w WIDTH] [--module <module>...] [<name>]
 
 positional arguments:
-    <name>                A specific plugin to inquire about [default: Optimizer].
+    <name>                A specific plugin to inquire about [default: Tuna].
 
 optional arguments:
     -h, --help            show this help message and exit
     -w , --width <width>  Number of characters to wide to format the page. [default: 80]
-    -m, --module <module>     non-optimizer module with plugins
+    -m, --module <module>     non-tuna module with plugins
     
 """
 
 
-# the optimizer
-from optimization.infrastructure.crash_handler import try_except
-from optimization.infrastructure.arguments.arguments import BaseArguments
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
+# the tuna
+from tuna.infrastructure.crash_handler import try_except
+from tuna.infrastructure.arguments.arguments import BaseArguments
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
 
 
 class HelpArgumentsConstants(object):
@@ -30,7 +30,7 @@ class HelpArgumentsConstants(object):
     modules = '--module'
     name = "<name>"
 
-    default_name = 'Optimizer'
+    default_name = 'Tuna'
 
 
 class Help(BaseArguments):

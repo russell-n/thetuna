@@ -3,8 +3,8 @@ The List Sub-Command Arguments
 <<name='docstring', wrap=False>>=
 """list subcommand
 
-usage: optimizer list -h
-       optimizer list [<module> ...]
+usage: tuna list -h
+       tuna list [<module> ...]
 
 Positional Arguments:
   <module> ...  Space-separated list of importable module with plugins
@@ -16,22 +16,22 @@ optional arguments:
 """
 @
 
-See the :ref:`developer documentation <docopt-reproducingoptimizer-list-sub-command>` for more information.
+See the :ref:`developer documentation <docopt-reproducingtuna-list-sub-command>` for more information.
 
 Contents:
 
-    * :ref:`The List Arguments Constants <optimizer-interface-arguments-list-arguments-constants>`
-    * :ref:`The List Arguments Class <optimizer-interface-arguments-list-arguments-class>`
-    * :ref:`The List Strategy <optimizer-interface-arguments-list-strategy>`
+    * :ref:`The List Arguments Constants <tuna-interface-arguments-list-arguments-constants>`
+    * :ref:`The List Arguments Class <tuna-interface-arguments-list-arguments-class>`
+    * :ref:`The List Strategy <tuna-interface-arguments-list-strategy>`
 
 <<name='imports', echo=False>>=
-# the optimizer
-from optimization.infrastructure.crash_handler import try_except
-from optimization.infrastructure.arguments.arguments import BaseArguments
-from optimization.infrastructure.arguments.basestrategy import BaseStrategy
+# the tuna
+from tuna.infrastructure.crash_handler import try_except
+from tuna.infrastructure.arguments.arguments import BaseArguments
+from tuna.infrastructure.arguments.basestrategy import BaseStrategy
 @
 
-.. _optimizer-interface-arguments-list-arguments-constants:
+.. _tuna-interface-arguments-list-arguments-constants:
 
 The ListArguments Constants
 ---------------------------
@@ -46,7 +46,7 @@ class ListArgumentsConstants(object):
     modules = "<module>"
 @
 
-.. _optimizer-interface-arguments-list-arguments-class:
+.. _tuna-interface-arguments-list-arguments-class:
 
 The List Class
 --------------
@@ -55,7 +55,7 @@ The List Class
 
    BaseArguments <|-- List
 
-.. currentmodule:: optimizer.interface.arguments.listarguments
+.. currentmodule:: tuna.interface.arguments.listarguments
 .. autosummary::
    :toctree: api
 
@@ -105,7 +105,7 @@ class List(BaseArguments):
 @
 
 
-.. _optimizer-interface-arguments-list-strategy:
+.. _tuna-interface-arguments-list-strategy:
 
 The List Strategy
 -----------------
@@ -114,7 +114,7 @@ The List Strategy
 
    BaseStrategy <|-- ListStrategy
 
-.. currentmodule:: optimizer.interface.arguments.listarguments
+.. currentmodule:: tuna.interface.arguments.listarguments
 .. autosummary::
    :toctree: api
 
