@@ -1,5 +1,9 @@
-The Optimizer
-=============
+The Tuna
+========
+
+.. image:: figures/tuning_fork.jpg
+
+   Source: `Wikimedia <http://commons.wikimedia.org/wiki/Category:Tuning_forks#mediaviewer/File:Tuning-fork.jpg>`_
 
 
 
@@ -27,6 +31,7 @@ Auto-Generated Documentation
    The Infrastructure <infrastructure/index.rst>
    Optimizers <optimizers/index.rst>
    The Parts <parts/index.rst>
+   The Tuna-Plugins <plugins/index.rst>
    Quality Modules <qualities/index.rst>
    Tweaks <tweaks/index.rst>
 

@@ -1,7 +1,7 @@
 # Makefile for Sphinx documentation
 #
-THIS_NAME = optimization
-RSYNC_NAME = optimization
+THIS_NAME = tuna
+RSYNC_NAME = the_tuna
 RSYNC_CATEGORY = explorations
 # You can set these variables from the command line.
 SPHINXOPTS    =

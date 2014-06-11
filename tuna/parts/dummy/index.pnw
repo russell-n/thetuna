@@ -1,0 +1,14 @@
+Dummy Components
+================
+
+<<name='imports', echo=False>>=
+# this package
+from tuna.infrastructure.index_builder import create_toctree
+@
+This package is for things meant to test the infrastructure.
+
+
+<<name='toctree', echo=False, results='sphinx'>>=
+create_toctree()
+@
+

@@ -1,29 +1,59 @@
 
 # python standard library
-import itertools
 import random
 import math
 
+# this package
+from tuna.components.component import Component
 
-class SimulatedAnnealing(object):
+
+class SimulatedAnnealer(Component):
     """
-    a Simulated Annealing optimizer
+    a Simulated Annealer optimizer
     """
-    def __init__(self, temperatures, candidates, quality, candidate):
+    def __init__(self, temperatures, tweak, quality, candidate, stop_condition,
+                 solution_storage=None):
         """
-        SimulatedAnnealing Constructor
+        SimulatedAnnealer Constructor
 
         :param:
 
          - `temperatures`: a generator of temperatures
-         - `candidates`: a generator of candidate solutions
+         - `tweak`: callable that tweaks the best solution so far
          - `quality`: Quality checker for candidates
          - `candidate`: initial candidate solution
+         - `stop_condition`: a condition to decide to prematurely stop
+         - `solution_storage`: a callable to send solutions to
         """
         self.temperatures = temperatures
-        self.candidates = candidates
+        self.tweak = tweak
         self.quality = quality
         self.solution = candidate
+        self.stop_condition = stop_condition
+        self._solutions = solution_storage
+        return
+
+    @property
+    def solutions(self):
+        """
+        object with `append` method to save solutions
+        """
+        if self._solutions is None:
+            self._solutions = []
+        return self._solutions
+
+    def check_rep(self):
+        """
+        should validate the parameters
+        """
+        return
+
+    def close(self):
+        """
+        closes the quality and solutions' storage
+        """
+        self.quality.close()
+        self.solutions.close()
         return
 
     def __call__(self):
@@ -32,19 +62,21 @@ class SimulatedAnnealing(object):
 
         :return: last non-None output given
         """
-        candidates_and_temperatures = itertools.izip(self.candidates,
-                                                     self.temperatures)
         solution = self.solution
-        for candidate, temperature in candidates_and_temperatures:
+        for temperature in self.temperatures:
+            candidate = self.tweak(solution)
+            
             quality_difference = self.quality(candidate) - self.quality(solution)
             if (quality_difference > 0 or
                 random.random() < math.exp(quality_difference/float(temperature))):
                 solution = candidate
             if self.quality(solution) > self.quality(self.solution):
+                self.solutions.append(solution)
                 self.solution = solution
-            print candidate, self.solution
+            if self.stop_condition(self.solution):
+                break
         return self.solution
-# SimulatedAnnealing    
+# SimulatedAnnealer    
 
 
 class TemperatureGenerator(object):
@@ -77,3 +109,44 @@ class TemperatureGenerator(object):
             temperature = self.schedule(temperature)
         return
 # end class TemperatureGenerator    
+
+
+class TimeTemperatureGenerator(object):
+    """
+    A Generator of temperatures using repetitions
+    """
+    def __init__(self, start, stop, alpha):
+        """
+        TimeTemperatureGenerator constructor
+
+        :param:
+
+         - `start`: starting temperature (T_0)
+         - `stop: stopping temperature
+         - `alpha`: constant value used by the schedule
+        """
+        self.start = start
+        self.stop = stop
+        self.alpha = alpha
+        self.time = -1
+        return
+
+    def schedule(self):
+        """
+        Method that returns the next temperature
+
+        increments self.time and returns next time in geometric progression
+        """
+        self.time += 1        
+        return self.start * self.alpha**self.time
+
+    def __iter__(self):
+        """
+        Iterator to yield temperatures
+        """
+        temperature = self.schedule()
+        while temperature > self.stop:
+            yield temperature
+            temperature = self.schedule()
+        return        
+# end TimeTemperatureGenerator    

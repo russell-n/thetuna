@@ -4,6 +4,9 @@ The Simulated Annealing Optimizer
 # python standard library
 import random
 import math
+
+# this package
+from tuna.components.component import Component
 @
 
 Contents:
@@ -21,6 +24,8 @@ This optimizer uses `simulated annealing`, an nature-based approach that uses th
 
 The optimizer simulates annealing by starting with a high 'temperature' which causes it to explore more and then as it cools down it begins to slow its exploration. Specifically, it calculates an entropy value based on the difference between the new candidate and the previous solution and the temperature and then generates a random number which, if it is less that the entropy value, causes the learner to accept the new candidate even if it doesn't do as well as the previous solution.
 
+.. note:: The class itself is called `SimulatedAnnealer` so that I can call the plugin `SimulatedAnnealing`
+
 .. '
 
 .. math::
@@ -29,26 +34,30 @@ The optimizer simulates annealing by starting with a high 'temperature' which ca
 
 .. _optimization-optimizers-simulatedannealing:
    
-Simulated Annealing
--------------------
+Simulated Annealer
+------------------
 
-.. currentmodule:: optimization.optimizers.simulatedannealing
+.. uml::
+
+   Component <|-- SimulatedAnnealer
+
+.. currentmodule:: tuna.optimizers.simulatedannealing
 .. autosummary::
    :toctree: api
 
-   SimulatedAnnealing
-   SimulatedAnnealing.__call__
-   SimulatedAnnealing.solutions
+   SimulatedAnnealer
+   SimulatedAnnealer.__call__
+   SimulatedAnnealer.solutions
 
-<<name='SimulatedAnnealing'>>=
-class SimulatedAnnealing(object):
+<<name='SimulatedAnnealer', echo=False>>=
+class SimulatedAnnealer(Component):
     """
-    a Simulated Annealing optimizer
+    a Simulated Annealer optimizer
     """
     def __init__(self, temperatures, tweak, quality, candidate, stop_condition,
                  solution_storage=None):
         """
-        SimulatedAnnealing Constructor
+        SimulatedAnnealer Constructor
 
         :param:
 
@@ -76,6 +85,20 @@ class SimulatedAnnealing(object):
             self._solutions = []
         return self._solutions
 
+    def check_rep(self):
+        """
+        should validate the parameters
+        """
+        return
+
+    def close(self):
+        """
+        closes the quality and solutions' storage
+        """
+        self.quality.close()
+        self.solutions.close()
+        return
+
     def __call__(self):
         """
         Runs the optimization
@@ -93,9 +116,10 @@ class SimulatedAnnealing(object):
             if self.quality(solution) > self.quality(self.solution):
                 self.solutions.append(solution)
                 self.solution = solution
-            if self.stop_condition(self.solution)
+            if self.stop_condition(self.solution):
+                break
         return self.solution
-# SimulatedAnnealing    
+# SimulatedAnnealer    
 @
 
 .. _optimization-optimizers-simulatedannealing-temperaturegenerator:
@@ -103,10 +127,12 @@ class SimulatedAnnealing(object):
 Temperature Generator
 ---------------------
 
+.. currentmodule:: tuna.optimizers.simulatedannealing
 .. autosummary::
    :toctree: api
 
    TemperatureGenerator
+   TemperatureGenerator.__iter__
 
 In the algorithm for simulated annealing the temperature drop is called the *temperature schedule*. In the simplest case this can be linear, although if the model is meant to be closer to nature it would need to slow its cooling as it progresses. This generator, then is meant to be a way for the user of the annealer to define how the temperature changes without having to change the annealer itself.
 
@@ -142,3 +168,78 @@ class TemperatureGenerator(object):
         return
 # end class TemperatureGenerator    
 @
+
+The TemperatureGenerator assumes that the next temperature is a function of the current temperature, which allows for linear transformations.
+
+.. math::
+
+   T' \gets T - \delta T\\
+
+Or something similar. The next generator instead assumes that the transformations will be a function of the starting temperature (:math:`T_0`) and the time (number of repetitions so far). This makes it easier to do a geometric schedule like the following.
+
+.. math::
+
+   T(t) \gets T_0 \alpha^t\\
+   
+.. '
+
+Where :math:`0 < \alpha < 1` and :math:`T_0` is the starting temperature. 
+
+To make this work the schedule has to make use of the start time so it will be created as a method instead of a parameter. It will use the geometric progression shown above, to change it monkey patch the `schedule` method.
+
+.. autosummary::
+   :toctree: api
+
+   TimeTemperatureGenerator
+   TimeTemperatureGenerator.schedule
+   TimeTemperatureGenerator.__iter__
+   
+<<name='TimeTemperatureGenerator', echo=False>>=
+class TimeTemperatureGenerator(object):
+    """
+    A Generator of temperatures using repetitions
+    """
+    def __init__(self, start, stop, alpha):
+        """
+        TimeTemperatureGenerator constructor
+
+        :param:
+
+         - `start`: starting temperature (T_0)
+         - `stop: stopping temperature
+         - `alpha`: constant value used by the schedule
+        """
+        self.start = start
+        self.stop = stop
+        self.alpha = alpha
+        self.time = -1
+        return
+
+    def schedule(self):
+        """
+        Method that returns the next temperature
+
+        increments self.time and returns next time in geometric progression
+        """
+        self.time += 1        
+        return self.start * self.alpha**self.time
+
+    def __iter__(self):
+        """
+        Iterator to yield temperatures
+        """
+        temperature = self.schedule()
+        while temperature > self.stop:
+            yield temperature
+            temperature = self.schedule()
+        return        
+# end TimeTemperatureGenerator    
+@
+
+Since it has an alpha value the schedule could be overridden to make a linear descent as well.
+
+.. math::
+
+   T \gets T_0 - \alpha t\\
+
+Where :math:`T_0` is the start temperature (the intercept) and :math:`\alpha` is the rate of change (slope).

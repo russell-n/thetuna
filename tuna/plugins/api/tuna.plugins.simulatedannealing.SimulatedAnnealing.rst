@@ -1,0 +1,34 @@
+tuna.plugins.simulatedannealing.SimulatedAnnealing
+==================================================
+
+.. currentmodule:: tuna.plugins.simulatedannealing
+
+.. autoclass:: SimulatedAnnealing
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SimulatedAnnealing.__init__
+      ~SimulatedAnnealing.fetch_config
+      ~SimulatedAnnealing.help
+      ~SimulatedAnnealing.log_error
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SimulatedAnnealing.help_page
+      ~SimulatedAnnealing.logger
+      ~SimulatedAnnealing.product
+      ~SimulatedAnnealing.sections
+   
+   

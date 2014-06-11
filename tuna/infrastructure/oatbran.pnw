@@ -1,0 +1,497 @@
+The OatBran
+===========
+.. currentmodule:: ape.commoncode.oatbran
+Oat Bran helps with regular expressions. Names are uppercased to avoid keyword clashes
+<<name='import', echo=False>>=
+import string
+@
+<<name='constants', >>=
+# the class-based expressions are mostly for organization
+# but sometimes they're just too clunky
+LEFT_BRACKET = '['
+RIGHT_BRACKET = ']'
+@
+
+Contents:
+
+    * :ref:`Formal Definition <ape-oatbran-formar-definition>`
+
+    * :ref:`Groups <ape-oatbran-groups>`
+
+    * :ref:`Quantifiers <ape-oatbran-quantifiers>`
+
+    * :ref:`Character Classes <ape-oatbran-character-classes>`
+
+    * :ref:`Boundaries <ape-oatbran-boundaries>`
+
+    * :ref:`Common Patterns <ape-oatbran-common-patterns>`
+
+    * :ref:`Numbers <ape-oatbran-numbers>`
+
+.. _ape-oatbran-formal-definition:    
+    
+Formal Definition
+-----------------
+
+These are the basic building blocks of regular expressions.
+
+.. csv-table:: Formal Definition
+   :header: Name,Symbol
+
+   empty_string,:math:`\varepsilon`
+   alternative (OR),:math:`|`
+   kleene_star, :math:`*`
+
+.. autosummary::
+   :toctree: api
+
+   FormalDefinition.empty_string
+   FormalDefinition.alternative
+   FormalDefinition.OR
+   FormalDefinition.kleene_star
+
+<<name='FormalDefinition', echo=False>>=
+class FormalDefinition(object):
+    """
+    The basic operators and elements of a regular expression
+    """
+    empty_string = '^$'
+    alternative = '|'
+    OR = alternative
+    kleene_star = "*"
+@
+
+.. _ape-oatbran-groups:
+
+Groups
+------
+
+Besides the basic use of grouping with parentheses (to explicitly apply operations to multiple characters, for example), the Group hold perl (`(?<expression>)`) and python (`(?P<expression>)`) group-extensions. Since parentheses have to be symmetric these are applied as methods rather than strings that are added to other strings.
+
+.. autosummary::
+   :toctree: api
+
+   Group
+   Group.group
+   Group.named
+   Group.not_followed_by
+   Group.not_preceded_by
+   Group.preceded_by
+   Group.followed_by
+
+<<name='Group', echo=False>>=
+class Group(object):
+    """
+    The Group helps with regular expression groups
+    """
+    __slots__ = ()
+
+    @staticmethod
+    def group(expression):
+        """
+        Create a grouped expression
+
+        :param:
+
+         - `expression`: the regular expression to group
+        :return: uncompiled group expression for e
+        """
+        return "({e})".format(e=expression)
+
+    @staticmethod
+    def named(name, expression):
+        """
+        Creates a named group
+
+        :param:
+
+         - `name`: name to give the group
+         - `expression`: expression to use in the group
+        """
+        return "(?P<{n}>{e})".format(n=name,
+                                     e=expression)
+
+    @staticmethod
+    def followed_by(suffix):
+        """
+        Creates the expression to match if followed by the suffix
+        """
+        return "(?={0})".format(suffix)
+
+    @staticmethod
+    def not_followed_by(suffix):
+        """
+        Creates a (perl) negative lookahead expression
+
+        e.g. 'alpha(?!beta)' matches 'alpha' and 'alphagamma', not 'alphabeta'
+
+        :param:
+
+           - `suffix`: suffix to avoid matching
+        """
+        return "(?!{s})".format(s=suffix)
+
+    @staticmethod
+    def preceded_by(prefix):
+        """
+        Creates a look-behind expression
+
+        :param:
+
+         - `prefix`: an expression of fixed-order (no quantifiers or alternatives of different length)
+        """
+        return "(?<={0})".format(prefix)
+    
+    @staticmethod
+    def not_preceded_by(prefix):
+        """
+        Creates a (perl) negative look behind expression
+
+        :param:
+
+         - `prefix`: expression to group
+        """
+        return "(?<!{e})".format(e=prefix)
+@
+
+.. _ape-oatbran-quantifiers:
+
+Quantifiers
+-----------
+
+Quantifiers are used to describe repetitions of patterns. The `zero_or_more` quantifier is an alias for the `FormalDefinition.kleene_star`. Although I usually think of these as suffixes, the exact and m-to-n versions need braces so the quantifiers are applied as methods to make their use uniform. I use the string `format` method so they will not raise errors if passed non-strings as patterns.
+
+.. autosummary::
+   :toctree: api
+
+   Quantifier
+   Quantifier.one_or_more
+   Quantifier.zero_or_more
+   Quantifier.zero_or_one
+   Quantifier.exactly
+   Quantifier.m_to_n
+
+<<name='Quantifier', echo=False>>=
+class Quantifier(object):
+    """
+    A class to hold cardinality helpers
+    """
+    __slots__ = ()
+
+    @staticmethod
+    def one_or_more(pattern):
+        """
+        Adds the one-or-more quantifier to the end of the pattern.
+        """
+        return '{0}+'.format(pattern)    
+
+    @staticmethod
+    def zero_or_one(pattern):
+        """
+        Adds the zero-or-one quantifier to the pattern
+        """
+        return '{0}?'.format(pattern)
+
+    @staticmethod
+    def exactly(repetitions):
+        """
+        Creates suffix to match source repeated exactly n times
+
+        :param:
+
+         - `repetitions`: number of times pattern has to repeat to match
+        """
+        return "{{{0}}}".format(repetitions)
+
+    @staticmethod
+    def zero_or_more(pattern):
+        """
+        Adds the kleene star to the pattern
+
+        :return: pattern*
+        """
+        return "{0}*".format(pattern)
+
+    @staticmethod
+    def m_to_n(m, n):
+        """
+        Creates a repetition ranges suffix {m,n}
+        
+        :param:
+
+        - `m`: the minimum required number of matches
+        - `n`: the maximum number of  matches
+        """
+        return "{{{m},{n}}}".format(m=m, n=n)
+@
+
+.. _ape-oatbran-character-classes:
+
+Character Classes
+-----------------
+
+A helper with character classes (stuff put in square-brackets ('[]')). There are some similar patterns in other classes. I tried to put single characters in this class (e.g. digit) and multiple characters or those with quantifiers in other classes (e.g. digits or optional_digits).
+
+.. autosummary::
+   :toctree: api
+
+   CharacterClass
+   CharacterClass.character_class
+   CharacterClass.alpha_num
+   CharacterClass.alpha_nums
+   CharacterClass.digit
+   CharacterClass.non_digit
+   CharacterClass.non_zero_digit
+   CharacterClass.character_class
+   CharacterClass.not_in
+   
+<<name='CharacterClass', echo=False>>=
+class CharacterClass(object):
+    """
+    A class to help with character classes
+    """
+    __slots__ = ()
+
+    alpha_num = r"\w"
+    alpha_nums = Quantifier.one_or_more(alpha_num)
+    digit = r'\d'
+    non_digit = r'\D'
+    non_zero_digit = r"[1-9]"
+
+    @staticmethod
+    def character_class(characters):
+        """
+        Creates a character class from the expression
+
+        :param:
+
+         - `characters`: string to convert to a class
+
+        :return: expression to match any character in expression
+        """
+        return "[{e}]".format(e=characters)
+
+    @staticmethod
+    def not_in(characters):
+        """
+        Creates a complement character class
+
+        :param:
+
+         - `characters`: characters to not match
+
+        :return: expression to match any character not in expression
+        """
+        return "[^{e}]".format(e=characters)
+@
+
+.. _ape-oatbran-boundaries:
+
+Boundaries
+----------
+
+.. autosummary::
+   :toctree: api
+
+   Boundaries
+   Boundaries.string_start
+   Boundaries.string_end
+   Boundaries.word
+   Boundaries.string
+   
+<<name='Boundaries', echo=False>>=
+class Boundaries(object):
+    """
+    A class to hold boundaries for expressions
+    """
+    __slots__ = ()
+
+    string_start = "^"
+    string_end = "$"
+
+    @staticmethod
+    def word(word):
+        """
+        Adds word boundaries to the word
+
+        :param:
+
+         - `word`: string to add word boundaries to
+
+        :return: string (raw) with word boundaries on both ends
+        """
+        return r"\b{e}\b".format(e=word)
+
+    @staticmethod
+    def string(string):
+        """
+        Adds boundaries to only match an entire string
+
+        :param:
+
+         - `string`: string to add boundaries to
+
+        :return: expression that only matches an entire line of text
+        """
+        return r"^{e}$".format(e=string)
+@
+
+.. _ape-oatbran-common-patterns:
+
+Common Patterns
+---------------
+
+These are pattens that I use a lot but I could not think of where to put them.
+
+.. autosummary::
+   :toctree: api
+
+   CommonPatterns.anything
+   CommonPatterns.everything
+   CommonPatterns.letter
+   CommonPatterns.letters
+   CommonPatterns.optional_letters
+   CommonPatterns.space
+   CommonPatterns.spaces
+   CommonPatterns.optional_spaces
+   CommonPatterns.not_space
+   CommonPatterns.not_spaces
+   
+<<name='common_patterns', echo=False>>=
+class CommonPatterns(object):
+    """
+    The common patterns that were leftover
+    """
+    __slots__ = ()
+    #anything and everything
+    anything = r"."
+    everything = Quantifier.zero_or_more(anything)
+    letter = CharacterClass.character_class(characters=string.ascii_letters)
+    letters = Quantifier.one_or_more(letter)
+    optional_letters = Quantifier.zero_or_more(letter)
+    space = r'\s'
+    spaces = Quantifier.one_or_more(space)
+    optional_spaces = Quantifier.zero_or_more(space)
+    not_space = r'\S'
+    not_spaces = Quantifier.one_or_more(not_space)
+@
+
+.. _ape-oatbran-numbers:
+
+Numbers
+-------
+
+The numbers are broken up into types based on those listed `here <http://mathworld.wolfram.com/CountingNumber.html>`_. I was originally using the more `traditional number types <http://en.wikipedia.org/wiki/List_of_types_of_numbers>`_ but I keep forgetting which ones have zero in them so I will work with just positive/negative, non-positive/non-negative, and integer/real.
+
+.. csv-table:: Numbers
+   :header: Name,Description,Symbol
+   :delim: ;
+
+   positive_integer; :math:`1,2,\ldots`;:math:`\mathbb{Z}^+`
+   non_negative_integer; :math:0,1,\ldots` ; :math:`\mathbb{Z}^*`
+   non_positive_integer; :math:0, -1, -2,\ldots`;
+   integer;positive, negative, 0; :math:`\mathbb{Z}`
+   real_number;Positive,negative, 0;:math:`\mathbb{R}`
+
+   
+.. warning:: The integers are allowed to match even when surrounded by punctuation. This makes it okay for sentences and csvs, etc. but means that if given a floating point number it will match the substring to the left of the decimal point (e.g. 10.00213 will match 10).
+
+.. warning:: Along with the previous warning it should be noted that `nonnegative_integer` extracts the non-negative portion, it does not ignore negative integers. So if you have -300, the match will be 300. This may change once I start using this, but for now that is the behavior (useful for extracting ranges, maybe -- nonnegative_integer + '-' + nonnegative_integer):
+
+.. note:: `real` is treated as a super-set that matches floats or integers.
+
+.. autosummary::
+   :toctree: api
+
+   Numbers
+   Numbers.decimal_point
+   Numbers.digits
+   Numbers.two_digits
+   Numbers.one_hundreds
+   Numbers.positive_integer
+   Numbers.nonnegative_integer
+   Numbers.integer
+   Numbers.real
+   Numbers.hexadecimal
+   
+<<name='Numbers', echo=False>>=
+class Numbers(object):
+    """
+    A class to hold number-related expressions
+    """
+    __slots__ = ()
+    
+    decimal_point = r'\.'
+    single_digit = Boundaries.word(CharacterClass.digit)
+    digits = Quantifier.one_or_more(CharacterClass.digit)
+    two_digits = Boundaries.word(CharacterClass.non_zero_digit + CharacterClass.digit)
+    one_hundreds = Boundaries.word("1" + CharacterClass.digit * 2)
+    optional_digits = Quantifier.zero_or_more(CharacterClass.digit)
+    # python considers string-start and whitespace to be different lengths
+    # so to avoid '.' (which is a word-boundary character) and use line-starts and ends
+    # and whitespace requires four alternatives
+    START_PREFIX = Group.preceded_by(Boundaries.string_start)
+    END_SUFFIX = Group.followed_by(Boundaries.string_end)
+    SPACE_PREFIX = Group.preceded_by(CommonPatterns.space)
+    SPACE_SUFFIX = Group.followed_by(CommonPatterns.space)
+    # Zero
+    ZERO = '0'
+    zero = (START_PREFIX + ZERO + END_SUFFIX +FormalDefinition.OR +
+            START_PREFIX + ZERO + SPACE_SUFFIX +FormalDefinition.OR +
+            SPACE_PREFIX + ZERO + END_SUFFIX +FormalDefinition.OR +
+            SPACE_PREFIX + ZERO + SPACE_SUFFIX)
+    # positive integer
+    z_plus = CharacterClass.non_zero_digit + optional_digits
+    positive_integer = (START_PREFIX + z_plus + END_SUFFIX +FormalDefinition.OR +
+                        START_PREFIX + z_plus + SPACE_SUFFIX +FormalDefinition.OR +
+                        SPACE_PREFIX + z_plus + END_SUFFIX +FormalDefinition.OR +
+                        SPACE_PREFIX + z_plus + SPACE_SUFFIX )
+
+    nonnegative_integer = (CharacterClass.non_zero_digit + optional_digits +
+                           r'\b' +FormalDefinition.OR + 
+                            Boundaries.word('0'))
+    # this disqualifies leading decimal points but not zeros
+    integer = (Group.not_preceded_by(decimal_point) +
+                               Quantifier.zero_or_one('-') + 
+                               CharacterClass.non_zero_digit + optional_digits +
+                               FormalDefinition.OR + 
+                               Boundaries.word('0'))
+
+    real = (Quantifier.zero_or_one('-') + 
+            CharacterClass.digit + optional_digits +
+            decimal_point + optional_digits + 
+            FormalDefinition.OR + integer)
+    
+    HEX = CharacterClass.character_class(string.hexdigits)
+    hexadecimal = Quantifier.one_or_more(HEX)
+
+@
+
+.. autosummary::
+   :toctree: api
+
+   Networking.octet
+   
+<<name='Networking', echo=False>>=
+class Networking(object):
+    """
+    Holds expressions to help with networking-related text.
+    """
+    __slots__ = ()
+    octet = Group.group(expression=FormalDefinition.OR.join([Numbers.single_digit,
+                                                             Numbers.two_digits,
+                                                             Numbers.one_hundreds,
+                                                             Boundaries.word("2[0-4][0-9]"),
+                                                             Boundaries.word("25[0-5]")]))
+
+    dot = Numbers.decimal_point
+
+    ip_address = dot.join([octet] * 4)
+
+    hex_pair =  Numbers.HEX + Quantifier.exactly(2)
+    mac_address = ":".join([hex_pair] * 6)
+
+
+
+@
+

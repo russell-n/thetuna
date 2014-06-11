@@ -1,0 +1,394 @@
+File Storage
+============
+<<name='license', echo=False>>=
+# The MIT License (MIT)
+# 
+# Copyright (c) 2013 Russell Nakamura
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+@
+
+.. _file-storage-module::
+
+This is a module for classes that implement a file-like interface to disk-files but also add some extra features meant to make them easier to use within the TUNA.
+
+Contents:
+
+    * :ref:`FileStorage Model <file-storage-model>`
+    * :ref:`Extras <file-storage-extras>`
+    * :ref:`Sub-Folders <file-storage-sub-folders>`
+    * :ref:`Redundant Files <file-storage-redundant-files>`
+    * :ref:`FileStorage API <file-storage-api>`
+
+<<name='imports', echo=False>>=
+# python standard library
+import os
+import shutil
+import datetime
+import re
+import copy
+
+# this package
+from base_storage import BaseStorage
+#from tuna import BaseClass
+from tuna import FILE_TIMESTAMP
+from tuna import TunaError
+@
+
+<<name='constants', echo=False>>=
+WRITEABLE = 'w'
+APPENDABLE = 'a'
+DIGIT = r'\d'
+ONE_OR_MORE = '+'
+UNDERSCORE = '_'
+FILENAME_SUFFIX = UNDERSCORE + DIGIT + ONE_OR_MORE
+IN_PWEAVE = __name__ == '__builtin__'
+AMBIGUOUS = "Ambiguous call: 'overwrite' True and mode 'a'"
+@
+
+.. _file-storage-model:
+
+FileStorage Model
+-----------------
+
+Since the ultimate model for all storage classes is ``__builtin__.file`` (see: :ref:`exploring files <exploring-files>` for the API and some notes), this class will implement all the non-optional methods and attributes. In addition it will inherit from the :ref:`Composite <composite-class>` in order to allow non-homogeneous storage (e.g. stdout and disk -- the equivalent of the unix `tee`).
+
+.. uml::
+
+   FileStorage : FileStorage __init__(path, [,mode])
+   FileStorage : open(name[, mode])
+   FileStorage : close()
+   FileStorage : flush()
+   FileStorage : String read()
+   FileStorage : String readline()
+   FileStorage : List readlines()
+   FileStorage : write(text)
+   FileStorage : writeline(text)
+   FileStorage : writelines(list)
+   FileStorage : closed
+   FileStorage : mode
+   FileStorage : name
+   FileStorage : path
+   FileStorage : add(component)
+   FileStorage : components
+   FileStorage : __enter__
+   FileStorage : __exit__
+   FileStorage : __iter__
+
+.. _file-storage-extras:
+
+Extras
+------
+
+Although the built-in ``file`` is the model for the ``FileStorage``, it wouldn't make much sense to replicate it exactly. The main impetus for creating this (besides keeping an eye on non-disk output in the future) is to have something that can keep track of extra persistent data -- in particular:
+
+   * Sub-folders 
+   * Existing files with redundant names (and how to handle them)
+   * Time-stamps
+   * Locks
+
+.. superfluous '   
+
+.. _file-storage-sub-folders:
+
+Sub-Folders
+-----------
+
+In order to help tame the explosion of files that can often happen from the repeated execution of code that collects data the FileStorage will accept a path which it will then prepend to any file-name when it is opened. If the sub-folder does not exist it will be created.
+
+<<name='sub_folders_example', wrap=False>>=
+if IN_PWEAVE:
+    example_path = 'aoeu/snth'
+    example_file = 'umma.gumma'
+    
+    
+    # this is the part that should be part of the path property
+    if not os.path.isdir(example_path):
+        os.makedirs(example_path)
+    for name in os.listdir('aoeu'):
+        print name
+    
+    # this will be run multiple times, remove the example so it gets started fresh
+    if os.path.isdir(example_path):
+        shutil.rmtree(example_path)    
+@
+
+.. _file-storage-redundant-files:
+
+Redundant Files
+---------------
+
+It often happens that data-collecting code will be run multiple times. The two ways proposed to avoid inadvertently overriding files are:
+
+     * Appending count-numbers (e.g. a_0.txt, a_1.txt)
+     * Adding Timestamps
+
+The first scheme is more easily generalizable, while the second adds more useful information. It will therefore be assumed that both will be implemented and the increment scheme will only come into effect in the cases where the two files of the same name have been requested in too short a time-interval for the timestamps to differentiate them.
+
+Adding Timestamps
+~~~~~~~~~~~~~~~~~
+
+The timestamp will be added using string formatting -- it will look for a `timestamp` keyword:
+
+<<name='timestamp_example', wrap=False>>=
+if IN_PWEAVE:
+    name = "test_{timestamp}.csv"
+    print name.format(timestamp=datetime.datetime.now().strftime(FILE_TIMESTAMP))
+@
+
+Appending Increments
+~~~~~~~~~~~~~~~~~~~~
+
+In the event that no `timestamp` formatting was added or the files were created less than a second apart, the `FileStorage` will add a count to the end of the base file-name prefix.
+
+Side Effects
+~~~~~~~~~~~~
+
+Because the name is being made to never match an existing file, the FileStorage can only write files, not read them. A separate file-reader needs to be built if that's something needed.
+
+.. superfluous '
+
+<<name='increment_example', wrap=False>>=
+if IN_PWEAVE:
+    # what's here?
+    for name in (name for name in os.listdir(os.getcwd()) if name.endswith('txt')):
+        print name
+    
+    name = "innagaddadavida.txt"
+    path = os.getcwd()
+    full_name = os.path.join(path, name)
+    if os.path.exists(full_name):
+        base, extension = os.path.splitext(name)
+    
+        digit = r'\d'
+        one_or_more = '+'
+        underscore = '_'
+    
+        suffix = underscore + digit + one_or_more
+        expression = r"{b}{s}{e}".format(b=base,
+                                          s=suffix,
+                                            e=extension)
+        regex = re.compile(expression)
+        count = sum(1 for name in os.listdir(path) if regex.match(name))
+        count = str(count + 1).zfill(4)
+        name = "{b}_{c}{e}".format(b=base, c=count, e=extension)
+    
+    print name            
+@
+
+
+.. _file-storage-api:
+
+FileStorage API
+---------------
+
+.. currentmodule:: tuna.parts.storage.filestorage
+.. autosummary::
+   :toctree: api
+
+   FileStorage
+   FileStorage.path
+   FileStorage.safe_name
+   FileStorage.open
+   FileStorage.close
+   FileStorage.write
+   FileStorage.writeline
+   FileStorage.writelines
+
+FileStorage Definition
+----------------------
+
+Constructor
+~~~~~~~~~~~
+
+The constructor takes two parameters:
+
+   * path
+   * timestamp
+
+The ``path`` is the main reason for using the ``FileStorage`` -- by keeping it persistent it frees the users of the ``FileStorage`` from having to know about sub-folders. The ``timestamp`` is a `strftime` string-format. The default is stored in the global-space of this module as a constant called ``FILE_TIMESTAMP``.
+
+The ``open`` Method
+~~~~~~~~~~~~~~~~~~~
+
+The ``open`` method is where things get kind of different from a regular file (and may not be a good idea if examined too closely). In order to preserve the path a copy of the ``FileStorage`` is created and a new opened-file is added to it before returning the copy.
+
+Path:
+
+   #. Append an integer if needed (or asked for) to requested filename to prevent over-writing an existing file with the same name
+   #. Create a copy of the FileStorage
+   #. Open a writeable file-object using the (possibly fixed) filename
+   #. Set the FileStorage copy's ``file`` attribute to the opened file
+   #. Set the mode for the FileStorage copy 
+   #. Set the `closed` attribute of the copy to False
+   #. Return the new FileStorage copy  
+
+<<name='FileStorage', echo=False>>=
+class FileStorage(BaseStorage):
+    """
+    A class to store data to a file
+    """
+    def __init__(self, path=None, timestamp=FILE_TIMESTAMP,
+                 name=None, overwrite=False, mode=WRITEABLE):
+        """
+        FileStorage constructor
+
+        :param:
+
+         - `path`: path to prepend to all files (default is current directory)
+         - `timestamp`: strftime format to timestamp file-names
+         - `name`: Filename to use
+         - `overwrite`: If true, clobber existing file with same name
+         - `mode`: file mode (e.g. 'a' for append)
+        """
+        super(FileStorage, self).__init__()
+        self._path = None
+        self.path = path
+        self.timestamp = timestamp
+
+        # these are to support the `with` statement
+        self.name = name
+        self.overwrite = overwrite
+        self.mode = mode
+        self.closed = True
+        return
+
+    @property
+    def writeable(self):
+        """
+        checks if the file is open for writing
+        """
+        return not self.closed and self.mode.startswith('w')        
+
+    @property
+    def file(self):
+        return self._file
+    
+    @property
+    def path(self):
+        """
+        The path to prepend to files (cwd if not set by client)
+        """
+        if self._path is None:
+            self._path = os.getcwd()
+        return self._path
+
+    @path.setter
+    def path(self, path):
+        """
+        Sets the path and creates the directory if needed
+        """
+        
+        if path is not None and not os.path.isdir(path):
+            os.makedirs(path)
+        self._path = path
+        return
+
+    def safe_name(self, name, overwrite=False):
+        """
+        Adds a timestamp if formatted for it, increments if already exists
+
+        :param:
+
+         - `name`: name for file (without path added)
+         - `overwrite`: if True, don't mangle the name
+
+        :return: unique name with full path
+        """
+        name = name.format(timestamp=datetime.datetime.now().strftime(self.timestamp))
+        full_name = os.path.join(self.path, name)
+        
+        if overwrite:
+            return full_name
+        
+        if os.path.exists(full_name):
+            base, extension = os.path.splitext(name)
+
+
+            expression = r"{b}{s}{e}".format(b=base,
+                                             s=FILENAME_SUFFIX,
+                                             e=extension)
+            regex = re.compile(expression)
+            count = sum(1 for name in os.listdir(self.path) if regex.match(name))
+            count = str(count + 1).zfill(4)
+            name = "{b}_{c}{e}".format(b=base, c=count, e=extension)
+            full_name = os.path.join(self.path, name)
+        return full_name
+
+    def open(self, name, overwrite=False, mode=WRITEABLE, return_copy=True):
+        """
+        Opens a file for writing
+
+        :param:
+
+         - `name`: a basename (no path) for the file
+         - `overwrite`: If True, clobber existing files with the same name
+         - `mode`: file-mode (e.g. 'w' or 'a')
+         - `return_copy`: If True, return a copy of self, otherwise return self
+
+        :return: copy of self with file as open file and closed set to False
+        """
+        if overwrite and mode == APPENDABLE:
+            self.logger.warning(AMBIGUOUS)
+        name = self.safe_name(name, overwrite=overwrite or mode==APPENDABLE)
+        self.logger.debug("Opening {0} for writing".format(name))
+        if return_copy:
+            opened = copy.copy(self)
+        else:
+            opened = self
+        opened.name = name
+        opened._file = open(name, mode)
+        opened.mode = 'w'
+        opened.closed = False
+        return opened
+
+    def close(self):
+        """
+        Closes self.file if it exists, sets self.closed to True
+        """
+        if self.file is not None:
+            self.logger.debug("Closing the File")
+            self.file.close()
+            self.closed = True
+        else:
+            self.logger.debug("File is None")
+        return
+
+    def __enter__(self):
+        """
+        Support for the 'with' statement
+
+        :raise: TunaError if self.name not set
+        """
+        if self.name is None:
+            raise TunaError("self.name not set, can't open file")
+        return self.open(name=self.name,
+                         overwrite=self.overwrite,
+                         mode=self.mode,
+                         return_copy=False)
+
+    def __exit__(self, type, value, traceback):        
+        """
+        Closes the object
+        """
+        self.logger.debug("Closing the file")
+        self.close()
+        return        
+@
+
