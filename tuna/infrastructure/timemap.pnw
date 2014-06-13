@@ -1,15 +1,6 @@
 Time Maps
 =========
 
-.. _relative-time-map:
-
-Relative Time Map
------------------
-
-The `RelativeTimeMap` maps strings of relative times to seconds. It tries to be as liberal as possible so there has to be a fair amount of certainty that the string is in fact a time and not something similar but different. '5 yolks' will match '5' years, for instance, and if that is not the desired behavior then something else has to do a check first to filter out bad strings.
-
-It uses `dateutil <http://labix.org/python-dateutil>`_ to calculate everything but the seconds because dateutil will handle the ambiguous values like years (which have leap-years) and months which have 28, 29, 30, or 31 days.
-
 Contents:
 
    * :ref:`The UML Class Model <relative-time-map-model>`
@@ -21,6 +12,15 @@ Contents:
    * :ref:`The AbsoluteTime Class <tuna-absolute-time>`
 
    * :ref:`AbsoluteTime Class Diagram <absolutetime-class-diagram>`
+
+.. _relative-time-map:
+
+Relative Time Map
+-----------------
+
+The `RelativeTimeMap` maps strings of relative times to seconds. It tries to be as liberal as possible so there has to be a fair amount of certainty that the string is in fact a time and not something similar but different. '5 yolks' will match '5' years, for instance, and if that is not the desired behavior then something else has to do a check first to filter out bad strings.
+
+It uses `dateutil <http://labix.org/python-dateutil>`_ to calculate everything but the seconds because dateutil will handle the ambiguous values like years (which have leap-years) and months which have 28, 29, 30, or 31 days.
 
 .. _relative-time-map-model:
 
@@ -38,11 +38,18 @@ The UML Model
    RelativeTimeMap : re.RegexObject minute_expression
    RelativeTimeMap : re.RegexObject second_expression      
    
-.. currentmodule:: tuna.interface.timemap
+.. currentmodule:: tuna.infrastructure.timemap
 .. autosummary::
    :toctree: api
 
    RelativeTimeMap
+   RelativeTimeMap.year_expression
+   RelativeTimeMap.month_expression
+   RelativeTimeMap.week_expression
+   RelativeTimeMap.day_expression
+   RelativeTimeMap.hour_expression
+   RelativeTimeMap.minute_expression
+   RelativeTimeMap.second_expression
 
 <<name='pweave_check', echo=False>>=
 IN_PWEAVE = __name__ == '__builtin__'
@@ -219,17 +226,24 @@ This is an attempt to extend the `timedelta` with weeks, hours, and minutes. The
 
 By and large the intention is to use this like a time-delta object but with extra fields, so the operators will be overloaded too.
 
+.. currentmodule:: tuna.infrastructure.timemap
 .. autosummary::
    :toctree: api
 
    RelativeTime
+   RelativeTime.source
    RelativeTime.time_map
    RelativeTime.days
    RelativeTime.seconds
    RelativeTime.microseconds
+   RelativeTime.get_number
+   RelativeTime.populate_fields
    RelativeTime.reset
    RelativeTime.total_seconds
    source_required
+   operation_error
+   number_error
+   unary_error
 
    
 I've run into a circular call problem -- my intention was to defer the calculations of the properties until someone called them, but since the larger properties cascade into the smaller ones (e.g. 1.5 minutes would add 30 to seconds to get rid of the fraction) I have to have a single point where the calculations are done so that all of them are done. To do this without requiring anyone to do an explicit method call I'm doing the calculations on the setting of the source. Since I am averse to forcing calculations on construction of an object, the `source` parameter has been changed to optional and setting it to None should reset the fields.
@@ -259,7 +273,7 @@ The timedelta only stores three attributes -- days, seconds, and microseconds, a
 .. warning:: ``timedelta`` takes floats (like 3.2) but the extra attributes for relativedelta (months and years) have to be integers.
 
 TunaError Translators
---------------------
+---------------------
 
 Since the operations are expected to raise TunaErrors whenever possible, these decorators will translate standard exceptions to TunaErrors.
 
@@ -724,7 +738,7 @@ This is a class to get ``datetime`` objects based on a string input. It really i
    AbsoluteTime : parserinfo parserinfo
    AbsoluteTime : datetime __call__(string)
 
-.. currentmodule:: tuna.interface.timemap
+.. currentmodule:: tuna.infrastructure.timemap
 .. autosummary::
    :toctree: api
 

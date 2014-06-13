@@ -81,7 +81,11 @@ class ConfigurationMap(BaseClass):
         """
         try:
             return cast(self.get(section, option, optional, default))
-        except ValueError as error:
+        except (ValueError, TypeError) as error:
+            if optional:
+                self.logger.debug(error)
+                return default
+            
             value = self.get(section,
                              option,
                              optional,
@@ -162,7 +166,7 @@ class ConfigurationMap(BaseClass):
 
     def get_tuple(self, section, option, optional=False, default=None, delimiter=','):
         """
-        Gets the value and converts it to a list
+        Gets the value and converts it to a tuple
 
         :return: value list with whitespace trimmed
         """

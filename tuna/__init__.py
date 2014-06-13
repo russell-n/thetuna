@@ -1,7 +1,8 @@
 from tuna.infrastructure.baseclass import BaseClass
 
 # some constants
-TUNASECTION = "TUNA"
+GLOBAL_NAME = "TUNA"
+SECTION = "TUNA"
 MODULES_SECTION = 'MODULES'
 VERSION = "2014.06.12"
 FILE_TIMESTAMP = "%Y_%m_%d_%I:%M:%S_%p"

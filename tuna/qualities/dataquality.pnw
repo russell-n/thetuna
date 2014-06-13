@@ -1,0 +1,5 @@
+The Data Qualities
+==================
+
+These are classes meant to be dropped into place where `Quality` classes are called. They take csv-files, convert them to arrays and return matching output values based on indices of the arrays.
+

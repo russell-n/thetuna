@@ -5,6 +5,7 @@ import math
 
 # this package
 from tuna.components.component import Component
+from tuna import BaseClass, ConfigurationError
 
 
 class SimulatedAnnealer(Component):
@@ -63,6 +64,10 @@ class SimulatedAnnealer(Component):
         :return: last non-None output given
         """
         solution = self.solution
+        # prime the data with the first candidate
+        self.quality(solution)
+        self.solutions.append(solution)
+        
         for temperature in self.temperatures:
             candidate = self.tweak(solution)
             
@@ -148,5 +153,67 @@ class TimeTemperatureGenerator(object):
         while temperature > self.stop:
             yield temperature
             temperature = self.schedule()
-        return        
+        return
+
+    def close(self):
+        """
+        Resets the time to -1 so the iterator can be re-used
+        """
+        self.time = -1
+        return
 # end TimeTemperatureGenerator    
+
+
+# this is for clients so the strings are consistent
+class TimeTemperatureGeneratorConstants(object):
+    __slots__ = ()
+    # the config file needs to be wordier
+    # so the option-names are longer
+    # options
+    start = 'start_temperature'
+    stop = 'stop_temperature'
+    alpha = 'alpha_temperature'
+
+
+class TimeTemperatureGeneratorBuilder(BaseClass):
+    """
+    Builds the TimeTemperatureGenerator from a dictionary
+    """
+    def __init__(self, configuration, section):
+        """
+        TimeTemperatureGeneratorBuilder constructor
+        
+        :param:
+
+         - `configuration`: a configuration map
+         - `section`: name of section with options
+        """
+        super(TimeTemperatureGeneratorBuilder, self).__init__()
+        self.configuration = configuration
+        self.section = section
+        self._product = None
+        return
+
+    @property
+    def product(self):
+        """
+        A built time-temperature generator
+        """
+        if self._product is None:
+            constants = TimeTemperatureGeneratorConstants
+            config = self.configuration
+            try:
+                self._product = TimeTemperatureGenerator(start=config.get_float(section=self.section,
+                                                                                option=constants.start),
+                                                         stop=config.get_float(section=self.section,
+                                                                               option=constants.stop),
+                                                         alpha=config.get_float(section=self.section,
+                                                                                option=constants.alpha))
+            except KeyError as error:
+                self.logger.error("Missing Option: {0}".format(error))
+                raise ConfigurationError("Unable to build the TimeTemperatureGenerator with '{0}'".format(self.configuration))
+            except ValueError as error:
+                self.logger.error(error)
+                self.log_error("Temperature values must be castable to floats")
+                raise ConfigurationError("Unable to build the TimeTemperatureGenerator with '{0}'".format(self.configuration))
+        return self._product

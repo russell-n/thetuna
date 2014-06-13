@@ -112,11 +112,14 @@ import tuna.infrastructure.arguments.arguments as basearguments
 from tuna.infrastructure.arguments.argumentbuilder import ArgumentBuilder
 from tuna.infrastructure.configurationmap import ConfigurationMap
 from tuna.components.component import Composite
-from tuna.parts.storage.filestorage import FileStorage
+#from tuna.parts.storage.filestorage import FileStorage
+from tuna.infrastructure import singletons
+from tuna import GLOBAL_NAME
 
 from base_plugin import BasePlugin
+
 from tuna import TunaError, DontCatchError, ConfigurationError
-from tuna import TUNASECTION, MODULES_SECTION
+from tuna import SECTION, MODULES_SECTION
 from tuna.infrastructure.quartermaster import QuarterMaster
 from tuna.parts.countdown.countdown import INFO
 from tuna.parts.countdown.countdown import CountdownTimer
@@ -175,7 +178,7 @@ CONFIGURATION = '''[{0}]
 # If you get a ParserError check:
 #   - is everything flush-left?
 #   - no inline comments? (this won't raise a Parser error but it will create an error later)
-'''.format(TUNASECTION, SUBFOLDER)
+'''.format(SECTION, SUBFOLDER)
 
 @
 <<name='check_weave', echo=False>>=
@@ -337,10 +340,10 @@ class Tuna(BasePlugin):
             # traverse the APE Section's options to get Operations
             # configuration.options(TUNASECTION) is a list of config-file options in the [APE] section
             # names is filtered to get rid of the DEFAULT options
-            names = (name for name in configuration.options(TUNASECTION) if not
+            names = (name for name in configuration.options(SECTION) if not
                      (name in defaults and
                       defaults[name] ==
-                      configuration.get(TUNASECTION, name)))
+                      configuration.get(SECTION, name)))
 
             # the operations won't know repetitions or how long the operation has been running
             # but since end_time is an absolute time, they can check for that between operations
@@ -361,7 +364,7 @@ class Tuna(BasePlugin):
 
                 #traverse this line to get plugins
                 # get_list is a list of comma-separated strings in the operation line
-                for plugin_section_name in configuration.get_list(TUNASECTION, operation_name):                    
+                for plugin_section_name in configuration.get_list(SECTION, operation_name):                    
                     # the quartermaster returns a class-definition, not an instance
                     # so we can pass in the configuration and build it to get the `product`
 
@@ -400,7 +403,9 @@ class Tuna(BasePlugin):
 
         :postcondition: file-storage singleton with sub-folder from default section added as path
         """
-        self.file_storage = FileStorage()
+        if self.file_storage is None:
+            self.file_storage = singletons.get_filestorage(name=GLOBAL_NAME)
+            
         if SUBFOLDER in configuration.defaults:
             self.file_storage.path = configuration.defaults[SUBFOLDER]
         if TIMESTAMP in configuration.defaults:

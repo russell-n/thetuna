@@ -1,7 +1,21 @@
 
 # python standard library
-import time
+import datetime
 import random
+
+# this package
+from tuna import BaseClass
+from tuna import ConfigurationError
+
+
+class StopConditionConstants(object):
+    __slots__ = ()
+    # options
+    ideal = 'ideal_value'
+    time_limit = 'time_limit'
+    end_time = 'end_time'
+    delta = 'delta'
+    default_delta = 0.001
 
 
 class StopCondition(object):
@@ -14,7 +28,7 @@ class StopCondition(object):
 
         :param:
 
-         - `end_time`: (ctime) time-out
+         - `end_time`: absolute time-out
          - `time_limit`: max seconds from first call before stop
         """
         self._end_time = end_time
@@ -47,8 +61,8 @@ class StopCondition(object):
         """
         C-time to stop
         """
-        if self._end_time is None:
-            self._end_time = self.time_limit + time.time()
+        if self._end_time is None and self.time_limit is not None:
+            self._end_time = self.time_limit + datetime.datetime.now()
         return self._end_time
 
     @end_time.setter
@@ -58,7 +72,7 @@ class StopCondition(object):
 
         :param:
 
-         - `new_time`: c-time to stop
+         - `new_time`: datetime to stob
         """
         self._end_time = new_time
         return
@@ -71,7 +85,7 @@ class StopCondition(object):
 
          - `solution`: Candidate solution, not used here
         """
-        return time.time() >= self.end_time
+        return datetime.datetime.now() >= self.end_time
 
     def reset(self):
         """
@@ -95,7 +109,7 @@ class StopConditionIdeal(StopCondition):
          - `end_time`: ctime to quit
          - `time_limit`: maximum second to allow
          - `ideal_value`: value if reached will stop the optimizers
-         - `deltay`: difference from the ideal_value to accept
+         - `delta`: difference from the ideal_value to accept
         """
         super(StopConditionIdeal, self).__init__(*args, **kwargs)
         self.ideal_value = ideal_value
@@ -110,8 +124,11 @@ class StopConditionIdeal(StopCondition):
 
          - `solution`: Candidate solution to test against ideal
         """
-        return (abs(solution.output - self.ideal_value) <= self.delta or
-                time.time() >= self.end_time)
+        if self.end_time is not None:
+            return (abs(solution.output - self.ideal_value) <= self.delta or
+                    datetime.datetime.now() >= self.end_time)
+        else:
+            return abs(solution.output - self.ideal_value) <= self.delta 
 # end StopConditionIdeal
 
 
@@ -208,7 +225,7 @@ class StopConditionGenerator(object):
         """
         generates stop-conditions
         """
-        while time.time() < self.end_time:
+        while datetime.datetime.now() < self.end_time:
             yield self.stop_condition
             if self.abort:
                 break
@@ -221,4 +238,60 @@ class StopConditionGenerator(object):
         self.abort = False
         self._end_time = None
         self._global_stop_condition = None
+        if self.use_singleton:
+            self._stop_condition.time_limit = time_limit
+            self._stop_condition.end_time = end_time
         return
+
+
+class StopConditionBuilder(BaseClass):
+    """
+    A builder of stop-conditions
+    """
+    def __init__(self, configuration, section):
+        """
+        StopConditionBuilder constructor
+
+        :param:
+
+         - `configuration`: configuration map with settings to build
+         - `section`: name of section in map with settings
+        """
+        self.configuration = configuration
+        self.section = section
+        self._product = None
+        return
+
+    @property
+    def product(self):
+        """
+        Built StopCondition
+        """
+        if self._product is None:
+            ideal = self.configuration.get_float(section=self.section,
+                                                 option=StopConditionConstants.ideal,
+                                                 optional=True)
+            time_limit = self.configuration.get_relativetime(section=self.section,
+                                                             option=StopConditionConstants.time_limit,
+                                                             optional=True)
+            end_time = self.configuration.get_datetime(section=self.section,
+                                                           option=StopConditionConstants.end_time,
+                                                           optional=True)
+
+         
+            if ideal is not None:
+                delta = self.configuration.get_float(section=self.section,
+                                                     option=StopConditionConstants.delta,
+                                                     optional=True,
+                                                     default=StopConditionConstants.default_delta)
+                self._product = StopConditionIdeal(time_limit=time_limit,
+                                                   end_time=end_time,
+                                                   ideal_value=ideal,
+                                                   delta=delta)
+            else:
+                if time_limit is None and end_time is None:
+                    raise ConfigurationError("Need an end_time or time_limit if no ideal value is given")
+
+                self._product = StopCondition(time_limit=time_limit,
+                                              end_time=end_time)
+        return self._product

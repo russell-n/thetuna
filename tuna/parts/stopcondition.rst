@@ -3,8 +3,12 @@ The Stop Conditions
 ::
 
     # python standard library
-    import time
+    import datetime
     import random
+    
+    # this package
+    from tuna import BaseClass
+    from tuna import ConfigurationError
     
     
 
@@ -17,6 +21,26 @@ Contents:
    * :ref:`The Stop Condition <optimization-components-stopcondition>`
    * :ref:`The Stop Condition with Ideal Value <optimization-components-stopcondition-ideal>`
    * :ref:`The Stop Condition Generator <optimization-components-stopcondition-generator>`
+
+Stop Condition Constants
+------------------------
+
+Constants for the Stop Conditions.
+
+::
+
+    class StopConditionConstants(object):
+        __slots__ = ()
+        # options
+        ideal = 'ideal_value'
+        time_limit = 'time_limit'
+        end_time = 'end_time'
+        delta = 'delta'
+        default_delta = 0.001
+    
+    
+
+
 
 .. _optimization-components-stopcondition:
    
@@ -192,7 +216,7 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
             """
             generates stop-conditions
             """
-            while time.time() < self.end_time:
+            while datetime.datetime.now() < self.end_time:
                 yield self.stop_condition
                 if self.abort:
                     break
@@ -205,6 +229,9 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
             self.abort = False
             self._end_time = None
             self._global_stop_condition = None
+            if self.use_singleton:
+                self._stop_condition.time_limit = time_limit
+                self._stop_condition.end_time = end_time
             return
     
     
@@ -239,3 +266,17 @@ Although you could pull the `stop_condition` property to get new stop-conditions
             if Quality(new_candidate) > Quality(candidate):
                 candidate = new_candidate
     return candidate
+
+.. '
+
+StopCondition Builder
+---------------------
+
+A builder of stop-conditions.
+
+.. autosummary::
+   :toctree: api
+
+   StopConditionBuilder
+   StopConditionBuilder.product
+

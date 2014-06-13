@@ -60,6 +60,22 @@ From numpy:
 
    random.normal
 
+
+
+
+A Gaussian Convolution Builder
+------------------------------
+
+This is a class to build a GaussianConvolution from a configuration map.
+
+
+
+.. autosummary::
+   :toctree: api
+
+   GaussianConvolutionBuilder
+   GaussianConvolutionBuilder.product
+
 ::
 
     if __name__ == '__builtin__':
@@ -67,26 +83,24 @@ From numpy:
                                        upper_bound=100)
         candidate = numpy.array([5,6])
         print gaussian(candidate)
-    
+        
         # change the candidate, move the mean up, widen the distribution
-        gaussian.standard_deviation = 20
-        gaussian.mean = 5
+        gaussian.scale = 20
+        gaussian.location = 5
         candidate = numpy.array([0, 1, 2])
         gaussian.number_type = int
         print gaussian(candidate)
-    
+        
         # clip the values so it's right-skewed
         gaussian.lower_bound = 5
         gaussian.upper_bound = 100
         print gaussian(candidate)
     
-    
 
 ::
 
-    [ 5.29148072  6.95253856]
-    [ 23 -39   6]
-    [ 5 27  5]
-    
+    [ 5.20361999  4.59882791]
+    [-16  26  -7]
+    [25  5  5]
     
 

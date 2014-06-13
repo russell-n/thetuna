@@ -8,22 +8,12 @@ The `Configuration Map` maps a configuration-file-name to data. It extends the `
 Contents:
 
     * :ref:`Background <configurationmap-background>`
-
     * :ref:`UML Class Diagram <configurationmap-uml>`
-
     * :ref:`ConfigurationError <configurationmap-configurationerror>`
-
     * :ref:`The API <configurationmap-api>`
-
     * :ref:`The ConfigurationMap Parser <configurationmap-parser>`
-
     * :ref:`The ConfigParser <configurationmap-configparser>`
-
     * :ref:`ConfigParser Exceptions <configurationmap-exceptions>`
-
-    * :ref:`Module Diagram <configurationmap-module-diagram>`
-
-    * :ref:`Class Implementation Diagram <configurationmap-class-implementation-diagram>`
 
 .. _configurationmap-background:    
     
@@ -78,12 +68,13 @@ The API
    ConfigurationMap.get_int
    ConfigurationMap.get_float
    ConfigurationMap.get_boolean
-   ConfigurationMap.get_relativetime
-   ConfigurationMap.get_datetime
    ConfigurationMap.get_list
+   ConfigurationMap.get_tuple
    ConfigurationMap.get_dictionary
    ConfigurationMap.get_ordered_dictionary
-   ConfigurationMap.get_named_tuple
+   ConfigurationMap.get_named_tuple      
+   ConfigurationMap.get_relativetime
+   ConfigurationMap.get_datetime
    ConfigurationMap.sections
    ConfigurationMap.has_option
    ConfigurationMap.options
