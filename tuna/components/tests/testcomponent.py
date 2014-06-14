@@ -8,7 +8,8 @@ import random
 from mock import MagicMock
 
 # this package
-from optimization.components.component import Component, Composite
+from tuna.components.component import BaseComponent, Composite
+from tuna import TunaError
 
 
 class TestComponent(unittest.TestCase):
@@ -18,15 +19,17 @@ class TestComponent(unittest.TestCase):
         """
         # no it's an abstract class
         with self.assertRaises(TypeError):
-            component = Component()
+            component = BaseComponent()
 
-        class ConcreteComponent(Component):
+        class ConcreteComponent(BaseComponent):
             def __init__(self):
                 super(ConcreteComponent, self).__init__()
                 return
             def __call__(self):
                 return
             def check_rep(self):
+                return
+            def close(self):
                 return
         c = ConcreteComponent()
         self.assertIsInstance(c.logger, logging.Logger)
@@ -36,14 +39,17 @@ class TestComponent(unittest.TestCase):
 
 class TestComposite(unittest.TestCase):
     def setUp(self):
-        self.component1 = MagicMock()
-        self.component2 = MagicMock()
-        self.component3 = MagicMock()
+        self.component1 = MagicMock(name='component1')
+        self.component2 = MagicMock(name='component2')
+        self.component3 = MagicMock(name='component3')
         self.components = [self.component3,
-                                    self.component1,
-                                    self.component2,
-                                    self.component3]
-        self.composite = Composite(self.components)
+                           self.component1,
+                           self.component2,
+                           self.component3]
+        self.composite = Composite(self.components,
+                                   error=TunaError,
+            error_message='aoesunth',
+            component_category='abecedarium')
         return
     
     def test_constructor(self):
@@ -76,10 +82,12 @@ class TestComposite(unittest.TestCase):
         Does it correctly remove the components from the list?
         """
         self.composite.remove(self.component2)
+        print self.component2
         self.assertEqual([self.component3,
                           self.component1,
                           self.component3],
-                          self.composite.components)
+                          self.composite.components,
+                          msg="first remove")
         # does it ignore components not in the list?
         self.composite.remove(self.component2)
 

@@ -20,7 +20,8 @@ from tuna.tweaks.convolutions import GaussianConvolutionBuilder
 from tuna.tweaks.convolutions import GaussianConvolutionConstants
 from tuna.parts.stopcondition import StopConditionConstants
 from tuna.parts.xysolution import XYTweak, XYSolution
-from tuna.qualities.dataquality import DataQualityXYBuilder
+#from tuna.qualities.dataquality import DataQualityXYBuilder
+from mock import MagicMock
 
 
 in_pweave = __name__ == '__builtin__'
@@ -118,7 +119,9 @@ class SimulatedAnnealing(BasePlugin):
             tweak = GaussianConvolutionBuilder(configuration=self.configuration,
                                                section=self.section_header).product
             xytweak = XYTweak(tweak)
-            quality = DataQualityXY()
+            #quality = DataQualityXY()
+            quality = MagicMock()
+            quality.return_value = 2
 
             candidate = XYSolution(numpy.array([3]))
 

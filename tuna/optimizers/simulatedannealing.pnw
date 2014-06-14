@@ -6,7 +6,7 @@ import random
 import math
 
 # this package
-from tuna.components.component import Component
+from tuna.components.component import BaseComponent
 from tuna import BaseClass, ConfigurationError
 @
 
@@ -40,7 +40,7 @@ Simulated Annealer
 
 .. uml::
 
-   Component <|-- SimulatedAnnealer
+   BaseComponent <|-- SimulatedAnnealer
 
 .. currentmodule:: tuna.optimizers.simulatedannealing
 .. autosummary::
@@ -51,7 +51,7 @@ Simulated Annealer
    SimulatedAnnealer.solutions
 
 <<name='SimulatedAnnealer', echo=False>>=
-class SimulatedAnnealer(Component):
+class SimulatedAnnealer(BaseComponent):
     """
     a Simulated Annealer optimizer
     """

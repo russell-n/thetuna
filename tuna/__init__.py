@@ -1,5 +1,3 @@
-from tuna.infrastructure.baseclass import BaseClass
-
 # some constants
 GLOBAL_NAME = "TUNA"
 SECTION = "TUNA"
@@ -22,6 +20,12 @@ CALLED_ON = "'{blue}{{attribute}}{reset}' attribute called on {red}{{thing}}{res
                                                                                              reset=RESET)
 CALLED = RED_THING.format(verb='Called')
 NOT_IMPLEMENTED = RED_THING.format(verb='Not Implemented')
+
+# common imports
+
+from tuna.infrastructure.baseclass import BaseClass
+from tuna.plugins.base_plugin import BasePlugin
+
 
 class TunaError(Exception):
     """

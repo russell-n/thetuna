@@ -52,18 +52,28 @@ class QuarterMaster(BaseClass):
     """
     A plugin manager
     """
-    def __init__(self, external_modules=None):
+    def __init__(self, external_modules=None, parent=BasePlugin,
+                 group='tuna.plugins', name='plugins',
+                 exclusions=['tuna.plugins.index']):
         """
         The Plugin Manager
 
         :param:
 
          - `external_modules`: iterable collection of module-names
+         - `parent`: Parent class to identify plugins
+         - `group`: group-name from setup.py
+         - `name`: name from the setup.py file
+         - `exclusions`: module names not to import (to avoid side-effects)
         """
         super(QuarterMaster, self).__init__()
         self._plugins = None
         self._import_plugins = None
         self.external_modules = None
+        self.parent = BasePlugin
+        self.group = group
+        self.name = name
+        self.exclusions = exclusions
         return
 
     @property
@@ -73,9 +83,9 @@ class QuarterMaster(BaseClass):
         """
         if self._import_plugins is None:
             # the group and name values are created in setup.py entry_points
-            self._import_plugins = RyeMother(group='tuna.plugins', name='plugins',
-                                             exclusions=['tuna.plugins.index'],
-                                             parent=BasePlugin)
+            self._import_plugins = RyeMother(group=self.group, name=self.name,
+                                             exclusions=self.exclusions,
+                                             parent=self.parent)
         return self._import_plugins
 
     @property

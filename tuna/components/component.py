@@ -18,16 +18,16 @@ from tuna.parts.countdown.countdown import TimeTracker
 DOCUMENT_THIS = __name__ == '__builtin__'
 
 
-class Component(BaseClass):
+class BaseComponent(BaseClass):
     """
     A base-class for Composite and Leaf
     """
     __metaclass__ = ABCMeta
     def __init__(self):
         """
-        Component Constructor
+        BaseComponent Constructor
         """
-        super(Component, self).__init__()
+        super(BaseComponent, self).__init__()
         self._logger = None
         return
 
@@ -55,11 +55,12 @@ class Component(BaseClass):
         return        
 
 
-class Composite(Component):
+class Composite(BaseComponent):
     """
     A Composite to hold and execute Components
     """
-    def __init__(self, error=None, error_message=None,
+    def __init__(self, components=None,
+                 error=None, error_message=None,
                  identifier=None,
                  component_category=None,
                  time_remains=None):
@@ -68,6 +69,7 @@ class Composite(Component):
 
         :param:
 
+         - `components`: list of components
          - `error`: Exception to catch when calling components
          - `error_message`: string for header of error messages
          - `component_category`: label for error messages when reporting component actions
@@ -80,7 +82,7 @@ class Composite(Component):
         self.identifier = identifier
         self.component_category = component_category
         self._logger = None
-        self._components = None
+        self._components = components
         self._time_remains = time_remains
         return
 
@@ -124,10 +126,6 @@ class Composite(Component):
 
         :postcondition: component appended to components
         """
-        # using is instead of in in case __eq__ overriden
-        for existing_component in self.components:
-            if component is existing_component:
-                return
         self.components.append(component)
         return
 

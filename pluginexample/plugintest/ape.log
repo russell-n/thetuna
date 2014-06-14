@@ -1,0 +1,95 @@
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:39:31,Retrieving plugintest.plugins
+ERROR,quartermaster,MainThread,get_plugin,Line: 117,2014-05-22 14:39:31,'plugintest.plugins'
+DEBUG,helparguments,MainThread,function,Line: 120,2014-05-22 14:39:31,'NoneType' object is not callable
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:39:49,Retrieving Ape
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:41:24,Retrieving PluginTest
+DEBUG,helparguments,MainThread,function,Line: 120,2014-05-22 14:41:24,Can't instantiate abstract class PluginTest with abstract methods product
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:42:10,Retrieving PluginTest
+ERROR,crash_handler,MainThread,log_error,Line: 40,2014-05-22 14:42:51,[1m********** Oops, I Crapped My Pants **********[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 53,2014-05-22 14:42:51,[31m[1mBdbQuit: [0;0m[31m[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 55,2014-05-22 14:42:51,[31m[1mFailed Line: [0;0m[31mif self.quitting: raise BdbQuit[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 57,2014-05-22 14:42:51,[31m[1mIn Function: [0;0m[31mdispatch_exception[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 59,2014-05-22 14:42:51,[31m[1mIn File: [0;0m[31mbdb.py[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 61,2014-05-22 14:42:51,[31m[1mAt Line: [0;0m[31m97[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 62,2014-05-22 14:42:51,[1m**********************************************[0;0m
+DEBUG,crash_handler,MainThread,log_error,Line: 63,2014-05-22 14:42:51,Traceback (most recent call last):
+  File "/home/moira/repositories/repository_code/hortators/ape/ape/commoncode/crash_handler.py", line 16, in wrapped
+    return method(self, *args, **kwargs)
+  File "/home/moira/repositories/repository_code/hortators/ape/ape/interface/arguments/helparguments.py", line 118, in function
+    plugin().help(args.width)
+  File "/usr/lib/python2.7/bdb.py", line 55, in trace_dispatch
+    return self.dispatch_exception(frame, arg)
+  File "/usr/lib/python2.7/bdb.py", line 97, in dispatch_exception
+    if self.quitting: raise BdbQuit
+BdbQuit
+
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:43:39,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:43:39,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 108,2014-05-22 14:43:39,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:43:39,[31m[1mUnknown Plugin: [0;0m[31mPluginTest[0;0m
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:43:59,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:44:06,Retrieving PluginTest
+ERROR,crash_handler,MainThread,log_error,Line: 40,2014-05-22 14:52:54,[1m********** Oops, I Crapped My Pants **********[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 53,2014-05-22 14:52:54,[31m[1mBdbQuit: [0;0m[31m[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 55,2014-05-22 14:52:54,[31m[1mFailed Line: [0;0m[31mif self.quitting: raise BdbQuit[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 57,2014-05-22 14:52:54,[31m[1mIn Function: [0;0m[31mdispatch_line[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 59,2014-05-22 14:52:54,[31m[1mIn File: [0;0m[31mbdb.py[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 61,2014-05-22 14:52:54,[31m[1mAt Line: [0;0m[31m68[0;0m
+ERROR,crash_handler,MainThread,log_error,Line: 62,2014-05-22 14:52:54,[1m**********************************************[0;0m
+DEBUG,crash_handler,MainThread,log_error,Line: 63,2014-05-22 14:52:54,Traceback (most recent call last):
+  File "/home/moira/repositories/repository_code/hortators/ape/ape/commoncode/crash_handler.py", line 16, in wrapped
+    return method(self, *args, **kwargs)
+  File "/home/moira/repositories/repository_code/hortators/ape/ape/interface/arguments/fetcharguments.py", line 108, in function
+    self.logger.debug(error)
+  File "/home/moira/repositories/repository_code/hortators/ape/ape/interface/arguments/fetcharguments.py", line 108, in function
+    self.logger.debug(error)
+  File "/usr/lib/python2.7/bdb.py", line 49, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "/usr/lib/python2.7/bdb.py", line 68, in dispatch_line
+    if self.quitting: raise BdbQuit
+BdbQuit
+
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:53:00,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:53:00,Retrieving PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:53:08,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:53:24,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:53:24,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 108,2014-05-22 14:53:24,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:53:24,[31m[1mPlugin Error: [0;0m[31mCan't build 'PluginTest'[0;0m
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:53:57,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:53:57,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 108,2014-05-22 14:53:57,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:53:57,[31m[1mPlugin Error (Can't instantiate abstract class PluginTest with abstract methods product): [0;0m[31mCan't build 'PluginTest'[0;0m
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:54:16,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:54:16,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 108,2014-05-22 14:54:16,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:54:16,[31m[1mPlugin Error: [0;0m[31m'PluginTest'[0;0m
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:54:27,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:54:27,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 108,2014-05-22 14:54:27,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:54:27,[31m[1mPlugin Error: [0;0m[31m'Can't instantiate abstract class PluginTest with abstract methods product'[0;0m
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:54:46,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:54:46,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 108,2014-05-22 14:54:46,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:54:46,[31m[1mPlugin Error: [0;0m[31m'Can't instantiate abstract class PluginTest with abstract methods product'[0;0m
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 14:55:04,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:55:04,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 108,2014-05-22 14:55:04,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:55:04,[31m[1mPlugin Implementation Error: [0;0m[31mCan't instantiate abstract class PluginTest with abstract methods product[0;0m
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:55:06,Retrieving PluginTest
+DEBUG,helparguments,MainThread,function,Line: 120,2014-05-22 14:55:06,Can't instantiate abstract class PluginTest with abstract methods product
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:56:37,Retrieving PluginTest
+DEBUG,helparguments,MainThread,function,Line: 120,2014-05-22 14:56:37,Can't instantiate abstract class PluginTest with abstract methods product
+ERROR,baseclass,MainThread,log_error,Line: 45,2014-05-22 14:56:37,[31m[1mPlugin Implementation Error: [0;0m[31mCan't instantiate abstract class PluginTest with abstract methods product[0;0m
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 14:56:50,Retrieving PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:03:01,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 15:03:06,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:03:06,Retrieving PluginTest
+DEBUG,fetcharguments,MainThread,function,Line: 101,2014-05-22 15:05:30,Getting Plugin: PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:05:30,Retrieving PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:05:33,Retrieving PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:15:09,Retrieving PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:15:15,Retrieving Ape
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:15:27,Retrieving Ape
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:16:24,Retrieving PluginTest
+DEBUG,quartermaster,MainThread,get_plugin,Line: 113,2014-05-22 15:16:33,Retrieving PluginTest

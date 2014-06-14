@@ -2,7 +2,7 @@
 """list subcommand
 
 usage: tuna list -h
-       tuna list [<module> ...]
+       tuna list [--components] [<module> ...]
 
 Positional Arguments:
   <module> ...  Space-separated list of importable module with plugins
@@ -10,6 +10,7 @@ Positional Arguments:
 optional arguments:
 
   -h, --help                 Show this help message and exit
+  -c, --components           List `components` instead of `plugins`
 
 """
 
@@ -18,6 +19,7 @@ optional arguments:
 from tuna.infrastructure.crash_handler import try_except
 from tuna.infrastructure.arguments.arguments import BaseArguments
 from tuna.infrastructure.arguments.basestrategy import BaseStrategy
+from tuna.components.component import BaseComponent
 
 
 class ListArgumentsConstants(object):
@@ -27,6 +29,7 @@ class ListArgumentsConstants(object):
     __slots__ = ()
     # arguments
     modules = "<module>"
+    components = '--components'
 
 
 class List(BaseArguments):
@@ -38,6 +41,7 @@ class List(BaseArguments):
         self._modules = None
         self.sub_usage = __doc__
         self._function = None
+        self._components = None
         return
 
     @property
@@ -58,6 +62,15 @@ class List(BaseArguments):
             self._modules = self.sub_arguments[ListArgumentsConstants.modules]
         return self._modules
 
+    @property
+    def components(self):
+        """
+        Boolean to switch to components instead of plugins
+        """
+        if self._components is None:
+            self._components = self.sub_arguments[ListArgumentsConstants.components]
+        return self._components
+
     def reset(self):
         """
         Resets the attributes to None
@@ -76,12 +89,16 @@ class ListStrategy(BaseStrategy):
     def function(self, args):
         """
         The function to run for this strategy (instead of the ArgParse sub-command function).
-        Uses the QuarteMaster to list the plugins
+        Uses the QuarterMaster to list the plugins or components
 
         :param:
 
-         - `args`: object with `modules` attribute
+         - `args`: object with `modules` and `components` attribute
         """
+        if args.components:
+            self.quartermaster.parent = BaseComponent
+            self.quartermaster.name = 'components'
+            self.quartermaster.exclusions.append('tuna.components.component')
         self.quartermaster.external_modules = args.modules
         self.quartermaster.list_plugins()
         return

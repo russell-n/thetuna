@@ -32,7 +32,7 @@ Simulated Annealer
 
 .. uml::
 
-   Component <|-- SimulatedAnnealer
+   BaseComponent <|-- SimulatedAnnealer
 
 .. currentmodule:: tuna.optimizers.simulatedannealing
 .. autosummary::

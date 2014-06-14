@@ -5,7 +5,7 @@ The List Sub-Command Arguments
     """list subcommand
     
     usage: tuna list -h
-           tuna list [<module> ...]
+           tuna list [--components] [<module> ...]
     
     Positional Arguments:
       <module> ...  Space-separated list of importable module with plugins
@@ -13,6 +13,7 @@ The List Sub-Command Arguments
     optional arguments:
     
       -h, --help                 Show this help message and exit
+      -c, --components           List `components` instead of `plugins`
     
     """
     
@@ -43,6 +44,7 @@ The ListArguments Constants
         __slots__ = ()
         # arguments
         modules = "<module>"
+        components = '--components'
     
     
 

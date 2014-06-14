@@ -4,11 +4,11 @@ import random
 import math
 
 # this package
-from tuna.components.component import Component
+from tuna.components.component import BaseComponent
 from tuna import BaseClass, ConfigurationError
 
 
-class SimulatedAnnealer(Component):
+class SimulatedAnnealer(BaseComponent):
     """
     a Simulated Annealer optimizer
     """
