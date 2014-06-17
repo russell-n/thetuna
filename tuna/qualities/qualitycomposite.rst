@@ -5,6 +5,9 @@ This is a composite with the call overriden so that it takes arguments and passe
 
 .. '
 
+The Quality Composite
+---------------------
+
 
 
 .. uml::
@@ -12,10 +15,85 @@ This is a composite with the call overriden so that it takes arguments and passe
    Composite <|-- QualityComposite
    Composite : __call__(*args, **kwargs)
 
-.. currentmodule:: optimization.qualities.qualitycomposite
+.. currentmodule:: tuna.qualities.qualitycomposite
 .. autosummary::
    :toctree: api
 
    QualityComposite
    QualityComposite.__call__
+
+
+
+Quality Composite Builder
+-------------------------
+
+A convenience class to build quality composites. Builders are turning out to be light-weight versions of plugins (no help for the user).
+
+.. currentmodule:: tuna.qualities.qualitycomposite
+.. autosummary::
+   :toctree: api
+
+   QualityCompositeBuilder
+   QualityCompositeBuilder.product
+
+
+::
+
+    class QualityCompositeBuilder(object):
+        """
+        A builder of quality-composites
+        """
+        def __init__(self, configuration, section_header):
+            """
+            QualityCompositeBuilder constructor
+    
+            :param:
+    
+             - `configuration`: configuration map with options to build this th
+    ing
+             - `section_header`: section in the configuration with values neede
+    d
+            """
+            self.configuration = configuration
+            self.section_header = section_header
+            self._product = None
+            return
+    
+        @property
+        def product(self):
+            """
+            A built Quality Composite
+            """
+            if self._product is None:
+                quartermaster = QuarterMaster(name='components')
+                self._product = QualityComposite(error=DontCatchError,
+                                          error_message="Component has failed."
+    ,
+                                          component_category='quality')
+                defaults = self.configuration.defaults
+                external_modules = [option for option in self.configuration.opt
+    ions(MODULES_SECTION)
+                                     if option not in defaults]
+                quartermaster.external_modules = external_modules
+                for component_section in self.configuration.get_list(section=se
+    lf.section_header,
+                                                                     option='co
+    mponents'):
+                    component_name = self.configuration.get(section=component_s
+    ection,
+                                                            option='component',
+    
+                                                            optional=False)
+                    component_def = quartermaster.get_plugin(component_name)
+                    component = component_def(self.configuration,
+                                              component_section).product
+                    self._product.add(component)
+                if not len(self._product.components):
+                    raise ConfigurationError("Unable to build quality component
+    s using 'components={0}'".format(self.section_header,
+                                                                               
+                                     option='components'))
+            return self._product
+    
+    
 

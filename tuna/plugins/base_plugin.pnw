@@ -1,6 +1,14 @@
 The Base Plugin
 ===============
 .. currentmodule:: tuna.plugins.base_plugin
+
+Contents:
+
+    * :ref:`Background <base-plugin>`
+    * :ref:`Class Diagram <base-plugin-class-diagram>`
+    * :ref:`Public Properties and Methods <base-plugin-public-properties>`
+    * :ref:`Aggregated Classes <base-plugin-aggregated-classes>`
+    
 <<name='imports', echo=False>>=
 # python standard library
 from abc import ABCMeta, abstractmethod, abstractproperty
@@ -37,6 +45,8 @@ To summarize, the `BasePlugin` is the main way to add code that will be exposed 
 
 .. '
 
+.. _base-plugin-class-diagram:
+
 Class Diagram
 -------------
 
@@ -54,12 +64,13 @@ This is an (idealized) class diagram (see below for an auto-generated one).
    BasePlugin : fetch_config()
    BasePlugin : section_header
 
+.. _base-plugin-public-properties::   
+
 Public Properties and Methods
 -----------------------------
 
 The following are the public propeties and methods. The ``help_page`` and ``help()`` are the only implemented attributes, the rest need to be implemented by the inheriting classes.
 
-.. _base-plugin-sections:
 Sections
 ~~~~~~~~
 
@@ -67,7 +78,6 @@ The `sections` are a dictionary used by the help-page to create the screen-outpu
 
     ape help <plugin-name>
 
-.. _base-plugin-product:
 The Product
 ~~~~~~~~~~~
 
@@ -94,18 +104,20 @@ And so on to add to a configuration file without clobbering the old one. Additio
    BasePlugin.product
    BasePlugin.fetch_config
 
+.. _base-plugin-aggregated-classes::
+   
 Aggregated Classes
 ------------------
 
 These are the classes that the BasePlugin uses.
 
-.. currentmodule:: ape.commoncode.baseclass
+.. currentmodule:: tuna.infrastructure.baseclass
 .. autosummary::
    :toctree: api
 
    BaseClass.logger
 
-.. currentmodule:: ape.parts.helppage.helppage
+.. currentmodule:: tuna.infrastructure.helppage
 .. autosummary::
    :toctree: api
 

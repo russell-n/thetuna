@@ -8,6 +8,9 @@ from tuna.components.component import BaseComponent
 from tuna import BaseClass, ConfigurationError
 
 
+ANNEALING_SOLUTIONS = "annealing_solutions.csv"
+
+
 class SimulatedAnnealer(BaseComponent):
     """
     a Simulated Annealer optimizer
@@ -26,12 +29,30 @@ class SimulatedAnnealer(BaseComponent):
          - `stop_condition`: a condition to decide to prematurely stop
          - `solution_storage`: a callable to send solutions to
         """
+        super(SimulatedAnnealer, self).__init__()
         self.temperatures = temperatures
         self.tweak = tweak
         self.quality = quality
-        self.solution = candidate
+        self._solution = candidate
         self.stop_condition = stop_condition
         self._solutions = solution_storage
+        return
+
+    @property
+    def solution(self):
+        """
+        Current candidate solution
+        """
+        if self._solution is None:
+            self._solution = self.tweak()
+        return self._solution
+
+    @solution.setter
+    def solution(self, candidate):
+        """
+        Sets the solution
+        """
+        self._solution = candidate
         return
 
     @property
@@ -51,10 +72,17 @@ class SimulatedAnnealer(BaseComponent):
 
     def close(self):
         """
-        closes the quality and solutions' storage
+        closes the quality and solutions' storage and resets the solution to None
         """
         self.quality.close()
-        self.solutions.close()
+        self.solutions.close()        
+        self._solution = None
+        return
+
+    def reset(self):
+        self.quality.reset()
+        self.temperatures.reset()
+        self._solution = None
         return
 
     def __call__(self):
@@ -63,6 +91,8 @@ class SimulatedAnnealer(BaseComponent):
 
         :return: last non-None output given
         """
+        # this is an attempt to allow this to run repeatedly
+        self.solutions.reset()
         solution = self.solution
         # prime the data with the first candidate
         self.quality(solution)
@@ -79,7 +109,9 @@ class SimulatedAnnealer(BaseComponent):
                 self.solutions.append(solution)
                 self.solution = solution
             if self.stop_condition(self.solution):
+                self.logger.info('Stop condition reached with solution: {0}'.format(self.solution))
                 break
+        self.logger.info("Stop temperature: {0}".format(self.temperatures))
         return self.solution
 # SimulatedAnnealer    
 
@@ -159,8 +191,22 @@ class TimeTemperatureGenerator(object):
         """
         Resets the time to -1 so the iterator can be re-used
         """
+        self.__iter__().close()
         self.time = -1
-        return
+
+    def reset(self):
+        """
+        Does the same thing as close
+        """
+        self.__iter__().close()
+        self.time = -1
+
+
+    def __str__(self):
+        return "Start: {0}, Stop: {1}, Alpha: {2}, Current Time: {3}".format(self.start,
+                                                                             self.stop,
+                                                                             self.alpha,
+                                                                             self.time)
 # end TimeTemperatureGenerator    
 
 

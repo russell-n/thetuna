@@ -2,13 +2,14 @@
 """fetch subcommand
     
 usage: tuna fetch -h
-       tuna fetch [<name>...]  [--module <module> ...] 
+       tuna fetch [<name>...]  [--module <module> ...] [-c]
 
 positional arguments:
     <name>                         List of plugin-names (default=['Optimizer'])
 
 optional arguments:
     -h, --help                     Show this help message and exit
+    -c, --components               If set, looks for `components` instead of `plugins`
     -m, --module <module> ...      Non-optimizer modules
 """
 
@@ -27,6 +28,7 @@ class FetchArgumentsConstants(object):
     # arguments and options
     names = "<name>"
     modules = '--module'
+    components = '--components'
     
     # defaults
     default_names = ['Tuna']
@@ -42,6 +44,7 @@ class Fetch(BaseArguments):
         self._names = None
         self._modules = None
         self._function = None
+        self._components = None
         return
 
     @property
@@ -63,6 +66,15 @@ class Fetch(BaseArguments):
             if not self._names:
                 self._names = FetchArgumentsConstants.default_names
         return self._names
+
+    @property
+    def components(self):
+        """
+        Flag to use components instead of plugins
+        """
+        if self._components is None:
+            self._components = self.sub_arguments[FetchArgumentsConstants.components]
+        return self._components
 
     @property
     def modules(self):
@@ -97,12 +109,17 @@ class FetchStrategy(BaseStrategy):
 
          - `args`: namespace with 'names' and 'modules' list attributes
         """
+        if args.components:
+            self.quartermaster.name = 'components'
+            self.quartermaster.exclusions.append('tuna.components.composite')
+
         for name in args.names:
             self.logger.debug("Getting Plugin: {0}".format(name))
             self.quartermaster.external_modules = args.modules
-            plugin = self.quartermaster.get_plugin(name)
+
             # the quartermaster returns definitions, not instances
             try:
+                plugin = self.quartermaster.get_plugin(name)
                 config = plugin().fetch_config()
             except TypeError as error:
                 self.logger.debug(error)

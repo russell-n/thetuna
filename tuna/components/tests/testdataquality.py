@@ -62,8 +62,14 @@ class TestXYData(unittest.TestCase):
     def test_call(self):
         """
         Does it get the value from the data?
-        """        
+        """
+        class FakeData(object):
+            def __init__(self, inputs):
+                self.inputs = inputs
+                self.output = None
+            
         coordinates = [random.randrange(10), random.randrange(100)]
+        input_output = FakeData(coordinates)
         output = random.randrange(100)
         loader = MagicMock()
         
@@ -74,7 +80,7 @@ class TestXYData(unittest.TestCase):
         loader.return_value = data
         data.__getitem__.side_effect = getitem
         with patch("numpy.loadtxt", loader):
-            actual = self.xy_data(coordinates)
+            actual = self.xy_data(input_output)
             self.assertEqual(actual, output)
             data.__getitem__.assert_called_with((coordinates[0],
                                                 coordinates[1]))

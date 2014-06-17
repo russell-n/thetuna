@@ -5,7 +5,7 @@ from scipy import stats
 import matplotlib.pyplot as plt
 
 # this package
-from optimization.qualities.basesimulation import BaseSimulation
+from tuna.qualities.basesimulation import BaseSimulation
 
 
 IN_PWEAVE = __name__ == '__builtin__'

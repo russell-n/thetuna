@@ -1,5 +1,11 @@
 The Simulated Annealing Optimizer
 =================================
+::
+
+    ANNEALING_SOLUTIONS = "annealing_solutions.csv"
+    
+    
+
 
 
 Contents:

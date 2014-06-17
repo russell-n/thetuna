@@ -24,7 +24,7 @@
 
 # this package
 from tuna import DontCatchError
-from tuna.components.component import Composite
+from tuna.components.composite import Composite
 from tuna.parts.storage.filestorage import FileStorage
 from tuna import FILE_TIMESTAMP
 

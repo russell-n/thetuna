@@ -20,8 +20,8 @@ from tuna.tweaks.convolutions import GaussianConvolutionBuilder
 from tuna.tweaks.convolutions import GaussianConvolutionConstants
 from tuna.parts.stopcondition import StopConditionConstants
 from tuna.parts.xysolution import XYTweak, XYSolution
-#from tuna.qualities.dataquality import DataQualityXYBuilder
-from mock import MagicMock
+from tuna.qualities.qualitycomposite import QualityCompositeBuilder
+
 
 
 in_pweave = __name__ == '__builtin__'
@@ -32,6 +32,7 @@ CONFIGURATION = '''[{section}]
 # since the plugin is specified, the section-name 
 # just has to match an option in the TUNA section
 plugin = SimulatedAnnealing
+components = <comma-separated list of sections with component information>
 
 # annealing parameters
 {start} = <starting temperature (should be high)>
@@ -97,7 +98,7 @@ class SimulatedAnnealing(BasePlugin):
 
             self._sections = OrderedDict()
             self._sections['Name'] = '{blue}' + name + reset + ' -- simulated annealing optimizer'
-            self._sections['Description'] = bold_name + ' Runs a simulated annealing optimizer.'.format(ANNEALINGSECTION)
+            self._sections['Description'] = bold_name + ' Runs a simulated annealing optimizer.'
             self._sections["Configuration"] = CONFIGURATION
             self._sections['Files'] = __file__
         return self._sections
@@ -107,31 +108,33 @@ class SimulatedAnnealing(BasePlugin):
         """
         This is the SimulatedAnnealing product
 
+        to allow repeated running the SimulatedAnnealer is created anew every time
+
         :precondition: self.configuration is a configuration map
         """
-        if self._product is None:
-            kwargs = dict(self.configuration.items(section=self.section_header,
+        kwargs = dict(self.configuration.items(section=self.section_header,
                                                    optional=False))
-            self.logger.debug("Building the Simulated Annealer with: {0}".format(kwargs))
+        self.logger.debug("Building the Simulated Annealer with: {0}".format(kwargs))
 
-            temperatures = TimeTemperatureGeneratorBuilder(configuration=self.configuration,
-                                                           section=self.section_header).product
-            tweak = GaussianConvolutionBuilder(configuration=self.configuration,
+        temperatures = TimeTemperatureGeneratorBuilder(configuration=self.configuration,
+                                                       section=self.section_header).product
+        tweak = GaussianConvolutionBuilder(configuration=self.configuration,
                                                section=self.section_header).product
-            xytweak = XYTweak(tweak)
-            #quality = DataQualityXY()
-            quality = MagicMock()
-            quality.return_value = 2
+        xytweak = XYTweak(tweak)
+            
+        quality = QualityCompositeBuilder(configuration=self.configuration,
+                                              section_header=self.section_header).product
 
-            candidate = XYSolution(numpy.array([3]))
+        candidate = xytweak()
 
-            stop_condition = StopConditionBuilder(configuration=self.configuration,
+        stop_condition = StopConditionBuilder(configuration=self.configuration,
                                                   section=self.section_header).product            
-            storage = singletons.get_filestorage(name=GLOBAL_NAME)
-            opened_file = storage.open('annealing_solutions.csv')
-            adapter = StorageAdapter(storage=opened_file)
-            self._product = SimulatedAnnealer(temperatures=temperatures,
-                                              tweak=xytweak,
+        storage = singletons.get_filestorage(name=GLOBAL_NAME)
+        filename = 'annealing_solutions.csv'
+
+        adapter = StorageAdapter(storage=storage, filename=filename)
+        self._product = SimulatedAnnealer(temperatures=temperatures,
+                                            tweak=xytweak,
                                               quality=quality,
                                               candidate=candidate,
                                               solution_storage=adapter,

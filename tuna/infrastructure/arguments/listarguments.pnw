@@ -150,9 +150,8 @@ class ListStrategy(BaseStrategy):
          - `args`: object with `modules` and `components` attribute
         """
         if args.components:
-            self.quartermaster.parent = BaseComponent
             self.quartermaster.name = 'components'
-            self.quartermaster.exclusions.append('tuna.components.component')
+            self.quartermaster.exclusions.append('tuna.components.composite')
         self.quartermaster.external_modules = args.modules
         self.quartermaster.list_plugins()
         return

@@ -7,7 +7,7 @@ from scipy import stats
 import matplotlib.pyplot as plt
 
 # this package
-from optimization.qualities.basesimulation import BaseSimulation
+from tuna.qualities.basesimulation import BaseSimulation
 @
 
 <<name='constants', echo=False>>=
@@ -38,7 +38,7 @@ Normal Simulation Implementation
 
    BaseSimulation <|-- NormalSimulation
 
-.. currentmodule:: optimization.simulations.normalsimulation
+.. currentmodule:: tuna.qualities.normalsimulation
 .. autosummary::
    :toctree: api
 

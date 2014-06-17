@@ -14,7 +14,8 @@ import random
 from mock import MagicMock
 
 # this package
-from tuna.components.component import BaseComponent, Composite
+from tuna.components.component import BaseComponent
+from tuna.components.composite import Composite
 from tuna import TunaError
 @
 

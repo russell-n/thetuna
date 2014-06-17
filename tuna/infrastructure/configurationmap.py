@@ -63,7 +63,7 @@ class ConfigurationMap(BaseClass):
             self.logger.debug(error)
         if optional:
             return default
-        raise ConfigurationError('No Such Option -- section: {0} option: {1}'.format(section,
+        raise ConfigurationError("No Such Option -- Section: '{0}' Option: '{1}'".format(section,
                                                                                      option))
 
     def get_type(self, cast, section, option, optional=False, default=None):
@@ -161,8 +161,14 @@ class ConfigurationMap(BaseClass):
 
         :return: value list with whitespace trimmed
         """
-        values =  self.get(section, option, optional=False, default=None).split(delimiter)
-        return [value.strip() for value in values]
+        try:
+            values =  self.get(section, option, optional=optional, default=default).split(delimiter)
+            return [value.strip() for value in values]
+        except AttributeError as error:
+            if optional:
+                self.logger.debug(error)
+                return default
+        raise ConfigurationError("Unable to build list from -- Section: '{0}', Option: '{1}'")
 
     def get_tuple(self, section, option, optional=False, default=None, delimiter=','):
         """

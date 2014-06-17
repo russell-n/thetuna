@@ -2,16 +2,16 @@
 """`help` sub-command
 
 usage: tuna help -h
-       tuna help [-w WIDTH] [--module <module>...] [<name>]
+       tuna help [-w WIDTH] [-c] [--module <module>...] [<name>]
 
 positional arguments:
     <name>                A specific plugin to inquire about [default: Tuna].
 
 optional arguments:
-    -h, --help            show this help message and exit
-    -w , --width <width>  Number of characters to wide to format the page. [default: 80]
-    -m, --module <module>     non-tuna module with plugins
-    
+    -h, --help                show this help message and exit
+    -m, --module <module>     non-tuna module with plugins or components
+    -c, --components          If set, looks for `components` instead of `plugins`
+    -w , --width <width>      Number of characters to wide to format the page. [default: 80]
 """
 
 
@@ -19,6 +19,7 @@ optional arguments:
 from tuna.infrastructure.crash_handler import try_except
 from tuna.infrastructure.arguments.arguments import BaseArguments
 from tuna.infrastructure.arguments.basestrategy import BaseStrategy
+from tuna.components.component import BaseComponent
 
 
 class HelpArgumentsConstants(object):
@@ -29,6 +30,7 @@ class HelpArgumentsConstants(object):
     width = '--width'
     modules = '--module'
     name = "<name>"
+    components = '--components'
 
     default_name = 'Tuna'
 
@@ -44,7 +46,17 @@ class Help(BaseArguments):
         self._name = None
         self.sub_usage = __doc__
         self._function = None
+        self._components = None
         return
+
+    @property
+    def components(self):
+        """
+        Flag to change to components instead of plugins
+        """
+        if self._components is None:
+            self._components = self.sub_arguments[HelpArgumentsConstants.components]
+        return self._components
 
     @property
     def function(self):
@@ -114,6 +126,10 @@ class HelpStrategy(BaseStrategy):
         self.quartermaster.external_modules = args.modules
 
         try:
+            if args.components:
+                self.quartermaster.name = 'components'
+                self.quartermaster.exclusions.append('tuna.components.composite')
+
             plugin = self.quartermaster.get_plugin(args.name)
             plugin().help(args.width)
         except TypeError as error:

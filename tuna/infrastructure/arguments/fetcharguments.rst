@@ -5,7 +5,7 @@ The Fetch Sub-Command Arguments
     """fetch subcommand
         
     usage: tuna fetch -h
-           tuna fetch [<name>...]  [--module <module> ...] 
+           tuna fetch [<name>...]  [--module <module> ...] [-c]
     
     positional arguments:
         <name>                         List of plugin-names (default=['Optimize
@@ -13,6 +13,8 @@ The Fetch Sub-Command Arguments
     
     optional arguments:
         -h, --help                     Show this help message and exit
+        -c, --components               If set, looks for `components` instead o
+    f `plugins`
         -m, --module <module> ...      Non-optimizer modules
     """
     
@@ -45,6 +47,7 @@ The Fetch Arguments Constants
         # arguments and options
         names = "<name>"
         modules = '--module'
+        components = '--components'
         
         # defaults
         default_names = ['Tuna']
@@ -69,6 +72,7 @@ The FetchArguments
    FetchArguments
    FetchArguments.names
    FetchArguments.modules
+   FetchArguments.components
    FetchArguments.reset
 
 

@@ -107,22 +107,29 @@ class XYTweak(object):
     """
     An adapter to the tweaks to return an XYSolution instead of an array
     """
-    def __init__(self, tweak):
+    def __init__(self, tweak, size=2):
         """
         XYTweak constructor
 
         :param:
 
          - `tweak`: object that adds noise to an array
+         - `size`: size of vector (used for getting initial candidate)
         """
         self.tweak = tweak
+        self.size = size
         return
 
-    def __call__(self, vector):
+    def __call__(self, vector=None):
         """
-        Tweaks the vector, then uses it as the domain for an XY Solution        
+        Tweaks the vector, then uses it as the domain for an XY Solution
+
+        If none is given, just return a random vector
         """
-        tweaked = self.tweak(vector)
+        if vector is not None:
+            tweaked = self.tweak(vector)
+        else:
+            tweaked = self.tweak(numpy.zeros(self.size))
         return XYSolution(inputs=tweaked)
 
 
@@ -130,7 +137,7 @@ class XYSolutionGenerator(object):
     """
     A generator of candidate XYSolutions
     """
-    def __init__(self, low, high, size=1, random_function=None,
+    def __init__(self, low, high, size=1, random_function=numpy.random.uniform,
                  repetitions=None):
         """
         XYSolutionGenerator constructor
@@ -146,18 +153,9 @@ class XYSolutionGenerator(object):
         self.low = low
         self.high = high
         self.size = size
-        self._random_function = random_function
+        self.random_function = random_function
         self.repetitions = repetitions
         return
-
-    @property
-    def random_function(self):
-        """
-        Function to create random array (default: uniform)
-        """
-        if self._random_function is None:
-            self._random_function = numpy.random.uniform
-        return self._random_function
 
     @property
     def candidate(self):

@@ -26,7 +26,7 @@ Normal Simulation Implementation
 
    BaseSimulation <|-- NormalSimulation
 
-.. currentmodule:: optimization.simulations.normalsimulation
+.. currentmodule:: tuna.qualities.normalsimulation
 .. autosummary::
    :toctree: api
 

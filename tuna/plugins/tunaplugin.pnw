@@ -111,7 +111,7 @@ from collections import OrderedDict
 import tuna.infrastructure.arguments.arguments as basearguments
 from tuna.infrastructure.arguments.argumentbuilder import ArgumentBuilder
 from tuna.infrastructure.configurationmap import ConfigurationMap
-from tuna.components.component import Composite
+from tuna.components.composite import Composite
 #from tuna.parts.storage.filestorage import FileStorage
 from tuna.infrastructure import singletons
 from tuna import GLOBAL_NAME

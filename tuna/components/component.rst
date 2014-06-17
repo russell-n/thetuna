@@ -6,11 +6,10 @@ The Components
 Contents:
 
     * :ref:`Introduction <components-introduction>`
-    * :ref:`Component Module Diagram <component-module-diagram>`
-    * :ref:`The Component Class <component-class>`
-    * :ref:`The Composite Class <composite-class>`
+    * :ref:`The BaseComponent Class <component-class>`
 
 .. _components-introduction:
+
 Introduction
 ------------
 
@@ -43,39 +42,4 @@ This is the base-class which the other classes will inherit from. All :ref:`Plug
    BaseComponent.__call__
    BaseComponent.check_rep
    BaseComponent.close
-
-
-
-
-
-.. _composite-class:
-
-The Composite
--------------
-
-.. uml::
-
-   Composite -|> BaseComponent
-
-.. autosummary::
-   :toctree: api
-
-   Composite
-   Composite.components
-   Composite.add
-   Composite.remove
-   Composite.__call__
-   Composite.__iter__
-   Composite.__len__
-   Composite.__getitem__
-   Composite.one_call
-   Composite.check_rep
-   Composite.close
-   Composite.time_remains
-
-The `Composite` was created to be a generalization of the `Hortator`, `Operator` and `Operations`. By specifying the error that it will catch, the error message it will display if there is one, its components, and the component-category of its components, you specify what type of composite it is. It can also act as a regular composite to contain other parts, but this was the original use-case -- to create the infrastructure for the TUNA.
-
- * Each component call is wrapped by the :ref:`try_except decorator <try-except-decorator>` which catches the Exception in self.error
-
- * The default for ``self.time_remains`` is a :ref:`TimeTracker <tuna-parts-countdown-timetracker>` but can also be a :ref:`CountdownTimer <tuna-parts-countdown-countdowntimer>`
 
