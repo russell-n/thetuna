@@ -27,6 +27,9 @@ from tuna.parts.stopcondition import StopConditionBuilder
 from tuna.optimizers.simulatedannealing import TimeTemperatureGeneratorBuilder
 from tuna.tweaks.convolutions import GaussianConvolutionBuilder
 from tuna.tweaks.convolutions import GaussianConvolutionConstants
+from tuna.tweaks.convolutions import XYConvolutionBuilder
+from tuna.tweaks.convolutions import XYConvolutionConstants
+
 from tuna.parts.stopcondition import StopConditionConstants
 from tuna.parts.xysolution import XYTweak, XYSolution
 from tuna.qualities.qualitycomposite import QualityCompositeBuilder
@@ -46,12 +49,22 @@ components = <comma-separated list of sections with component information>
 # annealing parameters
 {start} = <starting temperature (should be high)>
 {stop} = <stopping temperature (should be around 0)>
+# alpha closer to 1 means slower descent
 {alpha} = <change constant (0 < alpha < 1)>
 
 # input parameters
+# these are for the random number generator
+# the default convolution assumes the same bounds for all entries in the vector
+# change to XYConvolution for the asymmettric 2-space case
+tweak_type = <type of convolution>
+
+# the lower and upper bounds have to match the inputs for the thing being tested
 {num_type} = <input number type (int or float)>
 {low} = <allowed lower bound for inputs>
 {upper} = <allowed upper bound for inputs>
+
+# location is where the random changes will be centered (0 means equal chance positive or negative)
+# scale is how spread out the changes will be (bigger numbers, more randomness)
 {location} = <center of random distribution (default={loc_default})>
 {scale} = <spread of random distribution (default={scale_default})>
 
@@ -149,10 +162,19 @@ class SimulatedAnnealing(BasePlugin):
 
         temperatures = TimeTemperatureGeneratorBuilder(configuration=self.configuration,
                                                        section=self.section_header).product
-        tweak = GaussianConvolutionBuilder(configuration=self.configuration,
+
+        tweak_type = self.configuration.get(section=self.section_header,
+                                            option='tweak_type',
+                                            optional=True,
+                                            default='gaussianconvolution')
+        if tweak_type.lower().startswith('xy'):
+            tweak = XYConvolutionBuilder(configuraiton=self.configuration,
+                                         section=self.section_header).product
+        else:
+            tweak = GaussianConvolutionBuilder(configuration=self.configuration,
                                                section=self.section_header).product
-        xytweak = XYTweak(tweak)
             
+        xytweak = XYTweak(tweak)
         quality = QualityCompositeBuilder(configuration=self.configuration,
                                               section_header=self.section_header).product
 

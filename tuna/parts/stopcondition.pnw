@@ -110,7 +110,7 @@ class StopCondition(object):
 
         :param:
 
-         - `new_time`: datetime to stob
+         - `new_time`: datetime to stop
         """
         self._end_time = new_time
         return

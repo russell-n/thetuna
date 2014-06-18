@@ -4,6 +4,9 @@ import itertools
 # third-party
 import numpy
 
+# this package
+from tuna import BaseClass
+
 
 class XYSolution(object):
     """
@@ -103,7 +106,7 @@ class XYSolution(object):
 # end XYSolution    
 
 
-class XYTweak(object):
+class XYTweak(BaseClass):
     """
     An adapter to the tweaks to return an XYSolution instead of an array
     """
@@ -116,6 +119,7 @@ class XYTweak(object):
          - `tweak`: object that adds noise to an array
          - `size`: size of vector (used for getting initial candidate)
         """
+        super(XYTweak, self).__init__()
         self.tweak = tweak
         self.size = size
         return
@@ -129,7 +133,10 @@ class XYTweak(object):
         if vector is not None:
             tweaked = self.tweak(vector)
         else:
-            tweaked = self.tweak(numpy.zeros(self.size))
+            # linear interpolation
+            min_value, max_value = self.tweak.lower_bound, self.tweak.upper_bound
+            tweaked = (max_value - min_value) * numpy.random.sample(size=self.size).astype(self.tweak.number_type) + min_value
+        #self.logger.debug("Tweak: {0}".format(tweaked))
         return XYSolution(inputs=tweaked)
 
 

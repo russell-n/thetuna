@@ -14,7 +14,7 @@ Contents:
 Uniform Convolution
 -------------------
 
-.. currentmodule:: optimization.tweaks.convolutions
+.. currentmodule:: tuna.tweaks.convolutions
 .. autosummary::
    :toctree: api
 
@@ -45,7 +45,7 @@ Gaussian Convolution
 
 This samples from a normal distribution instead of a uniform one. It will tend to make very small changes but occasionally make very large ones _[EOM]. Most of what it does looks the same as the UniformConvolution except with different variable or function names but I thought that keeping them separate would make it easier to remember the parameters.
 
-.. currentmodule:: optimization.tweaks.convolutions
+.. currentmodule:: tuna.tweaks.convolutions
 .. autosummary::
    :toctree: api
 
@@ -76,6 +76,39 @@ This is a class to build a GaussianConvolution from a configuration map.
    GaussianConvolutionBuilder
    GaussianConvolutionBuilder.product
 
+
+
+.. _tweaks-xyconvolution:
+
+XY Convolution
+--------------
+
+The gaussian convolution assumes that the upper bounds for each entry in the vector is the same. This is a tweak to set asymmetric bounds.
+
+.. currentmodule:: tuna.tweaks.convolutions
+.. autosummary::
+   :toctree: api
+
+   XYConvolution
+   XYConvolution.__call__
+
+
+
+.. _tweaks-convolutions-xytweakbuilder:
+
+An XY Convolution Builder
+-------------------------
+
+This is a class to build the XYConvolution from a configuration map.
+
+
+
+.. autosummary::
+   :toctree: api
+
+   XYConvolutionBuilder
+   XYConvolutionBuilder.product
+
 ::
 
     if __name__ == '__builtin__':
@@ -99,8 +132,8 @@ This is a class to build a GaussianConvolution from a configuration map.
 
 ::
 
-    [ 5.20361999  4.59882791]
-    [-16  26  -7]
-    [25  5  5]
+    [ 5.77845575  6.50186462]
+    [ 25  38 -14]
+    [ 5 26  5]
     
 

@@ -9,12 +9,20 @@ class QualityComposite(Composite):
     """
     A quality for the optimizer
     """
+    def __init__(self, *args, **kwargs):
+        super(QualityComposite, self).__init__(*args, **kwargs)
+        self.quality_checks = 0
+        return
+    
     def __call__(self, *args, **kwargs):
         """
         Calls the components, passing along the arguments
 
         :return: last output from the components not None
         """
+        # since the quality-components are buried in a list
+        # this is here to help see how efficient the optimizers are
+        self.quality_checks += 1
         output = None
         for component in self.components:
             returned = component(*args, **kwargs)
@@ -22,28 +30,13 @@ class QualityComposite(Composite):
                 output = returned
         return output
 
-    def close(self):
-        """
-        Calls close on all components
-
-        (this is different from the regular composite, we want to keep the components
-        """
-        for component in self.components:
-            if hasattr(component, 'close'):
-                component.close()
-            else:
-                self.logger.warning("'{0}' hasn't implemented the 'close' method. We hate him.".format(component))
-        return
-
     def reset(self):
         """
-        calls 'reset' on components that have them
+        Resets the quality-checks
         """
-        for component in self.components:
-            if hasattr(component, 'reset'):
-                component.reset()
+        super(QualityComposite, self).reset()
+        self.quality_checks = 1
         return
-
 # end QualityComposite    
 
 

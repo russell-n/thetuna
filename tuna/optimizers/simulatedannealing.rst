@@ -46,7 +46,10 @@ Simulated Annealer
 
    SimulatedAnnealer
    SimulatedAnnealer.__call__
-   SimulatedAnnealer.solutions
+   SimulatedAnnealer.solution
+   SimulatedAnnealer.check_rep
+   SimulatedAnnealer.close
+   SimulatedAnnealer.reset
 
 
 
@@ -80,7 +83,13 @@ Or something similar. The next generator instead assumes that the transformation
    
 .. '
 
-Where :math:`0 < \alpha < 1` and :math:`T_0` is the starting temperature. 
+Where :math:`0 < \alpha < 1` and :math:`T_0` is the starting temperature. To figure out how many repetitions there are you take the ratio of the logs of the parameters.
+
+.. math::
+
+   repetitions = \frac{\ln{\frac{t_f}{t_0}}}{\ln{\alpha}}\\
+
+:math:`\alpha` should be fairly close to 1 if you want it to cool slowly or close to 0 if you want it to cool quickly.   
 
 To make this work the schedule has to make use of the start time so it will be created as a method instead of a parameter. It will use the geometric progression shown above, to change it monkey patch the `schedule` method.
 

@@ -148,7 +148,7 @@ class XYDataQuality(BaseComponent):
         """
         Resets the quality_checks to 0
         """
-        self.logger.info("Quality Checks: {0}".format(self.quality_checks))
+        #self.logger.debug("Quality Checks: {0}".format(self.quality_checks))
         self.quality_checks = 0
         return
 # end XYData    
