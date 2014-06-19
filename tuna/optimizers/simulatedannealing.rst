@@ -75,7 +75,7 @@ The TemperatureGenerator assumes that the next temperature is a function of the 
 
    T' \gets T - \delta T\\
 
-Or something similar. The next generator instead assumes that the transformations will be a function of the starting temperature (:math:`T_0`) and the time (number of repetitions so far). This makes it easier to do a geometric schedule like the following.
+Or something similar. The TimeTemperatureGenerator instead assumes that the transformations will be a function of the starting temperature (:math:`T_0`) and the time (number of repetitions so far). This makes it easier to do a geometric schedule like the following.
 
 .. math::
 
@@ -87,7 +87,14 @@ Where :math:`0 < \alpha < 1` and :math:`T_0` is the starting temperature. To fig
 
 .. math::
 
-   repetitions = \frac{\ln{\frac{t_f}{t_0}}}{\ln{\alpha}}\\
+   repetitions &= \frac{\ln{\frac{t_f}{t_0}}}{\ln{\alpha}}\\
+               &= \frac{\ln{t_f}- \ln{t_0}}{\ln{\alpha}}\\
+
+The repetitions themselves might not be particularly useful, but if you have an estimate of how long each quality-check will take, then you can estimate a total running time by multiplying the quality-check length by the number of repetitions. As an example of what I mean, suppose that the quality-check involved moving a device and then running iperf.
+
+.. math::
+
+   RunTime &= \frac{\ln{t_f}- \ln{t_0}}{\ln{\alpha}} \times (MoveTime + IperfTime)\\
 
 :math:`\alpha` should be fairly close to 1 if you want it to cool slowly or close to 0 if you want it to cool quickly.   
 
@@ -138,60 +145,4 @@ As a starting point, I'll assume the TimeTemperatureGenerator with the default s
 
    TimeTemperatureGeneratorBuilder
    TimeTemperatureGeneratorBuilder.product
-
-::
-
-    class TimeTemperatureGeneratorBuilder(BaseClass):
-        """
-        Builds the TimeTemperatureGenerator from a dictionary
-        """
-        def __init__(self, configuration, section):
-            """
-            TimeTemperatureGeneratorBuilder constructor
-            
-            :param:
-    
-             - `configuration`: a configuration map
-             - `section`: name of section with options
-            """
-            super(TimeTemperatureGeneratorBuilder, self).__init__()
-            self.configuration = configuration
-            self.section = section
-            self._product = None
-            return
-    
-        @property
-        def product(self):
-            """
-            A built time-temperature generator
-            """
-            if self._product is None:
-                constants = TimeTemperatureGeneratorConstants
-                config = self.configuration
-                try:
-                    self._product = TimeTemperatureGenerator(start=config.get_f
-    loat(section=self.section,
-                                                                               
-         option=constants.start),
-                                                             stop=config.get_fl
-    oat(section=self.section,
-                                                                               
-        option=constants.stop),
-                                                             alpha=config.get_f
-    loat(section=self.section,
-                                                                               
-         option=constants.alpha))
-                except KeyError as error:
-                    self.logger.error("Missing Option: {0}".format(error))
-                    raise ConfigurationError("Unable to build the TimeTemperatu
-    reGenerator with '{0}'".format(self.configuration))
-                except ValueError as error:
-                    self.logger.error(error)
-                    self.log_error("Temperature values must be castable to floa
-    ts")
-                    raise ConfigurationError("Unable to build the TimeTemperatu
-    reGenerator with '{0}'".format(self.configuration))
-            return self._product
-    
-    
 

@@ -2,10 +2,12 @@
 # python standard library
 import random
 import math
+import datetime
 
 # this package
 from tuna.components.component import BaseComponent
 from tuna import BaseClass, ConfigurationError
+from tuna import LOG_TIMESTAMP
 
 
 ANNEALING_SOLUTIONS = "annealing_solutions.csv"
@@ -33,6 +35,7 @@ class SimulatedAnnealer(BaseComponent):
         self.temperatures = temperatures
         self.tweak = tweak
         self.quality = quality
+        self.candidate = candidate
         self._solution = candidate
         self.stop_condition = stop_condition
         self.solutions = solution_storage
@@ -45,7 +48,10 @@ class SimulatedAnnealer(BaseComponent):
         Current candidate solution
         """
         if self._solution is None:
-            self._solution = self.tweak()
+            if self.candidate is not None:
+                self._solution = self.candidate
+            else:
+                self._solution = self.tweak()
         return self._solution
 
     @solution.setter
@@ -84,7 +90,7 @@ class SimulatedAnnealer(BaseComponent):
         """
         Runs the optimization
 
-        :return: last non-None output given
+        :return: last best solution found
         """
         # this is an attempt to allow this to run repeatedly
         # the solutions can't be a list anymore
@@ -94,7 +100,11 @@ class SimulatedAnnealer(BaseComponent):
         # avoid repeating the same test-spot
         self.tabu.append(str(solution.inputs))
         self.quality(solution)
-        self.solutions.append("{0},{1}".format(1, solution))
+        self.solutions.append("Time,Checks,Solution")
+        timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+        output = "{0},1,{1}".format(timestamp, solution)
+           
+        self.solutions.append(output)
         
         for temperature in self.temperatures:
             candidate = self.tweak(solution)
@@ -109,8 +119,9 @@ class SimulatedAnnealer(BaseComponent):
                 random.random() < math.exp(quality_difference/float(temperature))):
                 solution = candidate
             if self.quality(solution) > self.quality(self.solution):
-                # this doesn't make sense any more
-                output = "{0},{1}".format(self.quality.quality_checks, solution)
+                # The append doesn't make sense any more
+                timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+                output = "{0},{1},{2}".format(timestamp, self.quality.quality_checks, solution)
                 self.solutions.append(output)
                 self.logger.info(output)
                 self.solution = solution

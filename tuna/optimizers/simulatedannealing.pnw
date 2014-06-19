@@ -4,10 +4,12 @@ The Simulated Annealing Optimizer
 # python standard library
 import random
 import math
+import datetime
 
 # this package
 from tuna.components.component import BaseComponent
 from tuna import BaseClass, ConfigurationError
+from tuna import LOG_TIMESTAMP
 @
 
 <<name='constants'>>=
@@ -80,6 +82,7 @@ class SimulatedAnnealer(BaseComponent):
         self.temperatures = temperatures
         self.tweak = tweak
         self.quality = quality
+        self.candidate = candidate
         self._solution = candidate
         self.stop_condition = stop_condition
         self.solutions = solution_storage
@@ -92,7 +95,10 @@ class SimulatedAnnealer(BaseComponent):
         Current candidate solution
         """
         if self._solution is None:
-            self._solution = self.tweak()
+            if self.candidate is not None:
+                self._solution = self.candidate
+            else:
+                self._solution = self.tweak()
         return self._solution
 
     @solution.setter
@@ -131,7 +137,7 @@ class SimulatedAnnealer(BaseComponent):
         """
         Runs the optimization
 
-        :return: last non-None output given
+        :return: last best solution found
         """
         # this is an attempt to allow this to run repeatedly
         # the solutions can't be a list anymore
@@ -141,7 +147,11 @@ class SimulatedAnnealer(BaseComponent):
         # avoid repeating the same test-spot
         self.tabu.append(str(solution.inputs))
         self.quality(solution)
-        self.solutions.append("{0},{1}".format(1, solution))
+        self.solutions.append("Time,Checks,Solution")
+        timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+        output = "{0},1,{1}".format(timestamp, solution)
+           
+        self.solutions.append(output)
         
         for temperature in self.temperatures:
             candidate = self.tweak(solution)
@@ -156,8 +166,9 @@ class SimulatedAnnealer(BaseComponent):
                 random.random() < math.exp(quality_difference/float(temperature))):
                 solution = candidate
             if self.quality(solution) > self.quality(self.solution):
-                # this doesn't make sense any more
-                output = "{0},{1}".format(self.quality.quality_checks, solution)
+                # The append doesn't make sense any more
+                timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+                output = "{0},{1},{2}".format(timestamp, self.quality.quality_checks, solution)
                 self.solutions.append(output)
                 self.logger.info(output)
                 self.solution = solution
@@ -223,7 +234,7 @@ The TemperatureGenerator assumes that the next temperature is a function of the 
 
    T' \gets T - \delta T\\
 
-Or something similar. The next generator instead assumes that the transformations will be a function of the starting temperature (:math:`T_0`) and the time (number of repetitions so far). This makes it easier to do a geometric schedule like the following.
+Or something similar. The TimeTemperatureGenerator instead assumes that the transformations will be a function of the starting temperature (:math:`T_0`) and the time (number of repetitions so far). This makes it easier to do a geometric schedule like the following.
 
 .. math::
 
@@ -235,7 +246,14 @@ Where :math:`0 < \alpha < 1` and :math:`T_0` is the starting temperature. To fig
 
 .. math::
 
-   repetitions = \frac{\ln{\frac{t_f}{t_0}}}{\ln{\alpha}}\\
+   repetitions &= \frac{\ln{\frac{t_f}{t_0}}}{\ln{\alpha}}\\
+               &= \frac{\ln{t_f}- \ln{t_0}}{\ln{\alpha}}\\
+
+The repetitions themselves might not be particularly useful, but if you have an estimate of how long each quality-check will take, then you can estimate a total running time by multiplying the quality-check length by the number of repetitions. As an example of what I mean, suppose that the quality-check involved moving a device and then running iperf.
+
+.. math::
+
+   RunTime &= \frac{\ln{t_f}- \ln{t_0}}{\ln{\alpha}} \times (MoveTime + IperfTime)\\
 
 :math:`\alpha` should be fairly close to 1 if you want it to cool slowly or close to 0 if you want it to cool quickly.   
 
@@ -344,7 +362,7 @@ class TimeTemperatureGeneratorConstants(object):
    TimeTemperatureGeneratorBuilder
    TimeTemperatureGeneratorBuilder.product
 
-<<name='TimeTemperatureGeneratorBuilder'>>=
+<<name='TimeTemperatureGeneratorBuilder', echo=False>>=
 class TimeTemperatureGeneratorBuilder(BaseClass):
     """
     Builds the TimeTemperatureGenerator from a dictionary

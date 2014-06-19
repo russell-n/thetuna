@@ -132,8 +132,8 @@ This is a class to build the XYConvolution from a configuration map.
 
 ::
 
-    [ 5.77845575  6.50186462]
-    [ 25  38 -14]
-    [ 5 26  5]
+    [ 3.71487634  6.95225693]
+    [ 1 32 32]
+    [22  5  5]
     
 

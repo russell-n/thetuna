@@ -10,8 +10,8 @@ import numpy
 from tuna.infrastructure import singletons
 from tuna import GLOBAL_NAME
 from base_plugin import BasePlugin
-from tuna.parts.dummy.dummy import DummyClass
 from tuna.parts.storage.storageadapter import StorageAdapter
+
 from tuna.optimizers.simulatedannealing import SimulatedAnnealer
 from tuna.optimizers.simulatedannealing import TimeTemperatureGeneratorConstants
 from tuna.parts.stopcondition import StopConditionBuilder
@@ -137,7 +137,7 @@ class SimulatedAnnealing(BasePlugin):
                                             optional=True,
                                             default='gaussianconvolution')
         if tweak_type.lower().startswith('xy'):
-            tweak = XYConvolutionBuilder(configuraiton=self.configuration,
+            tweak = XYConvolutionBuilder(configuration=self.configuration,
                                          section=self.section_header).product
         else:
             tweak = GaussianConvolutionBuilder(configuration=self.configuration,
@@ -145,9 +145,14 @@ class SimulatedAnnealing(BasePlugin):
             
         xytweak = XYTweak(tweak)
         quality = QualityCompositeBuilder(configuration=self.configuration,
-                                              section_header=self.section_header).product
+                                          section_header=self.section_header).product
+        candidate = self.configuration.get_list(section=self.section_header,
+                                                option='candidate',
+                                                optional=True)
 
-        candidate = xytweak()
+        # this needs to be made smarter
+        if candidate is not None:
+            candidate = XYSolution(numpy.array([float(item) for item in candidate]))
 
         stop_condition = StopConditionBuilder(configuration=self.configuration,
                                                   section=self.section_header).product            
@@ -156,11 +161,11 @@ class SimulatedAnnealing(BasePlugin):
 
         adapter = StorageAdapter(storage=storage, filename=filename)
         self._product = SimulatedAnnealer(temperatures=temperatures,
-                                            tweak=xytweak,
-                                              quality=quality,
-                                              candidate=candidate,
-                                              solution_storage=adapter,
-                                              stop_condition=stop_condition)
+                                          tweak=xytweak,
+                                          quality=quality,
+                                          candidate=candidate,
+                                          solution_storage=adapter,
+                                          stop_condition=stop_condition)
         return self._product
         
     def fetch_config(self):

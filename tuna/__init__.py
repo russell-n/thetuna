@@ -1,4 +1,5 @@
 # some constants
+LOG_TIMESTAMP = "%Y-%m-%d %H:%M:%S"
 GLOBAL_NAME = "TUNA"
 SECTION = "TUNA"
 MODULES_SECTION = 'MODULES'

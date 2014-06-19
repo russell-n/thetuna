@@ -85,7 +85,7 @@ class GaussianConvolution(BaseClass):
                                     size=len(vector)).astype(self.number_type)
         tweaked = vector + self.scalar_multiplier * tweak
         tweaked = tweaked.clip(self.lower_bound, self.upper_bound)
-        self.logger.debug("Tweaked: {0}".format(tweaked))
+        #self.logger.debug("Tweaked: {0}".format(tweaked))
         return tweaked
 # class GaussianConvolution        
 
@@ -213,23 +213,30 @@ class XYConvolution(BaseClass):
         y = self.number_type(numpy.random.normal(loc=self.location,
                                                  scale=self.scale))
 
-        x = max(self.x_min, x)
-        x = min(self.x_max, x)
-        y = max(self.y_min, y)
-        y = max(self.y_max, y)
         tweaked = vector + self.scalar_multiplier * numpy.array([x, y])
-        self.logger.debug("Tweaked: {0}".format(tweaked))
-        return tweaked.clip(self.lower_bound, self.upper_bound)
+        
+        # this is done so that a non-square grid can be used
+        # so the 'clip' method won't work
+        x = max(self.x_min, tweaked[0])
+        x = min(self.x_max, x)
+        
+        y = max(self.y_min, tweaked[1])
+        y = min(self.y_max, y)
+
+        tweaked = numpy.array([x, y])
+        #self.logger.debug("Tweaked: {0}".format(tweaked))
+        
+        return tweaked
 # class XYConvolution
 
 
 class XYConvolutionConstants(object):
     __slots__ = ()
     # options
-    x_min = 'xmin'
-    x_max = 'xmax'
-    y_min = 'ymin'
-    y_max = 'ymax'
+    x_min = 'x_min'
+    x_max = 'x_max'
+    y_min = 'y_min'
+    y_max = 'y_max'
     location = 'location'
     scale = 'scale'
     number_type = 'number_type'
