@@ -125,6 +125,7 @@ class SimulatedAnnealer(BaseComponent):
         return
 
     def reset(self):
+        self.logger.debug("Resetting the annealing parts")
         self.tabu = []
         self.quality.reset()
         self.temperatures.reset()
@@ -144,9 +145,11 @@ class SimulatedAnnealer(BaseComponent):
         self.reset()
         # prime the data with the first candidate
         solution = self.solution
+        self.quality(solution)
+        
         # avoid repeating the same test-spot
         self.tabu.append(str(solution.inputs))
-        self.quality(solution)
+        
         self.solutions.append("Time,Checks,Solution")
         timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
         output = "{0},1,{1}".format(timestamp, solution)
@@ -157,14 +160,22 @@ class SimulatedAnnealer(BaseComponent):
             candidate = self.tweak(solution)
 
             # this needs to be smarter -- what if the space is exhausted?
+            self.logger.debug("Searching for a candidate not in the tabu space")
             while str(candidate.inputs) in self.tabu and not self.stop_condition(self.solution):
                 candidate = self.tweak(solution)
-                
-            self.tabu.append(str(candidate.inputs))
+
+            self.logger.debug("Trying candidate: {0}".format(candidate))
+
             quality_difference = self.quality(candidate) - self.quality(solution)
+            
+            # since the candidate is checked to see if it's in the tabu list
+            # before checking its quality, only the inputs are added to the tabu list
+            self.tabu.append(str(candidate.inputs))
+            
             if (quality_difference > 0 or
                 random.random() < math.exp(quality_difference/float(temperature))):
                 solution = candidate
+                self.logger.debug("Candidate '{0}' new local solution".format(solution))
             if self.quality(solution) > self.quality(self.solution):
                 # The append doesn't make sense any more
                 timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
@@ -257,7 +268,34 @@ The repetitions themselves might not be particularly useful, but if you have an 
 
 :math:`\alpha` should be fairly close to 1 if you want it to cool slowly or close to 0 if you want it to cool quickly.   
 
-To make this work the schedule has to make use of the start time so it will be created as a method instead of a parameter. It will use the geometric progression shown above, to change it monkey patch the `schedule` method.
+To make this work the schedule has to make use of the start time so it will be created as a method instead of a parameter. It will use the geometric progression shown above. If you want to change it monkey patch the `schedule` method.
+
+<<name='geometric_plot', echo=False, results='sphinx'>>=
+if __name__ == '__builtin__':
+    # third-party
+    import matplotlib.pyplot as plt
+    import numpy
+
+    output = 'figures/geometric_plot.png'
+    alpha = 0.99
+    a2 = 0.95
+
+    t_0 = 1000
+    t = numpy.arange(t_0, 0, -1)
+    y = t_0 * alpha**t
+    y2 = t_0 * a2**t
+
+    figure = plt.figure()
+    axe = figure.gca()
+    axe.plot(t, y, label='alpha=0.99')
+    axe.plot(t, y2, label='alpha=0.95')
+
+    axe.set_xlabel('Time')
+    axe.set_ylabel("Temperature")
+    axe.legend()
+    figure.savefig(output)
+    print ".. figure:: " + output
+@
 
 .. autosummary::
    :toctree: api

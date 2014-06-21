@@ -98,7 +98,11 @@ The repetitions themselves might not be particularly useful, but if you have an 
 
 :math:`\alpha` should be fairly close to 1 if you want it to cool slowly or close to 0 if you want it to cool quickly.   
 
-To make this work the schedule has to make use of the start time so it will be created as a method instead of a parameter. It will use the geometric progression shown above, to change it monkey patch the `schedule` method.
+To make this work the schedule has to make use of the start time so it will be created as a method instead of a parameter. It will use the geometric progression shown above. If you want to change it monkey patch the `schedule` method.
+
+.. figure:: figures/geometric_plot.png
+
+
 
 .. autosummary::
    :toctree: api

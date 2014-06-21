@@ -10,6 +10,7 @@ RED  = "\033[31m"
 BOLD = "\033[1m"
 RESET = "\033[0;0m"
 NEWLINE = '\n'
+BLUE_BOLD_RESET = BLUE + BOLD + "{0}" + RESET
 
 RED_THING =  "{red}{{{{thing}}}}{reset} {{verb}}".format(red=RED, reset=RESET)
 BOLD_THING = "{bold}{{thing}}{reset} {{{{value}}}}".format(bold=BOLD, reset=RESET)

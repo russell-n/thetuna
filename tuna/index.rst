@@ -26,8 +26,11 @@ Auto-Generated Documentation
 .. toctree::
    :maxdepth: 1
 
+   Client Connections <clients/index.rst>
+   Commands <commands/index.rst>
    The Components <components/index.rst>
    Explorations <explorations/index.rst>
+   Hosts <hosts/index.rst>
    The Infrastructure <infrastructure/index.rst>
    Optimizers <optimizers/index.rst>
    The Parts <parts/index.rst>
