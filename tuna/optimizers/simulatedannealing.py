@@ -18,7 +18,7 @@ class SimulatedAnnealer(BaseComponent):
     a Simulated Annealer optimizer
     """
     def __init__(self, temperatures, tweak, quality, candidate, stop_condition,
-                 solution_storage):
+                 solution_storage, observers=None):
         """
         SimulatedAnnealer Constructor
 
@@ -30,6 +30,7 @@ class SimulatedAnnealer(BaseComponent):
          - `candidate`: initial candidate solution
          - `stop_condition`: a condition to decide to prematurely stop
          - `solution_storage`: an appendable object to send solutions to
+         - `observers`: a composite that takes the best solution as its argument
         """
         super(SimulatedAnnealer, self).__init__()
         self.temperatures = temperatures
@@ -39,6 +40,7 @@ class SimulatedAnnealer(BaseComponent):
         self._solution = candidate
         self.stop_condition = stop_condition
         self.solutions = solution_storage
+        self.observers = observers
         self.tabu = []
         return
 
@@ -141,6 +143,9 @@ class SimulatedAnnealer(BaseComponent):
                 break
         self.logger.info("Quality Checks: {0} Solution: {1} ".format(self.quality.quality_checks,
                                                                      self.solution))
+        if self.observers is not None:
+            # this is for users of the solution
+            self.observers(solution=self.solution)
         return self.solution
 # SimulatedAnnealer    
 

@@ -8,13 +8,13 @@ from mock import MagicMock, call
 import numpy
 
 # this package
-from tuna.commands.iperf.iperf import IperfMetric, IperfClass
+from tuna.components.iperfquality import IperfMetric
 
 
 class TestIperfMetric(unittest.TestCase):
     def setUp(self):
         self.aggregator = MagicMock()
-        self.iperf = MagicMock(spec=IperfClass)
+        self.iperf = MagicMock()
         self.directions = 'up down'.split()
         self.repetitions = random.randrange(1, 100)
         self.im = IperfMetric(repetitions=self.repetitions,

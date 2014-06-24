@@ -3,7 +3,7 @@ Testing the Simulated Annealing Optimizer
 
 
 
-.. currentmodule:: optimization.optimizers.tests.testsimulatedannealing
+.. currentmodule:: tuna.optimizers.tests.testsimulatedannealing
 .. autosummary::
    :toctree: api
 

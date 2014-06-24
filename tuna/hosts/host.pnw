@@ -161,10 +161,7 @@ class TheHost(BaseClass):
         with self.lock:
             return self.client.exec_command(command,
                                         timeout=timeout)
-
-    # backwards compatibility
-    Run = exec_command
-    
+            
     def close(self):
         """
         Closes the client and sets it to None

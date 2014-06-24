@@ -44,7 +44,17 @@ CONFIGURATION = '''[{section}]
 # since the plugin is specified, the section-name 
 # just has to match an option in the TUNA section
 plugin = SimulatedAnnealing
-components = <comma-separated list of sections with component information>
+
+# the components are the things that are given the input values
+# to get the output values (e.g. a component that measures iperf)
+# to see the known components use `tuna list -c`
+# the names in the list are meant to match a section header in the
+# configuration file so can be arbitrary
+components = <comma-separated list of sections with component options>
+
+# observers will be called once after the annealing is done
+# they will be called passing in the best solution found
+# observers = <comma-separated list of sections with observer-component options>
 
 # annealing parameters
 {start} = <starting temperature (should be high)>
@@ -56,7 +66,7 @@ components = <comma-separated list of sections with component information>
 # these are for the random number generator
 # the default convolution assumes the same bounds for all entries in the vector
 # change to XYConvolution for the asymmettric 2-space case
-tweak_type = <type of convolution>
+#tweak_type = <type of convolution>
 
 # the lower and upper bounds have to match the inputs for the thing being tested
 {num_type} = <input number type (int or float)>

@@ -8,8 +8,8 @@ from mock import MagicMock
 import numpy
 
 # this package
-from optimization.optimizers.simulatedannealing import SimulatedAnnealing
-from optimization.optimizers.simulatedannealing import TemperatureGenerator
+from tuna.optimizers.simulatedannealing import SimulatedAnnealer
+from tuna.optimizers.simulatedannealing import TemperatureGenerator
 
 
 class TestSimulatedAnnealing(unittest.TestCase):
@@ -18,9 +18,14 @@ class TestSimulatedAnnealing(unittest.TestCase):
         self.temperature_schedule = MagicMock()
         self.quality = MagicMock()
         self.candidate = MagicMock()
-        self.optimizer = SimulatedAnnealing(temperatures=self.temperature_schedule,
-                                            candidates=self.candidates,
+        self.tweak = MagicMock()
+        self.stop_condition = MagicMock()
+        self.storage=MagicMock()
+        self.optimizer = SimulatedAnnealer(temperatures=self.temperature_schedule,
                                             candidate=self.candidate,
+                                            tweak=self.tweak,
+                                            solution_storage=self.storage,
+                                            stop_condition=self.stop_condition,
                                             quality=self.quality)
         return
     
@@ -30,8 +35,6 @@ class TestSimulatedAnnealing(unittest.TestCase):
         """
         self.assertEqual(self.temperature_schedule,
                          self.optimizer.temperatures)
-        self.assertEqual(self.candidates,
-                         self.optimizer.candidates)
         self.assertEqual(self.quality,
                          self.optimizer.quality)
         self.assertEqual(self.candidate,
@@ -55,6 +58,7 @@ class TestSimulatedAnnealing(unittest.TestCase):
         output = self.optimizer()
         self.assertEqual(len(self.quality.mock_calls), 4*loops)
         self.assertEqual(output, min(candidates))
+        # actually testing the algorithm seems too hard, I'll do it empirically
         return
 
 

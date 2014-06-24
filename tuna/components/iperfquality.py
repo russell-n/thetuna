@@ -1,7 +1,4 @@
-The Iperf Metric
-================
 
-<<name='imports', echo=False>>=
 # python standard library
 from collections import OrderedDict
 
@@ -14,11 +11,8 @@ from tuna.parts.storage.nullstorage import NullStorage
 from tuna.commands.iperf.iperf import IperfConfiguration, IperfClass
 from tuna import GLOBAL_NAME
 from tuna.hosts.host import TheHost, HostConfiguration
-@
 
-These are classes meant to be dropped into place where `Quality` classes are called. They take csv-files, convert them to arrays and return matching output values based on indices of the arrays.
 
-<<name='IperfDataConstants'>>=
 class IperfDataConstants(object):
     """
     Constants for builders of the XYData class
@@ -30,32 +24,8 @@ class IperfDataConstants(object):
     client_section_option = 'client_section'
     server_section_option = 'server_section'
     aggregator_option = 'aggregator'
-@
 
-The IperfData Quality
----------------------
 
-This `quality` metric runs iperf on two `hosts` and takes returns the median bandwidth as the `quality` of their end-to-end connection. The language used can be sort of confusing, but here one of the hosts is called a `client` and the other a `server`, even though they can assume either role when running iperf. The assumption is that the `client` is the device that is being tested while the `server` is a well-provisioned server that facilitates the testing.
-
-.. uml::
-
-   BaseComponent <|-- IperfDataQuality
-
-.. currentmodule:: tuna.components.iperfmetric
-.. autosummary::
-   :toctree: api
-
-   IperfDataQuality
-   IperfDataQuality.client
-   IperfDataQuality.server
-   IperfDataQuality.IperfClientSettings
-   IperfDataQuality.IperfServerSettings
-   IperfDataQuality.product
-   IperfDataQuality.__call__
-   IperfDataQuality.check_rep
-   IperfDataQuality.close
-
-<<name='constants'>>=
 CONFIGURATION = """
 [IperfData]
 # this follows the pattern for plugins --
@@ -143,37 +113,11 @@ username = tester
 """
 
 DESCRIPTION = """
-The Iperf quality metric runs iperf and returns the median bandwidth to the optimizer that calls it. Note that if you run it without interval (--interval) reporting it will grab the summary value at the end which, I believe is the mean and might be slightly different from a mean of interval reporting. I don't know which is more accurate but I assume the final calculation is.
+The Iperf quality metric runs iperf and returns the median bandwidth to the optimizer that calls it. Note that if you run it without interval reporting it will grab the summary value at the end which.
 """
-@
 
-.. _iperf-metric:
 
-The IperfMetric
----------------
-
-This is yet another aggregator. In this case I needed some way to interpret the directions (e.g. `upstream`) and realised that assuming only one direction is not necessarily the best way to do things so I'm now going to allow the user to specify repetitions, directions and an aggregator that will reduce multiple runs to a single value.
-
-.. '
-
-.. uml::
-
-   IperfMetric o- IperfClass
-   IperfMetric : repetitions
-   IperfMetric : directions
-   IperfMetric : filename
-   IperfMetric : aggregator
-
-.. currentmodule:: tuna.commands.iperf.iperf   
-.. autosummary::
-   :toctree: api
-
-   IperfMetric
-   IperfMetric.aggregator
-   IperfMetric.__call__
-
-<<name='IperfMetric', echo=False>>=
-FILE_FORMAT = "iperf_input_{inputs}_rep_{repetition}_{direction}"
+FILE_FORMAT = "input_{inputs}_rep_{repetition}_{direction}"
 
 class IperfMetric(BaseComponent):
     """
@@ -240,38 +184,8 @@ class IperfMetric(BaseComponent):
         """
         return
 # end IperfMetric            
-@
-
-.. note:: this seems almost generic -- except for the need to pass in a filename. If this condition is removed then this could be made into a generic aggregator.
 
 
-
-To match the older-code the call has to expect an object of the form:
-
-.. uml::
-
-   Data : inputs
-   Data : output
-
-If the output is not set it sets it using the inputs and returns the output. It also maintains a count of all the calls made (`self.quality_checks`) so that the efficiency can be double-checked.
-
-The IperfMetric Builder
------------------------
-
-A convenience class for building `IperfMetric` objects. It implements the plugin interface so the help and list sub-commands can use it.
-
-.. uml::
-
-   BasePlugin <|-- Iperf
-
-.. currentmodule:: tuna.components.iperfquality
-.. autosummary::
-   :toctree: api
-
-   Iperf
-   Iperf.product
-    
-<<name="Iperf", echo=False>>=
 class Iperf(BasePlugin):
     """
     Builds IperfMetric objects from configuration-maps
@@ -404,7 +318,7 @@ class Iperf(BasePlugin):
         if self._sections is None:
             bold = '{bold}'
             reset = '{reset}'
-            name = 'Iperf'
+            name = 'XYData'
             bold_name = bold + name + reset
 
             self._sections = OrderedDict()
@@ -421,4 +335,3 @@ class Iperf(BasePlugin):
         print CONFIGURATION
         return
 
-@

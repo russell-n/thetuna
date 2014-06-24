@@ -18,9 +18,12 @@ source : `Online Etymology Dictionary <http://www.etymonline.com/index.php?term=
 
    The Base Storage <base_storage.rst>
    The CSV Storage <csvstorage.rst>
+   File Writer <file_writer.rst>
    File Storage <filestorage.rst>
+   Null Storage <nullstorage.rst>
    Screen Storage <screenstorage.rst>
    Socket Storage <socketstorage.rst>
+   The StorageAdapter <storageadapter.rst>
    The Storage Composite <storagecomposite.rst>
 
 .. toctree::

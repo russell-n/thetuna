@@ -5,7 +5,6 @@ import textwrap
 from threading import RLock
 
 # this package
-#from tuna.SSH.SSHClient import SSHClient
 from tuna.clients.simpleclient import SimpleClient
 from tuna.clients.telnetclient import TelnetClient
 from tuna import BaseClass, TunaError
@@ -118,10 +117,7 @@ class TheHost(BaseClass):
         with self.lock:
             return self.client.exec_command(command,
                                         timeout=timeout)
-
-    # backwards compatibility
-    Run = exec_command
-    
+            
     def close(self):
         """
         Closes the client and sets it to None
