@@ -1,14 +1,9 @@
-The Data Qualities
-==================
+The Iperf Metric
+================
 
 <<name='imports', echo=False>>=
 # python standard library
 from collections import OrderedDict
-import os.path
-from types import StringType, IntType
-
-# third party
-import numpy
 
 # tuna
 from component import BaseComponent
@@ -18,8 +13,8 @@ from tuna.plugins.base_plugin import BasePlugin
 
 These are classes meant to be dropped into place where `Quality` classes are called. They take csv-files, convert them to arrays and return matching output values based on indices of the arrays.
 
-<<name='XYDataConstants'>>=
-class XYDataConstants(object):
+<<name='IperfDataConstants'>>=
+class IperfDataConstants(object):
     """
     Constants for builders of the XYData class
     """
@@ -30,42 +25,95 @@ class XYDataConstants(object):
     usecols_option = 'usecols'
 @
 
-The XYData Quality
-------------------
+The IperfData Quality
+---------------------
 
-This class takes a filename and reads it in as an array. The constructor parameters are based on the `numpy.loadtxt` parameters.
+This `quality` metric runs iperf on two `hosts` and takes returns the median bandwidth as the `quality` of their end-to-end connection. The language used can be sort of confusing, but here one of the hosts is called a `client` and the other a `server`, even though they can assume either role when running iperf. The assumption is that the `client` is the device that is being tested while the `server` is a well-provisioned server that facilitates the testing.
 
 .. uml::
 
-   BaseComponent <|-- XYData
+   BaseComponent <|-- IperfDataQuality
 
-.. currentmodule:: tuna.components.dataquality
+.. currentmodule:: tuna.components.iperfmetric
 .. autosummary::
    :toctree: api
 
-   XYDataQuality
-   XYDataQuality.data
+   IperfDataQuality
+   IperfDataQuality.client
+   IperfDataQuality.server
+   IperfDataQuality.IperfClientSettings
+   IperfDataQuality.IperfServerSettings
+   IperfDataQuality.product
    XYDataQuality.__call__
    XYDataQuality.check_rep
    XYDataQuality.close
 
 <<name='constants'>>=
 CONFIGURATION = """
-[XYData]
+[IperfData]
 # this follows the pattern for plugins --
 # the header has to match what's in the Optimizers `components` list
 # the component option has to be XYData
-component = XYData
+component = Iperf
 
-# filename is required, everything else has defaults
-filename = <path to data file>
-delimiter = <column separator (default= ',')
-skiprows = <number of rows to skip (default=0)
-usecols = <index-list of columns to use (default=all)>
+# to shorten this section the configuration
+# for the client (DUT) and server (Traffic PC)
+# are broken out so you have to indicate their
+# section names here (this is case-sensitive)
+client_section = DUT
+server_section = TPC
+
+# direction can be anything that starts with 'u' (for upstream only)
+# 'd' (downstream only), or 'b' (both)
+# where upstream means DUT -> Server
+# and downstream means SERVER -> DUT
+direction = both
+
+# iperf settings
+# these can be any long-form iperf options (without the dashes)
+# so looking at the iperf man page (or `iperf -h`) will give you the valid options
+# note that in some cases iperf uses shortenings (e.g. `len` vs `length`)
+# Any option not given will use the iperf defaults
+parallel = 4
+
+[DUT]
+# this is an example for the connection to the dut
+# the section header has to match what's declared in the
+# iperf section
+
+# the connection can be ssh or telnet
+connection_type = ssh
+control_ip = 192.168.10.50
+test_ip = 192.168.20.50
+username = tester
+# password is optional if host-keys are set up
+# and you are using ssh
+# password = testlabs
+# the prefix will be appended to all commands sent to the device
+# the main uses are adding 'adb shell' or path-directories
+# because these two cases are different (`adb shell` is space separated from commands
+# while setting a PATH has to be semi-colon separated) the prefix is added as-is
+# it's up to the user to create a sensible one
+# prefix = PATH=/opt/wifi:$PATH; adb shell
+
+# timeout is amount of time to allow a command to run before giving up
+# because timeouts cause an error, this should only be used for problematic
+# devices
+# timeout = 1 minute 30 seconds
+
+# operating-system is just an identifier currently
+# operating_system = linux
+
+[TPC]
+# this is basically configured the same way as the client-section
+connection_type = ssh
+control_ip = 192.168.10.50
+test_ip = 192.168.20.50
+username = tester
 """
 
 DESCRIPTION = """
-The XYData component is a stand-in that converts a delimited file to a numpy array. It is meant to be used as a `quality` measurement class so expects its calls to be passed an object with `inputs` and `output` attributes. It will look up the value in the array using the `inputs` value (so they have to be valid x and y indices) and set the output.  It also keeps a `quality_checks` attribute that is incremented for each call so the number of checks can be measured to estimate how long the optimizer would run if it were exploring the space that created the data set using an actual call to get the output (e.g. how many calls to iperf the optimizer would make).
+The Iperf quality metric
 """
 @
 
@@ -122,7 +170,6 @@ class XYDataQuality(BaseComponent):
         self.quality_checks += 1
         if target.output is None:
             target.output = self.data[target.inputs[0], target.inputs[1]]
-            self.logger.debug(str(target))
         return target.output
 
     def check_rep(self):

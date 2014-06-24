@@ -50,3 +50,85 @@ The `Composite` was created to be a generalization of the `Hortator`, `Operator`
 
 
 .. note:: The Composite assumes that the components are run as-is and doesn't pass arguments in to them. To change this behavior override the __call__
+
+.. '
+
+A Simpler Composite
+-------------------
+
+The Composite above was meant to be used to create the infrastructure for running tests. Because of this it has many unnecessary things. This Composite is meant to be used by code     that is run by the infrastructure. This composite passes all keyword arguments to its components so they all have to be ready to accept them. No positional arguments are passed in as this would be require knowing which component takes which argument.
+
+.. uml::
+
+   BaseClass <|-- SimpleComposite
+   SimpleComposite o- LeafComponent
+
+.. autosummary::
+   :toctree: api
+
+   SimpleComposite
+   SimpleComposite.components
+   SimpleComposite.add
+   SimpleComposite.remove
+   SimpleComposite.__call__
+
+::
+
+    class SimpleComposite(BaseClass):
+        """
+        A simpler implementation of a composite.
+        """
+        def __init__(self, components=None):
+            """
+            SimpleComponent constructor
+    
+            :param:
+    
+             - `components`: optional list of components
+            """        
+            super(SimpleComposite, self).__init__()
+            self._components = components
+            return
+    
+        @property
+        def components(self):
+            """
+            A list of callable objects
+            """
+            if self._components is None:
+                self._components = []
+            return self._components        
+    
+        def add(self, component):
+            """
+            appends the component to self.components
+            """
+            self.components.append(component)
+            return
+    
+        def remove(self, component):
+            """
+            removes the component from components if it's there
+            """
+            if component in self.components:
+                self.components.remove(component)
+            return
+    
+        def __contains__(self, component):
+            """
+            To make membership checking easier, this checks if a component is i
+    n the components
+            """
+            return component in self.components
+    
+        def __call__(self, **kwargs):
+            """
+            The main interface, calls all components, passing in kwargs
+            """
+            for component in self.components:
+                component(**kwargs)
+            return
+    # end class SimpleComposite    
+    
+    
+

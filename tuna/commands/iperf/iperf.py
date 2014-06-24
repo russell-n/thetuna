@@ -7,10 +7,15 @@ import threading
 import textwrap
 import curses.ascii
 
+# third party
+import numpy
+
 # this package
 from tuna import BLUE_BOLD_RESET
 from tuna import BaseClass, TunaError
 from iperfsettings import IperfConstants, IperfServerSettings, IperfClientSettings
+from iperfexpressions import HumanExpression, CsvExpression
+from iperfparser import IperfParser
 import tuna.parts.storage.file_writer
 from tuna.infrastructure.baseconfiguration import BaseConfiguration
 from tuna import ConfigurationError
@@ -26,13 +31,14 @@ SERVER_PREFIX = 'server_'
 ClientServer = namedtuple('ClientServer', 'client server'.split())
 
 
-class Iperf(BaseClass):
+class IperfClass(BaseClass):
     """
     A runner of iperf tests
     """
-    def __init__(self, dut, traffic_server, client_settings, server_settings):
+    def __init__(self, dut, traffic_server, client_settings,
+                 server_settings, storage):
         """
-        Iperf Constructor
+        IperfClass Constructor
 
         :param:
 
@@ -40,16 +46,19 @@ class Iperf(BaseClass):
          - `traffic_server`: HostSSH-like interface to traffic server
          - `client_settings`: IperfClientSettins instance
          - `server_settings: an IperfServerSettings instance
+         - `storage`: File-like object to write output to
         """
-        super(Iperf, self).__init__()
+        super(IperfClass, self).__init__()
         self.dut = dut
         self.traffic_server = traffic_server
         self.client_settings = client_settings
         self.server_settings = server_settings
+        self.storage = storage
         self._client_server = None
         self._udp = None
         self._event_timer = None
         self.stop = False
+        self._parser = None
         return
 
     @property
@@ -169,6 +178,24 @@ class Iperf(BaseClass):
         self(IperfConstants.up, filename)
         return
 
+    @property
+    def parser(self):
+        """
+        an iperf parser (builds a new one each time)
+        """
+        interval = 10
+        threads = 1
+        if self.client_settings.interval is not None:
+            interval = self.client_settings.interval
+        elif self.client_settings.time is not None:
+            interval = self.client_settings.time
+
+        if self.client_settings.threads is not None:
+            threads = self.client_settings.threads
+        return IperfParser(expected_interval=interval,
+                           threads=threads)
+
+        
     def run(self, host, settings, filename, verbose=True, timeout=10):
         """
         Runs one-direction of traffic
@@ -184,24 +211,24 @@ class Iperf(BaseClass):
         :raise: socket.timeout if the readline timeout is exceeded
         """
         self.stop = False
-        with open(filename, WRITEABLE) as opened:
-            if self.client_settings.parallel is not None:
-                # this should be changed to check csv-formatted output (no SUM in those)
-                expression = "SUM"
+        with self.storage.open(filename) as opened:
+            if self.client_settings.parallel > 1:
+                expression = "SUM|,-1,"
+            elif self.client_settings.reportstyle is None:
+                expression = HumanExpression.regex
             else:
-                # use the Writer's default
-                expression = None
+                expression = CsvExpression.regex
 
             if verbose:
-                writer = tuna.infrastructure.file_writer.LogWriter(logger=self.logger.info,
-                                                                    open_file=opened,
-                                                                    expression=expression)
+                logger = self.logger.info
             else:
-                #writer = cameraobscura.utilities.file_writer.TimestampWriter(open_file=opened)
-                writer = tuna.infrastructure.file_writer.LogWriter(logger=self.logger.debug,
-                                                                    open_file=opened,
-                                                                    expression=expression)
+                logger = self.logger.debug
 
+            writer = tuna.infrastructure.file_writer.LogWriter(logger=logger,
+                                                               open_file=opened,
+                                                               expression=expression)
+            parser = self.parser
+            
             command = IPERF.format(settings)
             self.logger.info(command)
 
@@ -212,6 +239,7 @@ class Iperf(BaseClass):
                 if self.stop:
                     return
                 writer.write(line)
+                parser(line)
                 
             for line in stderr:
                 if line:
@@ -219,7 +247,9 @@ class Iperf(BaseClass):
                     # so it's changed to debug until a solution is found
                     # (the errors are because closing the client doesn't seem to send a EOF)
                     self.logger.debug("Iperf.run ({0}) error: {1}".format(settings, line))
-        return
+            bandwidth = numpy.median(parser.intervals.values())
+            self.logger.info("Median Bandwidth: {0}".format(bandwidth))
+        return bandwidth
 
     def start_server(self, server, filename):
         """
@@ -299,7 +329,7 @@ class Iperf(BaseClass):
         if error:
             output += " {0}".format(error)
         return output
-# end class Iperf    
+# end class IperfClass
 
 
 class EventTimer(object):
@@ -532,3 +562,56 @@ class IperfConfiguration(BaseConfiguration):
         super(IperfConfiguration, self).check_rep()
         return
 # end IperfConfiguration
+
+
+FILE_FORMAT = "input_{inputs}_rep_{repetition}_{direction}"
+
+class IperfMetric(object):
+    """
+    An aggregator of iperf output
+    """
+    def __init__(self, directions, iperf, repetitions=1, aggregator=None):
+        """
+        IperfMetric constructor
+
+        :param:
+
+         - `repetititons`: number of times to repeat iperf test
+         - `directions`: iterable collection of iperf directions
+         - `iperf`: a built IperfClass object
+         - `aggregator`: callable to reduce iperf outputs to one value
+        """        
+        self.repetitions = repetitions
+        self.directions = directions
+        self.iperf = iperf
+        self._aggregator = aggregator
+        return
+
+    @property
+    def aggregator(self):
+        """
+        callable to reduce multiple outputs to one value
+        """
+        if self._aggregator is None:
+            self._aggregator = numpy.median            
+        return self._aggregator
+
+    def __call__(self, target):
+        """
+        The main interface returns aggregate value for iperf output
+
+        :param:
+
+         - `target`: object with `inputs` and `output`
+        """
+        outcomes = []
+        if target.output is None:
+            for repetition in xrange(self.repetitions):
+                for direction in self.directions:
+                    filename = FILE_FORMAT.format(repetition=repetition,
+                                                  direction=direction,
+                                                  inputs="_".join([str(item) for item in target.inputs]))
+                    outcomes.append(self.iperf(direction, filename))
+            target.output = self.aggregator(outcomes)
+        return target.output
+            

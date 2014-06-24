@@ -8,6 +8,7 @@ from tuna.infrastructure.crash_handler import try_except
 from tuna import RESET
 from tuna import BOLD
 from tuna.parts.countdown.countdown import TimeTracker
+from tuna import BaseClass
 
 
 class Composite(BaseComponent):
@@ -227,3 +228,59 @@ class Composite(BaseComponent):
                                          len(self.components))
         
 #end class Composite
+
+
+class SimpleComposite(BaseClass):
+    """
+    A simpler implementation of a composite.
+    """
+    def __init__(self, components=None):
+        """
+        SimpleComponent constructor
+
+        :param:
+
+         - `components`: optional list of components
+        """        
+        super(SimpleComposite, self).__init__()
+        self._components = components
+        return
+
+    @property
+    def components(self):
+        """
+        A list of callable objects
+        """
+        if self._components is None:
+            self._components = []
+        return self._components        
+
+    def add(self, component):
+        """
+        appends the component to self.components
+        """
+        self.components.append(component)
+        return
+
+    def remove(self, component):
+        """
+        removes the component from components if it's there
+        """
+        if component in self.components:
+            self.components.remove(component)
+        return
+
+    def __contains__(self, component):
+        """
+        To make membership checking easier, this checks if a component is in the components
+        """
+        return component in self.components
+
+    def __call__(self, **kwargs):
+        """
+        The main interface, calls all components, passing in kwargs
+        """
+        for component in self.components:
+            component(**kwargs)
+        return
+# end class SimpleComposite    

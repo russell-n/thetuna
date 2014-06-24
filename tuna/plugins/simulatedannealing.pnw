@@ -186,7 +186,9 @@ class SimulatedAnnealing(BasePlugin):
             candidate = XYSolution(numpy.array([float(item) for item in candidate]))
 
         stop_condition = StopConditionBuilder(configuration=self.configuration,
-                                                  section=self.section_header).product            
+                                                  section=self.section_header).product
+
+        # this should be optional
         storage = singletons.get_filestorage(name=GLOBAL_NAME)
         filename = 'annealing_solutions.csv'
 

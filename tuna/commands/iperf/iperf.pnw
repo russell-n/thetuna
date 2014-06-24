@@ -8,6 +8,9 @@ Contents:
     * :ref:`ClientServer named tuple <iperf-client-server-namedtuple>`
     * :ref:`Iperf Class <iperf-class>`
     * :ref:`Event Timer <iperf-event-timer>`
+    * :ref:`Iperf Constants (enum) <iperf-enum>`
+    * :ref:`Iperf Configuration <iperf-configuration>`
+    * :ref:`Iperf Metric <iperf-metric>`
 
 <<name='imports', echo=False>>=
 # python standard library
@@ -56,39 +59,46 @@ ClientServer = namedtuple('ClientServer', 'client server'.split())
 The Iperf Class
 ---------------
 
+.. note:: In order to allow the `Component` that the user sees to be called `Iperf` the class here is re-named `IperfClass` to both mangle the name and refer to the fact that it now returns the bandwidth rather than just recording the output. I originally called it `IperfMetric` but since I need something to interpret the directions it is just `IperfClass`.
+
 .. uml::
 
-   BaseClass <|-- Iperf
-   Iperf o- EventTimer
-   Iperf o- ClientServer
-   Iperf o- HostSSH
-   Iperf o- IperfClientSettings
-   Iperf o- IperfServerSettings
+   BaseClass <|-- IperfClass
+   IperfClass o- EventTimer
+   IperfClass o- ClientServer
+   IperfClass o- HostSSH
+   IperfClass o- IperfParser
+   IperfClass o- FileStorage
+   IperfClass o- LogWriter
+   IperfClass o- IperfClientSettings
+   IperfClass o- IperfServerSettings
 
 .. currentmodule:: tuna.commands.iperf.iperf
 .. autosummary::
    :toctree: api
 
-   Iperf
-   Iperf.event_timer
-   Iperf.client_server
-   Iperf.udp
-   Iperf.__call__
-   Iperf.downstream
-   Iperf.upstream
-   Iperf.run
-   Iperf.start_server
-   Iperf.run_client
-   Iperf.version
+   IperfClass
+   IperfClass.event_timer
+   IperfClass.client_server
+   IperfClass.udp
+   IperfClass.__call__
+   IperfClass.downstream
+   IperfClass.upstream
+   IperfClass.run
+   IperfClass.start_server
+   IperfClass.run_client
+   IperfClass.version
+   
 
-<<name='Iperf', echo=False>>=
-class Iperf(BaseClass):
+<<name='IperfClass', echo=False>>=
+class IperfClass(BaseClass):
     """
     A runner of iperf tests
     """
-    def __init__(self, dut, traffic_server, client_settings, server_settings, storage):
+    def __init__(self, dut, traffic_server, client_settings,
+                 server_settings, storage):
         """
-        Iperf Constructor
+        IperfClass Constructor
 
         :param:
 
@@ -98,7 +108,7 @@ class Iperf(BaseClass):
          - `server_settings: an IperfServerSettings instance
          - `storage`: File-like object to write output to
         """
-        super(Iperf, self).__init__()
+        super(IperfClass, self).__init__()
         self.dut = dut
         self.traffic_server = traffic_server
         self.client_settings = client_settings
@@ -299,7 +309,7 @@ class Iperf(BaseClass):
                     self.logger.debug("Iperf.run ({0}) error: {1}".format(settings, line))
             bandwidth = numpy.median(parser.intervals.values())
             self.logger.info("Median Bandwidth: {0}".format(bandwidth))
-        return 
+        return bandwidth
 
     def start_server(self, server, filename):
         """
@@ -379,7 +389,7 @@ class Iperf(BaseClass):
         if error:
             output += " {0}".format(error)
         return output
-# end class Iperf    
+# end class IperfClass
 @
 
 .. _iperf-event-timer:
@@ -672,3 +682,83 @@ class IperfConfiguration(BaseConfiguration):
 # end IperfConfiguration
 @
 
+.. _iperf-metric:
+
+The IperfMetric
+---------------
+
+This is yet another aggregator. In this case I needed some way to interpret the directions (e.g. `upstream`) and realised that assuming only one direction is not necessarily the best way to do things so I'm now going to allow the user to specify repetitions, directions and an aggregator that will reduce multiple runs to a single value.
+
+.. '
+
+.. uml::
+
+   IperfMetric o- IperfClass
+   IperfMetric : repetitions
+   IperfMetric : directions
+   IperfMetric : filename
+   IperfMetric : aggregator
+
+.. currentmodule:: tuna.commands.iperf.iperf   
+.. autosummary::
+   :toctree: api
+
+   IperfMetric
+   IperfMetric.aggregator
+   IperfMetric.__call__
+
+<<name='IperfMetric', echo=False>>=
+FILE_FORMAT = "input_{inputs}_rep_{repetition}_{direction}"
+
+class IperfMetric(object):
+    """
+    An aggregator of iperf output
+    """
+    def __init__(self, directions, iperf, repetitions=1, aggregator=None):
+        """
+        IperfMetric constructor
+
+        :param:
+
+         - `repetititons`: number of times to repeat iperf test
+         - `directions`: iterable collection of iperf directions
+         - `iperf`: a built IperfClass object
+         - `aggregator`: callable to reduce iperf outputs to one value
+        """        
+        self.repetitions = repetitions
+        self.directions = directions
+        self.iperf = iperf
+        self._aggregator = aggregator
+        return
+
+    @property
+    def aggregator(self):
+        """
+        callable to reduce multiple outputs to one value
+        """
+        if self._aggregator is None:
+            self._aggregator = numpy.median            
+        return self._aggregator
+
+    def __call__(self, target):
+        """
+        The main interface returns aggregate value for iperf output
+
+        :param:
+
+         - `target`: object with `inputs` and `output`
+        """
+        outcomes = []
+        if target.output is None:
+            for repetition in xrange(self.repetitions):
+                for direction in self.directions:
+                    filename = FILE_FORMAT.format(repetition=repetition,
+                                                  direction=direction,
+                                                  inputs="_".join([str(item) for item in target.inputs]))
+                    outcomes.append(self.iperf(direction, filename))
+            target.output = self.aggregator(outcomes)
+        return target.output
+            
+@
+
+.. note:: this seems almost generic -- except for the need to pass in a filename. If this condition is removed then this could be made into a generic aggregator.
