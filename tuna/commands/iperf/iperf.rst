@@ -126,33 +126,3 @@ A configuration for iperf testing.
    IperfConfiguration.section
    
 
-
-
-.. _iperf-metric:
-
-The IperfMetric
----------------
-
-This is yet another aggregator. In this case I needed some way to interpret the directions (e.g. `upstream`) and realised that assuming only one direction is not necessarily the best way to do things so I'm now going to allow the user to specify repetitions, directions and an aggregator that will reduce multiple runs to a single value.
-
-.. '
-
-.. uml::
-
-   IperfMetric o- IperfClass
-   IperfMetric : repetitions
-   IperfMetric : directions
-   IperfMetric : filename
-   IperfMetric : aggregator
-
-.. currentmodule:: tuna.commands.iperf.iperf   
-.. autosummary::
-   :toctree: api
-
-   IperfMetric
-   IperfMetric.aggregator
-   IperfMetric.__call__
-
-
-
-.. note:: this seems almost generic -- except for the need to pass in a filename. If this condition is removed then this could be made into a generic aggregator.

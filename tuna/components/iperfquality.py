@@ -113,11 +113,11 @@ username = tester
 """
 
 DESCRIPTION = """
-The Iperf quality metric runs iperf and returns the median bandwidth to the optimizer that calls it. Note that if you run it without interval reporting it will grab the summary value at the end which.
+The Iperf quality metric runs iperf and returns the median bandwidth to the optimizer that calls it. Note that if you run it without interval (--interval) reporting it will grab the summary value at the end which, I believe is the mean and might be slightly different from a mean of interval reporting. I don't know which is more accurate but I assume the final calculation is.
 """
 
 
-FILE_FORMAT = "input_{inputs}_rep_{repetition}_{direction}"
+FILE_FORMAT = "iperf_input_{inputs}_rep_{repetition}_{direction}"
 
 class IperfMetric(BaseComponent):
     """
@@ -211,7 +211,7 @@ class Iperf(BasePlugin):
         configuration = HostConfiguration(configuration=self.configuration,
                                                      section=section)
         client = TheHost(hostname=configuration.control_ip,
-                         test_interface=Configuration.test_ip,
+                         test_interface=configuration.test_ip,
                         username=configuration.username,
                         timeout=configuration.timeout,
                         prefix=configuration.prefix,
@@ -226,7 +226,7 @@ class Iperf(BasePlugin):
         Host object for the traffic-PC
         """
         if self._server is None:
-            section = self.configuration.get(section=self.section,
+            section = self.configuration.get(section=self.section_header,
                                              option=IperfDataConstants.server_section_option,
                                              optional=True)
             self._server = self.host_builder(section)
@@ -238,7 +238,7 @@ class Iperf(BasePlugin):
         Host object for the DUT
         """
         if self._client is None:
-            section = self.configuration.get(section=self.section,
+            section = self.configuration.get(section=self.section_header,
                                                     option=IperfDataConstants.client_section_option,
                                                     optional=False)
             self._client = self.host_builder(section)
@@ -297,7 +297,9 @@ class Iperf(BasePlugin):
             directions = self.iperf_configuration.direction
             if directions.startswith('b'):
                 directions = 'upstream downstream'.split()
-                
+
+            else:
+                directions = [directions]
             aggregator = self.configuration.get(section=self.section_header,
                                                 option=IperfDataConstants.aggregator_option,
                                                 optional=True)
@@ -318,7 +320,7 @@ class Iperf(BasePlugin):
         if self._sections is None:
             bold = '{bold}'
             reset = '{reset}'
-            name = 'XYData'
+            name = 'Iperf'
             bold_name = bold + name + reset
 
             self._sections = OrderedDict()

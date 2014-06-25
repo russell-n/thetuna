@@ -43,7 +43,7 @@ class NullStorage(BaseStorage):
 
     @property
     def file(self):
-        return self._file
+        return self
     
     @property
     def path(self):
@@ -84,6 +84,17 @@ class NullStorage(BaseStorage):
     def __exit__(self, type, value, traceback):
         """
         Does Nothing
+        """
+        return
+
+    def reset(self):
+        """
+        Does nothing
+        """
+
+    def write(self, line):
+        """
+        Does nothing
         """
         return
 # end class NullStorage    

@@ -16,7 +16,7 @@ from tuna import BaseClass, TunaError
 from iperfsettings import IperfConstants, IperfServerSettings, IperfClientSettings
 from iperfexpressions import HumanExpression, CsvExpression
 from iperfparser import IperfParser
-import tuna.parts.storage.file_writer
+from tuna.parts.storage.file_writer import LogWriter
 from tuna.infrastructure.baseconfiguration import BaseConfiguration
 from tuna import ConfigurationError
 
@@ -185,13 +185,13 @@ class IperfClass(BaseClass):
         """
         interval = 10
         threads = 1
-        if self.client_settings.interval is not None:
-            interval = self.client_settings.interval
-        elif self.client_settings.time is not None:
-            interval = self.client_settings.time
+        if self.client_settings.get('interval') is not None:
+            interval = self.client_settings.get('interval')
+        elif self.client_settings.get('time') is not None:
+            interval = self.client_settings.get('time')
 
-        if self.client_settings.threads is not None:
-            threads = self.client_settings.threads
+        if self.client_settings.get('parallel') is not None:
+            threads = self.client_settings.get('parallel')
         return IperfParser(expected_interval=interval,
                            threads=threads)
 
@@ -224,9 +224,9 @@ class IperfClass(BaseClass):
             else:
                 logger = self.logger.debug
 
-            writer = tuna.infrastructure.file_writer.LogWriter(logger=logger,
-                                                               open_file=opened,
-                                                               expression=expression)
+            writer = LogWriter(logger=logger,
+                               open_file=opened,
+                               expression=expression)
             parser = self.parser
             
             command = IPERF.format(settings)
@@ -416,19 +416,41 @@ class IperfEnum(object):
     default_direction = both
 
 
+EXAMPLE =  textwrap.dedent("""
+[Iperf]
+# these are iperf options
+# directions can be upstream, downstream or both (default : {direction})
+# actually only checks the first letter so could also be ugly, dumb, or bunny too
+direction = upstream
+
+# everything else uses iperf long-option-names
+# to get a list use `man iperf`
+# the left-hand-side options are the iperf options without --
+# for example, to set --parallel:
+#parallel = 5
+
+# if the flag takes no options, use True to set
+#udp = True
+
+# --client <hostname> and server are set automatically don't put them here
+# put all the other settings in, though, and the client vs server stuff will get sorted out
+""".format(direction=IperfEnum.default_direction))
+
 class IperfConfiguration(BaseConfiguration):
     """
     A holder of iperf parameters
     """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, section=None, *args, **kwargs):
         """
         IperfConfiguration constructor
 
         :param:
 
          - `configuration`: configuration adapter with iperf parameters
+         - `section`: name of section with options
         """
         super(IperfConfiguration, self).__init__(*args, **kwargs)
+        self._section = section
         self._direction = None
         self._client_settings = None
         self._server_settings = None
@@ -441,26 +463,7 @@ class IperfConfiguration(BaseConfiguration):
         :return: example iperf configuration
         """
         if self._example is None:
-            self._example = textwrap.dedent("""
-            [{section}]
-            # these are iperf options
-            # directions can be upstream, downstream or both (default : {direction})
-            # actually only checks the first letter so could also be ugly, dumb, or bunny too
-            direction = upstream
-
-            # everything else uses iperf long-option-names
-            # to get a list use `man iperf`
-            # the left-hand-side options are the iperf options without --
-            # for example, to set --parallel:
-            #parallel = 5
-
-            # if the flag takes no options, use True to set
-            #udp = True
-
-            # --client <hostname> and server are set automatically don't put them here
-            # put all the other settings in, though, and the client vs server stuff will get sorted out
-            """.format(section=self.section,
-                        direction=IperfEnum.default_direction))
+            self._example = EXAMPLE
         return self._example
 
     @property
@@ -529,13 +532,13 @@ class IperfConfiguration(BaseConfiguration):
         :return: section-dictionary for this section
         """
         try:
-            parameters = self.configuration.section_dict(self.section)
+            parameters = dict(self.configuration.items(self.section))
         except ConfigurationError as error:
             print "exception caught"
             self.logger.debug(error)
 
             # try the old one
-            parameters = self.configuration.section_dict(IperfEnum.old_section)
+            parameters = dict(self.configuration.items(IperfEnum.old_section))
 
         # python resolves all strings to True
         # try to keep the user from shooting himself in the foot
@@ -562,56 +565,3 @@ class IperfConfiguration(BaseConfiguration):
         super(IperfConfiguration, self).check_rep()
         return
 # end IperfConfiguration
-
-
-FILE_FORMAT = "input_{inputs}_rep_{repetition}_{direction}"
-
-class IperfMetric(object):
-    """
-    An aggregator of iperf output
-    """
-    def __init__(self, directions, iperf, repetitions=1, aggregator=None):
-        """
-        IperfMetric constructor
-
-        :param:
-
-         - `repetititons`: number of times to repeat iperf test
-         - `directions`: iterable collection of iperf directions
-         - `iperf`: a built IperfClass object
-         - `aggregator`: callable to reduce iperf outputs to one value
-        """        
-        self.repetitions = repetitions
-        self.directions = directions
-        self.iperf = iperf
-        self._aggregator = aggregator
-        return
-
-    @property
-    def aggregator(self):
-        """
-        callable to reduce multiple outputs to one value
-        """
-        if self._aggregator is None:
-            self._aggregator = numpy.median            
-        return self._aggregator
-
-    def __call__(self, target):
-        """
-        The main interface returns aggregate value for iperf output
-
-        :param:
-
-         - `target`: object with `inputs` and `output`
-        """
-        outcomes = []
-        if target.output is None:
-            for repetition in xrange(self.repetitions):
-                for direction in self.directions:
-                    filename = FILE_FORMAT.format(repetition=repetition,
-                                                  direction=direction,
-                                                  inputs="_".join([str(item) for item in target.inputs]))
-                    outcomes.append(self.iperf(direction, filename))
-            target.output = self.aggregator(outcomes)
-        return target.output
-            

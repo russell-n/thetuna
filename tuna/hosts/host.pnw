@@ -480,7 +480,9 @@ class HostConfiguration(BaseConfiguration):
         dictionary of options not in this class
         """
         if self._kwargs is None:
-            options = [option for option in self.configuration.options(self.section) if option not in HostEnum.options]
+            exclude = self.configuration.defaults.keys()
+            exclude.extend(HostEnum.options)
+            options = [option for option in self.configuration.options(self.section) if option not in exclude]
             values = [self.configuration.get(self.section, option) for option in options]
             self._kwargs = dict(zip(options, values))
         return self._kwargs

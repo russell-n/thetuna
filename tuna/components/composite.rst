@@ -132,3 +132,82 @@ The Composite above was meant to be used to create the infrastructure for runnin
     
     
 
+
+
+Simple Composite Builder
+------------------------
+
+A convenience class to build simple composites. Builders are turning out to be light-weight versions of plugins (no help for the user).
+
+.. currentmodule:: tuna.components.composite
+.. autosummary::
+   :toctree: api
+
+   SimpleCompositeBuilder
+   SimpleCompositeBuilder.product
+
+
+::
+
+    class SimpleCompositeBuilder(object):
+        """
+        A builder of quality-composites
+        """
+        def __init__(self, configuration, section_header, option='components', 
+    name='components'):
+            """
+            SimpleCompositeBuilder constructor
+    
+            :param:
+    
+             - `configuration`: configuration map with options to build this th
+    ing
+             - `section_header`: section in the configuration with values neede
+    d
+             - `option`: option name in configuration section with list of comp
+    onents
+             - `name`: name used in setup.py to identify location of components
+    
+            """
+            self.configuration = configuration
+            self.section_header = section_header
+            self.name = name
+            self.option = option
+            self._product = None
+            return
+    
+        @property
+        def product(self):
+            """
+            A built Simple Composite
+            """
+            if self._product is None:
+                quartermaster = QuarterMaster(name=self.name)
+                self._product = SimpleComposite()
+                defaults = self.configuration.defaults
+                external_modules = [option for option in self.configuration.opt
+    ions(MODULES_SECTION)
+                                     if option not in defaults]
+                quartermaster.external_modules = external_modules
+                for component_section in self.configuration.get_list(section=se
+    lf.section_header,
+                                                                     option=sel
+    f.option):
+                    component_name = self.configuration.get(section=component_s
+    ection,
+                                                            option='component',
+    
+                                                            optional=False)
+                    component_def = quartermaster.get_plugin(component_name)
+                    component = component_def(self.configuration,
+                                              component_section).product
+                    self._product.add(component)
+                if not len(self._product.components):
+                    raise ConfigurationError("Unable to build components using 
+    'components={0}'".format(self.section_header,
+                                                                               
+                                     option=self.option))
+            return self._product
+    
+    
+

@@ -30,7 +30,7 @@ from tuna import BaseClass, TunaError
 from iperfsettings import IperfConstants, IperfServerSettings, IperfClientSettings
 from iperfexpressions import HumanExpression, CsvExpression
 from iperfparser import IperfParser
-import tuna.parts.storage.file_writer
+from tuna.parts.storage.file_writer import LogWriter
 from tuna.infrastructure.baseconfiguration import BaseConfiguration
 from tuna import ConfigurationError
 @
@@ -245,13 +245,13 @@ class IperfClass(BaseClass):
         """
         interval = 10
         threads = 1
-        if self.client_settings.interval is not None:
-            interval = self.client_settings.interval
-        elif self.client_settings.time is not None:
-            interval = self.client_settings.time
+        if self.client_settings.get('interval') is not None:
+            interval = self.client_settings.get('interval')
+        elif self.client_settings.get('time') is not None:
+            interval = self.client_settings.get('time')
 
-        if self.client_settings.threads is not None:
-            threads = self.client_settings.threads
+        if self.client_settings.get('parallel') is not None:
+            threads = self.client_settings.get('parallel')
         return IperfParser(expected_interval=interval,
                            threads=threads)
 
@@ -284,9 +284,9 @@ class IperfClass(BaseClass):
             else:
                 logger = self.logger.debug
 
-            writer = tuna.infrastructure.file_writer.LogWriter(logger=logger,
-                                                               open_file=opened,
-                                                               expression=expression)
+            writer = LogWriter(logger=logger,
+                               open_file=opened,
+                               expression=expression)
             parser = self.parser
             
             command = IPERF.format(settings)
@@ -650,13 +650,13 @@ class IperfConfiguration(BaseConfiguration):
         :return: section-dictionary for this section
         """
         try:
-            parameters = self.configuration.section_dict(self.section)
+            parameters = dict(self.configuration.items(self.section))
         except ConfigurationError as error:
             print "exception caught"
             self.logger.debug(error)
 
             # try the old one
-            parameters = self.configuration.section_dict(IperfEnum.old_section)
+            parameters = dict(self.configuration.items(IperfEnum.old_section))
 
         # python resolves all strings to True
         # try to keep the user from shooting himself in the foot

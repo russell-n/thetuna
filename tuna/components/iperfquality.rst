@@ -141,8 +141,11 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
     
     DESCRIPTION = """
     The Iperf quality metric runs iperf and returns the median bandwidth to the
-     optimizer that calls it. Note that if you run it without interval reportin
-    g it will grab the summary value at the end which.
+     optimizer that calls it. Note that if you run it without interval (--inter
+    val) reporting it will grab the summary value at the end which, I believe i
+    s the mean and might be slightly different from a mean of interval reportin
+    g. I don't know which is more accurate but I assume the final calculation i
+    s.
     """
     
     
