@@ -36,7 +36,7 @@ class IperfClass(BaseClass):
     A runner of iperf tests
     """
     def __init__(self, dut, traffic_server, client_settings,
-                 server_settings, storage):
+                 server_settings, storage, parser=None, aggregator=None):
         """
         IperfClass Constructor
 
@@ -47,6 +47,8 @@ class IperfClass(BaseClass):
          - `client_settings`: IperfClientSettins instance
          - `server_settings: an IperfServerSettings instance
          - `storage`: File-like object to write output to
+         - `parser`: parser to extract numeric values from the lines
+         - `aggregator`: callable to reduce parser.intervals.values() to a number
         """
         super(IperfClass, self).__init__()
         self.dut = dut
@@ -58,8 +60,19 @@ class IperfClass(BaseClass):
         self._udp = None
         self._event_timer = None
         self.stop = False
-        self._parser = None
+        self._parser = parser
+        self._aggregator = aggregator
+        self.aggregated_value = None
         return
+
+    @property
+    def aggregator(self):
+        """
+        callable to reduce the parsed values to a number (median by default)
+        """
+        if self._aggregator is None:
+            self._aggregator = numpy.median
+        return self._aggregator
 
     @property
     def event_timer(self):
@@ -112,6 +125,8 @@ class IperfClass(BaseClass):
 
          - `direction`: IperfConstants.up or IperfConstants.down (probably 'downstream' or 'upstream')
          - `filename`: path to use as basis for filename
+
+        :return: aggregated value (assumes side-effect of self.run is to set self.aggregated_value)
         """
         # get the client and server for the given directon
         client_server = self.client_server[direction]
@@ -151,8 +166,8 @@ class IperfClass(BaseClass):
         # there seems to be a race condition with the telnet client running in a thread and the closing of the server
         self.stop = True
         server.close()
-        #time.sleep(1)        
-        return
+        #time.sleep(1)
+        return self.aggregated_value
 
     def downstream(self, filename):
         """
@@ -181,19 +196,21 @@ class IperfClass(BaseClass):
     @property
     def parser(self):
         """
-        an iperf parser (builds a new one each time)
+        an iperf parser (this has to be reset if it's re-used)
         """
-        interval = 10
-        threads = 1
-        if self.client_settings.get('interval') is not None:
-            interval = self.client_settings.get('interval')
-        elif self.client_settings.get('time') is not None:
-            interval = self.client_settings.get('time')
+        if self._parser is None:
+            interval = 10
+            threads = 1
+            if self.client_settings.get('interval') is not None:
+                interval = self.client_settings.get('interval')
+            elif self.client_settings.get('time') is not None:
+                interval = self.client_settings.get('time')
 
-        if self.client_settings.get('parallel') is not None:
-            threads = self.client_settings.get('parallel')
-        return IperfParser(expected_interval=interval,
-                           threads=threads)
+            if self.client_settings.get('parallel') is not None:
+                threads = self.client_settings.get('parallel')
+            self._parser =  IperfParser(expected_interval=interval,
+                                        threads=threads)
+        return self._parser
 
         
     def run(self, host, settings, filename, verbose=True, timeout=10):
@@ -239,17 +256,22 @@ class IperfClass(BaseClass):
                 if self.stop:
                     return
                 writer.write(line)
-                parser(line)
+                if verbose:
+                    parser(line)
                 
             for line in stderr:
                 if line:
                     # the killing of the server is causing this to dump errors
                     # so it's changed to debug until a solution is found
-                    # (the errors are because closing the client doesn't seem to send a EOF)
                     self.logger.debug("Iperf.run ({0}) error: {1}".format(settings, line))
-            bandwidth = numpy.median(parser.intervals.values())
-            self.logger.info("Median Bandwidth: {0}".format(bandwidth))
-        return bandwidth
+                    
+            if verbose:
+                self.aggregated_value = self.aggregator(parser.intervals.values())
+                # verbose means this is the side we care about (client for TCP, server for UDP)
+                self.logger.info("Aggregated Iperf Value ({1}): {0}".format(self.aggregated_value,
+                                                                            self.aggregator.__name__))
+                parser.reset()
+        return 
 
     def start_server(self, server, filename):
         """

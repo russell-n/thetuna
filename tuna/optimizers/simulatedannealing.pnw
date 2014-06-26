@@ -76,7 +76,7 @@ class SimulatedAnnealer(BaseComponent):
          - `quality`: Quality checker for candidates
          - `candidate`: initial candidate solution
          - `stop_condition`: a condition to decide to prematurely stop
-         - `solution_storage`: an appendable object to send solutions to
+         - `solution_storage`: an writeable object to send values to
          - `observers`: a composite that takes the best solution as its argument
         """
         super(SimulatedAnnealer, self).__init__()
@@ -152,13 +152,18 @@ class SimulatedAnnealer(BaseComponent):
         # avoid repeating the same test-spot
         self.tabu.append(str(solution.inputs))
         
-        self.solutions.append("Time,Checks,Solution")
+        self.solutions.write("Time,Checks,Solution\n")
         timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
-        output = "{0},1,{1}".format(timestamp, solution)
+        output = "{0},1,{1}\n".format(timestamp, solution)
            
-        self.solutions.append(output)
-        
+        self.solutions.write(output)
+        self.logger.info("First Candidate: {0}".format(solution))
         for temperature in self.temperatures:
+            if self.stop_condition(self.solution):
+                self.logger.info('Stop condition reached with solution: {0}'.format(self.solution))
+                break
+
+            self.logger.debug("Temperature: {0}".format(temperature))
             candidate = self.tweak(solution)
 
             # this needs to be smarter -- what if the space is exhausted?
@@ -177,17 +182,13 @@ class SimulatedAnnealer(BaseComponent):
             if (quality_difference > 0 or
                 random.random() < math.exp(quality_difference/float(temperature))):
                 solution = candidate
-                self.logger.debug("Candidate '{0}' new local solution".format(solution))
+                self.logger.info("Candidate '{0}' new local solution".format(solution))
             if self.quality(solution) > self.quality(self.solution):
-                # The append doesn't make sense any more
                 timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
-                output = "{0},{1},{2}".format(timestamp, self.quality.quality_checks, solution)
-                self.solutions.append(output)
-                self.logger.info(output)
+                output = "{0},{1},{2}\n".format(timestamp, self.quality.quality_checks, solution)
+                self.solutions.write(output)
+                self.logger.info("New Best Solution: {0}".format(output))
                 self.solution = solution
-            if self.stop_condition(self.solution):
-                self.logger.info('Stop condition reached with solution: {0}'.format(self.solution))
-                break
         self.logger.info("Quality Checks: {0} Solution: {1} ".format(self.quality.quality_checks,
                                                                      self.solution))
         if self.observers is not None:

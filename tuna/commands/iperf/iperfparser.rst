@@ -46,15 +46,20 @@ This is a dictionary holding the regular expressions for the csv-format and the 
 ::
 
     if __name__ == '__main__':
+        import numpy
         parser = IperfParser(expected_interval=10, threads=1)
     
-        import numpy
         with open('test0.iperf') as f:
             for line in f:
                 output = parser(line)
-                if output is not None:
-                    print output
-        print numpy.median(parser.intervals.values())    
+        print numpy.median(parser.intervals.values())
+    
+        parser = IperfParser(expected_interval=1, threads=4)
+    
+        with open('test4.iperf') as f:
+            for line in f:
+                output = parser(line)
+        print numpy.mean(parser.intervals.values())    
     
     
 

@@ -218,7 +218,7 @@ class IperfParser(BaseClass):
 
         try:
             match = self.regex[ParserKeys.human].search(line).groupdict()
-            self.logger.debug("Matched: {0}".format(line))            
+            #self.logger.debug("Matched: {0}".format(line))            
             self.format = ParserKeys.human
             self.logger.debug("Setting format to {0}".format(self.format))
             return match

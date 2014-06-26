@@ -18,6 +18,7 @@ These are classes meant to be dropped into place where `Quality` classes are cal
         client_section_option = 'client_section'
         server_section_option = 'server_section'
         aggregator_option = 'aggregator'
+        use_sums_option = 'use_sums'
     
     
 
@@ -51,8 +52,8 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
     CONFIGURATION = """
     [IperfData]
     # this follows the pattern for plugins --
-    # the header has to match what's in the Optimizers `components` list
-    # the component option has to be XYData
+    # the header has to match what's in the `components` list
+    # the component option has to be 'Iperf'
     component = Iperf
     
     # to shorten this section the configuration
@@ -65,17 +66,29 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
     # if store output is set to true, save the raw iperf files
     #store_output = True
     
+    # if use_sums is True, don't re-add the threads, use the summed lines
+    # use_sums = True
+    
     # the iperf output has to be reduced to a single number
     # the default is to take the median of all outputs
-    # for something else change it (only max, min, or sum for now)
+    # for something else change it (only max, min, mean, median, or sum for now
+    #)
+    # this affects both the value returned with each iperf session
+    # and how the sessions are aggregated if you use more than 1 repetition
     #aggregator = sum
     
-    # direction can be anything that starts with 'u' (for upstream only)
+    # if you suspect there's variation, it might make sense to run it multiple 
+    #times
+    # This sets how many times to re-run iperf before trying another solution
+    # I'm not sure if this is more effective than running longer instead
+    # repetitions = 1
+    
+    # direction can be anything that starts with 'u' (for upstream only),
     # 'd' (downstream only), or 'b' (both)
     # I have no idea how to interpret the best location if you measure both, th
     #ough
-    # where upstream means DUT -> Server
-    # and downstream means SERVER -> DUT
+    # 'upstream' means DUT -> Server
+    # 'downstream' means SERVER -> DUT
     direction = downstream
     
     # iperf settings
@@ -84,13 +97,12 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
     #options
     # note that in some cases iperf uses shortenings (e.g. `len` vs `length`)
     # Any option not given will use the iperf defaults
-    parallel = 4
+    # parallel = 4
     
     # if the option takes no settings, use True to turn on
     # udp = True
     
-    # but note that udp doesn't work yet (only the client
-    # side is being used by the optimizers)
+    # but note that udp isn't well tested
     # also the --client <hostname> and --server options are set using the
     # DUT and Server info so don't set them
     
@@ -99,35 +111,40 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
     # the section header has to match what's declared in the
     # iperf section
     
-    # the connection can be ssh or telnet
+    # the connection_type can be ssh or telnet
     connection_type = ssh
     control_ip = 192.168.10.50
     test_ip = 192.168.20.50
     username = tester
-    # password is optional if host-keys are set up
-    # and you are using ssh
+    
+    # password is optional if host-keys are set up and you are using ssh
+    
     # password = testlabs
-    # the prefix will be appended to all commands sent to the device
+    
+    # the 'prefix' will be prepended to all commands sent to the device
     # the main uses are adding 'adb shell' or path-directories
     # because these two cases are different (`adb shell` is space separated fro
     #m commands
     # while setting a PATH has to be semi-colon separated) the prefix is added 
     #as-is
     # it's up to the user to create a sensible one
+    # it looks funny with the '=' but everything to the right of the first '=' 
+    #is
+    # read as a string
+    
     # prefix = PATH=/opt/wifi:$PATH; adb shell
     
     # timeout is amount of time to allow a command to run before giving up
-    # because timeouts cause an error, this should only be used for problematic
-    #
-    # devices
+    # because timeouts raise an error, this should only be used for 
+    # problematic devices
     # timeout = 1 minute 30 seconds
     
-    # operating-system is just an identifier currently
+    # operating-system is currently just an identifier 
     # operating_system = linux
     
-    # I only used the subset of parameters that I thought necessary
-    # if you need to add one and you know it's supported by
-    # paramiko or telnet you should be able to add it
+    # These are the subset of parameters that I thought necessary
+    # if you need to add more and you know it's supported by
+    # paramiko or telnet's constructors you should be able to add it
     # e.g. if you know there is a 'port' parameter you can set it:
     # port = 52686
     
@@ -141,11 +158,7 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
     
     DESCRIPTION = """
     The Iperf quality metric runs iperf and returns the median bandwidth to the
-     optimizer that calls it. Note that if you run it without interval (--inter
-    val) reporting it will grab the summary value at the end which, I believe i
-    s the mean and might be slightly different from a mean of interval reportin
-    g. I don't know which is more accurate but I assume the final calculation i
-    s.
+     optimizer that calls it. 
     """
     
     
@@ -207,4 +220,7 @@ A convenience class for building `IperfMetric` objects. It implements the plugin
 
    Iperf
    Iperf.product
+   Iperf.iperf_configuration
+   Iperf.iperf_parser
+   Iperf.aggregator
     

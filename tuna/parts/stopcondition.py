@@ -72,7 +72,7 @@ class StopCondition(object):
 
         :param:
 
-         - `new_time`: datetime to stob
+         - `new_time`: datetime to stop
         """
         self._end_time = new_time
         return
@@ -125,7 +125,8 @@ class StopConditionIdeal(StopCondition):
          - `solution`: Candidate solution to test against ideal
         """
         if self.end_time is not None:
-            return (abs(solution.output - self.ideal_value) <= self.delta or
+            return (solution.output >= self.ideal_value or
+                    abs(solution.output - self.ideal_value) <= self.delta or
                     datetime.datetime.now() >= self.end_time)
         else:
             return abs(solution.output - self.ideal_value) <= self.delta 

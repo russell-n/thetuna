@@ -227,15 +227,14 @@ class FileStorage(BaseStorage):
     def __enter__(self):
         """
         Support for the 'with' statement
+        This doesn't work exactly right since I'm trying to emulate open()        
 
         :raise: TunaError if self.name not set
+        :return: self (assumes this was called with open())
         """
         if self.name is None:
             raise TunaError("self.name not set, can't open file")
-        return self.open(name=self.name,
-                         overwrite=self.overwrite,
-                         mode=self.mode,
-                         return_copy=False)
+        return self
 
     def __exit__(self, type, value, traceback):        
         """

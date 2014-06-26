@@ -63,6 +63,8 @@ The Iperf Class
    IperfClass.start_server
    IperfClass.run_client
    IperfClass.version
+   IperfClass.parser
+   IperfClass.aggregator
    
 
 

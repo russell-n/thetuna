@@ -3,6 +3,8 @@
 import inspect
 
 # this package
+from tuna import MODULES_SECTION
+from tuna.infrastructure.quartermaster import QuarterMaster
 from component import BaseComponent
 from tuna.infrastructure.crash_handler import try_except
 from tuna import RESET

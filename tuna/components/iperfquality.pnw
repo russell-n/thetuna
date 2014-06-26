@@ -5,6 +5,9 @@ The Iperf Metric
 # python standard library
 from collections import OrderedDict
 
+# third party
+import numpy
+
 # tuna
 from component import BaseComponent
 from tuna import ConfigurationError
@@ -12,6 +15,7 @@ from tuna.plugins.base_plugin import BasePlugin
 from tuna.infrastructure import singletons
 from tuna.parts.storage.nullstorage import NullStorage
 from tuna.commands.iperf.iperf import IperfConfiguration, IperfClass
+from tuna.commands.iperf.sumparser import SumParser
 from tuna import GLOBAL_NAME
 from tuna.hosts.host import TheHost, HostConfiguration
 @
@@ -30,6 +34,7 @@ class IperfDataConstants(object):
     client_section_option = 'client_section'
     server_section_option = 'server_section'
     aggregator_option = 'aggregator'
+    use_sums_option = 'use_sums'
 @
 
 The IperfData Quality
@@ -59,8 +64,8 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
 CONFIGURATION = """
 [IperfData]
 # this follows the pattern for plugins --
-# the header has to match what's in the Optimizers `components` list
-# the component option has to be XYData
+# the header has to match what's in the `components` list
+# the component option has to be 'Iperf'
 component = Iperf
 
 # to shorten this section the configuration
@@ -73,16 +78,26 @@ server_section = TPC
 # if store output is set to true, save the raw iperf files
 #store_output = True
 
+# if use_sums is True, don't re-add the threads, use the summed lines
+# use_sums = True
+
 # the iperf output has to be reduced to a single number
 # the default is to take the median of all outputs
-# for something else change it (only max, min, or sum for now)
+# for something else change it (only max, min, mean, median, or sum for now)
+# this affects both the value returned with each iperf session
+# and how the sessions are aggregated if you use more than 1 repetition
 #aggregator = sum
 
-# direction can be anything that starts with 'u' (for upstream only)
+# if you suspect there's variation, it might make sense to run it multiple times
+# This sets how many times to re-run iperf before trying another solution
+# I'm not sure if this is more effective than running longer instead
+# repetitions = 1
+
+# direction can be anything that starts with 'u' (for upstream only),
 # 'd' (downstream only), or 'b' (both)
 # I have no idea how to interpret the best location if you measure both, though
-# where upstream means DUT -> Server
-# and downstream means SERVER -> DUT
+# 'upstream' means DUT -> Server
+# 'downstream' means SERVER -> DUT
 direction = downstream
 
 # iperf settings
@@ -90,13 +105,12 @@ direction = downstream
 # so looking at the iperf man page (or `iperf -h`) will give you the valid options
 # note that in some cases iperf uses shortenings (e.g. `len` vs `length`)
 # Any option not given will use the iperf defaults
-parallel = 4
+# parallel = 4
 
 # if the option takes no settings, use True to turn on
 # udp = True
 
-# but note that udp doesn't work yet (only the client
-# side is being used by the optimizers)
+# but note that udp isn't well tested
 # also the --client <hostname> and --server options are set using the
 # DUT and Server info so don't set them
 
@@ -105,32 +119,37 @@ parallel = 4
 # the section header has to match what's declared in the
 # iperf section
 
-# the connection can be ssh or telnet
+# the connection_type can be ssh or telnet
 connection_type = ssh
 control_ip = 192.168.10.50
 test_ip = 192.168.20.50
 username = tester
-# password is optional if host-keys are set up
-# and you are using ssh
+
+# password is optional if host-keys are set up and you are using ssh
+
 # password = testlabs
-# the prefix will be appended to all commands sent to the device
+
+# the 'prefix' will be prepended to all commands sent to the device
 # the main uses are adding 'adb shell' or path-directories
 # because these two cases are different (`adb shell` is space separated from commands
 # while setting a PATH has to be semi-colon separated) the prefix is added as-is
 # it's up to the user to create a sensible one
+# it looks funny with the '=' but everything to the right of the first '=' is
+# read as a string
+
 # prefix = PATH=/opt/wifi:$PATH; adb shell
 
 # timeout is amount of time to allow a command to run before giving up
-# because timeouts cause an error, this should only be used for problematic
-# devices
+# because timeouts raise an error, this should only be used for 
+# problematic devices
 # timeout = 1 minute 30 seconds
 
-# operating-system is just an identifier currently
+# operating-system is currently just an identifier 
 # operating_system = linux
 
-# I only used the subset of parameters that I thought necessary
-# if you need to add one and you know it's supported by
-# paramiko or telnet you should be able to add it
+# These are the subset of parameters that I thought necessary
+# if you need to add more and you know it's supported by
+# paramiko or telnet's constructors you should be able to add it
 # e.g. if you know there is a 'port' parameter you can set it:
 # port = 52686
 
@@ -143,7 +162,7 @@ username = tester
 """
 
 DESCRIPTION = """
-The Iperf quality metric runs iperf and returns the median bandwidth to the optimizer that calls it. Note that if you run it without interval (--interval) reporting it will grab the summary value at the end which, I believe is the mean and might be slightly different from a mean of interval reporting. I don't know which is more accurate but I assume the final calculation is.
+The Iperf quality metric runs iperf and returns the median bandwidth to the optimizer that calls it. 
 """
 @
 
@@ -173,7 +192,7 @@ This is yet another aggregator. In this case I needed some way to interpret the 
    IperfMetric.__call__
 
 <<name='IperfMetric', echo=False>>=
-FILE_FORMAT = "iperf_input_{inputs}_rep_{repetition}_{direction}"
+FILE_FORMAT = "input_{inputs}_rep_{repetition}.iperf"
 
 class IperfMetric(BaseComponent):
     """
@@ -189,7 +208,8 @@ class IperfMetric(BaseComponent):
          - `directions`: iterable collection of iperf directions
          - `iperf`: a built IperfClass object
          - `aggregator`: callable to reduce iperf outputs to one value
-        """        
+        """
+        super(IperfMetric, self).__init__()
         self.repetitions = repetitions
         self.directions = directions
         self.iperf = iperf
@@ -218,10 +238,12 @@ class IperfMetric(BaseComponent):
             for repetition in xrange(self.repetitions):
                 for direction in self.directions:
                     filename = FILE_FORMAT.format(repetition=repetition,
-                                                  direction=direction,
                                                   inputs="_".join([str(item) for item in target.inputs]))
-                    outcomes.append(self.iperf(direction, filename))
+                    outcomes.append(self.iperf(direction, filename))            
             target.output = self.aggregator(outcomes)
+            self.logger.info("{0} of {1} iperf repetitions: {2}".format(self.aggregator.__name__,
+                                                                        self.repetitions,
+                                                                        target.output))
         return target.output
 
     def check_rep(self):
@@ -270,6 +292,9 @@ A convenience class for building `IperfMetric` objects. It implements the plugin
 
    Iperf
    Iperf.product
+   Iperf.iperf_configuration
+   Iperf.iperf_parser
+   Iperf.aggregator
     
 <<name="Iperf", echo=False>>=
 class Iperf(BasePlugin):
@@ -291,7 +316,49 @@ class Iperf(BasePlugin):
         self._storage = None
         self._iperf = None
         self._iperf_configuration = None
+        self._iperf_parser = None
+        self._aggregator = None
         return
+
+    @property
+    def aggregator(self):
+        """
+        A callable to aggregate iperf values
+        """
+        if self._aggregator is None:
+            aggregator = self.configuration.get(section=self.section_header,
+                                                option=IperfDataConstants.aggregator_option,
+                                                optional=True)
+            if aggregator is not None:
+                aggregators = dict(zip("min max sum mean median".split(),
+                                       [min, max, sum, numpy.mean, numpy.median]))
+                self._aggregator = aggregators[aggregator.lower()]
+        return self._aggregator
+
+    @property
+    def iperf_parser(self):
+        """
+        IperfParser or SumParser (depending on configuration)
+        """
+        if self._iperf_parser is None:
+            if self.configuration.get_boolean(section=self.section_header,
+                                              option=IperfDataConstants.use_sums_option,
+                                              optional=True,
+                                              default=False):
+                interval = 10
+                threads = 1
+                if self.iperf_configuration.client_settings.get('interval') is not None:
+                    interval = self.iperf_configuration.client_settings.get('interval')
+                elif self.iperf_configuration.client_settings.get('time') is not None:
+                    interval = self.iperf_configuration.client_settings.get('time')
+
+                if self.iperf_configuration.client_settings.get('parallel') is not None:
+                    threads = self.iperf_configuration.client_settings.get('parallel')
+                        
+                self._iperf_parser = SumParser(expected_interval=interval,
+                                               threads=threads)
+        return self._iperf_parser
+
 
     def host_builder(self, section):
         configuration = HostConfiguration(configuration=self.configuration,
@@ -366,7 +433,9 @@ class Iperf(BasePlugin):
                                      traffic_server=self.server,
                                      client_settings=self.iperf_configuration.client_settings,
                                      server_settings=self.iperf_configuration.server_settings,
-                                     storage=self.storage)
+                                     storage=self.storage,
+                                     parser=self.iperf_parser,
+                                     aggregator=self.aggregator)
         return self._iperf
     
     @property
@@ -386,16 +455,10 @@ class Iperf(BasePlugin):
 
             else:
                 directions = [directions]
-            aggregator = self.configuration.get(section=self.section_header,
-                                                option=IperfDataConstants.aggregator_option,
-                                                optional=True)
-            if aggregator is not None:
-                aggregators = dict(zip("min max sum".split(), [min, max, sum]))
-                aggregator = aggregators[aggregator.lower()]
             self._product = IperfMetric(repetitions=repetitions,
                                    directions=directions,
                                    iperf=self.iperf,
-                                   aggregator=aggregator)
+                                   aggregator=self.aggregator)
         return self._product
 
     @property
