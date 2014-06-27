@@ -1,4 +1,4 @@
-The Simulated Annealing Optimizer
+_The Simulated Annealing Optimizer
 =================================
 <<name='imports', echo=False>>=
 # python standard library
@@ -148,10 +148,11 @@ class SimulatedAnnealer(BaseComponent):
         # prime the data with the first candidate
         solution = self.solution
         self.quality(solution)
+        self.log_info("Initial Best Solution: {0}".format(output))
         
         # avoid repeating the same test-spot
         self.tabu.append(str(solution.inputs))
-        
+
         self.solutions.write("Time,Checks,Solution\n")
         timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
         output = "{0},1,{1}\n".format(timestamp, solution)
