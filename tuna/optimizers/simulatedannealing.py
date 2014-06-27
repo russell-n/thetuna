@@ -113,7 +113,7 @@ class SimulatedAnnealer(BaseComponent):
         self.logger.info("First Candidate: {0}".format(solution))
         for temperature in self.temperatures:
             if self.stop_condition(self.solution):
-                self.logger.info('Stop condition reached with solution: {0}'.format(self.solution))
+                self.log_info('Stop condition reached with solution: {0}'.format(self.solution))
                 break
 
             self.logger.debug("Temperature: {0}".format(temperature))
@@ -140,9 +140,9 @@ class SimulatedAnnealer(BaseComponent):
                 timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
                 output = "{0},{1},{2}\n".format(timestamp, self.quality.quality_checks, solution)
                 self.solutions.write(output)
-                self.logger.info("New Best Solution: {0}".format(output))
+                self.log_info("New Best Solution: {0}".format(output))
                 self.solution = solution
-        self.logger.info("Quality Checks: {0} Solution: {1} ".format(self.quality.quality_checks,
+        self.log_info("Quality Checks: {0} Solution: {1} ".format(self.quality.quality_checks,
                                                                      self.solution))
         if self.observers is not None:
             # this is for users of the solution

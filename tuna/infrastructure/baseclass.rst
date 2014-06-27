@@ -28,7 +28,7 @@ API
 
 
 
-.. _ape-baseclass-baseclass:
+.. _tuna-infrastructure-baseclass:
 
 Class BaseClass
 ---------------
@@ -61,7 +61,7 @@ This will raise a ``TypeError`` if the child class doesn't implement run and it 
 
 .. '
 
-.. currentmodule::: optimization.infrastructure.baseclass
+.. currentmodule::: tuna.infrastructure.baseclass
 .. autosummary::
    :toctree: api
 

@@ -129,6 +129,7 @@ in_pweave = __name__ == '__builtin__'
 @
 <<name='constants', echo=False>>=
 DEFAULT = 'DEFAULT'
+TUNASECTION = 'TUNA'
 SUBFOLDER  = 'subfolder'
 COMPILED_EXTENSION = '.compiled'
 FILE_STORAGE_NAME = 'infrastructure'
@@ -173,7 +174,8 @@ CONFIGURATION = '''[{0}]
 # end_time = November 23, 2013 8:00 am
 
 # if you want to store files in a sub-folder
-# {1} = <name>
+# If you add {{{{timestamp}}}} to the name a timestamp will be added when the folder is created
+# {1} = <name>_{{{{timestamp}}}}
 
 # If you get a ParserError check:
 #   - is everything flush-left?
@@ -430,7 +432,7 @@ class Tuna(BasePlugin):
         # the extension is changed so if the user is using a glob
         # and didn't provide a sub-folder the compiled file won't
         # get picked up on re-running the code
-        filename += COMPILED_EXTENSION
+        filename = "{0}_{{timestamp}}{1}".format(filename, COMPILED_EXTENSION)
         name = self.file_storage.safe_name(filename)
         configuration.write(name)
         return

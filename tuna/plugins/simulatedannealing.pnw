@@ -47,9 +47,9 @@ CONFIGURATION = '''[{section}]
 # just has to match an option in the TUNA section
 plugin = SimulatedAnnealing
 
-# to assess how things went, set store output to True and it will
-# save the solutions found to csvs
-# store_output = True
+# to assess how things went, set store_output to a filename and it will
+# save the solutions found to it (comma-separated)
+# store_output = annealing_solutions_{{{{timestamp}}}}.csv
 
 # the components are the things that are given the input values
 # to get the output values (e.g. a component that measures iperf)
@@ -155,12 +155,11 @@ class SimulatedAnnealing(BasePlugin):
         A storage for solutions
         """
         if self._storage is None:
-            if self.configuration.get_boolean(section=self.section_header,
+            filename =  self.configuration.get(section=self.section_header,
                                               option='store_output',
-                                              optional=True,
-                                              default=False):
+                                              optional=True)
+            if filename is not None:
                 storage = singletons.get_filestorage(name=GLOBAL_NAME)
-                filename = 'annealing_solutions.csv'
 
                 self._storage = StorageAdapter(storage=storage, filename=filename)
             else:

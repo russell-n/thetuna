@@ -69,32 +69,6 @@ The Iperf Class
 
 
 
-.. _iperf-event-timer:
-
-Event Timer
------------
-
-This should go somewhere else... I normally use this class as a timer to keep periodic intervals (e.g. to read a proc file every second), but what the hell. This bundles a threading.Timer and threading.Event. The idea is someone would make it blocking::
-
-    t = EventTimer(5)
-    t.clear()
-    <do something that others should wait for>
-
-Then someone else would wait until the timer was done before proceeding::
-
-    t.wait()
-    <do something>
-
-.. autosummary::
-   :toctree: api
-
-   EventTimer
-   EventTimer.event
-   EventTimer.timer
-   EventTimer.set
-   EventTimer.clear
-   EventTimer.wait
-
 
 
 .. _iperf-enum:

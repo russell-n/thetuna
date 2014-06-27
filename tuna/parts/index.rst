@@ -7,6 +7,8 @@ Parts are meant to be bundled into components.
 .. toctree::
    :maxdepth: 1
 
+   EventTimer <eventtimer.rst>
+   The Big Sleep <sleep.rst>
    The Stop Conditions <stopcondition.rst>
    The XY Solution <xysolution.rst>
 

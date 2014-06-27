@@ -13,7 +13,7 @@ These are classes meant to be dropped into place where `Quality` classes are cal
         """
         __slots__ = ()
         store_output_option = 'store_output'
-        repetitions_option = 'repetitions'
+        repetitions_option = 'iperf_repetitions'
         direction_option = 'direction'
         client_section_option = 'client_section'
         server_section_option = 'server_section'
@@ -81,7 +81,7 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
     #times
     # This sets how many times to re-run iperf before trying another solution
     # I'm not sure if this is more effective than running longer instead
-    # repetitions = 1
+    # iperf_repetitions = 1
     
     # direction can be anything that starts with 'u' (for upstream only),
     # 'd' (downstream only), or 'b' (both)

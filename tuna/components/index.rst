@@ -30,6 +30,9 @@ Components bundle parts for the Composite.
    The Components <component.rst>
    The Composite <composite.rst>
    The Data Qualities <dataquality.rst>
+   The Dummy Component <dummycomponent.rst>
+   The Iperf Metric <iperfquality.rst>
+   Sleep Component <sleep_component.rst>
 
 .. toctree::
    :maxdepth: 1

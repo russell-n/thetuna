@@ -11,6 +11,7 @@ BOLD = "\033[1m"
 RESET = "\033[0;0m"
 NEWLINE = '\n'
 BLUE_BOLD_RESET = BLUE + BOLD + "{0}" + RESET
+BOLD_RESET = BOLD + "{0}" + RESET
 
 RED_THING =  "{red}{{{{thing}}}}{reset} {{verb}}".format(red=RED, reset=RESET)
 BOLD_THING = "{bold}{{thing}}{reset} {{{{value}}}}".format(bold=BOLD, reset=RESET)
@@ -24,11 +25,6 @@ CALLED = RED_THING.format(verb='Called')
 NOT_IMPLEMENTED = RED_THING.format(verb='Not Implemented')
 
 # common imports
-
-from tuna.infrastructure.baseclass import BaseClass
-from tuna.plugins.base_plugin import BasePlugin
-
-
 class TunaError(Exception):
     """
     An exception for the top-level code (catch all predictable errors)
@@ -43,3 +39,8 @@ class DontCatchError(Exception):
     """
     A sibling to the configuration error that should crash the program if raised
     """
+
+from tuna.infrastructure.baseclass import BaseClass
+from tuna.plugins.base_plugin import BasePlugin
+from tuna.components.component import BaseComponent
+    

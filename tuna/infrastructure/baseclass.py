@@ -5,7 +5,7 @@ import threading
 from abc import abstractmethod, ABCMeta
 
 # this package
-from tuna.infrastructure.constants import RED, BOLD, RESET
+from tuna.infrastructure.constants import RED, BOLD, RESET, BOLD_RESET
 
 
 DOT_JOIN = "{0}.{1}"
@@ -32,6 +32,17 @@ class BaseClass(object):
             self._logger = logging.getLogger(DOT_JOIN.format(self.__module__,
                                   self.__class__.__name__))
         return self._logger
+
+    def log_info(self, message):
+        """
+        Logs the error in bold black
+
+        :param:
+
+         - `message`: what to log
+        """
+        self.logger.info(BOLD_RESET.format(message))
+        return
 
     def log_error(self, error, message=''):
         """

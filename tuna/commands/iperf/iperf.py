@@ -16,9 +16,10 @@ from tuna import BaseClass, TunaError
 from iperfsettings import IperfConstants, IperfServerSettings, IperfClientSettings
 from iperfexpressions import HumanExpression, CsvExpression
 from iperfparser import IperfParser
-from tuna.parts.storage.file_writer import LogWriter
+from tuna.parts.storage.file_writer import LogWriter, TimestampWriter
 from tuna.infrastructure.baseconfiguration import BaseConfiguration
 from tuna import ConfigurationError
+from tuna.parts.eventtimer import EventTimer
 
 
 UNDERSCORE = '_'
@@ -26,6 +27,7 @@ WRITEABLE = 'w'
 IPERF = 'iperf {0}'
 CLIENT_PREFIX = 'client_'
 SERVER_PREFIX = 'server_'
+TIMESTAMP = '{timestamp}'
 
 
 ClientServer = namedtuple('ClientServer', 'client server'.split())
@@ -81,10 +83,10 @@ class IperfClass(BaseClass):
         """
         if self._event_timer is None:
             try:
-                self._event_timer = EventTimer(interval=self.server_settings.sleep)
+                self._event_timer = EventTimer(seconds=self.server_settings.sleep)
             except AttributeError as error:
                 self.logger.debug('server_settings.sleep not given, using 1 second')
-                self._event_timer = EventTimer(interval=1)
+                self._event_timer = EventTimer(seconds=1)
         return self._event_timer
 
     @property
@@ -128,6 +130,10 @@ class IperfClass(BaseClass):
 
         :return: aggregated value (assumes side-effect of self.run is to set self.aggregated_value)
         """
+        if direction.startswith('d'):
+            self.logger.info("'{0}' Server --> DUT".format(direction))
+        elif directon.startswith('u'):
+            self.logger.info("'{0}' DUT --> Server".format(direction))
         # get the client and server for the given directon
         client_server = self.client_server[direction]
 
@@ -147,7 +153,9 @@ class IperfClass(BaseClass):
             protocol = 'tcp'
             self.logger.info('TCP: Screen output will be from the client')
         directory, filename = os.path.split(filename)
-        filename = os.path.join(directory, UNDERSCORE.join([direction, protocol, filename]))
+        filename = os.path.join(directory, UNDERSCORE.join([direction,
+                                                            TIMESTAMP,
+                                                            protocol, filename]))
 
         # set the server as the target for the client in the settings
         self.client_settings.server = server.testInterface
@@ -241,8 +249,9 @@ class IperfClass(BaseClass):
             else:
                 logger = self.logger.debug
 
+            timestamper = TimestampWriter(open_file=opened)
             writer = LogWriter(logger=logger,
-                               open_file=opened,
+                               open_file=timestamper,
                                expression=expression)
             parser = self.parser
             
@@ -352,71 +361,6 @@ class IperfClass(BaseClass):
             output += " {0}".format(error)
         return output
 # end class IperfClass
-
-
-class EventTimer(object):
-    """
-    bundled threading event and timer
-    """
-    def __init__(self, interval):
-        """
-        EventTimer constructor
-
-        :param:
-
-         - `interval`: number of seconds before setting the event
-        """
-        self.interval = interval
-        self._event = None
-        self._timer = None
-        return
-
-    @property
-    def event(self):
-        """
-        A threading.Event instance
-        """
-        if self._event is None:
-            self._event = threading.Event()
-        return self._event
-
-    @property
-    def timer(self):
-        """
-        A running threading.Timer (re-starts if you call it and it's dead)
-        """
-        if self._timer is None or not self._timer.is_alive():
-            self._timer = threading.Timer(interval=self.interval,
-                                          function=self.event.set)
-        return self._timer
-
-    def set(self):
-        """
-        Sets the event (meaning clear the wait-block)
-        """
-        self.event.set()
-        return
-
-    def clear(self):
-        """
-        Clears the event (so wait blocks) and starts the timer
-        """
-        self.event.clear()
-        self.timer.start()
-        return
-
-    def wait(self, timeout=None):
-        """
-        Blocks until the event is set or timeout is reached
-
-        :param:
-
-         - `timeout`: seconds to wait
-
-        :return: True if event was set or (None, False) if timed-out
-        """
-        return self.event.wait(timeout=timeout)
-# end class EventTimer       
 
 
 class IperfEnum(object):

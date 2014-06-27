@@ -41,10 +41,8 @@ class TimestampWriter(object):
 
          - `line`: string to write to output
         """
-        # at some point time-stamping should be used to make correlation possible
-        # but it looks like the other parts of the code need to be changed
-        #self.open_file.write('{0},{1}'.format(now().isoformat(), line))
-        self.open_file.write(line)
+        self.open_file.write('{0},{1}'.format(now().isoformat(), line))
+        #self.open_file.write(line)
         return
 # end TimestampWriter        
 @

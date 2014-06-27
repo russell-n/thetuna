@@ -23,7 +23,7 @@ class IperfDataConstants(object):
     """
     __slots__ = ()
     store_output_option = 'store_output'
-    repetitions_option = 'repetitions'
+    repetitions_option = 'iperf_repetitions'
     direction_option = 'direction'
     client_section_option = 'client_section'
     server_section_option = 'server_section'
@@ -61,7 +61,7 @@ server_section = TPC
 # if you suspect there's variation, it might make sense to run it multiple times
 # This sets how many times to re-run iperf before trying another solution
 # I'm not sure if this is more effective than running longer instead
-# repetitions = 1
+# iperf_repetitions = 1
 
 # direction can be anything that starts with 'u' (for upstream only),
 # 'd' (downstream only), or 'b' (both)
@@ -180,6 +180,8 @@ class IperfMetric(BaseComponent):
         outcomes = []
         if target.output is None:
             for repetition in xrange(self.repetitions):
+                self.log_info("Iperf Repetition {0} of {1}".format(repetition+1,
+                                                                      self.repetitions))
                 for direction in self.directions:
                     filename = FILE_FORMAT.format(repetition=repetition,
                                                   inputs="_".join([str(item) for item in target.inputs]))
@@ -354,7 +356,7 @@ class Iperf(BasePlugin):
         """
         A built Iperf object
         """
-        if self._product is None:            
+        if self._product is None:
             repetitions = self.configuration.get_int(section=self.section_header,
                                                  option=IperfDataConstants.repetitions_option,
                                                  optional=True,
