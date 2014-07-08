@@ -18,7 +18,7 @@ class DummyClass(BaseClass):
     """
     The Dummy Class does nothing
     """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, identifier="DummyClass", *args, **kwargs):
         """
         Dummy class constructor
         """
@@ -27,6 +27,7 @@ class DummyClass(BaseClass):
         self.logger.info(CREATION.format(thing=self))
         self.logger.info(ARGS.format(value=args))
         self.logger.info(KWARGS.format(value=kwargs))
+        self.identifier = identifier
         for name, value in kwargs.items():
             setattr(self, name, value)
         return
@@ -35,7 +36,7 @@ class DummyClass(BaseClass):
         """
         Logs the fact that it was called
         """
-        self.logger.info(CALLED.format(thing=self))
+        self.logger.info(CALLED.format(thing=self.identifier))
         self.logger.info(ARGS.format(value=args))
         self.logger.info(KWARGS.format(value=kwargs))
         return
@@ -51,7 +52,7 @@ class DummyClass(BaseClass):
         To catch unimplemented parts of the class and log them
         """
         self.logger.info(CALLED_ON.format(attribute=attribute,
-                                          thing=self))
+                                          thing=self.identifier))
         return CallClass(NOT_IMPLEMENTED.format(thing=self))
 # end class Dummy    
 
@@ -144,26 +145,6 @@ class HangingDummy(DummyClass):
             time.sleep(10**7)
         return
 # end class HangingDummy
-
-
-# python standard library
-import unittest
-
-# third-party
-try:
-    from mock import MagicMock
-except ImportError:
-    pass    
-
-
-class TestCrashDummy(unittest.TestCase):
-    def setUp(self):
-        self.dummy = CrashDummy(error=RuntimeError, other='other')
-        self.dummy._logger = MagicMock()
-        return
-
-    def test_crash(self):
-        self.assertRaises(RuntimeError, self.dummy)
 
 
 if output_documentation:

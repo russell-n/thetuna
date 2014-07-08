@@ -71,10 +71,11 @@ A convenience class to build quality composites. Builders are turning out to be 
     ,
                                           component_category='quality')
                 defaults = self.configuration.defaults
-                external_modules = [option for option in self.configuration.opt
-    ions(MODULES_SECTION)
-                                     if option not in defaults]
-                quartermaster.external_modules = external_modules
+                if MODULES_SECTION in self.configuration.sections:
+                    external_modules = [option for option in self.configuration
+    .options(MODULES_SECTION)
+                                        if option not in defaults]
+                    quartermaster.external_modules = external_modules
                 for component_section in self.configuration.get_list(section=se
     lf.section_header,
                                                                      option='co

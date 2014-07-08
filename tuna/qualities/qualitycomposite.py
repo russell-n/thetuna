@@ -69,9 +69,10 @@ class QualityCompositeBuilder(object):
                                       error_message="Component has failed.",
                                       component_category='quality')
             defaults = self.configuration.defaults
-            external_modules = [option for option in self.configuration.options(MODULES_SECTION)
-                                 if option not in defaults]
-            quartermaster.external_modules = external_modules
+            if MODULES_SECTION in self.configuration.sections:
+                external_modules = [option for option in self.configuration.options(MODULES_SECTION)
+                                    if option not in defaults]
+                quartermaster.external_modules = external_modules
             for component_section in self.configuration.get_list(section=self.section_header,
                                                                  option='components'):
                 component_name = self.configuration.get(section=component_section,

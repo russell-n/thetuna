@@ -84,7 +84,6 @@ This is a Dummy that will block forever.
 
 
 
-
 .. dummy-example::
 
 An Example
@@ -114,12 +113,12 @@ As an example we can create an operator and make some fake calls to it (I do not
 
 ::
 
-    '[34mrampage[0;0m' attribute called on [31mKingKong[0;0m
-    [31mKingKong[0;0m Called
+    '[34mrampage[0;0m' attribute called on [31m0[0;0m
+    [31m0[0;0m Called
     [1mArgs:[0;0m ('fay wray',)
     [1mKwargs:[0;0m {}
-    '[34mrampage[0;0m' attribute called on [31mKingKong[0;0m
-    [31mKingKong[0;0m Called
+    '[34mrampage[0;0m' attribute called on [31m1[0;0m
+    [31m1[0;0m Called
     [1mArgs:[0;0m ('fay wray',)
     [1mKwargs:[0;0m {}
     
