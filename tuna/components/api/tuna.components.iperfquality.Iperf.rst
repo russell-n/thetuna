@@ -30,12 +30,14 @@ tuna.components.iperfquality.Iperf
    
       ~Iperf.aggregator
       ~Iperf.client
+      ~Iperf.configuration
       ~Iperf.help_page
       ~Iperf.iperf
       ~Iperf.iperf_configuration
       ~Iperf.iperf_parser
       ~Iperf.logger
       ~Iperf.product
+      ~Iperf.section_header
       ~Iperf.sections
       ~Iperf.server
       ~Iperf.storage

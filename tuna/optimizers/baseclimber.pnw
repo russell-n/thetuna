@@ -10,7 +10,7 @@ This is a base-class for the hill-climbing optimizers.
    BaseClimber o- Quality
    BaseClimber o- StopCondition
 
-.. currentmodule:: optimization.optimizers.baseclimber
+.. currentmodule:: tuna.optimizers.baseclimber
 .. autosummary:: 
    :toctree: api
 

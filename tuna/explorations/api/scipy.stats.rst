@@ -10,7 +10,6 @@ scipy.stats
    .. autosummary::
    
       anderson
-      anderson_ksamp
       ansari
       bartlett
       bayes_mvs
@@ -30,6 +29,7 @@ scipy.stats
       circmean
       circstd
       circvar
+      cmedian
       cumfreq
       describe
       entropy
@@ -41,8 +41,8 @@ scipy.stats
       find_repeats
       fisher_exact
       fligner
-      fprob
       friedmanchisquare
+      glm
       gmean
       histogram
       histogram2
@@ -52,7 +52,6 @@ scipy.stats
       kendalltau
       kruskal
       ks_2samp
-      ksprob
       kstat
       kstatvar
       kstest
@@ -70,6 +69,7 @@ scipy.stats
       nanstd
       normaltest
       obrientransform
+      oneway
       pdf_fromgamma
       pearsonr
       percentileofscore
@@ -110,7 +110,6 @@ scipy.stats
       variation
       wilcoxon
       zmap
-      zprob
       zscore
    
    

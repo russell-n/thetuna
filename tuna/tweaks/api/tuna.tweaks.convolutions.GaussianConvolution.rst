@@ -15,6 +15,7 @@ tuna.tweaks.convolutions.GaussianConvolution
    
       ~GaussianConvolution.__init__
       ~GaussianConvolution.log_error
+      ~GaussianConvolution.log_info
       ~GaussianConvolution.set_seed
    
    

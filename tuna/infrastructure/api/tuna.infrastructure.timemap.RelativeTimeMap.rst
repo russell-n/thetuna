@@ -15,6 +15,7 @@ tuna.infrastructure.timemap.RelativeTimeMap
    
       ~RelativeTimeMap.__init__
       ~RelativeTimeMap.log_error
+      ~RelativeTimeMap.log_info
    
    
 

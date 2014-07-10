@@ -15,6 +15,7 @@ tuna.commands.command.command.TheCommand
    
       ~TheCommand.__init__
       ~TheCommand.log_error
+      ~TheCommand.log_info
    
    
 

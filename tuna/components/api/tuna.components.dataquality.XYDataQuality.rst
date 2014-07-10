@@ -17,6 +17,7 @@ tuna.components.dataquality.XYDataQuality
       ~XYDataQuality.check_rep
       ~XYDataQuality.close
       ~XYDataQuality.log_error
+      ~XYDataQuality.log_info
       ~XYDataQuality.reset
    
    

@@ -16,6 +16,7 @@ tuna.commands.iperf.iperf.IperfClass
       ~IperfClass.__init__
       ~IperfClass.downstream
       ~IperfClass.log_error
+      ~IperfClass.log_info
       ~IperfClass.run
       ~IperfClass.run_client
       ~IperfClass.start_server

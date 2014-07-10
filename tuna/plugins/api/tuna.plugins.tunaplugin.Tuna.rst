@@ -18,6 +18,7 @@ tuna.plugins.tunaplugin.Tuna
       ~Tuna.help
       ~Tuna.initialize_file_storage
       ~Tuna.log_error
+      ~Tuna.log_info
       ~Tuna.save_configuration
    
    
@@ -29,9 +30,11 @@ tuna.plugins.tunaplugin.Tuna
    .. autosummary::
    
       ~Tuna.arguments
+      ~Tuna.configuration
       ~Tuna.help_page
       ~Tuna.logger
       ~Tuna.product
+      ~Tuna.section_header
       ~Tuna.sections
    
    

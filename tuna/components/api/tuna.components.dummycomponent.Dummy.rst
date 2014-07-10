@@ -17,6 +17,7 @@ tuna.components.dummycomponent.Dummy
       ~Dummy.fetch_config
       ~Dummy.help
       ~Dummy.log_error
+      ~Dummy.log_info
    
    
 
@@ -26,9 +27,11 @@ tuna.components.dummycomponent.Dummy
 
    .. autosummary::
    
+      ~Dummy.configuration
       ~Dummy.help_page
       ~Dummy.logger
       ~Dummy.product
+      ~Dummy.section_header
       ~Dummy.sections
    
    

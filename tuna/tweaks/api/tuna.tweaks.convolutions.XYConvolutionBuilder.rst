@@ -15,6 +15,7 @@ tuna.tweaks.convolutions.XYConvolutionBuilder
    
       ~XYConvolutionBuilder.__init__
       ~XYConvolutionBuilder.log_error
+      ~XYConvolutionBuilder.log_info
    
    
 

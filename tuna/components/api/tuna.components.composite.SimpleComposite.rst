@@ -16,6 +16,7 @@ tuna.components.composite.SimpleComposite
       ~SimpleComposite.__init__
       ~SimpleComposite.add
       ~SimpleComposite.log_error
+      ~SimpleComposite.log_info
       ~SimpleComposite.remove
    
    

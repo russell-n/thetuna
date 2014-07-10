@@ -15,6 +15,7 @@ tuna.commands.iperf.iperfexpressions.CsvExpression
    
       ~CsvExpression.__init__
       ~CsvExpression.log_error
+      ~CsvExpression.log_info
    
    
 

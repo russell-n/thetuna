@@ -3,7 +3,7 @@ Testing the Command
 
 
 
-.. currentmodule:: cameraobscura.commands.command.tests
+.. currentmodule:: tuna.commands.command.tests.testcommand
 .. autosummary:: 
    :toctree: api
 

@@ -15,6 +15,7 @@ tuna.infrastructure.baseclass.BaseThreadClass
    
       ~BaseThreadClass.__init__
       ~BaseThreadClass.log_error
+      ~BaseThreadClass.log_info
       ~BaseThreadClass.reset
       ~BaseThreadClass.run
       ~BaseThreadClass.run_thread

@@ -15,6 +15,7 @@ tuna.clients.telnetclient.TelnetOutput
    
       ~TelnetOutput.__init__
       ~TelnetOutput.log_error
+      ~TelnetOutput.log_info
       ~TelnetOutput.next
       ~TelnetOutput.read
       ~TelnetOutput.readline

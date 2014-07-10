@@ -15,6 +15,7 @@ tuna.tweaks.convolutions.XYConvolution
    
       ~XYConvolution.__init__
       ~XYConvolution.log_error
+      ~XYConvolution.log_info
       ~XYConvolution.set_seed
    
    

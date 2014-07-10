@@ -17,6 +17,7 @@ import sys, os
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
+sys.path.append(os.path.abspath('_themes'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -101,7 +102,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'haikuticle'
+html_theme = 'flask'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -109,14 +110,14 @@ html_theme = 'haikuticle'
 #html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = ['_templates']
+html_theme_path = ['_themes']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 #html_title = None
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-html_short_title = 'Optimizer documentation'
+html_short_title = 'Tuna documentation'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -196,7 +197,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'optimizer.tex', basename + u' Documentation',
+  ('index', 'tuna.tex', basename + u' Documentation',
    u'russelln', 'manual'),
 ]
 

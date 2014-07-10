@@ -18,8 +18,10 @@ tuna.qualities.qualitycomposite.QualityComposite
       ~QualityComposite.check_rep
       ~QualityComposite.close
       ~QualityComposite.log_error
+      ~QualityComposite.log_info
       ~QualityComposite.one_call
       ~QualityComposite.remove
+      ~QualityComposite.reset
    
    
 

@@ -14,6 +14,8 @@ tuna.optimizers.simulatedannealing.TimeTemperatureGenerator
    .. autosummary::
    
       ~TimeTemperatureGenerator.__init__
+      ~TimeTemperatureGenerator.close
+      ~TimeTemperatureGenerator.reset
       ~TimeTemperatureGenerator.schedule
    
    

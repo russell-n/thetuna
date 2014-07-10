@@ -17,6 +17,8 @@ tuna.optimizers.simulatedannealing.SimulatedAnnealer
       ~SimulatedAnnealer.check_rep
       ~SimulatedAnnealer.close
       ~SimulatedAnnealer.log_error
+      ~SimulatedAnnealer.log_info
+      ~SimulatedAnnealer.reset
    
    
 
@@ -27,6 +29,6 @@ tuna.optimizers.simulatedannealing.SimulatedAnnealer
    .. autosummary::
    
       ~SimulatedAnnealer.logger
-      ~SimulatedAnnealer.solutions
+      ~SimulatedAnnealer.solution
    
    

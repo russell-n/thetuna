@@ -17,6 +17,7 @@ tuna.infrastructure.quartermaster.QuarterMaster
       ~QuarterMaster.get_plugin
       ~QuarterMaster.list_plugins
       ~QuarterMaster.log_error
+      ~QuarterMaster.log_info
    
    
 

@@ -17,6 +17,7 @@ tuna.components.component.BaseComponent
       ~BaseComponent.check_rep
       ~BaseComponent.close
       ~BaseComponent.log_error
+      ~BaseComponent.log_info
    
    
 

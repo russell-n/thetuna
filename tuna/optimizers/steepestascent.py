@@ -1,6 +1,6 @@
 
 # this package
-from optimization.optimizers.baseclimber import BaseClimber
+from tuna.optimizers.baseclimber import BaseClimber
 
 
 class SteepestAscent(BaseClimber):

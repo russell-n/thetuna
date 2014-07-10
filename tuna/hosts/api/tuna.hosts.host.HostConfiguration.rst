@@ -16,6 +16,7 @@ tuna.hosts.host.HostConfiguration
       ~HostConfiguration.__init__
       ~HostConfiguration.check_rep
       ~HostConfiguration.log_error
+      ~HostConfiguration.log_info
       ~HostConfiguration.reset
    
    

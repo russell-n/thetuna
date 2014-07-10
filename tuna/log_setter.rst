@@ -20,7 +20,7 @@ This is a module to set the logging level.
 API
 ---
 
-.. currentmodule:: ape.log_setter
+.. currentmodule:: tuna.log_setter
 
 .. autosummary::
    :toctree: api

@@ -15,6 +15,7 @@ tuna.infrastructure.timemap.AbsoluteTime
    
       ~AbsoluteTime.__init__
       ~AbsoluteTime.log_error
+      ~AbsoluteTime.log_info
    
    
 

@@ -15,6 +15,7 @@ tuna.commands.iperf.iperfexpressions.HumanExpression
    
       ~HumanExpression.__init__
       ~HumanExpression.log_error
+      ~HumanExpression.log_info
    
    
 

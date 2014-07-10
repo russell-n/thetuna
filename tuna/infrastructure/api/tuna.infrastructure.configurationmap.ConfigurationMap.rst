@@ -32,6 +32,7 @@ tuna.infrastructure.configurationmap.ConfigurationMap
       ~ConfigurationMap.has_option
       ~ConfigurationMap.items
       ~ConfigurationMap.log_error
+      ~ConfigurationMap.log_info
       ~ConfigurationMap.options
       ~ConfigurationMap.write
    

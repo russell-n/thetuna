@@ -17,6 +17,7 @@ tuna.plugins.simulatedannealing.SimulatedAnnealing
       ~SimulatedAnnealing.fetch_config
       ~SimulatedAnnealing.help
       ~SimulatedAnnealing.log_error
+      ~SimulatedAnnealing.log_info
    
    
 
@@ -26,9 +27,13 @@ tuna.plugins.simulatedannealing.SimulatedAnnealing
 
    .. autosummary::
    
+      ~SimulatedAnnealing.configuration
       ~SimulatedAnnealing.help_page
       ~SimulatedAnnealing.logger
       ~SimulatedAnnealing.product
+      ~SimulatedAnnealing.section_header
       ~SimulatedAnnealing.sections
+      ~SimulatedAnnealing.storage
+      ~SimulatedAnnealing.tweak
    
    

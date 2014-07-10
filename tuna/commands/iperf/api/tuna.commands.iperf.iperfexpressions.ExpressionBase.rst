@@ -15,6 +15,7 @@ tuna.commands.iperf.iperfexpressions.ExpressionBase
    
       ~ExpressionBase.__init__
       ~ExpressionBase.log_error
+      ~ExpressionBase.log_info
    
    
 

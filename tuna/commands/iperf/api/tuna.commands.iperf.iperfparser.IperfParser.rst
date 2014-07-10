@@ -17,6 +17,7 @@ tuna.commands.iperf.iperfparser.IperfParser
       ~IperfParser.bandwidth
       ~IperfParser.filename
       ~IperfParser.log_error
+      ~IperfParser.log_info
       ~IperfParser.pipe
       ~IperfParser.reset
       ~IperfParser.search

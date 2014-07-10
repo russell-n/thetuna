@@ -13,13 +13,13 @@ tuna.hosts.host.TheHost
 
    .. autosummary::
    
-      ~TheHost.Run
       ~TheHost.__init__
       ~TheHost.check_stderr
       ~TheHost.close
       ~TheHost.exec_command
       ~TheHost.kill_all
       ~TheHost.log_error
+      ~TheHost.log_info
    
    
 

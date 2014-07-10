@@ -17,6 +17,7 @@ tuna.components.dummycomponent.DummyComponent
       ~DummyComponent.check_rep
       ~DummyComponent.close
       ~DummyComponent.log_error
+      ~DummyComponent.log_info
       ~DummyComponent.reset
    
    

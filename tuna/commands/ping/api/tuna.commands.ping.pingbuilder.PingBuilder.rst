@@ -15,6 +15,7 @@ tuna.commands.ping.pingbuilder.PingBuilder
    
       ~PingBuilder.__init__
       ~PingBuilder.log_error
+      ~PingBuilder.log_info
    
    
 

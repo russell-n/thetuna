@@ -25,13 +25,13 @@ SteepestAscent Class
 
    BaseClimber <|-- SteepestAscent
 
-.. currentmodule:: optimization.optimizers.baseclimber
+.. currentmodule:: tuna.optimizers.baseclimber
 .. autosummary::
    :toctree: api
 
    BaseClimber
 
-.. currentmodule:: optimization.optimizers.steepestascent
+.. currentmodule:: tuna.optimizers.steepestascent
 .. autosummary::
    :toctree: api
 

@@ -17,6 +17,7 @@ tuna.clients.clientbase.BaseClient
       ~BaseClient.close
       ~BaseClient.exec_command
       ~BaseClient.log_error
+      ~BaseClient.log_info
    
    
 

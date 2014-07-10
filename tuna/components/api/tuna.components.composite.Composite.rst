@@ -18,8 +18,10 @@ tuna.components.composite.Composite
       ~Composite.check_rep
       ~Composite.close
       ~Composite.log_error
+      ~Composite.log_info
       ~Composite.one_call
       ~Composite.remove
+      ~Composite.reset
    
    
 

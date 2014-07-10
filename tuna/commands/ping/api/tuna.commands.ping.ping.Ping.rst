@@ -16,6 +16,7 @@ tuna.commands.ping.ping.Ping
       ~Ping.__init__
       ~Ping.check_rep
       ~Ping.log_error
+      ~Ping.log_info
       ~Ping.reset
    
    

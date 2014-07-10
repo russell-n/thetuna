@@ -16,6 +16,7 @@ tuna.infrastructure.timemap.RelativeTime
       ~RelativeTime.__init__
       ~RelativeTime.get_number
       ~RelativeTime.log_error
+      ~RelativeTime.log_info
       ~RelativeTime.populate_fields
       ~RelativeTime.reset
       ~RelativeTime.total_seconds

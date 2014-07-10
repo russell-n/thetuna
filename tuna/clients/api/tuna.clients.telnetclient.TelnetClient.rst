@@ -17,6 +17,7 @@ tuna.clients.telnetclient.TelnetClient
       ~TelnetClient.close
       ~TelnetClient.exec_command
       ~TelnetClient.log_error
+      ~TelnetClient.log_info
       ~TelnetClient.login
       ~TelnetClient.set_prompt
       ~TelnetClient.writeline

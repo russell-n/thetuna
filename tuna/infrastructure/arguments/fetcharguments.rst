@@ -65,7 +65,7 @@ The FetchArguments
 
    BaseArguments <|-- FetchArguments
 
-.. currentmodule:: optimizer.interface.arguments.fetcharguments
+.. currentmodule:: tuna.interface.arguments.fetcharguments
 .. autosummary::
    :toctree: api
 

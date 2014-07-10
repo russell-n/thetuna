@@ -15,6 +15,7 @@ tuna.infrastructure.helppage.HelpPage
    
       ~HelpPage.__init__
       ~HelpPage.log_error
+      ~HelpPage.log_info
    
    
 

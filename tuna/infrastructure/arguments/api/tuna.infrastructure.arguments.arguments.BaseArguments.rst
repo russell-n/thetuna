@@ -15,6 +15,7 @@ tuna.infrastructure.arguments.arguments.BaseArguments
    
       ~BaseArguments.__init__
       ~BaseArguments.log_error
+      ~BaseArguments.log_info
       ~BaseArguments.reset
    
    

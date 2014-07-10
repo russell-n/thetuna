@@ -17,6 +17,7 @@ tuna.commands.iperf.iperf.IperfConfiguration
       ~IperfConfiguration.check_rep
       ~IperfConfiguration.get_section_dict
       ~IperfConfiguration.log_error
+      ~IperfConfiguration.log_info
       ~IperfConfiguration.reset
    
    

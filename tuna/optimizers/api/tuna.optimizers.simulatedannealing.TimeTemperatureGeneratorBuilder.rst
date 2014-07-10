@@ -15,6 +15,7 @@ tuna.optimizers.simulatedannealing.TimeTemperatureGeneratorBuilder
    
       ~TimeTemperatureGeneratorBuilder.__init__
       ~TimeTemperatureGeneratorBuilder.log_error
+      ~TimeTemperatureGeneratorBuilder.log_info
    
    
 

@@ -15,6 +15,7 @@ tuna.infrastructure.baseclass.BaseClass
    
       ~BaseClass.__init__
       ~BaseClass.log_error
+      ~BaseClass.log_info
    
    
 

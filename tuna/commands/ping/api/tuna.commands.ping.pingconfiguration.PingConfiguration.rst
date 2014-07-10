@@ -16,6 +16,7 @@ tuna.commands.ping.pingconfiguration.PingConfiguration
       ~PingConfiguration.__init__
       ~PingConfiguration.check_rep
       ~PingConfiguration.log_error
+      ~PingConfiguration.log_info
       ~PingConfiguration.reset
    
    

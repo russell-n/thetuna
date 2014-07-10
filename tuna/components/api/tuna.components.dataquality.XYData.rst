@@ -14,9 +14,10 @@ tuna.components.dataquality.XYData
    .. autosummary::
    
       ~XYData.__init__
-      ~XYData.check_rep
-      ~XYData.close
+      ~XYData.fetch_config
+      ~XYData.help
       ~XYData.log_error
+      ~XYData.log_info
    
    
 
@@ -26,7 +27,11 @@ tuna.components.dataquality.XYData
 
    .. autosummary::
    
-      ~XYData.data
+      ~XYData.configuration
+      ~XYData.help_page
       ~XYData.logger
+      ~XYData.product
+      ~XYData.section_header
+      ~XYData.sections
    
    

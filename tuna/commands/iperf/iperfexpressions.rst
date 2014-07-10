@@ -57,7 +57,8 @@ The `expression` is composed of parts from :ref:`Oatbran <oatbran-expressions>` 
    bandwidth &\gets \mathbb{R} + SPACES + [`GKM'] + ? + (`bits'| `bytes') + `/sec'\\
    expression  &\gets threads + SPACES + interval + SPACES + transfer + SPACES + bandwidth\\
 
-   
+.. '
+      
 
 
 .. _iperfexpressions-csv-expression:

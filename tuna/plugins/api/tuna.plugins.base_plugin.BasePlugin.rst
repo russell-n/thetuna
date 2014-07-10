@@ -17,6 +17,7 @@ tuna.plugins.base_plugin.BasePlugin
       ~BasePlugin.fetch_config
       ~BasePlugin.help
       ~BasePlugin.log_error
+      ~BasePlugin.log_info
    
    
 
@@ -26,9 +27,11 @@ tuna.plugins.base_plugin.BasePlugin
 
    .. autosummary::
    
+      ~BasePlugin.configuration
       ~BasePlugin.help_page
       ~BasePlugin.logger
       ~BasePlugin.product
+      ~BasePlugin.section_header
       ~BasePlugin.sections
    
    

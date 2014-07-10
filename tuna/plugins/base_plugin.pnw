@@ -15,7 +15,7 @@ from abc import ABCMeta, abstractmethod, abstractproperty
 import os
 
 # this package 
-from tuna import BaseClass
+from tuna import BaseClass, ConfigurationError
 from tuna.infrastructure.helppage import HelpPage
 
 @
@@ -150,9 +150,31 @@ class BasePlugin(BaseClass):
         self._product = None
         self._help_page = None        
         self._sections = None
-        self.configuration = configuration
-        self.section_header = section_header
+        self._configuration = configuration
+        self._section_header = section_header
         return
+
+    @property
+    def section_header(self):
+        """
+        The section in the configuration file
+
+        :raise: ConfigurationError if not set
+        """
+        if self._section_header is None:
+            raise ConfigurationError("'{0}' needs `section_header` for configuration".format(self.__class__.__name__))
+        return self._section_header
+
+    @property
+    def configuration(self):
+        """
+        A configuration map to get settings from
+
+        :raise: ConfigurationError if not set
+        """
+        if self._configuration is None:
+            raise ConfigurationError("{0} needs a ConfigurationMap".format(self.__class__.__name__))
+        return self._configuration
 
     @abstractproperty
     def sections(self):
