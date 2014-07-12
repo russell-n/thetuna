@@ -2,7 +2,7 @@ The List Sub-Command Arguments
 ==============================
 ::
 
-    """list subcommand
+    """`list` subcommand
     
     usage: tuna list -h
            tuna list [--components] [<module> ...]
@@ -21,12 +21,6 @@ The List Sub-Command Arguments
 
 
 See the :ref:`developer documentation <docopt-reproducingtuna-list-sub-command>` for more information.
-
-Contents:
-
-    * :ref:`The List Arguments Constants <tuna-interface-arguments-list-arguments-constants>`
-    * :ref:`The List Arguments Class <tuna-interface-arguments-list-arguments-class>`
-    * :ref:`The List Strategy <tuna-interface-arguments-list-strategy>`
 
 
 

@@ -1,13 +1,6 @@
 The Base Plugin
 ===============
 .. currentmodule:: tuna.plugins.base_plugin
-
-Contents:
-
-    * :ref:`Background <base-plugin>`
-    * :ref:`Class Diagram <base-plugin-class-diagram>`
-    * :ref:`Public Properties and Methods <base-plugin-public-properties>`
-    * :ref:`Aggregated Classes <base-plugin-aggregated-classes>`
     
 <<name='imports', echo=False>>=
 # python standard library
@@ -23,7 +16,7 @@ from tuna.infrastructure.helppage import HelpPage
 in_pweave = __name__ == '__builtin__'
 @
 
-.. _base-plugin:
+.. _tuna-base-plugin:
 
 Background
 ----------

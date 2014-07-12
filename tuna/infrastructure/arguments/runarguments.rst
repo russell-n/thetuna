@@ -9,8 +9,8 @@ The Run Sub-Command Arguments
     
     Positional Arguments:
     
-        <configuration>   0 or more configuration-file names [default: optimize
-    r.ini]
+        <configuration>   0 or more configuration-file names [default: tuna.ini
+    ]
     
     Options;
     

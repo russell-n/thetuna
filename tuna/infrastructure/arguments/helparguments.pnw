@@ -17,12 +17,6 @@ optional arguments:
 """
 @
 
-Contents:
-
-   * :ref:`Help Constants <tuna-interface-arguments-help-constants>`
-   * :ref:`Help Arguments Class <tuna-interface-help-arguments-class>`
-   * :ref:`Help Strategy <tuna-interface-arguments-help-strategy>`
-
 <<name='imports', echo=False>>=
 # the tuna
 from tuna.infrastructure.crash_handler import try_except

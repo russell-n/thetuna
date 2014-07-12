@@ -1,5 +1,5 @@
 
-"""list subcommand
+"""`list` subcommand
 
 usage: tuna list -h
        tuna list [--components] [<module> ...]

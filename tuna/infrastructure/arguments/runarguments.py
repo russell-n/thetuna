@@ -6,7 +6,7 @@ Usage: tuna run -h
 
 Positional Arguments:
 
-    <configuration>   0 or more configuration-file names [default: optimizer.ini]
+    <configuration>   0 or more configuration-file names [default: tuna.ini]
 
 Options;
 
