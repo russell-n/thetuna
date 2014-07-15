@@ -1,11 +1,9 @@
 The Tuna
 ========
 
-.. image:: figures/tuning_fork.jpg
-
-   Source: `Wikimedia <http://commons.wikimedia.org/wiki/Category:Tuning_forks#mediaviewer/File:Tuning-fork.jpg>`_
 
 
+.. _the-tuna:
 
 Written Documentation
 ---------------------
@@ -13,6 +11,7 @@ Written Documentation
 .. toctree::
    
    Developer Documentation <documentation/developer/index>
+   User Documentation <documentation/user/index>
 
 Auto-Generated Documentation
 ----------------------------
@@ -22,6 +21,7 @@ Auto-Generated Documentation
    :maxdepth: 1
 
    Log Setter <log_setter.rst>
+   The Main Entry Point <main.rst>
 
 .. toctree::
    :maxdepth: 1

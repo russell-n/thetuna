@@ -14,6 +14,7 @@ Written Documentation
 .. toctree::
    
    Developer Documentation <documentation/developer/index>
+   User Documentation <documentation/user/index>
 
 Auto-Generated Documentation
 ----------------------------

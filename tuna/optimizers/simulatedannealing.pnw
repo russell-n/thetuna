@@ -16,11 +16,6 @@ from tuna import LOG_TIMESTAMP
 ANNEALING_SOLUTIONS = "annealing_solutions.csv"
 @
 
-Contents:
-
-   * :ref:`Background <optimization-optimizers-simulatedannealing-background>`
-   * :ref:`Simulated Annealing <optimization-optimizers-simulatedannealing>`
-   * :ref:`Temperature Generator <optimization-optimizers-simulatedannealing-temperaturegenerator>`
 
 .. _optimization-optimizers-simulatedannealing-background:
    

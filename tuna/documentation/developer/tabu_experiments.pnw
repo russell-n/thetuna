@@ -1,0 +1,60 @@
+Tabu Experiments
+================
+
+The initial way the tabu-list was created was as a list. These are tests to see if that's really the optimal way to do it.
+
+.. '
+
+.. figure:: figures/set_list_times.png
+
+<<name='imports', echo=False>>=
+import numpy
+from scipy import stats
+@
+
+.. csv-table:: List Times
+   :header: Size, Time
+
+<<name='list_times', echo=False, results='sphinx'>>=
+data = numpy.loadtxt('data/list_times.csv', delimiter=',', skiprows=1)
+for index in xrange(len(data)):
+    print "   {0},{1}".format(data[index][0],
+                              data[index][1])
+@
+
+.. csv-table:: Line Regression
+   :header: Item, Value
+   
+<<name='line_regression', echo=False, results='sphinx'>>=
+slope, intercept, r_value, p_value, std_err = stats.linregress(data[:,0],
+                                                               data[:,1])
+print "   Slope, {0:.2g}".format(slope)
+print "   Intercept,{0:.2g}".format(intercept)
+print "   Std Error,{0:.2g}".format(std_err)
+print "   R-Squared,{0:.2g}".format(r_value**2)
+@
+
+
+.. csv-table:: Set Times
+   :header: Size, Time
+
+<<name='set_times', echo=False, results='sphinx'>>=
+data = numpy.loadtxt('data/set_times.csv', delimiter=',', skiprows=1)
+for index in xrange(len(data)):
+    print "   {0},{1}".format(data[index][0],
+                              data[index][1])
+@
+
+.. csv-table:: Line Regression
+   :header: Item, Value
+   
+<<name='set_regression', echo=False, results='sphinx'>>=
+slope, intercept, r_value, p_value, std_err = stats.linregress(data[:,0],
+                                                               data[:,1])
+print "   Slope, {0:.2g}".format(slope)
+print "   Intercept,{0:.2g}".format(intercept)
+print "   Std Error,{0:.2g}".format(std_err)
+print "   R-Squared,{0:.2g}".format(r_value**2)
+@
+
+Although the list-search is linear, the slope is relatively small because the size of the collections is growing so fast. The set-search is surpringly fast compared to the list-search. It looks to be constant time rather than linear. Although the list-search is relatively fast given the size of the collections (and the fact that I always used the worst case where the last item in the list was what I was looking for), using sets seems a much smarter way to go.

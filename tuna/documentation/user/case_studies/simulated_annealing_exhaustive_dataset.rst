@@ -1,0 +1,74 @@
+Simulated Annealing With Simulated Table Data
+=============================================
+
+Problem
+-------
+
+*How can we understand how the `Simulated Annealing` parameters should be set while trying to optimize device placement on a table?*
+
+In order to make the optimization work we need to know how to set the parameters that affect whether the optimizer will emphasize *exploration* or *exploitation* (will it jump around a lot or will it stick to looking around where it is?). We also need to know a reasonable stopping condition -- setting an ideal value would allow a short-circuit to end the optimization but runs the risk that we've chosen an incorrect ideal value, while setting a time-out runs the risk of either being too short and missing the optimal value or being too long and searching needlessly while delaying moving on to the next phase of the experiment.
+
+What we'll do here is use data collected by exhaustively sweeping a table and passing it to the optimizer to see how it performs. Since we did an exhaustive sweep we know what the best and worst cases are so we can see how many times the optimizer has to lookup a value to see how good a candidate is. The count of lookups can then be compared with a `real` iperf session or by estimating the number of seconds each lookup would take. The second option isn't as straight-forward as it may seem because the candidates store their solutions once they are given so a candidate may be asked for its solution multiple times but there would only be one real check (meaning one iperf session run) and the remainder of the times the solution would be retrieved from memory.
+
+Pseudocode for Simulated Annealing
+----------------------------------
+
+To get an idea of the parameters that need to be adjusted it might be helpful to understand the basic simulated annealing operation.
+
+   1. Get a candidate solution
+   2. Make the current solution and the best solution the candidate solution
+   3. While time remains and the best solution is not the ideal solution repeat:
+
+      3.1. Get a new candidate by tweaking the current solution
+
+      3.2. If new candidate is better than current solution or a random number is less than the annealing value, make the current solution the new candidate
+
+      3.3. If the current solution is better than the best solution, make the current solution the best solution
+
+   4. Return the best solution
+
+The two points that we need to look at are 3.1. (get a new candidate by tweaking the current solution) and 3.2. (... a random number is less than the annealing value).
+
+Simulated Annealing
+-------------------
+
+First let's look at `3.2. (a random number is less than the annealing value)`.
+
+The :ref:`SimulatedAnnealing <optimization-optimizers-simulatedannealing-background>` documentation has more detail of how it works but the main thing to note here is that we determine how it behaves by setting an initial temperature (:math:`T_0`) and a constant :math:`\alpha` such that :math:`T(t)`, the temperature at time `t`, is defined by the function:
+
+.. math::
+
+   T(t) = T_0 \alpha^t\\
+
+And since time is assumed to be positive, this means that :math:`\alpha` has to be less than one if we want the temperature to drop (cool) with time. The temperature is used to decide whether a candidate solution that is worse than the current solution is accepted as a new solution. The higher the initial temperature, the more likely this is to happen and so the more the optimizer will explore, rather than accept a local optima. If :math:`\alpha` is closer to 0 or the initial temperature is low, then the optimizer will tend to choose one of the first local optima it finds. The actual choice of parameters has to be determined by the data. 
+
+Gaussian Convolution
+--------------------
+
+Now we can look at `3.1. (get a new candidate by tweaking the current solution)`. 
+
+In this case the new candidate is found by selecting values from a Normal distribution and adding them to the current solution. Since we are using a Normal distribution we know that about 68% of the values we pick will be within one standard deviation of the mean, 95% of the values will be within two standard deviations from the mean, and 99.7% of the data will be within three standard deviations from the mean. So by picking the mean (:math:`\mu`) and standard deviation (:math:`\sigma`) for our distribution, we can determine how far each new candidate is most likely to be from the previous solution, but not exactly how far (sometimes, although rarely, the chosen value will be more than three standard deviations from the mean).
+
+Once again the :ref:`actual implementation <optimization-tweaks-gaussian>` has more information.
+
+Sample Configuration File
+-------------------------
+
+This is a sample configuration file for running this test. The parameters of interest are for the annealing and the convolution.
+
+.. csv-table:: Simulated Annealing Parameters
+   :header: Variable,Configuration Option, Value
+
+   :math:`T_0`, ``start_temperature``, :math:`10^{5}`
+   :math:`T_{final}`, ``stop_temperature``, `0.01`
+   :math:`\alpha`, ``alpha_temperature``, 0.99
+   
+.. csv-table:: Gaussian Convolution Parameters
+   :header: Variable,Configuration Option, Value
+
+   :math:`\mu`, ``location``, 0 
+   :math:`\sigma`, ``scale``, 1
+
+.. literalinclude:: data/simulated_annealing_exhaustive.ini
+   :language: ini
+

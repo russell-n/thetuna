@@ -2,7 +2,7 @@
 #
 THIS_NAME = tuna
 RSYNC_NAME = the_tuna
-RSYNC_CATEGORY = explorations
+RSYNC_CATEGORY = hortators
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build

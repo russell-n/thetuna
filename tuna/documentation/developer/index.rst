@@ -6,8 +6,9 @@ Developer Documentation
    :maxdepth: 1
 
    Metaheuristic Algorithms <algorithims.rst>
-   References <references.rst>
    The Optimization Description <description.rst>
+   References <references.rst>
+   Tabu Experiments <tabu_experiments.rst>
 
 .. toctree::
    :maxdepth: 1

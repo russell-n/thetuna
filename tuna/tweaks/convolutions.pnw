@@ -10,11 +10,6 @@ from tuna import BaseClass
 
 These are convolutions to `tweak` the candidate solutions when optimizing.
 
-Contents:
-
-    * :ref:`Uniform Convolution <optimization-tweaks-uniform>`
-    * :ref:`Gaussian Convolution <optimization-tweaks-gaussian>`
-
 .. _optimization-tweaks-uniform:
 
 Uniform Convolution
