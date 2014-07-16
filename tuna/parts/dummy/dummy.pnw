@@ -113,7 +113,8 @@ class DummyClass(BaseClass):
         """
         self.log(CALLED_ON.format(attribute=attribute,
                                   thing=self.identifier))
-        return CallClass(NOT_IMPLEMENTED.format(thing=self))
+        return CallClass(NOT_IMPLEMENTED.format(thing=self),
+                         level=self.level)
 # end class Dummy    
 @
 
