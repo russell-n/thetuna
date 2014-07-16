@@ -14,31 +14,56 @@ from callclass import CallClass
 output_documentation = __name__ == '__builtin__'
 
 
+class DummyConstants(object):
+    """
+    Constants for using the dummy
+    """
+    __slots__ = ()
+    debug_level = 'debug'
+
+
 class DummyClass(BaseClass):
     """
     The Dummy Class does nothing
     """
-    def __init__(self, identifier="DummyClass", *args, **kwargs):
+    def __init__(self, identifier="DummyClass", level='info',
+                 *args, **kwargs):
         """
         Dummy class constructor
         """
         super(DummyClass, self).__init__()
+        self.level = level
+        self.identifier = identifier
+        
         self._logger = None
+        self._log = None
         self.logger.info(CREATION.format(thing=self))
         self.logger.info(ARGS.format(value=args))
         self.logger.info(KWARGS.format(value=kwargs))
-        self.identifier = identifier
+
         for name, value in kwargs.items():
             setattr(self, name, value)
         return
 
+    @property
+    def log(self):
+        """
+        A logging method based on the level
+        """
+        if self._log is None:
+            if self.level == 'info':
+                self._log = self.logger.info
+            else:
+                self._log = self.logger.debug
+        return self._log
+    
     def __call__(self, *args, **kwargs):
         """
         Logs the fact that it was called
         """
-        self.logger.info(CALLED.format(thing=self.identifier))
-        self.logger.info(ARGS.format(value=args))
-        self.logger.info(KWARGS.format(value=kwargs))
+        self.log(CALLED.format(thing=self.identifier))
+        self.log(ARGS.format(value=args))
+        self.log(KWARGS.format(value=kwargs))
         return
 
     def __str__(self):
@@ -51,8 +76,8 @@ class DummyClass(BaseClass):
         """
         To catch unimplemented parts of the class and log them
         """
-        self.logger.info(CALLED_ON.format(attribute=attribute,
-                                          thing=self.identifier))
+        self.log(CALLED_ON.format(attribute=attribute,
+                                  thing=self.identifier))
         return CallClass(NOT_IMPLEMENTED.format(thing=self))
 # end class Dummy    
 
@@ -149,13 +174,13 @@ class HangingDummy(DummyClass):
 
 if output_documentation:
     class FakeLogger(object):
-        def info(self, output):
+        def __call__(self, output):
             print output
             
     class KingKong(DummyClass):
         def __init__(self, *args, **kwargs):
             super(KingKong, self).__init__(*args, **kwargs)
-            self._logger = FakeLogger()
+            self._log = FakeLogger()
             return
     
 

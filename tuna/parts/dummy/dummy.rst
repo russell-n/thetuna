@@ -5,6 +5,22 @@ This module holds classes to help test the running of the infrastructure.
 
 
 
+Dummy Constants
+---------------
+
+::
+
+    class DummyConstants(object):
+        """
+        Constants for using the dummy
+        """
+        __slots__ = ()
+        debug_level = 'debug'
+    
+    
+
+
+
 .. _dummy-class::
 
 The Dummy Class
@@ -88,13 +104,13 @@ As an example we can create an operator and make some fake calls to it (I do not
 
     if output_documentation:
         class FakeLogger(object):
-            def info(self, output):
+            def __call__(self, output):
                 print output
                 
         class KingKong(DummyClass):
             def __init__(self, *args, **kwargs):
                 super(KingKong, self).__init__(*args, **kwargs)
-                self._logger = FakeLogger()
+                self._log = FakeLogger()
                 return
         
     
