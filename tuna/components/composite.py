@@ -282,7 +282,9 @@ class SimpleComposite(BaseClass):
         """
         The main interface, calls all components, passing in kwargs
         """
+        self.logger.debug("SimpleComposite arguments: {0}".format(kwargs))
         for component in self.components:
+            self.logger.debug("SimpleComposite calling '{0}'".format(component))
             component(**kwargs)
         return
 # end class SimpleComposite    

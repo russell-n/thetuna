@@ -3,13 +3,6 @@ The Dummy
 
 This module holds classes to help test the running of the infrastructure.
 
-Contents:
-
-   * :ref:`The Dummy <dummy-class>`
-   * :ref:`The Crash Dummy <crash-dummy>`
-   * :ref:`The Hanging Dummy <hanging-dummy>`
-   * :ref:`Example Use <dummy-example>`
-
 
 
 .. _dummy-class::

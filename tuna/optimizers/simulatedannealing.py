@@ -41,7 +41,9 @@ class SimulatedAnnealer(BaseComponent):
         self.stop_condition = stop_condition
         self.solutions = solution_storage
         self.observers = observers
-        self.tabu = []
+
+        # sets have constant-time set-membership lookups
+        self.tabu = set([])
         return
 
     @property
@@ -81,7 +83,7 @@ class SimulatedAnnealer(BaseComponent):
 
     def reset(self):
         self.logger.debug("Resetting the annealing parts")
-        self.tabu = []
+        self.tabu.clear()
         self.quality.reset()
         self.temperatures.reset()
         self._solution = None
@@ -101,10 +103,11 @@ class SimulatedAnnealer(BaseComponent):
         # prime the data with the first candidate
         solution = self.solution
         self.quality(solution)
+        self.log_info("Initial Best Solution: {0}".format(solution))
         
         # avoid repeating the same test-spot
-        self.tabu.append(str(solution.inputs))
-        
+        self.tabu.add(str(solution.inputs))
+
         self.solutions.write("Time,Checks,Solution\n")
         timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
         output = "{0},1,{1}\n".format(timestamp, solution)
@@ -130,7 +133,7 @@ class SimulatedAnnealer(BaseComponent):
             
             # since the candidate is checked to see if it's in the tabu list
             # before checking its quality, only the inputs are added to the tabu list
-            self.tabu.append(str(candidate.inputs))
+            self.tabu.add(str(candidate.inputs))
             
             if (quality_difference > 0 or
                 random.random() < math.exp(quality_difference/float(temperature))):
@@ -146,7 +149,9 @@ class SimulatedAnnealer(BaseComponent):
                                                                      self.solution))
         if self.observers is not None:
             # this is for users of the solution
-            self.observers(solution=self.solution)
+            self.log_info("SimulatedAnnealer giving solution to '{0}'".format(self.observers))
+
+            self.observers(target=self.solution)
         return self.solution
 # SimulatedAnnealer    
 

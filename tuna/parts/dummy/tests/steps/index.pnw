@@ -1,0 +1,12 @@
+Behavior Driven Steps for Testing Dummy Components
+==================================================
+
+<<name='imports', echo=False>>=
+# this package
+from tuna.infrastructure.index_builder import create_toctree
+@
+
+<<name='toctree', echo=False, results='sphinx'>>=
+create_toctree()
+@
+

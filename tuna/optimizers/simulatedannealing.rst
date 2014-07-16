@@ -1,4 +1,4 @@
-The Simulated Annealing Optimizer
+_The Simulated Annealing Optimizer
 =================================
 ::
 
@@ -7,12 +7,6 @@ The Simulated Annealing Optimizer
     
 
 
-
-Contents:
-
-   * :ref:`Background <optimization-optimizers-simulatedannealing-background>`
-   * :ref:`Simulated Annealing <optimization-optimizers-simulatedannealing>`
-   * :ref:`Temperature Generator <optimization-optimizers-simulatedannealing-temperaturegenerator>`
 
 .. _optimization-optimizers-simulatedannealing-background:
    

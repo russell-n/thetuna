@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="37cm" height="10cm" viewBox="53 68 723 194" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <ellipse style="fill: #000000" cx="69" cy="110" rx="10" ry="10"/>
+  <g>
+    <polygon style="fill: #ffffff" points="274,210.793 294,190.793 314,210.793 294,230.793 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="274,210.793 294,190.793 314,210.793 294,230.793 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="79,110 294,110 294,186.321 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="289,178.557 294,188.557 299,178.557 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="176.5" y="100">[kwargs]</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="656" y="192.793" width="118.5" height="36" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="656" y="192.793" width="118.5" height="36" rx="20" ry="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="715.25" y="214.693">
+      <tspan x="715.25" y="214.693">call component</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="314,210.793 324,210.793 646,210.793 651.528,210.793 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="643.764,215.793 653.764,210.793 643.764,205.793 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="475" y="200.793">[component not called]</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="715.25,228.793 715.25,260.793 294,260.793 294,235.265 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="299,243.029 294,233.029 289,243.029 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="69" cy="210.793" rx="15" ry="15"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="69" cy="210.793" rx="15" ry="15"/>
+    <ellipse style="fill: #000000" cx="69" cy="210.793" rx="10" ry="10"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="274,210.793 264,210.793 94,210.793 88.4721,210.793 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="96.2361,205.793 86.2361,210.793 96.2361,215.793 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="169" y="200.793">[all components called]</text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="175" y="96">
+    <tspan x="175" y="96"></tspan>
+  </text>
+</svg>

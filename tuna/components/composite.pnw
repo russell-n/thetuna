@@ -3,10 +3,6 @@ The Composite
 
 .. _the-composite:
 
-Contents:
-
-    * :ref:`The Composite Class <composite-class>`
-
 <<name='imports', echo=False>>=
 # python standard library
 import inspect
@@ -287,7 +283,7 @@ class Composite(BaseComponent):
 A Simpler Composite
 -------------------
 
-The Composite above was meant to be used to create the infrastructure for running tests. Because of this it has many unnecessary things. This Composite is meant to be used by code     that is run by the infrastructure. This composite passes all keyword arguments to its components so they all have to be ready to accept them. No positional arguments are passed in as this would be require knowing which component takes which argument.
+The Composite above was meant to be used to create the infrastructure for running tests. Because of this it has many unnecessary things. This Composite is meant to be used by code that is run by the infrastructure. This composite passes all keyword arguments to its components so they all have to be ready to accept them. No positional arguments are passed in as this would require knowing which component takes which argument.
 
 .. uml::
 
@@ -301,9 +297,10 @@ The Composite above was meant to be used to create the infrastructure for runnin
    SimpleComposite.components
    SimpleComposite.add
    SimpleComposite.remove
+   SimpleComposite.__contains__
    SimpleComposite.__call__
 
-<<name='SimpleComposite'>>=
+<<name='SimpleComposite', echo=False>>=
 class SimpleComposite(BaseClass):
     """
     A simpler implementation of a composite.
@@ -354,12 +351,26 @@ class SimpleComposite(BaseClass):
         """
         The main interface, calls all components, passing in kwargs
         """
+        self.logger.debug("SimpleComposite arguments: {0}".format(kwargs))
         for component in self.components:
+            self.logger.debug("SimpleComposite calling '{0}'".format(component))
             component(**kwargs)
         return
 # end class SimpleComposite    
 @
 
+The Call
+~~~~~~~~
+
+The SimpleComposite's call just passes on the kwargs to its components (and logs what it's calling).
+
+.. code-block:: python
+
+    for component in self.components:
+        component(**kwargs)
+
+.. figure:: figures/simple_composite_call.svg
+        
 Simple Composite Builder
 ------------------------
 
@@ -372,8 +383,7 @@ A convenience class to build simple composites. Builders are turning out to be l
    SimpleCompositeBuilder
    SimpleCompositeBuilder.product
 
-
-<<name='SimpleCompositeBuilder'>>=
+<<name='SimpleCompositeBuilder', echo=False>>=
 class SimpleCompositeBuilder(object):
     """
     A builder of quality-composites
