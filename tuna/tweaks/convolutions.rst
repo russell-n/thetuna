@@ -4,11 +4,6 @@ The Convolutions
 
 These are convolutions to `tweak` the candidate solutions when optimizing.
 
-Contents:
-
-    * :ref:`Uniform Convolution <optimization-tweaks-uniform>`
-    * :ref:`Gaussian Convolution <optimization-tweaks-gaussian>`
-
 .. _optimization-tweaks-uniform:
 
 Uniform Convolution
@@ -85,7 +80,7 @@ XY Convolution
 
 The gaussian convolution assumes that the upper bounds for each entry in the vector is the same. This is a tweak to set asymmetric bounds.
 
-.. currentmodule:: tuna.tweaks.convolutions
+.. module:: tuna.tweaks.convolutions
 .. autosummary::
    :toctree: api
 
@@ -132,8 +127,8 @@ This is a class to build the XYConvolution from a configuration map.
 
 ::
 
-    [ 3.71487634  6.95225693]
-    [ 1 32 32]
-    [22  5  5]
+    [ 4.03182464  5.26940828]
+    [  0 -42 -12]
+    [34 18  9]
     
 

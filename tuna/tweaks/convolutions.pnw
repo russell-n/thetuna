@@ -237,7 +237,7 @@ XY Convolution
 
 The gaussian convolution assumes that the upper bounds for each entry in the vector is the same. This is a tweak to set asymmetric bounds.
 
-.. currentmodule:: tuna.tweaks.convolutions
+.. module:: tuna.tweaks.convolutions
 .. autosummary::
    :toctree: api
 

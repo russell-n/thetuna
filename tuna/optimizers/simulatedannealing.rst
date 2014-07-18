@@ -1,4 +1,4 @@
-_The Simulated Annealing Optimizer
+The Simulated Annealing Optimizer
 =================================
 ::
 

@@ -42,7 +42,6 @@ I don't know how the grid corresponds to actual locations of things so I'm assum
 
 
 
-
 The contour map gives a somewhat more informative view. You can see that one side of the table tends to get more of the good throughput (which I think Bryce and Brent indicated).
  
 .. figure:: figures/best_worst_scatter.png
@@ -129,17 +128,9 @@ These are the points surrounding the minimum and maximum values for the entire d
 
 .. figure:: figures/bad_neighborhood.svg
 
-.. <<name='maximum_neighborhood', echo=False>>=
-.. print z_data[5:10, 49:54]
-.. 
-
-I'm using index slicing so the arrays are arranged backwards and upside down -- the values in the fifties are to the right of the center when looking at the plots but listed to the left of center in the arrays. 
+I'm using index slicing so the arrays are arranged backwards and upside down -- the values on the right of the neighborhood diagram are on the top in the contour and scatter plots. 
 
 The arrows represent a path that a hill climber using a local search might take. The three blue circles are local optima that prevent their neighbors from reaching the global optima (the blue rectangle). Of the sixteen nodes making up the outer ring, eleven fail to reach the global optima and 5 are able to find it. All five approach the global optima from the top right. I'm assuming that the nodes in the outer ring are themselves all reachable but that might not be the case if the entire grid was used.
-
-.. <<name='minimum_neighborhood', echo=False>>=
-.. print z_data[22:28, 57:64]
-.. 
 
 .. figure:: figures/worst_neighborhood.svg
 
@@ -151,6 +142,8 @@ Partitioning the Data
 ~~~~~~~~~~~~~~~~~~~~~
 
 If we know that the data will always look like the set we have, we can reduce our search space to just the left half of the table. Here I'll see how that affects the probability of finding the best value.
+
+.. '
 
 .. figure:: figures/sub_set.png
    :scale: 75%
@@ -239,4 +232,119 @@ This is a sample configuration file for running this test. The parameters of int
 
 .. literalinclude:: data/simulated_annealing_exhaustive.ini
    :language: ini
+
+TUNA Section
+~~~~~~~~~~~~
+
+The ``[TUNA]`` section is a place to list what the plugin sections will be. In this case we're telling the `tuna` that there will only be one plugin and the information to configure it will be in a section named ``[Annealing]``.
+
+DEFAULT Section
+~~~~~~~~~~~~~~~
+
+We're going to repeat the simulation 1,000 times and store the data in a folder named `annealing_tabledata_t0_10000_scale_2` next to the configuration file.
+
+MODULES Section
+~~~~~~~~~~~~~~~
+
+In this case we're simulating the use of Cameron's XYTable so we need to tell the `tuna` which module contains the plugin to fake the table's operation. This isn't really needed for the simulation but provides a way to check and see that the `tuna` is calling it the way we expect. The listed module will be imported so the ``xytable`` package has to have been installed for this to work.
+
+Annealing Section
+~~~~~~~~~~~~~~~~~
+
+The ``plugin = SimulatedAnnealing`` line tells the tuna to load the `SimulatedAnnealing` class. 
+
+The ``components = fake_table, table_data`` line tells the tuna to create components using the `fake_table` and `table_data` section in this configuration and give it to the Simulated Annealer. The components will be used to decide how good a location is. In this case we're substituting mocks for a table control object (fake_table) and an iperf object (table_data). `fake_table` will just log the calls made to it so we can check that the program is running like we think it should. The `table_data` object will lookup the data that Alex recorded using the table-coordinates it was given and give it back to the Simulated Annealer.
+
+The ``observers = fake_table`` line tells the `tuna` to give the `Simulated Annealer` a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.
+
+The temperature related settings were explained above.
+
+The ``candidate = 20, 20`` tells the ``tuna`` to tell the Simulated Annealer to start its searching at x=20, y=20. I'm going to add a better random-candidate chooser, but for now if the initial candidate isn't passed in it ends up at 0,0 most of the time which it turns out makes the Annealer perform better just by luck, so I'm setting it to 20,20 to make the search a little harder.
+
+The ``location`` and ``scale`` for the  ``GaussianConvolution`` were discussed previously. ``number_type = integer`` tells it to cast the values to integers (so that the x,y coordinates will be whole numbers not fractions). The data-set is represented as a :math:`61 \times 61` table so the ``lower_bound`` and ``upper_bound`` represent the indices for the table. The ``GaussianConvolution`` expects a square table but after looking at the data I realized that the search might perform better if only the left-half of the table was used. You could just halve the ``upper_bound`` parameter, but that would quarter the range of the table search, not halve it, so I created another class, the :ref:`XYConvolution <tuna.tweaks.convolutions>` that acts like the `Gaussian Convolution` but takes separate bounds for the x and y axes. Since this just adds more parameters I'm using the Gaussian Convolution to test the simulation under the assumption that we won't be able to halve the search space in most cases.
+
+.. '
+
+The Outcome
+-----------
+
+How many times did it find the maximum-bandwidth location?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Using the log file (`tuna.log`) we can see how the operations went. The file itself is large so I'm going to document what I did but not include the data itself. 
+
+To get a count of the number of times the test was run I counted the occurences of the string "Initial Candidate":
+
+.. '
+
+.. code-block:: bash
+
+   grep "Initial" tuna.log | wc -l
+
+This showed that it was run 100 time. When the `tuna` finds the ideal value (or it exceeds the time limit we set) it outputs "Stop condition reached" along with the coordinates and bandwidth found. To get the number of cases where 72.7 Mbits/second was found:
+
+.. code-block:: bash
+
+   grep "Stop.*Output:[[:space:]]*72\.7" tuna.log  | wc -l
+
+This gives us 30 so it found it 30% of the time. 
+
+How many times did it do well enough?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Since we set a threshold level the tuna sometimes gave up once it got to 70 Mbits/second, so how many times did it hit this threshold?
+
+.. code-block:: bash
+
+   grep "Quality.*Output:[[:space:]]*7[[:digit:]]" tuna.log  | wc -l
+
+Gave an output of 100. I had to use the sub-string "Quality Checks" instead of "Stop Condition" because for some reason there was one case where the temperature dropped low enough to quit without triggering the stop-condition. Anyway, it looks like in all cases the `tuna` found a solution that gave at least 70 Mbits/second.
+
+How well did it do?
+~~~~~~~~~~~~~~~~~~~
+
+By diverting the output from the previous `grep` search instead of piping it to `wc`, I was able to get the final bandwidths the `tuna` reached (it's included in the "Quality Checks" line as "Output:").
+
+.. '
+
+::
+
+    bandwidths = pandas.read_csv('data/solution_bandwidths.csv')
+    description = bandwidths.Bandwidth.describe()
+    
+    
+
+
+
+.. csv-table:: Bandwidth Solutions Summary
+   :header: Statistic, Value
+
+   count,100.0
+   mean,72.082
+   std,0.493058891727
+   min,70.3
+   25%,72.0
+   50%,72.0
+   75%,72.7
+   max,72.7
+
+.. figure:: figures/bandwidths_kde.png
+   :scale: 75%
+
+::
+
+    trials = 10**5
+    n = len(bandwidths)
+    samples = numpy.random.choice(bandwidths.Bandwidth,
+                                  size=(n, trials))
+    means = samples.mean(axis=0)
+    alpha = 0.05
+    p = alpha/2
+    
+    low = numpy.percentile(means, p)
+    high = numpy.percentile(means, 1-p)
+    
+    
+
+**95% Confidence Interval:** (71.907, 71.965)
 

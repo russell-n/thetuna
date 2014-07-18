@@ -12,12 +12,6 @@ from tuna import ConfigurationError
 
 The Stop Conditions are callable objects used by the optimizers to decide when to stop.
 
-Contents:
-
-   * :ref:`The Stop Condition <optimization-components-stopcondition>`
-   * :ref:`The Stop Condition with Ideal Value <optimization-components-stopcondition-ideal>`
-   * :ref:`The Stop Condition Generator <optimization-components-stopcondition-generator>`
-
 Stop Condition Constants
 ------------------------
 
@@ -45,7 +39,7 @@ The Stop Condition
    StopCondition : time_limit
    StopCondition : __call__(solution)
 
-.. currentmodule:: optimization.components.stopcondition
+.. module:: tuna.parts.stopcondition
 .. autosummary::
    :toctree: api
 
