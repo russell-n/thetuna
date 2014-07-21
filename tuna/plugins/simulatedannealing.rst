@@ -3,10 +3,6 @@ The SimulatedAnnealing Plugin
 
 This plugin creates the SimulatedAnnealing optimizer.
 
-Contents:
-
-   * :ref:`The API <simulatedannealingplugin-api>`
-   
 
 
 .. uml::
