@@ -49,6 +49,8 @@ The `Composite` was created to be a generalization of the `Hortator`, `Operator`
 
 .. '
 
+.. _simple-composite:
+
 A Simpler Composite
 -------------------
 

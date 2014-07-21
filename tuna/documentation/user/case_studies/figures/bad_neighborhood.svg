@@ -10,7 +10,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="676.28125"
-   height="367.3125"
+   height="394.6875"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -334,11 +334,11 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="489.83274"
-     inkscape:cy="181.75216"
+     inkscape:cx="493.65958"
+     inkscape:cy="140.67664"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
-     showgrid="false"
+     showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1680"
@@ -352,68 +352,77 @@
      fit-margin-bottom="0">
     <sodipodi:guide
        orientation="0,1"
-       position="101.23703,352.0311"
+       position="101.23703,366.9061"
        id="guide2985" />
     <sodipodi:guide
        orientation="1,0"
-       position="16.9375,379.61104"
+       position="16.9375,394.48604"
        id="guide3757" />
     <sodipodi:guide
        orientation="1,0"
-       position="672.98337,127.77724"
+       position="672.98337,142.65224"
        id="guide3759" />
     <sodipodi:guide
        orientation="0,1"
-       position="218.41472,-126.7812"
+       position="218.41472,-111.9062"
        id="guide3761" />
     <sodipodi:guide
        orientation="1,0"
-       position="-66.633929,397.46818"
+       position="-66.633929,412.34318"
        id="guide3822" />
     <sodipodi:guide
        orientation="1,0"
-       position="-66.633929,416.03961"
+       position="-66.633929,430.91461"
        id="guide5518" />
     <sodipodi:guide
        orientation="1,0"
-       position="539.64323,258.08692"
+       position="539.64323,272.96192"
        id="guide5550" />
     <sodipodi:guide
        orientation="0,1"
-       position="363.87669,302.53363"
+       position="363.87669,317.40863"
        id="guide5552" />
     <sodipodi:guide
        orientation="1,0"
-       position="176.99847,317.18084"
+       position="176.99847,332.05584"
        id="guide5554" />
     <sodipodi:guide
        orientation="0,1"
-       position="296.70154,198.99299"
+       position="296.70154,213.86799"
        id="guide5558" />
     <sodipodi:guide
        orientation="0,1"
-       position="391.65588,109.59449"
+       position="391.65588,124.46949"
        id="guide5560" />
     <sodipodi:guide
        orientation="1,0"
-       position="132.04668,352.0311"
+       position="132.04668,366.9061"
        id="guide5562" />
     <sodipodi:guide
        orientation="0,1"
-       position="252.75991,48.985337"
+       position="252.75991,63.860337"
        id="guide5564" />
     <sodipodi:guide
        orientation="1,0"
-       position="377.00867,139.89907"
+       position="377.00867,154.77407"
        id="guide5566" />
     <sodipodi:guide
        orientation="0,1"
-       position="490.65083,248.99554"
+       position="490.65083,263.87054"
        id="guide5568" />
     <sodipodi:guide
        orientation="1,0"
-       position="95,220.71429"
+       position="95,235.58929"
        id="guide3210" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid3282"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="0px"
+       originy="14.875px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -431,7 +440,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="values"
-     transform="translate(-28.0625,-270.375)">
+     transform="translate(-28.0625,-257.875)">
     <g
        id="g3287">
       <text
@@ -715,7 +724,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="paths"
-     transform="translate(-28.0625,-270.375)">
+     transform="translate(-28.0625,-257.875)">
     <path
        style="fill:none;stroke:#000000;stroke-width:2.0999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
        d="m 123.0625,335.15387 0,21.85117"
@@ -765,19 +774,19 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <rect
-       style="color:#000000;fill:none;stroke:#5f5f5f;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:none;stroke:#5f5f5f;stroke-width:2.01481438;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect3285"
-       width="624.28571"
-       height="338.13434"
-       x="54.069981"
-       y="284.96216" />
+       width="624.27094"
+       height="343.17029"
+       x="54.077389"
+       y="283.5806" />
     <rect
-       style="color:#000000;fill:none;stroke:#5f5f5f;stroke-width:2.15967155;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:none;stroke:#5f5f5f;stroke-width:2.2388823;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect3285-9"
-       width="674.12604"
-       height="365.12955"
-       x="29.149815"
-       y="271.46454" />
+       width="674.04681"
+       height="392.45071"
+       x="29.189419"
+       y="259.00351" />
     <path
        style="color:#000000;fill:none;stroke:#000000;stroke-width:2.0999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;marker-end:url(#Arrow2Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        d="m 405.07117,335.15387 38.4744,31.71897"
@@ -819,8 +828,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="optima"
-     sodipodi:insensitive="true"
-     transform="translate(-28.0625,-270.375)">
+     transform="translate(-28.0625,-257.875)">
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#0000be;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"

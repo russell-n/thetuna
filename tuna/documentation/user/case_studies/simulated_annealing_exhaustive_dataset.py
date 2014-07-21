@@ -178,6 +178,7 @@ if not os.path.isfile(output):
     out = axe.set_xlim((0, flat_data.max()))
     out = axe.set_ylim((0, 1))
     out = axe.set_title("Cumulative Distribution")
+    axe.set_xlabel("Bandwidth Mbits/second")
     out = plt.axvline(numpy.median(flat_data), color='r')
     figure.savefig(output)
 print '.. figure:: ' + output
@@ -186,9 +187,11 @@ print "  :scale: 75%"
 
 total = float(len(flat_data))
 less_than_one = flat_data[flat_data < 1]
+one_to_twenty = flat_data[(flat_data >=1) & (flat_data < 20)]
 
 
-print "**Less than 1 Mbits/Second:** {0:.3g}".format(len(less_than_one)/total)
+print "**Less than 1 Mbits/Second:** {0:.3g}\n".format(len(less_than_one)/total)
+print "**From 1 to less than 20 Mbits/Second:** {0:.3g}".format(len(one_to_twenty)/total)
 
 
 print "   0-9,{0},{1:.3f}".format(len(noughts), len(noughts)/total)
@@ -287,30 +290,89 @@ for name in description.index:
 
 
 output = 'figures/bandwidths_kde.png'
-figure = plt.figure()
-axe = figure.gca()
-    
-bandwidths.Bandwidth.hist(ax=axe, alpha=0.25, color='k', normed=1)
-bandwidths.Bandwidth.plot(kind='kde', ax=axe, alpha=0.5, color='b')
-    
-axe.axvline(numpy.median(flat_data), color='r', alpha=0.5)
-axe.set_xlabel("Throughput (Mb/s)")
-    
-figure.savefig(output)
+if not os.path.isfile(output):
+    figure = plt.figure()
+    axe = figure.gca()
+        
+    bandwidths.Bandwidth.hist(ax=axe, alpha=0.25, color='k', normed=1)
+    bandwidths.Bandwidth.plot(kind='kde', ax=axe, alpha=0.5, color='b',
+                              title='Best Bandwidth Solutions Found')
+        
+    axe.axvline(numpy.median(flat_data), color='r', alpha=0.5)
+    axe.set_xlabel("Throughput (Mb/s)")
+        
+    figure.savefig(output)
 print '.. figure:: ' + output
 print "   :scale: 75%"
 
 
 trials = 10**5
-n = len(data)
+n = len(bandwidths)
 samples = numpy.random.choice(bandwidths.Bandwidth,
                               size=(n, trials))
 means = samples.mean(axis=0)
-alpha = 0.05
+alpha = 0.01
 p = alpha/2
 
 low = numpy.percentile(means, p)
 high = numpy.percentile(means, 1-p)
 
 
-print "**95% Confidence Interval:** ({0}, {1})".format(low, high)
+print "**99% Confidence Interval:** ({0}, {1})".format(low, high)
+
+
+repetitions = 0
+out_file = "data/best_repetitions_counts.csv"
+with open(out_file, 'w') as w:
+    w.write("TemperatureCount\n")
+    for line in open("data/initial_temperatures.log"):
+        if "Initial" in line and repetitions !=0:
+            w.write("{0}\n".format(repetitions))
+            repetitions = 0
+            continue
+        if "Temperature" in line:
+            repetitions += 1
+    w.write("{0}\n".format(repetitions))
+
+
+counts = pandas.read_csv(out_file)
+description = counts.TemperatureCount.describe()
+
+
+for name in description.index:
+    print "   {0},{1:g}".format(name, description.ix[name])
+
+
+RUNTIME = 15
+SECONDS_PER_HOUR = 60.0 * 60.0
+
+
+for name in "min 50% max".split():
+    print "   {0},{1:.2g}".format(name,
+                                  RUNTIME * description.ix[name]/SECONDS_PER_HOUR)
+
+
+runtimes = counts.TemperatureCount * RUNTIME/SECONDS_PER_HOUR
+samples = numpy.random.sample(runtimes, size=(len(runtimes), trials))
+means = samples.mean(axis=0)
+low = numpy.percentile(means, p)
+high = numpy.percentile(means, 1-p)
+print "**99% Confidence Interval:** ({0:.2f}, {1:.2f})".format(low, high)
+
+
+output = 'figures/runtime_kde.png'
+if not os.path.isfile(output):
+    figure = plt.figure()
+    axe = figure.gca()
+        
+    counts.TemperatureCount.hist(ax=axe, alpha=0.25, color='k', normed=1)
+    counts.TemperatureCount.plot(kind='kde', ax=axe, alpha=0.5, color='b',
+                                 title='Iperf Run Counts')
+        
+    axe.axvline(numpy.median(flat_data), color='r', alpha=0.5)
+    axe.set_xlabel("Number of Throughput Checks")
+        
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+

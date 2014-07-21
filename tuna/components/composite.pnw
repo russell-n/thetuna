@@ -280,6 +280,8 @@ class Composite(BaseComponent):
 
 .. '
 
+.. _simple-composite:
+
 A Simpler Composite
 -------------------
 
