@@ -1,6 +1,8 @@
 The Tuna
 ========
 
+.. figure:: figures/blackfin_tuna_duane_raver_jr.jpg
+
 
 
 .. _the-tuna:
@@ -9,6 +11,7 @@ Written Documentation
 ---------------------
 
 .. toctree::
+   :maxdepth: 1
    
    Developer Documentation <documentation/developer/index>
    User Documentation <documentation/user/index>

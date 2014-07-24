@@ -70,6 +70,7 @@ The Composite above was meant to be used to create the infrastructure for runnin
    SimpleComposite.remove
    SimpleComposite.__contains__
    SimpleComposite.__call__
+   SimpleComposite.__iter__
 
 
 

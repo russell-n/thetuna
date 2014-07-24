@@ -179,7 +179,7 @@ class SimulatedAnnealing(BasePlugin):
         """
         This is the SimulatedAnnealing product
 
-        to allow repeated running the SimulatedAnnealer is created anew every time
+        To allow repeated running the SimulatedAnnealer is created anew every time
 
         :precondition: self.configuration is a configuration map
         """
@@ -198,6 +198,9 @@ class SimulatedAnnealing(BasePlugin):
             observers = SimpleCompositeBuilder(configuration=self.configuration,
                                                section_header=self.section_header,
                                                option='observers').product
+            # set them up so they always act, even though target.output was set
+            for observer in observers:
+                observer.always = True
         candidate = self.configuration.get_list(section=self.section_header,
                                                 option='candidate',
                                                 optional=True)

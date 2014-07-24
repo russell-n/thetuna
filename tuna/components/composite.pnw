@@ -301,6 +301,7 @@ The Composite above was meant to be used to create the infrastructure for runnin
    SimpleComposite.remove
    SimpleComposite.__contains__
    SimpleComposite.__call__
+   SimpleComposite.__iter__
 
 <<name='SimpleComposite', echo=False>>=
 class SimpleComposite(BaseClass):
@@ -357,6 +358,14 @@ class SimpleComposite(BaseClass):
         for component in self.components:
             self.logger.debug("SimpleComposite calling '{0}'".format(component))
             component(**kwargs)
+        return
+
+    def __iter__(self):
+        """
+        Traverses the components and yields them
+        """
+        for component in self.components:
+            yield component
         return
 # end class SimpleComposite    
 @

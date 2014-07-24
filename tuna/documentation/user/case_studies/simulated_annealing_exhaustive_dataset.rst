@@ -1,6 +1,8 @@
 Simulated Annealing With Simulated Table Data
 =============================================
 
+.. _case-study-annealing-simulated-table:
+
 Problem
 -------
 
@@ -376,7 +378,7 @@ So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To 
     
     
 
-**99% Confidence Interval:** (71.8749997, 71.966)
+**99% Confidence Interval:** (71.87999995, 71.965)
 
 
 
@@ -397,16 +399,17 @@ Then I counted the temperature checks between the "Initial" lines.
 
     repetitions = 0
     out_file = "data/best_repetitions_counts.csv"
-    with open(out_file, 'w') as w:
-        w.write("TemperatureCount\n")
-        for line in open("data/initial_temperatures.log"):
-            if "Initial" in line and repetitions !=0:
-                w.write("{0}\n".format(repetitions))
-                repetitions = 0
-                continue
-            if "Temperature" in line:
-                repetitions += 1
-        w.write("{0}\n".format(repetitions))
+    if not os.path.isfile(out_file):
+        with open(out_file, 'w') as w:
+            w.write("TemperatureCount\n")
+            for line in open("data/initial_temperatures.log"):
+                if "Initial" in line and repetitions !=0:
+                    w.write("{0}\n".format(repetitions))
+                    repetitions = 0
+                    continue
+                if "Temperature" in line:
+                    repetitions += 1
+            w.write("{0}\n".format(repetitions))
     
     
 
@@ -471,9 +474,9 @@ To estimate the running time we have to now pick an arbitrary time for each exec
     
     
 
-**99% Confidence Interval (mean):** (3.32, 3.54)
+**99% Confidence Interval (mean):** (3.33, 3.54)
 
-**99% Confidence Interval (Median):** (3.84, 4.06)
+**99% Confidence Interval (Median):** (3.85, 4.06)
 
 .. figure:: figures/runtime_kde.png
    :scale: 75%

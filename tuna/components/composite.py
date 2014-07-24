@@ -287,6 +287,14 @@ class SimpleComposite(BaseClass):
             self.logger.debug("SimpleComposite calling '{0}'".format(component))
             component(**kwargs)
         return
+
+    def __iter__(self):
+        """
+        Traverses the components and yields them
+        """
+        for component in self.components:
+            yield component
+        return
 # end class SimpleComposite    
 
 
