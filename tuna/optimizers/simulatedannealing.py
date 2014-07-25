@@ -150,10 +150,6 @@ class SimulatedAnnealer(BaseComponent):
         if self.observers is not None:
             # this is for users of the solution
             self.log_info("SimulatedAnnealer giving solution to '{0}'".format(self.observers))
-
-            # this is a hack to get the table to move
-            for observer in self.observers:
-                observer.always = True
             self.observers(target=self.solution)
         return self.solution
 # SimulatedAnnealer    

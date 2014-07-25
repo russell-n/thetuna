@@ -196,15 +196,16 @@ class XYTweak(BaseClass):
             # linear interpolation
             if hasattr(self.tweak, 'lower_bound'):
                 min_value, max_value = self.tweak.lower_bound, self.tweak.upper_bound
-                tweaked = (max_value - min_value) * numpy.random.sample(size=self.size).astype(self.tweak.number_type) + min_value
+                tweaked = (max_value - min_value) * numpy.random.sample(size=self.size) + min_value
+                tweaked = tweaked.astype(self.tweak.number_type)
             else:
                 x_min, x_max, y_min, y_max = self.tweak.x_min, self.tweak.x_max, self.tweak.y_min, self.tweak.y_max
                 x = self.tweak.number_type((x_max - x_min) * numpy.random.sample() + x_min)
                 y = self.tweak.number_type((y_max - y_min) * numpy.random.sample() + y_min)
-                x = max(x_min, x)
-                x = min(x_max, x)
-                y = max(y_min, y)
-                y = min(y_max, y)
+                #x = max(x_min, x)b
+                #x = min(x_max, x)
+                #y = max(y_min, y)
+                #y = min(y_max, y)
                 tweaked = numpy.array([x, y])
         #self.logger.debug("Tweak: {0}".format(tweaked))
         return XYSolution(inputs=tweaked)
