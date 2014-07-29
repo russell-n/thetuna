@@ -132,7 +132,7 @@ class IperfClass(BaseClass):
         """
         if direction.startswith('d'):
             self.logger.info("'{0}' Server --> DUT".format(direction))
-        elif directon.startswith('u'):
+        elif direction.startswith('u'):
             self.logger.info("'{0}' DUT --> Server".format(direction))
         # get the client and server for the given directon
         client_server = self.client_server[direction]

@@ -148,7 +148,7 @@ So in the worst case it did 71.3 Mbits/second, compared to 70.3 for the full tab
     
     
 
-**99% Confidence Interval:** (72.17899995, 72.244)
+**99% Confidence Interval:** (72.17999995, 72.245)
 
 
 
@@ -246,9 +246,9 @@ To estimate the running time we have to now pick an arbitrary time for each exec
     
     
 
-**99% Confidence Interval (mean):** (2.45, 2.66)
+**99% Confidence Interval (mean):** (2.46, 2.66)
 
-**99% Confidence Interval (Median):** (2.45, 2.91)
+**99% Confidence Interval (Median):** (2.52, 2.91)
 
 .. figure:: figures/half_table_runtime_kde.png
    :scale: 75%

@@ -77,16 +77,11 @@ The ``components = fake_table, table_data`` line tells the tuna to create compon
 
 The ``observers = fake_table`` line tells the `tuna` to give the `Simulated Annealer` a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.
 
-The `lower_bound=0` and `upper_bound=30` limit how far the optimizer can explore within the data-set.
-
 The Outcome
 -----------
 
 How many times did it find the maximum-bandwidth location?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Using the log file (`tuna.log`) we can see how the operations went. The file itself is large so I'm going to document what I did but not include the data itself. 
-
 
 When the `tuna` finds the ideal value (or it exceeds the time limit we set) it outputs "Stop condition reached" along with the coordinates and bandwidth found, which look like this example::
 
@@ -98,7 +93,8 @@ To get the number of cases where 72.7 Mbits/second was found:
 
    grep "Stop.*Output:[[:space:]]*72\.7" tuna.log  | wc -l
 
-This gives us 53 compared 30 when it was run with the full table. Not as much of a jump as I'd expected.
+This gives us 851 out 1f 1,000.
+
 
 How many times did it do well enough?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,7 +105,7 @@ Picking an arbitrary value of 70 Mbits/second as the lower bound of an acceptabl
 
    grep "Quality.*Output:[[:space:]]*7[[:digit:]]" tuna.log  | wc -l
 
-Gave an output of 100. In all cases the `tuna` found a solution that gave at least 70 Mbits/second (as did the full-table search).
+In all cases it reached found a spot with at least 70 Mbits/second.
 
 How well did it typically do?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -121,33 +117,26 @@ By diverting the output from the previous `grep` search to a (:download:`file <d
 .. '
 
 
-::
-
-    bandwidths = pandas.read_csv('data/half_table_bandwidths.csv')
-    description = bandwidths.Bandwidth.describe()
-    
-    
-
 
 
 .. csv-table:: Bandwidth Solutions Summary
    :header: Statistic, Value
 
-   count,100.0
-   mean,72.338
-   std,0.402462119435
-   min,71.3
-   25%,72.0
+   count,1000.0
+   mean,72.5253
+   std,0.425571405546
+   min,71.0
+   25%,72.7
    50%,72.7
    75%,72.7
    max,72.7
 
-.. figure:: figures/half_table_bandwidths_kde.png
+.. figure:: figures/quarter_table_bandwidths_kde.png
    :scale: 75%
 
 
 
-So in the worst case it did 71.3 Mbits/second, compared to 70.3 for the full table. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval. Since the data isn't normal I'll use resampling.
+So in the worst case it did 71.0 Mbits/second, compared to 70.3 for the full table. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval. Since the data isn't normal I'll use resampling.
 
 .. '
 
@@ -166,13 +155,11 @@ So in the worst case it did 71.3 Mbits/second, compared to 70.3 for the full tab
     
     
 
-**99% Confidence Interval:** (72.1869999, 72.243)
+**99% Confidence Interval:** (72.47199996, 72.4931)
 
 
 
-So if we ran the optimizer often enough and the data always looked like our data set then we would expect the mean of the outcomes to be between 71.9 and 72.0 Mbits/Second 99% of the time. But this isn't really the whole story -- the exhaustive search gets the best value 100% of the time. We're using the optimizer because it's infeasible to run it (the current estimate is 12 hours of execution time). So how long did the optimizer take to get to these values?
-
-.. '
+So if we ran the optimizer often enough and the data always looked like our data set then we would expect the mean of the outcomes to be between 72.47 and 72.49 Mbits/Second 99% of the time. So how long did the optimizer take to get to these values?
 
 How long were the execution times?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -188,11 +175,11 @@ Then I counted the temperature checks between the "Initial" lines.
 ::
 
     repetitions = 0
-    out_file = "data/half_table_best_repetitions_counts.csv"
+    out_file = "data/quarter_table_best_repetitions_counts.csv"
     if not os.path.isfile(out_file):
         with open(out_file, 'w') as w:
             w.write("TemperatureCount\n")
-            for line in open("data/half_table_initial_temperatures.log"):
+            for line in open("data/quarter_table_initial_temperatures.log"):
                 if "Initial" in line and repetitions !=0:
                     w.write("{0}\n".format(repetitions))
                     repetitions = 0
@@ -215,14 +202,14 @@ Then I counted the temperature checks between the "Initial" lines.
 .. csv-table:: Temperature Counts Summary
    :header: Statistic, Value
 
-   count,100
-   mean,707.74
-   std,298.322
-   min,103
-   25%,457.75
-   50%,837.5
-   75%,964
-   max,1076
+   count,998
+   mean,464.979
+   std,251.843
+   min,1
+   25%,253.25
+   50%,468
+   75%,689
+   max,916
 
 
 
@@ -246,9 +233,9 @@ To estimate the running time we have to now pick an arbitrary time for each exec
 .. csv-table:: Estimated Running Times
    :header: Statistic, Running Time (Hours)
 
-   min,0.43
-   50%,3.5
-   max,4.5
+   min,0.0042
+   50%,1.9
+   max,3.8
 
 ::
 
@@ -264,11 +251,11 @@ To estimate the running time we have to now pick an arbitrary time for each exec
     
     
 
-**99% Confidence Interval (mean):** (2.46, 2.66)
+**99% Confidence Interval (mean):** (1.81, 1.86)
 
-**99% Confidence Interval (Median):** (2.62, 2.91)
+**99% Confidence Interval (Median):** (1.78, 1.84)
 
-.. figure:: figures/half_table_runtime_kde.png
+.. figure:: figures/quarter_table_runtime_kde.png
    :scale: 75%
 
 
