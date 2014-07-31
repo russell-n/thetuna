@@ -34,7 +34,7 @@ The `BasePlugin` class and the ``plugins`` package also provides the foundation 
 
 To summarize, the `BasePlugin` is the main way to add code that will be exposed to the end user.
 
-.. warning:: I have had a lot of problems troubleshooting when I accidentally name plugin-class the same thing as (one of) the class(es) it's building -- the re-definition of the name will wipe out your imported name. Don't do it. (e.g. don't create a plugin named Sample that builds a class named Sample as its product.)
+.. warning:: I have had a lot of problems troubleshooting when I accidentally name a plugin-class the same thing as (one of) the class(es) it's building -- the re-definition of the name will wipe out your imported name. Don't do it. (e.g. don't create a plugin named Sample that builds a class named Sample as its product.)
 
 .. '
 
@@ -43,7 +43,7 @@ To summarize, the `BasePlugin` is the main way to add code that will be exposed 
 Class Diagram
 -------------
 
-This is an (idealized) class diagram (see below for an auto-generated one).
+This is an (idealized) class diagram.
     
 .. uml::
 
@@ -76,16 +76,18 @@ The Product
 
 This is the built object that client code will call. To make the interface uniform it is assumed that all parameters have been set and none will be passed to the __call__() method.
 
+.. note:: The part about not passing parameters to the __call__ method isn't true any more for the cases where the BasePlugin is used for components instead of plugins. 
+
 .. _base-fetch-config::
 The Fetch Config
 ~~~~~~~~~~~~~~~~
 
 The `fetch_config` method used to copy an example configuration file to the current working directory (thus its name). Since each plugin can provide its own sample, I decided that they should instead output them to standard out. Thus the user could do something like this::
 
-    ape fetch > ape.ini
-    ape fetch IperfSession >> ape.ini
+    tuna fetch > tuna.ini
+    tuna fetch IperfSession >> tuna.ini
 
-And so on to add to a configuration file without clobbering the old one. Additionally, the ConfigurationMap looks for a `config_glob` option in the APE section so the other configuration files could be put in a seaparate file and shared by other APE configurations.    
+And so on to add to a configuration file without clobbering the old one. Additionally, the ConfigurationMap looks for a `config_glob` option in the TUNA section so the other configuration files could be put in a separate file and shared by other TUNA configurations.    
    
 .. autosummary:: 
    :toctree: api

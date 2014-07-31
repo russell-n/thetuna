@@ -378,7 +378,7 @@ So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To 
     
     
 
-**99% Confidence Interval:** (71.87999995, 71.965)
+**99% Confidence Interval:** (71.87999995, 71.967)
 
 
 
@@ -474,7 +474,7 @@ To estimate the running time we have to now pick an arbitrary time for each exec
     
     
 
-**99% Confidence Interval (mean):** (3.33, 3.54)
+**99% Confidence Interval (mean):** (3.34, 3.54)
 
 **99% Confidence Interval (Median):** (3.85, 4.06)
 

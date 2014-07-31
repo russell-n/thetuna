@@ -5,16 +5,6 @@ The Configuration Map
 
 The `Configuration Map` maps a configuration-file-name to data. It extends the `ConfigParser` to have more data-types (and allow missing values) and to add sub-configuration-files (see the :ref:`ConfigParser Explorations <exploring-configparser-whole-shebang>` to get some idea of what I am getting at).
 
-Contents:
-
-    * :ref:`Background <configurationmap-background>`
-    * :ref:`UML Class Diagram <configurationmap-uml>`
-    * :ref:`ConfigurationError <configurationmap-configurationerror>`
-    * :ref:`The API <configurationmap-api>`
-    * :ref:`The ConfigurationMap Parser <configurationmap-parser>`
-    * :ref:`The ConfigParser <configurationmap-configparser>`
-    * :ref:`ConfigParser Exceptions <configurationmap-exceptions>`
-
 .. _configurationmap-background:    
     
 Background
