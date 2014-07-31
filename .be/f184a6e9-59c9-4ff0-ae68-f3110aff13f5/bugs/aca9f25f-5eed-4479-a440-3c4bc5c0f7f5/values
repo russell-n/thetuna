@@ -1,0 +1,50 @@
+{
+
+
+
+
+
+
+    "creator": "necromuralist <necromuralist@google.com>", 
+
+
+
+
+
+
+    "reporter": "necromuralist <necromuralist@google.com>", 
+
+
+
+
+
+
+    "severity": "minor", 
+
+
+
+
+
+
+    "status": "open", 
+
+
+
+
+
+
+    "summary": "GridSearch storage file not being opened for the ExhaustiveSearch to use", 
+
+
+
+
+
+
+    "time": "Thu, 31 Jul 2014 02:09:38 +0000"
+
+
+
+
+
+
+}
