@@ -25,6 +25,15 @@ class XYSolution(object):
         self.output = output
         return
 
+    def copy(self):
+        """
+        :return: XYsolution with copies of inputs and outputs
+        """
+        copy = XYSolution(self.inputs.copy())
+        if self.output is not None:
+            copy.output = self.output.copy()
+        return copy
+
     def __eq__(self, other):
         """
         Equality

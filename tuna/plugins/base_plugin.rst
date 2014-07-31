@@ -1,17 +1,10 @@
 The Base Plugin
 ===============
 .. currentmodule:: tuna.plugins.base_plugin
-
-Contents:
-
-    * :ref:`Background <base-plugin>`
-    * :ref:`Class Diagram <base-plugin-class-diagram>`
-    * :ref:`Public Properties and Methods <base-plugin-public-properties>`
-    * :ref:`Aggregated Classes <base-plugin-aggregated-classes>`
     
 
 
-.. _base-plugin:
+.. _tuna-base-plugin:
 
 Background
 ----------

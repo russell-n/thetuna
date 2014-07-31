@@ -3,12 +3,6 @@ The XY Solution
 
 
 
-Contents:
-
-    * :ref:`XYSolution Class <optimization-components-xysolution-xysolution>`
-    * :ref:`XYTweak <optimization-components-xysolution-tweak>`
-    * :ref:`XYSolution Generator <optimization-components-xysolution-generator>`
-
 .. _optimization-components-xysolution-xysolution:    
 
 The XYSolution
@@ -21,11 +15,12 @@ This is a Solution for the optimizations to use when mapping a collection of inp
    XYSolution : <narray> inputs
    XYSolution : <float> output
 
-.. currentmodule:: optimization.components.xysolution
+.. module:: tuna.parts.xysolution
 .. autosummary::
    :toctree: api
 
    XYSolution
+   XYSolution.copy
    XYSolution.__eq__
    XYSolution.__le__
    XYSolution.__ge__

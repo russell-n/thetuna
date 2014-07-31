@@ -10,7 +10,7 @@ from tuna.infrastructure.crash_handler import try_except
 from tuna import RESET
 from tuna import BOLD
 from tuna.parts.countdown.countdown import TimeTracker
-from tuna import BaseClass
+from tuna import BaseClass, TunaError
 
 
 class Composite(BaseComponent):

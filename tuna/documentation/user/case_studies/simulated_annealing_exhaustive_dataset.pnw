@@ -81,19 +81,13 @@ print "   :scale: 75%"
 
 <<name='binning_data', echo=False>>=
 noughts = flat_data[flat_data < 10]
-tens = flat_data[flat_data < 20]
-tens = tens[tens >= 10]
-twenties = flat_data[flat_data < 30]
-twenties = twenties[twenties >= 20]
-thirties = flat_data[flat_data < 40]
-thirties = thirties[thirties >= 30]
-forties = flat_data[flat_data < 50]
-forties = forties[forties >= 40]
-fifties = flat_data[flat_data >= 50]
-fifties = fifties[fifties < 60]
-sixties = flat_data[flat_data >=60]
-sixties = flat_data[sixties < 70]
-seventies = flat_data[flat_data >= 70]
+tens = flat_data[(flat_data < 20) & (flat_data >=10)]
+twenties = flat_data[(flat_data < 30) & (flat_data >= 20)]
+thirties = flat_data[(flat_data < 40) & (flat_data >= 30)]
+forties = flat_data[(flat_data < 50) & (flat_data >= 40)]
+fifties = flat_data[(flat_data >= 50) & (flat_data < 60)]
+sixties = flat_data[(flat_data >=60) & (flat_data < 70)]
+seventies = flat_data[(flat_data >= 70)]
 @
    
 <<name='contour_data', echo=False, results='sphinx', wrap=False>>=
