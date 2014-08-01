@@ -117,6 +117,7 @@ class GridSearch(BasePlugin):
                 storage = singletons.get_filestorage(name=GLOBAL_NAME)
 
                 self._storage = StorageAdapter(storage=storage, filename=filename)
+                self._storage.open()
             else:
                 self._storage = NullStorage()
         return self._storage                

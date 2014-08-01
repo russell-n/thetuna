@@ -106,25 +106,32 @@ class ExhaustiveSearch(BaseComponent):
         best = candidate.copy()
         self.log_info("Initial Best Solution: {0}".format(best))
         
-        self.solutions.write("Time,Checks,Solution\n")
-        timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
-        output = "{0},1,{1}\n".format(timestamp, candidate)
-        self.solutions.write(output)
+        self.solutions.write("Time,Solution\n")
+        #timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+        #output = "{0},1,{1}\n".format(timestamp, candidate)
+        #self.solutions.write(output)
         
         while not numpy.array_equal(candidate.inputs, self.maxima):           
             candidate.inputs = self.carry(candidate.inputs + increment)
             candidate.output = None
 
             self.logger.debug("Trying candidate: {0}".format(candidate))
+
             if self.quality(candidate) > self.quality(best):
                 timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
-                output = "{0},{1},{2}\n".format(timestamp,
-                                                self.quality.quality_checks,
-                                                candidate)
-                self.solutions.write(output)
+                output = "{0},{1}\n".format(timestamp,
+                                            candidate)
+    
                 self.log_info("New Best Solution: {0}".format(output))
                 best = candidate.copy()
                 
+            # record the path
+            timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+            output = "{0},{1}\n".format(timestamp,
+                                        candidate)
+
+            self.logger.debug("Candidate Outcome: {0}".format(candidate))
+            self.solutions.write(output)                
         self.log_info("Quality Checks: {0} Solution: {1} ".format(self.quality.quality_checks,
                                                                      best))
         if self.observers is not None:

@@ -12,7 +12,7 @@ The try-except Decorator
 
 This decorator allows exceptions to be caught and logged, rather than having the interpreter dump the stack-trace to standard-error (it still logs the stack-trace and displays some of the output).
 
-.. currentmodule:: tuna.infrastructure.crash_handler
+.. module:: tuna.infrastructure.crash_handler
 .. autosummary::
    :toctree: api
 
@@ -20,7 +20,7 @@ This decorator allows exceptions to be caught and logged, rather than having the
 
 This wraps methods, not functions (it uses `self`). `self` must have access to `self.error` (the exception to trap), `self.error_message` a string to put in the title of the error message and `self.logger` a logging instance to send error messages to. Since it is catching exceptions, any method wrapped with this won't raise an error if the exception in self.error is raised by code it is running.
 
-.. superfluous '
+..  '
 
 I have now added a call to a  `self.close` method after an exception is caught so users of this decorator should have that implemented as well (but it checks to see if the method exists so it won't try and call it if it wasn't implemented).
 
@@ -31,7 +31,7 @@ I have now added a call to a  `self.close` method after an exception is caught s
 The log_error Function
 ----------------------
 
-.. currentmodule:: tuna.infrastructure.crash_handler
+.. module:: tuna.infrastructure.crash_handler
 .. autosummary::
    :toctree: api
 

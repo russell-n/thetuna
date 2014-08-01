@@ -7,19 +7,6 @@ The Tuna Plugin
 .. _tuna-plugin:
 This is the plugin that creates the master composite to run other :ref:`Composites <composite-class>`. It will be used when the `run` subcommand is called by the user.
 
-Contents:
-
-    * :ref:`Components <tunaplugin-components>`
-
-    * :ref:`Errors <tunaplugin-errors>`
-
-    * :ref:`Run Sub-command State Diagram <tunaplugin-run-state-diagram>`
-
-    * :ref:`API <tunaplugin-api>`
-
-    * :ref:`External Plugins <tunaplugin-external-plugins>`
-
-
 .. _tunaplugin-components:
 
 The Components

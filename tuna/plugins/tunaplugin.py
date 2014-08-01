@@ -274,8 +274,7 @@ class Tuna(BasePlugin):
 
         :postcondition: file-storage singleton with sub-folder from default section added as path
         """
-        if self.file_storage is None:
-            self.file_storage = singletons.get_filestorage(name=GLOBAL_NAME)
+        self.file_storage = singletons.get_filestorage(name=GLOBAL_NAME)
             
         if SUBFOLDER in configuration.defaults:
             self.file_storage.path = configuration.defaults[SUBFOLDER]

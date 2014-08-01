@@ -33,14 +33,14 @@
 
 
 
-    "summary": "GridSearch storage file not being opened for the ExhaustiveSearch to use", 
+    "summary": "extra string formatting in basestorage error message", 
 
 
 
 
 
 
-    "time": "Thu, 31 Jul 2014 02:09:38 +0000"
+    "time": "Thu, 31 Jul 2014 18:55:34 +0000"
 
 
 

@@ -67,7 +67,7 @@ class BaseStorage(BaseClass):
             self.file.write(text)
         except exceptions as error:
             self.logger.debug(error)
-            error = "{red}{bold}`write` called on unopened file{reset}"
+            error = "`write` called on unopened file"
             raise TunaError(error)
         return
 

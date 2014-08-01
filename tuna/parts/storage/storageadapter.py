@@ -29,12 +29,27 @@ class StorageAdapter(object):
         self.storage.write(self.format_string.format(item))
         return
 
+    def open(self, filename=None):
+        """
+        Opens the file, sets the self.storage attribute
+
+        :param:
+
+         - `filename`: Name to use instead of self.filename
+
+        :postcondition: self.storage is an opened file-ish object
+        """
+        if filename is None:
+            filename = self.filename
+        self.storage = self.storage.open(filename)
+        return
+
     def reset(self):
         """
         Closes the old file, opens a new one
         """
         self.storage.close()
-        self.storage = self.storage.open(self.filename)
+        self.open(self.filename)
         return
 
     def __getattr__(self, attribute):

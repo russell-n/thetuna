@@ -1,18 +1,9 @@
 File Storage
 ============
 
-
 .. _file-storage-module::
 
 This is a module for classes that implement a file-like interface to disk-files but also add some extra features meant to make them easier to use within the TUNA.
-
-Contents:
-
-    * :ref:`FileStorage Model <file-storage-model>`
-    * :ref:`Extras <file-storage-extras>`
-    * :ref:`Sub-Folders <file-storage-sub-folders>`
-    * :ref:`Redundant Files <file-storage-redundant-files>`
-    * :ref:`FileStorage API <file-storage-api>`
 
 
 
@@ -117,7 +108,7 @@ The timestamp will be added using string formatting -- it will look for a `times
 
 ::
 
-    test_2014_06_25_02:05:08_PM.csv
+    test_2014_07_31_01:33:49_PM.csv
     
 
 
@@ -176,7 +167,7 @@ Because the name is being made to never match an existing file, the FileStorage 
 FileStorage API
 ---------------
 
-.. currentmodule:: tuna.parts.storage.filestorage
+.. module:: tuna.parts.storage.filestorage
 .. autosummary::
    :toctree: api
 

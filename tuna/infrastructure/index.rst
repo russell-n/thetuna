@@ -8,9 +8,9 @@ This is code that supports up the other code. The items here tend to be generic 
    :maxdepth: 1
 
    BaseClass <baseclass.rst>
+   The Base Configuration <baseconfiguration.rst>
    The Configuration Map <configurationmap.rst>
    Crash Handler <crash_handler.rst>
-   File Writer <file_writer.rst>
    Help Page <helppage.rst>
    The OatBran <oatbran.rst>
    The QuarterMaster <quartermaster.rst>

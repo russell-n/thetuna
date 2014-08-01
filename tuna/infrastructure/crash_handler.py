@@ -28,12 +28,10 @@ def log_error(error, logger, error_message):
     red_error = "{red}{bold}{{name}}: {reset}{red}{{msg}}{reset}".format(red=RED,
                                                                          bold=BOLD,
                                                                          reset=RESET)
-    crash_notice = "{bold}********** {msg} **********{reset}".format(red=RED,
-                                                                     msg=error_message,
+    crash_notice = "{bold}********** {msg} **********{reset}".format(msg=error_message,
                                                                      bold=BOLD,
                                                                      reset=RESET)
-    bottom_line = "{bold}***********{msg}***********{reset}".format(red=RED,
-                                                                     msg='*'* len(error_message),
+    bottom_line = "{bold}***********{msg}***********{reset}".format(msg='*'* len(error_message),
                                                                      bold=BOLD,
                                                                      reset=RESET)
 
@@ -49,7 +47,6 @@ def log_error(error, logger, error_message):
 
     error_message = red_error.format(name=error.__class__.__name__,
                                         msg=error)
-
     logger.error(error_message)
     logger.error(red_error.format(name="Failed Line",
                                                msg = source))

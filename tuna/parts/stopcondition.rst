@@ -3,6 +3,7 @@ The Stop Conditions
 ::
 
     # python standard library
+    import time
     import datetime
     import random
     
@@ -142,7 +143,7 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
             The ctime to stop all stop-conditions (time-limit + now)
             """
             if self._end_time is None:
-                self._end_time = time.time() + self.time_limit
+                self._end_time = datetime.datetime.now() + self.time_limit
             return self._end_time
     
         @property
@@ -178,7 +179,9 @@ The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
             time_limit = self.random_function(self.minimum_time,
                                               self.maximum_time)
             # set an upper-bound on times
-            end_time = min(time_limit + time.time(), self.end_time)
+            end_time = min(datetime.timedelta(seconds=time_limit) + datetime.da
+    tetime.now(),
+                           self.end_time)
     
             # this probably isn't necessary, but for checks there should be
             # some consistency, I think

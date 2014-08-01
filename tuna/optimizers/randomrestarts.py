@@ -92,25 +92,35 @@ class RandomRestarts(object):
             if self.is_ideal(self.solution):
                 break
         return self.solution
+
+    def reset(self):
+        """
+        Resets solutions (this only works if it is a list)
+        """
+        self._solutions = None
+        return        
 # end RandomRestarts        
 
 
 IN_PWEAVE = __name__ == '__builtin__'
 if IN_PWEAVE:
+    # python standard library
+    import datetime
+    
     # helpers for weaving
-    from pweave_helpers import run_climber, plot_dataset    
+    from examples.pweave_helpers import run_climber, plot_dataset    
 
     # actual builder code
-    from optimization.components.convolutions import UniformConvolution
-    from optimization.simulations.normalsimulation import NormalSimulation
-    from optimization.components.xysolution import XYSolutionGenerator, XYTweak
-    from optimization.components.stopcondition import StopConditionGenerator
+    from tuna.tweaks.convolutions import UniformConvolution
+    from tuna.qualities.normalsimulation import NormalSimulation
+    from tuna.parts.xysolution import XYSolutionGenerator, XYTweak
+    from tuna.parts.stopcondition import StopConditionGenerator
 
     simulator = NormalSimulation(domain_start=-4,
                                  domain_end=4,
-                                 domain_step=0.1)
+                                 steps=1000)
 
-    stop_conditions = StopConditionGenerator(time_limit=300,
+    stop_conditions = StopConditionGenerator(time_limit=datetime.timedelta(seconds=300),
                                              maximum_time=0,
                                              minimum_time=0,
                                              ideal=simulator.ideal_solution,
@@ -127,7 +137,7 @@ if IN_PWEAVE:
                              quality=simulator,
                              tweak=xy_tweak)
 
-    run_climber(climber, simulator)    
+    run_climber(climber)    
 
 
 if IN_PWEAVE:

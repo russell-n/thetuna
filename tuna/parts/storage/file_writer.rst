@@ -5,7 +5,7 @@ File Writer
 
 A module to hold extended file-writers that act kind of file-like.
 
-.. currentmodule:: testsuites.utilities.file_writer
+.. module:: tuna.parts.storag.file_writer
 .. autosummary::
    :toctree: api
 
