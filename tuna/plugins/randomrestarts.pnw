@@ -1,14 +1,13 @@
-The SimulatedAnnealing Plugin
-=============================
+The RandomRestarts Plugin
+=========================
 
-This plugin creates the SimulatedAnnealing optimizer.
+This plugin creates the RandomRestarter optimizer.
 
 <<name='imports', echo=False>>=
 # python standard library
 from collections import OrderedDict
 
 # third-party
-# this is for testing only
 import numpy
 
 # this package
@@ -18,8 +17,8 @@ from base_plugin import BasePlugin
 from tuna.parts.storage.storageadapter import StorageAdapter
 from tuna.parts.storage.nullstorage import NullStorage
 
-from tuna.optimizers.simulatedannealing import SimulatedAnnealer
-from tuna.optimizers.simulatedannealing import TimeTemperatureGeneratorConstants
+from tuna.optimizers.randomrestarts import RandomRestarter
+
 from tuna.parts.stopcondition import StopConditionBuilder
 from tuna.optimizers.simulatedannealing import TimeTemperatureGeneratorBuilder
 from tuna.tweaks.convolutions import GaussianConvolutionBuilder
