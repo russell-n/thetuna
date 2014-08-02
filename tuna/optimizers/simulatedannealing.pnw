@@ -123,6 +123,9 @@ class SimulatedAnnealer(BaseComponent):
         return
 
     def reset(self):
+        """
+        clears and resets the parts
+        """
         self.logger.debug("Resetting the annealing parts")
         self.tabu.clear()
         self.quality.reset()

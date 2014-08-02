@@ -8,78 +8,63 @@ Hill-Climbing with Random Restarts
 .. autosummary::
    :toctree: api
 
-   RandomRestarts
-   RandomRestarts.__call__
-   RandomRestarts.solution
-   RandomRestarts.solutions
-   RandomRestarts.is_ideal
-   RandomRestarts.reset
+   RandomRestarter
+   RandomRestarter.__call__
+   RandomRestarter.solution
+   RandomRestarter.solutions
+   RandomRestarter.is_ideal
+   RandomRestarter.reset
 
 
 
-Example Use
------------
-
-First we'll start with the normal distribution. 
-
-.. '
-
-::
-
-    IN_PWEAVE = __name__ == '__builtin__'
-    if IN_PWEAVE:
-        # python standard library
-        import datetime
-        
-        # helpers for weaving
-        from examples.pweave_helpers import run_climber, plot_dataset    
-    
-        # actual builder code
-        from tuna.tweaks.convolutions import UniformConvolution
-        from tuna.qualities.normalsimulation import NormalSimulation
-        from tuna.parts.xysolution import XYSolutionGenerator, XYTweak
-        from tuna.parts.stopcondition import StopConditionGenerator
-    
-        simulator = NormalSimulation(domain_start=-4,
-                                     domain_end=4,
-                                     steps=1000)
-    
-        stop_conditions = StopConditionGenerator(time_limit=datetime.timedelta(seconds=300),
-                                                 maximum_time=0,
-                                                 minimum_time=0,
-                                                 ideal=simulator.ideal_solution,
-                                                 delta=0.000000001)
-        tweak = UniformConvolution(half_range=0.1,
-                                   lower_bound=simulator.domain_start,
-                                   upper_bound=simulator.domain_end)
-        xy_tweak = XYTweak(tweak)
-        candidates = XYSolutionGenerator(low=simulator.domain.min(),
-                                         high=simulator.domain.max())
-        
-        climber = RandomRestarts(stop_conditions=stop_conditions,
-                                 candidates=candidates,
-                                 quality=simulator,
-                                 tweak=xy_tweak)
-    
-        run_climber(climber)    
-    
-
-::
-
-    Inputs: [-0.75312272] Output: 0.299608418784
-    Inputs: [-0.08161326] Output: 0.397534482667
-    Inputs: [-0.04712304] Output: 0.39855551836
-    Inputs: [ 0.012015] Output: 0.398913500061
-    Inputs: [ 0.00029378] Output: 0.398939082483
-    Solution: Inputs: [ 0.00029378] Output: 0.398939082483
-    Ideal: 0.398939082483
-    Difference: 0.0
-    Elapsed: 0.010586977005
-    Quality Checks: 495
-    Comparisons: 247.0
-    Solutions: 5
-    Solutions/Comparisons: 0.0202429149798
-    
-
-.. figure:: figures/random_restart_normal.svg
-
+.. Example Use
+.. -----------
+.. 
+.. First we'll start with the normal distribution. 
+.. 
+.. .. '
+.. 
+.. <<name='normal_distribution_test', wrap=False>>=
+.. IN_PWEAVE = __name__ == '__builtin__'
+.. IN_PWEAVE = True
+.. if IN_PWEAVE:
+..     # python standard library
+..     import datetime
+..     
+..     # helpers for weaving
+..     from examples.pweave_helpers import run_climber, plot_dataset    
+.. 
+..     # actual builder code
+..     from tuna.tweaks.convolutions import UniformConvolution
+..     from tuna.qualities.normalsimulation import NormalSimulation
+..     from tuna.parts.xysolution import XYSolutionGenerator, XYTweak
+..     from tuna.parts.stopcondition import StopConditionGenerator
+.. 
+..     simulator = NormalSimulation(domain_start=-4,
+..                                  domain_end=4,
+..                                  steps=1000)
+.. 
+..     stop_conditions = StopConditionGenerator(time_limit=datetime.timedelta(seconds=300),
+..                                              maximum_time=0,
+..                                              minimum_time=0,
+..                                              ideal=simulator.ideal_solution,
+..                                              delta=0.000000001)
+..     tweak = UniformConvolution(half_range=0.1,
+..                                lower_bound=simulator.domain_start,
+..                                upper_bound=simulator.domain_end)
+..     xy_tweak = XYTweak(tweak)
+..     candidates = XYSolutionGenerator(low=simulator.domain.min(),
+..                                      high=simulator.domain.max())
+..     
+..     climber = RandomRestarter(local_stops=stop_conditions,
+..                              quality=simulator,
+..                              tweak=xy_tweak)
+.. 
+..     run_climber(climber)    
+.. 
+.. 
+.. <<name='plot_dataset', echo=False, results='sphinx'>>=
+.. if IN_PWEAVE:
+..     plot_dataset("random_restart_normal", climber, simulator,
+..                  "Random Restarts Normal Dataset")
+.. 

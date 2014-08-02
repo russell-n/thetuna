@@ -1,46 +1,50 @@
 
-# python standard library
-import itertools
+# This package
+from tuna.components.component import BaseComponent
 
 
-class RandomRestarts(object):
+class RandomRestarter(BaseComponent):
     """
     Hill-climbing with random restarts
     """
-    def __init__(self, stop_conditions, candidates, quality, tweak, solution=None,
-                 solution_storage=None, is_ideal=None, emit=True):
+    def __init__(self, local_stops, quality, tweak,
+                 solution_storage,
+                 candidate=None, 
+                 global_stop=None, observers=None):
         """
         Random Restarts constructor
 
         :param:
 
-         - `stop_conditions`: generator of stop-conditions with random time-outs
-         - `candidates`: generator of candidate solutions
+         - `local_stops`: generator of stop-conditions with random time-outs
          - `quality`: callable that assesses candidate solutions
          - `tweak`: callable to tweak existing candidate solutions         
-         - `solution_storage`: object to append solutions to
-         - `solution` : initial candidate (takes from candidates parameter if not given)
-         - `is_ideal`: callable to assess if solution is ideal
-         - `emit`: if true, print new solutions
+         - `solution_storage`: object to write solutions to
+         - `candidate` : initial candidate (takes from global_stop parameter if not given)
+         - `global_stop`: callable to decide to stop (takes from local_stops if not given)
+         - `observers`: Composite of objects to give final solution to
         """
-        self._solutions = solution_storage
-        self.stop_conditions = stop_conditions
-        self.candidates = candidates
-        self.quality = quality
+        super(RandomRestarter, self).__init__()
+        self.local_stops = local_stops
         self.tweak = tweak
-        self._is_ideal = is_ideal
-        self._solution = solution
-        self.emit = emit
+        self.quality = quality
+        self._candidate = candidate
+        self._solution = candidate
+        self.solutions = solution_storage
+        self._global_stop = global_stop
+        self.observers = observers
+        self.tabu = set([])
         return
 
     @property
-    def solutions(self):
+    def candidate(self):
         """
-        collection to store all solutions (default: list)
+        initial candidate solution
         """
-        if self._solutions is None:
-            self._solutions = []
-        return self._solutions
+        if self._candidate is None:
+            self._candidate = self.global_stop.candidate
+            self.quality(self._candidate)
+        return self._candidate
 
     @property
     def solution(self):
@@ -48,7 +52,7 @@ class RandomRestarts(object):
         Best Candidate solution so far
         """
         if self._solution is None:
-            self._solution = self.candidates.candidate
+            self._solution = self.candidate
         return self._solution
 
     @solution.setter
@@ -64,82 +68,103 @@ class RandomRestarts(object):
         return
 
     @property
-    def is_ideal(self):
+    def global_stop(self):
         """
         StopCondition to stop all testing
         """
-        if self._is_ideal is None:
-            self._is_ideal = self.stop_conditions.global_stop_condition
-        return self._is_ideal
+        if self._global_stop is None:
+            self._global_stop = self.local_stops.global_stop_condition
+        return self._global_stop
 
     def __call__(self):
         """
         Finds the best solution within given time
         """
-        candidates_stop_locals = itertools.izip(self.candidates, self.stop_conditions)
-        for candidate, local_stop in candidates_stop_locals:
-            self.quality(candidate)
+        self.reset()
+        candidate = self.solution
+        self.log_info("Initial Best Solution: {0}".format(candidate))
+        # avoid repeating the same test-spot
+        self.tabu.add(str(candidate.inputs))
+        # start the data log
+        self.solutions.write("Time,Checks,Solution\n")       
+        timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+        output = "{0},1,{1}\n".format(timestamp, candidate)
+        self.solutions.write(output)
+        self.logger.info("First Candidate: {0}".format(candidate))
+        
+        for local_stop in self.local_stops:
+            if self.global_stop(self.solution):
+                self.log_info(('Stop condition reached '
+                               'with solution: {0}').format(self.solution))
+                break
+            
             while not local_stop(candidate):
+                # local-search
                 new_candidate = self.tweak(candidate)
+                
+                self.logger.debug(("Searching for a local "
+                                   "candidate not in the tabu space"))
+                while (str(new_candidate.inputs) in self.tabu and
+                       not self.global_stop(self.solution)):
+                    new_candidate = self.tweak(candidate)
+
+                self.tabu.add(new_candidate)
+                self.logger.debug("Trying candidate: {0}".format(new_candidate))
                 if self.quality(new_candidate) > self.quality(candidate):
                     candidate = new_candidate
+                    self.logger.info("Candidate '{0}' new local solution".format(candidate))
+                    
             if self.quality(candidate) > self.quality(self.solution):
-                self.solutions.append(candidate)
+                timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+                output = "{0},{1},{2}\n".format(timestamp,
+                                                self.quality.quality_checks,
+                                                candidate)
+                self.solutions.write(output)
+                self.log_info("New Best Solution: {0}".format(output))                
                 self.solution = candidate
-                if self.emit:
-                    print candidate
-            # this is needed to check if the solution is ideal
-            if self.is_ideal(self.solution):
-                break
+
+            # random restart
+            candidate = self.tweak()
+            while (str(candidate.inputs) in self.tabu and
+                       not self.global_stop(self.solution)):
+                    candidate = self.tweak()
+            self.tabu.add(candidate)
+            self.logger.debug("Trying candidate: {0}".format(candidate))
+
+        self.log_info("Quality Checks: {0} Solution: {1} ".format(self.quality.quality_checks,
+                                                                     self.solution))
+        if self.observers is not None:
+            # this is for users of the solution
+            self.log_info("RandomRestarter giving solution to '{0}'".format(self.observers))
+            self.observers(target=self.solution)
         return self.solution
+
+    def check_rep(self):
+        """
+        no-op for now
+        """
+        return
+
+    def close(self):
+        """
+        Closes solutions, quality
+        """
+        self.solutions.close()
+        self.quality.close()
+        self._solution = None
+        return
 
     def reset(self):
         """
-        Resets solutions (this only works if it is a list)
+        Clears and resets the parts
         """
-        self._solutions = None
-        return        
-# end RandomRestarts        
+        self.logger.debug("Resetting the RandomRestarter parts")
+        self.tabu.clear()
+        self.quality.reset()
+        self.local_stops.reset()
+        self._solution = None
+        self.solutions.reset()
+        self.global_stop.reset()
+        return
 
-
-IN_PWEAVE = __name__ == '__builtin__'
-if IN_PWEAVE:
-    # python standard library
-    import datetime
-    
-    # helpers for weaving
-    from examples.pweave_helpers import run_climber, plot_dataset    
-
-    # actual builder code
-    from tuna.tweaks.convolutions import UniformConvolution
-    from tuna.qualities.normalsimulation import NormalSimulation
-    from tuna.parts.xysolution import XYSolutionGenerator, XYTweak
-    from tuna.parts.stopcondition import StopConditionGenerator
-
-    simulator = NormalSimulation(domain_start=-4,
-                                 domain_end=4,
-                                 steps=1000)
-
-    stop_conditions = StopConditionGenerator(time_limit=datetime.timedelta(seconds=300),
-                                             maximum_time=0,
-                                             minimum_time=0,
-                                             ideal=simulator.ideal_solution,
-                                             delta=0.000000001)
-    tweak = UniformConvolution(half_range=0.1,
-                               lower_bound=simulator.domain_start,
-                               upper_bound=simulator.domain_end)
-    xy_tweak = XYTweak(tweak)
-    candidates = XYSolutionGenerator(low=simulator.domain.min(),
-                                     high=simulator.domain.max())
-    
-    climber = RandomRestarts(stop_conditions=stop_conditions,
-                             candidates=candidates,
-                             quality=simulator,
-                             tweak=xy_tweak)
-
-    run_climber(climber)    
-
-
-if IN_PWEAVE:
-    plot_dataset("random_restart_normal", climber, simulator,
-                 "Random Restarts Normal Dataset")
+# end RandomRestarter        
