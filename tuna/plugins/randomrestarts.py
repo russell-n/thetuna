@@ -1,9 +1,4 @@
-The RandomRestarts Plugin
-=========================
 
-This plugin creates the RandomRestarter optimizer.
-
-<<name='imports', echo=False>>=
 # python standard library
 from collections import OrderedDict
 
@@ -31,11 +26,11 @@ from tuna.parts.xysolution import XYTweak, XYSolution
 from tuna.qualities.qualitycomposite import QualityCompositeBuilder
 from tuna.components.composite import SimpleCompositeBuilder
 
-@
-<<name='check_pweave', echo=False>>=
+
+
 in_pweave = __name__ == '__builtin__'
-@
-<<name='constants', echo=False>>=
+
+
 ANNEALINGSECTION = 'RandomRestarts'
 CONFIGURATION = '''[{section}]
 # the section-name has to match an option in the TUNA section
@@ -104,33 +99,11 @@ tweak_type = GaussianConvolution
             ideal=StopConditionConstants.ideal,
             delta=StopConditionConstants.delta,
             delta_default=StopConditionConstants.default_delta)
-@
-<<name='check_weave', echo=False>>=
+
+
 output_documentation = __name__ == '__builtin__'
-@
 
-.. uml::
 
-   RandomRestarts --|> BasePlugin
-   RandomRestarts o-- HelpPage
-   RandomRestarts o-- RandomRestarter
-
-.. _randomrestartsplugin-api:
-
-The API
--------
-
-.. module:: tuna.plugins.randomrestarts
-.. autosummary::
-   :toctree: api
-
-   RandomRestarts
-   RandomRestarts.help
-   RandomRestarts.product
-   RandomRestarts.sections
-   RandomRestarts.fetch_config
-   
-<<name='RandomRestarts', echo=False>>=
 class RandomRestarts(BasePlugin):
     """
     A hill-climbing with random-restarts plugin
@@ -253,4 +226,3 @@ class RandomRestarts(BasePlugin):
         """
         print CONFIGURATION
 # end class RandomRestarts
-@

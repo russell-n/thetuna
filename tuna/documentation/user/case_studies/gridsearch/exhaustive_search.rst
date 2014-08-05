@@ -24,103 +24,22 @@ Alex created the data-set (:download:`download <data/data_step50.csv>`) by stepp
 Data Plots
 ~~~~~~~~~~
 
-<<name='imports', echo=False>>=
-# python standard library
-from itertools import izip
-import os
+.. figure:: figures/data_profile.png
+   :scale: 75%
 
-# third party
-import numpy
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
-import matplotlib.pyplot as plt
-from scipy.stats import gaussian_kde
-import pandas
-@
 
-<<name='load_data', echo=False>>=
-data_path = 'data/data_step50.csv'
-z_data = numpy.loadtxt(data_path, delimiter=',')
-flat_data = numpy.reshape(z_data, -1)
-width, height = z_data.shape
-x_data = numpy.linspace(start=0, stop=3000, num=width)
-y_data = numpy.linspace(start=0, stop=3000, num=height)
-x_data, y_data = numpy.meshgrid(x_data, y_data)
-@
-
-<<name='plot_profile', echo=False, results='sphinx'>>=
-output = 'figures/data_profile.png'
-if not os.path.isfile(output):
-    figure = plt.figure()
-    axe = figure.add_subplot(111, projection='3d')
-    axe.plot_surface(x_data, y_data, z_data, cmap=cm.winter)
-    axe.elev -= 30
-    axe.azim += 60
-    figure.savefig(output)
-print '.. figure:: ' + output
-print "   :scale: 75%"
-@
    *Side View* (0,0) is at rear-left, (3000,3000) at front right, z-axis is Mbits/second.
 
 
-<<name='plot_angled', echo=False, results='sphinx'>>=
-output = 'figures/data_angled.png'
-if not os.path.isfile(output):
-    figure = plt.figure()
-    axe = figure.add_subplot(111, projection='3d')
-    axe.plot_surface(x_data, y_data, z_data, cmap=cm.winter)
-    figure.savefig(output)
-print '.. figure:: ' + output
-print "   :scale: 75%"
-@
+.. figure:: figures/data_angled.png
+   :scale: 75%
 
-<<name='binning_data', echo=False>>=
-noughts = flat_data[flat_data < 10]
-tens = flat_data[(flat_data < 20) & (flat_data >=10)]
-twenties = flat_data[(flat_data < 30) & (flat_data >= 20)]
-thirties = flat_data[(flat_data < 40) & (flat_data >= 30)]
-forties = flat_data[(flat_data < 50) & (flat_data >= 40)]
-fifties = flat_data[(flat_data >= 50) & (flat_data < 60)]
-sixties = flat_data[(flat_data >=60) & (flat_data < 70)]
-seventies = flat_data[(flat_data >= 70)]
-@
-   
-<<name='contour_data', echo=False, results='sphinx', wrap=False>>=
-output = 'figures/contoured.png'
-max_value = z_data.max()
-min_value = z_data.min()
+.. figure:: figures/contoured.png
+   :scale: 75%
 
-max_index = numpy.where(z_data == max_value) 
-min_index = numpy.where(z_data == min_value)
+   Max-throughput (72.7 Mb/s) at (350, 2550) indicated by intersection of red lines. Min-throughput (0.22 Mb/s) at (1200, 2950) indicated by intersection of blue lines.
 
-max_index_x = max_index[0][0] * 50
-max_index_y = max_index[1][0] * 50
 
-min_index_x = min_index[0][0] * 50
-min_index_y = min_index[1][0] * 50
-    
-if not os.path.isfile(output):
-    figure=plt.figure()
-    axe = figure.gca()
-    c_data = axe.contour(y_data, x_data, z_data)
-    axe.clabel(c_data)
-    axe.axvline(max_index_x, color='r')
-    axe.axhline(max_index_y, color='r')
-    
-    axe.axvline(min_index_x, color='b')
-    axe.axhline(min_index_y, color='b')
-    axe.set_title("Contour Map")
-    figure.savefig(output)
-print ".. figure:: " + output
-print "   :scale: 75%"
-print
-print "   Max-throughput ({0} Mb/s) at ({1}, {2}) indicated by intersection of red lines. Min-throughput ({3} Mb/s) at ({4}, {5}) indicated by intersection of blue lines.\n".format(max_value,
-                                                                                     max_index_x,
-                                                                                     max_index_y,
-                                                                                     min_value,
-                                                                                     min_index_x,
-                                                                                     min_index_y)
-@
  
 
 Summary Statistics
@@ -129,13 +48,16 @@ Summary Statistics
 .. csv-table:: Summary Table
    :header: Statistic, Value
 
-<<name='summary', echo=False, results='sphinx'>>=
-z_series = pandas.Series(flat_data)
-description = z_series.describe()
+   count,3721
+   mean,46.0563
+   std,16.8165
+   min,0.22
+   25%,36.8
+   50%,49.5
+   75%,59
+   max,72.7
 
-for stat in description.index:
-    print "   {0},{1:g}".format(stat, description.ix[stat])
-@
+
 
 
 Pseudocode for the Grid Search

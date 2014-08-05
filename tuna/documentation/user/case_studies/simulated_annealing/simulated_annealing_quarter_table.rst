@@ -17,7 +17,7 @@ The Simulation Data
 
 ::
 
-    data_path = 'data/data_step50.csv'
+    data_path = '../data/data_step50.csv'
     z_data_full = numpy.loadtxt(data_path, delimiter=',')
     z_data = z_data_full[0:30, 30:60]
     
@@ -93,7 +93,7 @@ To get the number of cases where 72.7 Mbits/second was found:
 
    grep "Stop.*Output:[[:space:]]*72\.7" tuna.log  | wc -l
 
-This gives us 851 out 1f 1,000.
+This gives us 851 out of 1,000.
 
 
 How many times did it do well enough?
@@ -155,7 +155,7 @@ So in the worst case it did 71.0 Mbits/second, compared to 70.3 for the full tab
     
     
 
-**99% Confidence Interval:** (72.47199996, 72.4931)
+**99% Confidence Interval:** (72.4733, 72.4934)
 
 
 
@@ -262,4 +262,4 @@ To estimate the running time we have to now pick an arbitrary time for each exec
 
    Estimated running times for each search based on a 15 second iperf/table-movement time.
 
-So it looks like if we wanted to be very sure we got a high-enough solution we would need to let the Annealer run for about four and a half hours. But on average it takes 2.45 to 2.91 hours. This seems counter-inutitive since the actual median was 3.5 hours which is outside of the confidence interval, but I think it's because, looking at the KDE, there looks to be two bunches of data, a low set and a high set, and the low set is large enough that it skews the re-sample lower.
+So it looks like if we wanted to be very sure we got a high-enough solution we would need to let the Annealer run for about four hours. But on average it takes 1.78 to 1.84 hours. 

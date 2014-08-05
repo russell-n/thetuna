@@ -249,7 +249,7 @@ This is a sample configuration file for running this test. The parameters of int
    :math:`\mu`, ``location``, 0 
    :math:`\sigma`, ``scale``, 2
 
-.. literalinclude:: data/simulated_annealing_exhaustive.ini
+.. literalinclude:: ../data/simulated_annealing_exhaustive.ini
    :language: ini
 
 TUNA Section
@@ -335,7 +335,7 @@ By diverting the output from the previous `grep` search to a (:download:`file <d
 
 ::
 
-    bandwidths = pandas.read_csv('data/solution_bandwidths.csv')
+    bandwidths = pandas.read_csv('../data/solution_bandwidths.csv')
     description = bandwidths.Bandwidth.describe()
     
     
@@ -378,7 +378,7 @@ So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To 
     
     
 
-**99% Confidence Interval:** (71.87999995, 71.967)
+**99% Confidence Interval:** (71.88799995, 71.966)
 
 
 
@@ -398,7 +398,7 @@ Then I counted the temperature checks between the "Initial" lines.
 ::
 
     repetitions = 0
-    out_file = "data/best_repetitions_counts.csv"
+    out_file = "../data/best_repetitions_counts.csv"
     if not os.path.isfile(out_file):
         with open(out_file, 'w') as w:
             w.write("TemperatureCount\n")
@@ -474,9 +474,9 @@ To estimate the running time we have to now pick an arbitrary time for each exec
     
     
 
-**99% Confidence Interval (mean):** (3.34, 3.54)
+**99% Confidence Interval (mean):** (3.33, 3.54)
 
-**99% Confidence Interval (Median):** (3.85, 4.06)
+**99% Confidence Interval (Median):** (3.86, 4.06)
 
 .. figure:: figures/runtime_kde.png
    :scale: 75%

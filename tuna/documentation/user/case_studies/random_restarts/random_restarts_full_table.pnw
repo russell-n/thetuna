@@ -1,0 +1,547 @@
+Random Restarts With Simulated Table Data
+=========================================
+
+.. _case-study-random-restarts-table:
+
+Problem
+-------
+
+How can we understand how the :ref:`Hill Climbing with Random Restarts <hill-climbing-random-restarts>` parameters should be set while trying to optimize device placement on a table and how does it perform relative to the :ref:`Simulated Annealing <tuna-optimizers-simulatedannealing-background>` optimizer?
+
+As with the :ref:`Simulated Annealing Case Study <case-study-annealing-simulated-table>`,  we'll use data collected by exhaustively sweeping a table and passing it to the optimizer to see how it performs. Since we did an exhaustive sweep we know what the best and worst cases are so we can see how many times the optimizer has to lookup a value to see how good a candidate is. The count of lookups can then be compared with a `real` iperf session or by estimating the number of seconds each lookup would take.
+
+.. '
+
+The Simulation Data
+-------------------
+
+Alex created the data-set (:download:`download <../data/data_step50.csv>`) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf. The file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50). The values are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).
+
+Data Plots
+~~~~~~~~~~
+
+<<name='imports', echo=False>>=
+# python standard library
+from itertools import izip
+import os
+
+# third party
+import numpy
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+import matplotlib.pyplot as plt
+from scipy.stats import gaussian_kde
+import pandas
+@
+
+<<name='load_data', echo=False>>=
+data_path = '../data/data_step50.csv'
+z_data = numpy.loadtxt(data_path, delimiter=',')
+flat_data = numpy.reshape(z_data, -1)
+width, height = z_data.shape
+x_data = numpy.linspace(start=0, stop=3000, num=width)
+y_data = numpy.linspace(start=0, stop=3000, num=height)
+x_data, y_data = numpy.meshgrid(x_data, y_data)
+@
+
+<<name='plot_profile', echo=False, results='sphinx'>>=
+output = 'figures/data_profile.png'
+if not os.path.isfile(output):
+    figure = plt.figure()
+    axe = figure.add_subplot(111, projection='3d')
+    axe.plot_surface(x_data, y_data, z_data, cmap=cm.winter)
+    axe.elev -= 30
+    axe.azim += 60
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+@
+   *Side View* (0,0) is at rear-left, (3000,3000) at front right, z-axis is Mbits/second.
+
+<<name='plot_angled', echo=False, results='sphinx'>>=
+output = 'figures/data_angled.png'
+if not os.path.isfile(output):
+    figure = plt.figure()
+    axe = figure.add_subplot(111, projection='3d')
+    axe.plot_surface(x_data, y_data, z_data, cmap=cm.winter)
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+@
+
+<<name='binning_data', echo=False>>=
+noughts = flat_data[flat_data < 10]
+tens = flat_data[(flat_data < 20) & (flat_data >=10)]
+twenties = flat_data[(flat_data < 30) & (flat_data >= 20)]
+thirties = flat_data[(flat_data < 40) & (flat_data >= 30)]
+forties = flat_data[(flat_data < 50) & (flat_data >= 40)]
+fifties = flat_data[(flat_data >= 50) & (flat_data < 60)]
+sixties = flat_data[(flat_data >=60) & (flat_data < 70)]
+seventies = flat_data[(flat_data >= 70)]
+@
+   
+<<name='contour_data', echo=False, results='sphinx', wrap=False>>=
+output = 'figures/contoured.png'
+max_value = z_data.max()
+min_value = z_data.min()
+
+max_index = numpy.where(z_data == max_value) 
+min_index = numpy.where(z_data == min_value)
+
+max_index_x = max_index[0][0] * 50
+max_index_y = max_index[1][0] * 50
+
+min_index_x = min_index[0][0] * 50
+min_index_y = min_index[1][0] * 50
+    
+if not os.path.isfile(output):
+    figure=plt.figure()
+    axe = figure.gca()
+    c_data = axe.contour(y_data, x_data, z_data)
+    axe.clabel(c_data)
+    axe.axvline(max_index_x, color='r')
+    axe.axhline(max_index_y, color='r')
+    
+    axe.axvline(min_index_x, color='b')
+    axe.axhline(min_index_y, color='b')
+    axe.set_title("Contour Map")
+    figure.savefig(output)
+print ".. figure:: " + output
+print "   :scale: 75%"
+print
+print "   Max-throughput ({0} Mb/s) at ({1}, {2}) indicated by intersection of red lines. Min-throughput ({3} Mb/s) at ({4}, {5}) indicated by intersection of blue lines.\n".format(max_value,
+                                                                                     max_index_x,
+                                                                                     max_index_y,
+                                                                                     min_value,
+                                                                                     min_index_x,
+                                                                                     min_index_y)
+
+@
+
+The contour map gives a somewhat more informative view (a birds-eye view looking down on the table with the higher throughputs indicated by warmer colors and lower throughput indicated by cooler colors).
+ 
+<<name='scatter_data', echo=False, results='sphinx', wrap=False>>=
+output = 'figures/best_worst_scatter.png'
+if not os.path.isfile(output):   
+    figure=plt.figure()
+    axe = figure.gca()
+    
+    data_10 = numpy.where(z_data < 10)
+    data_70 = numpy.where(z_data >= 70)
+    colors = 'black red'.split()
+    data = (data_10, data_70)
+    
+    axe.scatter(data_10[0] * 50, data_10[1] * 50,
+                    edgecolors='black',
+                    facecolors='none')
+    axe.scatter(data_70[0] * 50, data_70[1] * 50,
+                    edgecolors='red',
+                    facecolors='none')
+    
+    axe.axvline(max_index_x, color='r')
+    axe.axhline(max_index_y, color='r')
+    
+    axe.axvline(min_index_x, color='b')
+    axe.axhline(min_index_y, color='b')
+    axe.set_xlim((0, 3000))
+    axe.set_ylim((0, 3000))
+    axe.set_title("Best and Worst")
+    figure.savefig(output)
+print ".. figure:: " + output
+print "   :scale: 75%"
+print
+print "   Best and worst throughput locations. Black indicates < 10 Mbits/second. Red indicates > 70 Mbits/second."
+print "   Intersection of red lines indicate best overall location. Intersection of blue lines indicate worst location."
+@
+
+The best points appear to have a clear bias toward the left side, and the worst points do appear to be a little denser to the right, but for the most part the worst points appear to be nearly randomly scattered around the table.
+
+Summary Statistics
+~~~~~~~~~~~~~~~~~~
+
+.. csv-table:: Summary Table
+   :header: Statistic, Value
+
+<<name='summary', echo=False, results='sphinx'>>=
+z_series = pandas.Series(flat_data)
+description = z_series.describe()
+
+for stat in description.index:
+    print "   {0},{1:g}".format(stat, description.ix[stat])
+@
+
+<<name='box_plot', echo=False, results='sphinx'>>=
+output = 'figures/box_plot.png'
+if not os.path.isfile(output):    
+    figure = plt.figure()
+    axe = figure.gca()
+    axe.set_title("Throughput")
+    axe.boxplot(flat_data)
+    axe.set_ylabel("Mbits/sec")
+    figure.savefig(output)
+print ".. figure:: " + output
+print "     :scale: 75%"
+@
+
+We can see from the box-plot that the data is fairly spread out and left-skewed.
+
+<<name='plot_kde', echo=False, results='sphinx'>>=
+output = 'figures/data_kde.png'
+if not os.path.isfile(output):
+    frame = pandas.DataFrame(z_data)
+    
+    figure = plt.figure()
+    axe = figure.gca()
+    
+    stacked = frame.stack()
+    stacked.hist(ax=axe, alpha=0.25, color='k', normed=1)
+    stacked.plot(kind='kde', ax=axe, alpha=0.5, color='b')
+    
+    axe.axvline(numpy.median(flat_data), color='r', alpha=0.5)
+    axe.set_xlabel("Throughput (Mb/s)")
+    
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+@
+
+Looking at the distribution we can see there are two (possibly 3) sub-distributions with a significant amount of data under 10 Mbits/second.
+
+<<name='plot_cdf', echo=False, results='sphinx'>>=
+output = 'figures/data_cdf.png'
+if not os.path.isfile(output):
+    figure = plt.figure()
+    axe = figure.gca()
+    normed = flat_data/flat_data.sum()
+    cumulative_data = numpy.cumsum(normed)
+    #axe.plot(cumulative_data)
+    out = axe.hist(flat_data, normed=True, cumulative=True, bins=500, histtype='step')
+    out = axe.set_xlim((0, flat_data.max()))
+    out = axe.set_ylim((0, 1))
+    out = axe.set_title("Cumulative Distribution")
+    axe.set_xlabel("Bandwidth Mbits/second")
+    out = plt.axvline(numpy.median(flat_data), color='r')
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "  :scale: 75%"
+@
+
+Looking at the left-hand side of the CDF we can see that there's a jump of about 5% very near 0 Mbits/Second and it stays relatively flat until around 20 Mbits/Second so that initial bump in the KDE/Histogram is for data points that are very near 0. We can check the proportion of points that are less than 1 Mbits/second to see.
+
+.. '
+
+<<name='less_than_one'>>=
+total = float(len(flat_data))
+less_than_one = flat_data[flat_data < 1]
+one_to_twenty = flat_data[(flat_data >=1) & (flat_data < 20)]
+@
+<<name='print_less_than_one', echo=False, results='sphinx'>>=
+print "**Less than 1 Mbits/Second:** {0:.3g}\n".format(len(less_than_one)/total)
+print "**From 1 to less than 20 Mbits/Second:** {0:.3g}".format(len(one_to_twenty)/total)
+@
+
+So about 5% of the data is less than 1 Mbits/second, contributing most of the data points from 0-20 Mbits/second.
+
+.. csv-table:: Binned Fractions
+   :header: Values, Count, Fraction of Total
+
+<<name='bins', echo=False, results='sphinx'>>=
+print "   0-9,{0},{1:.3f}".format(len(noughts), len(noughts)/total)
+print "   10-19,{0},{1:.3f}".format(len(tens), len(tens)/total)
+print "   20-29,{0},{1:.3f}".format(len(twenties), len(twenties)/total)
+print "   30-39,{0},{1:.3f}".format(len(thirties), len(thirties)/total)
+print "   40-49,{0},{1:.3f}".format(len(forties), len(forties)/total)
+print "   50-59,{0},{1:.3f}".format(len(fifties), len(fifties)/total)
+print "   60-69,{0},{1:.3f}".format(len(sixties), len(sixties)/total)
+print "   >= 70,{0},{1:.3f}".format(len(seventies), len(seventies)/total)
+@
+
+If the whole table is searched you would have about a 50-50 chance of getting a value greater than 50 Mbits/second just by randomly picking a location, but less than 1% chance of getting throughput greater than 70 Mbits/Second and a 5% chance of getting less than 1 Mbits/second. Looking at the plot of just the best and worst points above you can see that the best points disappear just before the half way point (from left to right). If we somehow knew in advance that this was always true, we could limit the search to just the left half of the table and improve the chances of finding a location with better values.
+
+
+The Neighborhood
+~~~~~~~~~~~~~~~~
+
+These are the points surrounding the minimum and maximum values for the entire data set. First the neighborhood around the maximum value.
+
+Maximum Neighborhood
+++++++++++++++++++++
+
+.. figure:: ../figures/bad_neighborhood.svg
+
+   The neighborhood around the best-bandwidth location.
+
+The arrows represent a path that a hill climber using a local search might take. The three blue circles are local optima that prevent their neighbors from reaching the global optima (the blue rectangle). Of the sixteen nodes making up the outer ring, eleven fail to reach the global optima and five are able to find it. All of the five successful cases approach the global optima from the top right of the neighborhood. I'm assuming that the nodes in the outer ring are themselves all reachable but that might not be the case if we looked at the nodes surrounding them.
+
+.. '
+
+Minimum Neighborhood
+++++++++++++++++++++
+
+.. figure:: ../figures/worst_neighborhood.svg
+
+   The neighborhood around the worst-bandwidth location.
+
+In the case of the worst data point (in the blue rectangle), it occurred near the edge of the table so I left the right most column empty to keep it centered in the figure. Just below the lowest point is another local optima which would trap a hill-climber. The minimum doesn't appear to have any real relationship to the data-points around them. It would be interesting to find out why the dead-spots occur.
+
+.. '
+
+Pseudocode for Random Restarts
+------------------------------
+
+To get an idea of the parameters that need to be adjusted it might be helpful to understand the basic operation.
+
+.. figure:: figures/random_restarts_pseudocode.svg
+
+Where *T* is a random distribution of local-search times.
+
+The meta-heuristic is primarily comprised of two loops. The outer loop generates random candidate solutions (table-positions in this case) and then runs the inner loop. The inner-loop searches locally until it times out or happens to find the ideal solution. 
+
+Gaussian Convolution
+--------------------
+
+The `tweak` in this case is :ref:`Gaussian Convolution <optimization-tweaks-gaussian>`.
+
+Sample Configuration File
+-------------------------
+
+This is a sample configuration file for running this test. The parameters of interest are in the `[RandomRestarts]` section.
+
+In this case each local search will run for some random time from 1 to 10 seconds (because this is simulated data not a real trial) and each of the overall tests will be limited to 10 Minutes (this would take a week to finish so I'm hoping the ideal values get reached reasonably early).
+
+.. '
+
+TUNA Section
+~~~~~~~~~~~~
+
+The ``[TUNA]`` section is a place to list what the plugin sections will be. In this case we're telling the `tuna` that there will only be one plugin and the information to configure it will be in a section named ``[RandomRestarts]``.
+
+DEFAULT Section
+~~~~~~~~~~~~~~~
+
+We're going to repeat the simulation 1000 times and store the data in a folder named `random_restarts_full_table_scale_2` next to the configuration file.
+
+MODULES Section
+~~~~~~~~~~~~~~~
+
+In this case we're simulating the use of Cameron's XYTable so we need to tell the `tuna` which module contains the plugin to fake the table's operation. This isn't really needed for the simulation but provides a way to check and see that the `tuna` is calling it the way we expect. The listed module will be imported so the ``xytable`` package has to have been installed for this to work.
+
+RandomRestarts Section
+~~~~~~~~~~~~~~~~~~~~~~
+
+The ``plugin = RandomRestarts`` line tells the tuna to load the `RandomRestarts` class. 
+
+The ``components = fake_table, table_data`` line tells the tuna to create components using the `fake_table` and `table_data` section in this configuration and give it to the RandomRestarts optimizer (wrapped in a :ref:`composite <simple-composite>`). The components will be used to decide how good a location is. We're substituting mocks for a table control object (fake_table) and an iperf object (table_data). `fake_table` will just log the calls made to it so we can check that the program is running like we think it should. The `table_data` object will lookup the data that Alex recorded using the table-coordinates it was given and give it back to the optimizer.
+
+The ``observers = fake_table`` line tells the `tuna` to give the optimizer a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.
+
+The ``location`` and ``scale`` for the  ``GaussianConvolution`` sets :math:`\mu` and :math:`\sigma` values for the random distribution that the optimizer samples from to generate new candidate solutions to explore. ``number_type = integer`` tells it to cast the values to integers (so that the x,y coordinates will be whole numbers not fractions). The data-set is represented as a :math:`61 \times 61` table so the ``lower_bound`` and ``upper_bound`` represent the indices for the table.
+
+.. '
+
+The Outcome
+-----------
+
+How many times did it find the maximum-bandwidth location?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Using the log file (`tuna.log`) we can see how the operations went. The file itself is large so I'm going to document what I did but not include the data itself. 
+
+To get a count of the number of times the test was run I counted the occurences of the string "Initial" to match the "Initial Best Solution" lines, whose messaged look like this example::
+
+   Initial Best Solution: Inputs: [ 20.  20.] Output: 58.6
+
+.. '
+
+.. code-block:: bash
+
+   grep "Initial" tuna.log | wc -l
+
+This showed that it was run 100 times. When the `tuna` finds the ideal value (or it exceeds the time limit we set) it outputs "Stop condition reached" along with the coordinates and bandwidth found, which look like this example::
+
+   Stop condition reached with solution: Inputs: [  7.  51.] Output: 72.7
+
+To get the number of cases where 72.7 Mbits/second was found:
+
+.. code-block:: bash
+
+   grep "Stop.*Output:[[:space:]]*72\.7" tuna.log  | wc -l
+
+This gives us 30 so it found it 30% of the time. 
+
+How many times did it do well enough?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Picking an arbitrary value of 70 Mbits/second as the lower bound of an acceptable bandwidth, how often did the optimizer exceed this lower bound?
+
+.. code-block:: bash
+
+   grep "Quality.*Output:[[:space:]]*7[[:digit:]]" tuna.log  | wc -l
+
+Gave an output of 100. I had to use the sub-string "Quality Checks" instead of "Stop Condition" because for some reason there was one case where the temperature dropped low enough to quit without triggering the stop-condition. Anyway, it looks like in all cases the `tuna` found a solution that gave at least 70 Mbits/second.
+
+How well did it typically do?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+By diverting the output from the previous `grep` search to a (:download:`file <data/solution_bandwidths.csv>`) instead of piping it to `wc`, I was able to get the final bandwidths the `tuna` reached (it's included in the "Quality Checks" line as "Output:")::
+
+   Quality Checks: 1486 Solution: Inputs: [  7.  51.] Output: 72.7
+
+.. '
+
+
+<<name='load_bandwidths'>>=
+bandwidths = pandas.read_csv('../data/solution_bandwidths.csv')
+description = bandwidths.Bandwidth.describe()
+@
+
+.. csv-table:: Bandwidth Solutions Summary
+   :header: Statistic, Value
+
+<<name='bandwidths_summary', echo=False, results='sphinx'>>=
+for name in description.index:
+    print "   {0},{1}".format(name, description.ix[name])
+@
+
+<<name='bandwidths_kde', echo=False, results='sphinx'>>=
+output = 'figures/bandwidths_kde.png'
+if not os.path.isfile(output):
+    figure = plt.figure()
+    axe = figure.gca()
+        
+    bandwidths.Bandwidth.hist(ax=axe, alpha=0.25, color='k', normed=1)
+    bandwidths.Bandwidth.plot(kind='kde', ax=axe, alpha=0.5, color='b',
+                              title='Best Bandwidth Solutions Found')
+        
+    axe.axvline(numpy.median(flat_data), color='r', alpha=0.5)
+    axe.set_xlabel("Throughput (Mb/s)")
+        
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+@
+
+So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval. Since the data isn't normal I'll use resampling.
+
+.. '
+
+<<name='confidence'>>=
+trials = 10**5
+n = len(bandwidths)
+samples = numpy.random.choice(bandwidths.Bandwidth,
+                              size=(n, trials))
+means = samples.mean(axis=0)
+alpha = 0.01
+p = alpha/2
+
+low = numpy.percentile(means, p)
+high = numpy.percentile(means, 1-p)
+@
+
+<<name='print_confidence', echo=False, results='sphinx'>>=
+print "**99% Confidence Interval:** ({0}, {1})".format(low, high)
+@
+
+So if we ran the optimizer often enough and the data always looked like our data set then we would expect the mean of the outcomes to be between 71.9 and 72.0 Mbits/Second 99% of the time. But this really the whole story -- the exhaustive search gets the best value 100% of the time. We're using the optimizer because it's infeasible to run it (the current estimate is 12 hours of execution time). So how long did the optimizer take to get to these values?
+
+How long were the execution times?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To estimate the execution times we need to see how many times the Temperature was changed for each search (the temperature changes before each candidate-check). First a subset of the log was created.
+
+.. code-block:: bash
+
+    grep "Initial\|Temperature" tuna.log > initial_temperatures.log
+
+Then I counted the temperature checks between the "Initial" lines.
+
+<<name='temperature_counts'>>=
+repetitions = 0
+out_file = "../data/best_repetitions_counts.csv"
+if not os.path.isfile(out_file):
+    with open(out_file, 'w') as w:
+        w.write("TemperatureCount\n")
+        for line in open("data/initial_temperatures.log"):
+            if "Initial" in line and repetitions !=0:
+                w.write("{0}\n".format(repetitions))
+                repetitions = 0
+                continue
+            if "Temperature" in line:
+                repetitions += 1
+        w.write("{0}\n".format(repetitions))
+@
+
+<<name='load_counts'>>=
+counts = pandas.read_csv(out_file)
+description = counts.TemperatureCount.describe()
+@
+
+.. csv-table:: Temperature Counts Summary
+   :header: Statistic, Value
+
+<<name='count_summary', echo=False, results='sphinx'>>=
+for name in description.index:
+    print "   {0},{1:g}".format(name, description.ix[name])
+@
+
+To estimate the running time we have to now pick an arbitrary time for each execution. I'll use 15 seconds on the assumption that the default iperf run-time of 10 seconds is used and it takes 5 seconds to move the table (on average).
+
+.. '
+
+.. math::
+
+   estimate = runtime \times count
+   
+<<name="running_time">>=
+RUNTIME = 15
+SECONDS_PER_HOUR = 60.0 * 60.0
+@
+
+.. csv-table:: Estimated Running Times
+   :header: Statistic, Running Time (Hours)
+
+<<name='runtime_table', echo=False, results='sphinx'>>=
+for name in "min 50% max".split():
+    print "   {0},{1:.2g}".format(name,
+                                  RUNTIME * description.ix[name]/SECONDS_PER_HOUR)
+@
+
+<<name='runtime_confidence'>>=
+runtimes = counts.TemperatureCount * RUNTIME/SECONDS_PER_HOUR
+samples = numpy.random.choice(runtimes, size=(len(runtimes), trials))
+means = samples.mean(axis=0)
+medians = numpy.median(samples, axis=0)
+low = numpy.percentile(means, p)
+high = numpy.percentile(means, 1-p)
+
+low_median = numpy.percentile(medians, p)
+high_median = numpy.percentile(medians, 1-p)
+@
+<<name='print_runtime_confidence', echo=False, results='sphinx'>>=
+print "**99% Confidence Interval (mean):** ({0:.2f}, {1:.2f})".format(low, high)
+print "\n**99% Confidence Interval (Median):** ({0:.2f}, {1:.2f})".format(low_median,
+                                                                          high_median)
+@
+
+<<name='runtime_distribution', echo=False, results='sphinx'>>=
+output = 'figures/runtime_kde.png'
+if not os.path.isfile(output):
+    
+    figure = plt.figure()
+    axe = figure.gca()
+        
+    runtimes.hist(ax=axe, alpha=0.25, color='k', normed=1)
+    runtimes.plot(kind='kde', ax=axe, alpha=0.5, color='b',
+                                 title='Estimated Runtimes')
+        
+    axe.axvline(numpy.median(runtimes), color='r', alpha=0.5)
+    axe.set_xlabel("Runtimes (Hours)")
+        
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+@
+
+   Estimated running times for each search based on a 15 second iperf/table-movement time.
+
+So it looks like if we wanted to be very sure we got a high-enough solution we would need to let the Annealer run for about six hours. But on average it takes 3.86 to 4.06 hours (I'm assuming the median is the safer interval since it's higher).

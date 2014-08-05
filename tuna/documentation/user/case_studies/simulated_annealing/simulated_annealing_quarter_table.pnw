@@ -30,7 +30,7 @@ import numpy
 @
 
 <<name='load_data'>>=
-data_path = 'data/data_step50.csv'
+data_path = '../data/data_step50.csv'
 z_data_full = numpy.loadtxt(data_path, delimiter=',')
 z_data = z_data_full[0:30, 30:60]
 @

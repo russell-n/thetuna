@@ -2,6 +2,8 @@ Hill-Climbing with Random Restarts
 ==================================
 
 
+.. _hill-climbing-random-restarts:
+
 *Hill-Climbing With Random Restarts* generalizes hill-climbing to make a global classifier _[EOM]. It does this by periodically restarting in a new spot. To enable the restarting, an inner-loop is created that runs for the amount of time (repetitions?) chosen from a distribution of times. Once the time for the inner loop is finished a new candidate is randomly generated and process restarts until the total time expires or the ideal solution is found (in the theoretical case).
 
 .. module:: tuna.optimizers.randomrestarts

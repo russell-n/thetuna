@@ -1,18 +1,6 @@
 Time Maps
 =========
 
-Contents:
-
-   * :ref:`The UML Class Model <relative-time-map-model>`
-
-   * :ref:`Relative Time Map Group Names <relative-time-map-groups>`
-
-   * :ref:`The RelativeTime class <tuna-relative-time>`
-
-   * :ref:`The AbsoluteTime Class <tuna-absolute-time>`
-
-   * :ref:`AbsoluteTime Class Diagram <absolutetime-class-diagram>`
-
 .. _relative-time-map:
 
 Relative Time Map

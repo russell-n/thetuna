@@ -5,12 +5,11 @@ Case Studies
 .. toctree::
    :maxdepth: 1
 
-   Exhaustie Search with Simulated Data <exhaustive_search.rst>
-   Simulated Annealing With Simulated Table Data <simulated_annealing_exhaustive_dataset.rst>
-   Simulated Annealing With Simulated (Half) Table Data <simulated_annealing_half_table.rst>
-   Simulated Annealing With Simulated (Quarter) Table Data <simulated_annealing_quarter_table.rst>
 
 .. toctree::
    :maxdepth: 1
 
+   Exhaustive Grid Search Examples <gridsearch/index.rst>
+   Hill Climbing With Random Restarts <random_restarts/index.rst>
+   Simulated Annealing Examples <simulated_annealing/index.rst>
 

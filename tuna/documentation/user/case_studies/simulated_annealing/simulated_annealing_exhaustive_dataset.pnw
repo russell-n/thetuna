@@ -41,7 +41,7 @@ import pandas
 @
 
 <<name='load_data', echo=False>>=
-data_path = 'data/data_step50.csv'
+data_path = '../data/data_step50.csv'
 z_data = numpy.loadtxt(data_path, delimiter=',')
 flat_data = numpy.reshape(z_data, -1)
 width, height = z_data.shape
@@ -451,7 +451,7 @@ This is a sample configuration file for running this test. The parameters of int
    :math:`\mu`, ``location``, 0 
    :math:`\sigma`, ``scale``, 2
 
-.. literalinclude:: data/simulated_annealing_exhaustive.ini
+.. literalinclude:: ../data/simulated_annealing_exhaustive.ini
    :language: ini
 
 TUNA Section
@@ -536,7 +536,7 @@ By diverting the output from the previous `grep` search to a (:download:`file <d
 
 
 <<name='load_bandwidths'>>=
-bandwidths = pandas.read_csv('data/solution_bandwidths.csv')
+bandwidths = pandas.read_csv('../data/solution_bandwidths.csv')
 description = bandwidths.Bandwidth.describe()
 @
 
@@ -602,7 +602,7 @@ Then I counted the temperature checks between the "Initial" lines.
 
 <<name='temperature_counts'>>=
 repetitions = 0
-out_file = "data/best_repetitions_counts.csv"
+out_file = "../data/best_repetitions_counts.csv"
 if not os.path.isfile(out_file):
     with open(out_file, 'w') as w:
         w.write("TemperatureCount\n")

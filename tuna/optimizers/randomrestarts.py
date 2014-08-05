@@ -1,6 +1,10 @@
 
+# python standard library
+import datetime
+
 # This package
 from tuna.components.component import BaseComponent
+from tuna import LOG_TIMESTAMP
 
 
 class RandomRestarter(BaseComponent):
@@ -25,26 +29,42 @@ class RandomRestarter(BaseComponent):
          - `observers`: Composite of objects to give final solution to
         """
         super(RandomRestarter, self).__init__()
+        self.tabu = set([])
         self.local_stops = local_stops
         self.tweak = tweak
         self.quality = quality
-        self._candidate = candidate
+        self._candidate = None
+        self.candidate = candidate
         self._solution = candidate
         self.solutions = solution_storage
         self._global_stop = global_stop
         self.observers = observers
-        self.tabu = set([])
         return
 
     @property
     def candidate(self):
         """
-        initial candidate solution
+        initial candidate solution (does quality check first time used)
         """
         if self._candidate is None:
-            self._candidate = self.global_stop.candidate
+            self._candidate = self.tabu_search()
+        elif str(self._candidate.output) is None:
             self.quality(self._candidate)
         return self._candidate
+
+    @candidate.setter
+    def candidate(self, new_candidate):
+        """
+        Sets the candidate, adds to tabu-set
+
+        :param:
+
+         - `new_candidate`: candidate solution
+        """
+        self._candidate = new_candidate
+        if new_candidate is not None:
+            self.tabu.add(str(new_candidate.inputs))
+        return
 
     @property
     def solution(self):
@@ -83,8 +103,6 @@ class RandomRestarter(BaseComponent):
         self.reset()
         candidate = self.solution
         self.log_info("Initial Best Solution: {0}".format(candidate))
-        # avoid repeating the same test-spot
-        self.tabu.add(str(candidate.inputs))
         # start the data log
         self.solutions.write("Time,Checks,Solution\n")       
         timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
@@ -93,22 +111,16 @@ class RandomRestarter(BaseComponent):
         self.logger.info("First Candidate: {0}".format(candidate))
         
         for local_stop in self.local_stops:
+            # global search
             if self.global_stop(self.solution):
                 self.log_info(('Stop condition reached '
                                'with solution: {0}').format(self.solution))
                 break
-            
+
             while not local_stop(candidate):
                 # local-search
-                new_candidate = self.tweak(candidate)
+                new_candidate = self.tabu_search(candidate)
                 
-                self.logger.debug(("Searching for a local "
-                                   "candidate not in the tabu space"))
-                while (str(new_candidate.inputs) in self.tabu and
-                       not self.global_stop(self.solution)):
-                    new_candidate = self.tweak(candidate)
-
-                self.tabu.add(new_candidate)
                 self.logger.debug("Trying candidate: {0}".format(new_candidate))
                 if self.quality(new_candidate) > self.quality(candidate):
                     candidate = new_candidate
@@ -124,11 +136,8 @@ class RandomRestarter(BaseComponent):
                 self.solution = candidate
 
             # random restart
-            candidate = self.tweak()
-            while (str(candidate.inputs) in self.tabu and
-                       not self.global_stop(self.solution)):
-                    candidate = self.tweak()
-            self.tabu.add(candidate)
+            self.log_info("Random Restart")
+            candidate = self.tabu_search()
             self.logger.debug("Trying candidate: {0}".format(candidate))
 
         self.log_info("Quality Checks: {0} Solution: {1} ".format(self.quality.quality_checks,
@@ -138,6 +147,29 @@ class RandomRestarter(BaseComponent):
             self.log_info("RandomRestarter giving solution to '{0}'".format(self.observers))
             self.observers(target=self.solution)
         return self.solution
+
+    def tabu_search(self, candidate=None):
+        """
+        Tweaks the candidate until it finds a new one
+
+        :param:
+
+         - `candidate`: candidate solution to tweak (None to get random candidate)
+
+        :postcondition: string of new candidate.input in tabu set
+        :return: new candidate
+        """
+        self.logger.debug(("Searching for a local "
+                                   "candidate not in the tabu space"))
+        new_candidate = self.tweak(candidate)
+        while (str(new_candidate.inputs) in self.tabu and
+                       not self.global_stop(self.solution)):
+                new_candidate = self.tweak(candidate)
+        self.tabu.add(str(new_candidate.inputs))
+
+        # set the quality so the stop-conditions will work
+        self.quality(new_candidate)
+        return new_candidate        
 
     def check_rep(self):
         """

@@ -17,6 +17,8 @@ class StopConditionConstants(object):
     end_time = 'end_time'
     delta = 'delta'
     default_delta = 0.001
+    maximum_time = 'maximum_local_time'
+    minimum_time = 'minimum_local_time'
 
 
 class StopCondition(object):
@@ -147,7 +149,7 @@ class StopConditionGenerator(object):
          - `time_limit`: timedelta to generate stop-conditions
          - `maximum_time`: upper-bound on the number of seconds
          - `minimum_time`: lower-bound on the number of seconds
-         - `end_time`: ctime to end
+         - `end_time`: datetime to end
          - `ideal`: value to compare test-cases to for stop-condition
          - `delta`: amount test-case can differ from ideal
          - `use_singleton`: Generate same StopCondition object
@@ -200,7 +202,8 @@ class StopConditionGenerator(object):
         time_limit = self.random_function(self.minimum_time,
                                           self.maximum_time)
         # set an upper-bound on times
-        end_time = min(datetime.timedelta(seconds=time_limit) + datetime.datetime.now(),
+        end_time = min(datetime.timedelta(seconds=time_limit) +
+                       datetime.datetime.now(),
                        self.end_time)
 
         # this probably isn't necessary, but for checks there should be
@@ -244,6 +247,63 @@ class StopConditionGenerator(object):
             self.global_stop_condition.time_limit = self.time_limit
             self.global_stop_condition.end_time = self.end_time
         return
+
+
+class StopConditionGeneratorBuilder(BaseClass):
+    """
+    A builder of stop-condition-generators
+    """
+    def __init__(self, configuration, section):
+        """
+        StopConditionGeneratorBuilder constructor
+
+        :param:
+
+         - `configuration`: configuration map with settings to build
+         - `section`: name of section in map with settings
+        """
+        self.configuration = configuration
+        self.section = section
+        self._product = None
+        return
+
+    @property
+    def product(self):
+        """
+        Built StopConditionGenerator
+        """
+        if self._product is None:
+            ideal = self.configuration.get_float(section=self.section,
+                                                 option=StopConditionConstants.ideal,
+                                                 optional=True)
+            time_limit = self.configuration.get_relativetime(section=self.section,
+                                                             option=StopConditionConstants.time_limit,
+                                                             optional=True)
+            end_time = self.configuration.get_datetime(section=self.section,
+                                                           option=StopConditionConstants.end_time,
+                                                           optional=True)
+            delta = self.configuration.get_float(section=self.section,
+                                                 option=StopConditionConstants.delta,
+                                                 optional=True,
+                                                 default=StopConditionConstants.default_delta)
+
+
+            maximum_time = self.configuration.get_relativetime(section=self.section,
+                                                        option=StopConditionConstants.maximum_time).total_seconds()
+            minimum_time = self.configuration.get_relativetime(section=self.section,
+                                                        option=StopConditionConstants.minimum_time,
+                                                        optional=True,
+                                                        default=1)
+            if hasattr(minimum_time, 'total_seconds'):
+                minimum_time = minimum_time.total_seconds()
+
+            self._product = StopConditionGenerator(time_limit=time_limit,
+                                                   maximum_time=maximum_time,
+                                                   minimum_time=minimum_time,
+                                                   end_time=end_time,
+                                                   ideal=ideal,
+                                                   delta=delta)
+        return self._product
 
 
 class StopConditionBuilder(BaseClass):

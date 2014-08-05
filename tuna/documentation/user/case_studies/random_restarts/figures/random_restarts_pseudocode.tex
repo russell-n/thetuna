@@ -1,0 +1,31 @@
+\documentclass{standalone}
+\usepackage{varwidth}
+\usepackage{algorithm} %ctan.org\pkg\algorithms
+\usepackage{algpseudocode}
+\begin{document}
+\begin{varwidth}{\linewidth}
+\par\noindent
+ \begin{algorithmic}[1]
+ \Procedure{RandomRestarts}{$T$}
+ \State $S \gets RandomCandidate()$
+ \State $Best \gets S$
+ \Repeat
+ \State $time \gets value \in T$
+ \Repeat
+     \State $R\gets Tweak(Copy(S))$
+     \If {$Quality(R) > Quality(S)$}
+     \State $S \gets R$
+     \EndIf
+ \Until $(S = IdealSolution) \lor (LocalTime=0) \lor(GlobalTime=0)$
+
+ \If {$Quality(S) > Quality(Best)$}
+     \State $Best \gets S$
+ \EndIf
+
+ \State $S \gets RandomCandidate()$
+ \Until ($Best = IdealSolution) \lor (GlobalTime=0)$
+ \State \textbf{return} $Best$
+ \EndProcedure
+ \end{algorithmic}
+\end{varwidth}
+\end{document}

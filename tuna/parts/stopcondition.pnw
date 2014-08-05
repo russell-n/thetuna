@@ -195,6 +195,11 @@ The Stop Condition Generator
 
 The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
 
+.. uml::
+
+   StopConditionGenerator o- StopCondition
+   StopConditionGenerator o- StopConditionIdeal
+
 .. autosummary::
    :toctree: api
 
@@ -408,12 +413,16 @@ class StopConditionGeneratorBuilder(BaseClass):
                                                  optional=True,
                                                  default=StopConditionConstants.default_delta)
 
-            maximum_time = self.configuration.get_float(section=self.section,
-                                                        option=StopConditionConstants.maximum_time)
-            maximum_time = self.configuration.get_float(section=self.section,
+
+            maximum_time = self.configuration.get_relativetime(section=self.section,
+                                                        option=StopConditionConstants.maximum_time).total_seconds()
+            minimum_time = self.configuration.get_relativetime(section=self.section,
                                                         option=StopConditionConstants.minimum_time,
-                                                        optional=False,
+                                                        optional=True,
                                                         default=1)
+            if hasattr(minimum_time, 'total_seconds'):
+                minimum_time = minimum_time.total_seconds()
+
             self._product = StopConditionGenerator(time_limit=time_limit,
                                                    maximum_time=maximum_time,
                                                    minimum_time=minimum_time,

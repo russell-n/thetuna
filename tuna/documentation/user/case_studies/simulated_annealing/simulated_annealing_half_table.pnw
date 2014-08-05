@@ -1,7 +1,15 @@
 Simulated Annealing With Simulated (Half) Table Data
 ====================================================
 
+<<name='imports', echo=False>>=
+# python standard library
+import os
 
+# third-party
+import pandas
+import matplotlib.pyplot as plt
+import numpy
+@
 
 Problem
 -------
@@ -30,7 +38,7 @@ The only real difference between this and the previous case is that we can't use
 
 .. '
 
-.. literalinclude:: data/tuna_half_table_settings.ini
+.. literalinclude:: ../data/tuna_half_table_settings.ini
 
 TUNA Section
 ~~~~~~~~~~~~
@@ -103,54 +111,57 @@ By diverting the output from the previous `grep` search to a (:download:`file <d
 .. '
 
 
-::
-
-    bandwidths = pandas.read_csv('data/half_table_bandwidths.csv')
-    description = bandwidths.Bandwidth.describe()
-    
-    
-
-
+<<name='load_bandwidths'>>=
+bandwidths = pandas.read_csv('../data/half_table_bandwidths.csv')
+description = bandwidths.Bandwidth.describe()
+@
 
 .. csv-table:: Bandwidth Solutions Summary
    :header: Statistic, Value
 
-   count,100.0
-   mean,72.338
-   std,0.402462119435
-   min,71.3
-   25%,72.0
-   50%,72.7
-   75%,72.7
-   max,72.7
+<<name='bandwidths_summary', echo=False, results='sphinx'>>=
+for name in description.index:
+    print "   {0},{1}".format(name, description.ix[name])
+@
 
-.. figure:: figures/half_table_bandwidths_kde.png
-   :scale: 75%
-
-
+<<name='bandwidths_kde', echo=False, results='sphinx'>>=
+output = 'figures/half_table_bandwidths_kde.png'
+if not os.path.isfile(output):
+    figure = plt.figure()
+    axe = figure.gca()
+        
+    bandwidths.Bandwidth.hist(ax=axe, alpha=0.25, color='k', normed=1)
+    bandwidths.Bandwidth.plot(kind='kde', ax=axe, alpha=0.5, color='b',
+                              title='Best Bandwidth Solutions Found (Half Table)')
+        
+    axe.axvline(bandwidths.Bandwidth.quantile(.5), color='r', alpha=0.5)
+    axe.set_xlabel("Throughput (Mb/s)")
+        
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+@
 
 So in the worst case it did 71.3 Mbits/second, compared to 70.3 for the full table. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval. Since the data isn't normal I'll use resampling.
 
 .. '
 
-::
+<<name='confidence'>>=
+trials = 10**5
+n = bandwidths.shape[0]
+samples = numpy.random.choice(bandwidths.Bandwidth,
+                              size=(n, trials))
+means = samples.mean(axis=0)
+alpha = 0.01
+p = alpha/2
 
-    trials = 10**5
-    n = bandwidths.shape[0]
-    samples = numpy.random.choice(bandwidths.Bandwidth,
-                                  size=(n, trials))
-    means = samples.mean(axis=0)
-    alpha = 0.01
-    p = alpha/2
-    
-    low = numpy.percentile(means, p)
-    high = numpy.percentile(means, 1-p)
-    
-    
+low = numpy.percentile(means, p)
+high = numpy.percentile(means, 1-p)
+@
 
-**99% Confidence Interval:** (72.17999995, 72.245)
-
-
+<<name='print_confidence', echo=False, results='sphinx'>>=
+print "**99% Confidence Interval:** ({0}, {1})".format(low, high)
+@
 
 So if we ran the optimizer often enough and the data always looked like our data set then we would expect the mean of the outcomes to be between 71.9 and 72.0 Mbits/Second 99% of the time. But this isn't really the whole story -- the exhaustive search gets the best value 100% of the time. We're using the optimizer because it's infeasible to run it (the current estimate is 12 hours of execution time). So how long did the optimizer take to get to these values?
 
@@ -167,46 +178,34 @@ To estimate the execution times we need to see how many times the Temperature wa
 
 Then I counted the temperature checks between the "Initial" lines.
 
-::
+<<name='temperature_counts'>>=
+repetitions = 0
+out_file = "data/half_table_best_repetitions_counts.csv"
+if not os.path.isfile(out_file):
+    with open(out_file, 'w') as w:
+        w.write("TemperatureCount\n")
+        for line in open("../data/half_table_initial_temperatures.log"):
+            if "Initial" in line and repetitions !=0:
+                w.write("{0}\n".format(repetitions))
+                repetitions = 0
+                continue
+            if "Temperature" in line:
+                repetitions += 1
+        w.write("{0}\n".format(repetitions))
+@
 
-    repetitions = 0
-    out_file = "data/half_table_best_repetitions_counts.csv"
-    if not os.path.isfile(out_file):
-        with open(out_file, 'w') as w:
-            w.write("TemperatureCount\n")
-            for line in open("data/half_table_initial_temperatures.log"):
-                if "Initial" in line and repetitions !=0:
-                    w.write("{0}\n".format(repetitions))
-                    repetitions = 0
-                    continue
-                if "Temperature" in line:
-                    repetitions += 1
-            w.write("{0}\n".format(repetitions))
-    
-    
-
-::
-
-    counts = pandas.read_csv(out_file)
-    description = counts.TemperatureCount.describe()
-    
-    
-
-
+<<name='load_counts'>>=
+counts = pandas.read_csv(out_file)
+description = counts.TemperatureCount.describe()
+@
 
 .. csv-table:: Temperature Counts Summary
    :header: Statistic, Value
 
-   count,100
-   mean,707.74
-   std,298.322
-   min,103
-   25%,457.75
-   50%,837.5
-   75%,964
-   max,1076
-
-
+<<name='count_summary', echo=False, results='sphinx'>>=
+for name in description.index:
+    print "   {0},{1:g}".format(name, description.ix[name])
+@
 
 To estimate the running time we have to now pick an arbitrary time for each execution. I'll use 15 seconds on the assumption that the default iperf run-time of 10 seconds is used and it takes 5 seconds to move the table (on average).
 
@@ -216,44 +215,55 @@ To estimate the running time we have to now pick an arbitrary time for each exec
 
    estimate = runtime \times count
    
-::
-
-    RUNTIME = 15
-    SECONDS_PER_HOUR = 60.0 * 60.0
-    
-    
-
-
+<<name="running_time">>=
+RUNTIME = 15
+SECONDS_PER_HOUR = 60.0 * 60.0
+@
 
 .. csv-table:: Estimated Running Times
    :header: Statistic, Running Time (Hours)
 
-   min,0.43
-   50%,3.5
-   max,4.5
+<<name='runtime_table', echo=False, results='sphinx'>>=
+for name in "min 50% max".split():
+    print "   {0},{1:.2g}".format(name,
+                                  RUNTIME * description.ix[name]/SECONDS_PER_HOUR)
+@
 
-::
+<<name='runtime_confidence'>>=
+runtimes = counts.TemperatureCount * RUNTIME/SECONDS_PER_HOUR
+samples = numpy.random.choice(runtimes, size=(runtimes.shape[0], trials))
+means = samples.mean(axis=0)
+medians = numpy.median(samples, axis=0)
+low = numpy.percentile(means, p)
+high = numpy.percentile(means, 1-p)
 
-    runtimes = counts.TemperatureCount * RUNTIME/SECONDS_PER_HOUR
-    samples = numpy.random.choice(runtimes, size=(runtimes.shape[0], trials))
-    means = samples.mean(axis=0)
-    medians = numpy.median(samples, axis=0)
-    low = numpy.percentile(means, p)
-    high = numpy.percentile(means, 1-p)
+low_median = numpy.percentile(medians, p)
+high_median = numpy.percentile(medians, 1-p)
+@
+<<name='print_runtime_confidence', echo=False, results='sphinx'>>=
+print "**99% Confidence Interval (mean):** ({0:.2f}, {1:.2f})".format(low, high)
+print "\n**99% Confidence Interval (Median):** ({0:.2f}, {1:.2f})".format(low_median,
+                                                                          high_median)
+@
+
+<<name='runtime_distribution', echo=False, results='sphinx'>>=
+output = 'figures/half_table_runtime_kde.png'
+if not os.path.isfile(output):
     
-    low_median = numpy.percentile(medians, p)
-    high_median = numpy.percentile(medians, 1-p)
-    
-    
-
-**99% Confidence Interval (mean):** (2.46, 2.66)
-
-**99% Confidence Interval (Median):** (2.52, 2.91)
-
-.. figure:: figures/half_table_runtime_kde.png
-   :scale: 75%
-
-
+    figure = plt.figure()
+    axe = figure.gca()
+        
+    runtimes.hist(ax=axe, alpha=0.25, color='k', normed=1)
+    runtimes.plot(kind='kde', ax=axe, alpha=0.5, color='b',
+                                 title='Estimated Runtimes')
+        
+    axe.axvline(numpy.median(runtimes), color='r', alpha=0.5)
+    axe.set_xlabel("Runtimes (Hours)")
+        
+    figure.savefig(output)
+print '.. figure:: ' + output
+print "   :scale: 75%"
+@
 
    Estimated running times for each search based on a 15 second iperf/table-movement time.
 

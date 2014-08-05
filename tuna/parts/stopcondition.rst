@@ -32,6 +32,8 @@ Constants for the Stop Conditions.
         end_time = 'end_time'
         delta = 'delta'
         default_delta = 0.001
+        maximum_time = 'maximum_local_time'
+        minimum_time = 'minimum_local_time'
     
     
 
@@ -90,6 +92,11 @@ The Stop Condition Generator
 
 The StopConditionGenerator creates StopConditions (Ideal) with random end-times.
 
+.. uml::
+
+   StopConditionGenerator o- StopCondition
+   StopConditionGenerator o- StopConditionIdeal
+
 .. autosummary::
    :toctree: api
 
@@ -132,6 +139,26 @@ Although you could pull the `stop_condition` property to get new stop-conditions
     return candidate
 
 .. '
+
+StopConditionGenerator Builder
+------------------------------
+
+A builder of StopConditionGenerators.
+
+.. uml::
+
+   BaseClass <|-- StopConditionGeneratorBuilder
+   StopConditionGeneratorBuilder o- ConfigurationMap
+   StopConditionGeneratorBuilder o- StopConditionGenerator
+
+.. autosummary::
+   :toctree: api
+
+   StopConditionGeneratorBuilder
+   StopConditionGeneratorBuilder.product
+
+
+   
 
 StopCondition Builder
 ---------------------
