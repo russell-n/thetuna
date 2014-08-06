@@ -26,21 +26,21 @@
 
 
 
-    "status": "closed", 
+    "status": "open", 
 
 
 
 
 
 
-    "summary": "Optimizers need a common base so that they can be interchanged", 
+    "summary": "TheDump isn't taking a storage object so it isn't putting files in folders", 
 
 
 
 
 
 
-    "time": "Thu, 10 Jul 2014 21:09:50 +0000"
+    "time": "Wed, 06 Aug 2014 02:03:06 +0000"
 
 
 
