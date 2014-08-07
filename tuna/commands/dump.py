@@ -49,7 +49,8 @@ class TheDump(BaseComponent):
     """
     The Dump dumps the output of a command to a file
     """
-    def __init__(self, command, connection, identifier=None, filename=None,
+    def __init__(self, command, connection, storage,
+                 identifier=None, filename=None,
                  timeout=DumpConstants.default_timeout, mode=WRITEABLE):
         """
         TheDump's Constructor
@@ -59,6 +60,7 @@ class TheDump(BaseComponent):
          - `command`: the command (string) to send to the device to get output
          - `identifier`: string to identify this object
          - `connection`: connection to the device with an `exec_command` method
+         - `storage`: File-like object to dump output to
          - `filename`: Name for output file
          - `timeout`: Readline timeout (seconds)
          - `mode`: mode for the file ('w' or 'a')
@@ -69,6 +71,7 @@ class TheDump(BaseComponent):
         self.connection = connection
         self.timeout = timeout
         self._filename = filename
+        self.storage = storage
         self.mode = mode
         return
 
@@ -92,7 +95,8 @@ class TheDump(BaseComponent):
         :return: filename for output
         """
         if self._filename is None:
-            self._filename = "{0}_{1}_{2}.txt".format(self.connection,
+            connection_name = self.connection.hostname
+            self._filename = "{0}_{1}_{2}.txt".format(connection_name,
                                                       self.identifier,
                                                       self.command.split()[0])
         return self._filename
@@ -102,13 +106,14 @@ class TheDump(BaseComponent):
         """
         runs the command and saves it to the file
         """
-        with open(self.filename, self.mode) as output_file:
+        with self.storage.open(self.filename, mode=self.mode) as output_file:
             stdin, stdout, stderr = self.connection.exec_command(self.command,
                                                                  timeout=self.timeout)
             for line in stdout:
-                timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
-                output_file.write("{0},{1}".format(timestamp,
-                                                   line))
+                #timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
+                #output_file.write("{0},{1}".format(timestamp,
+                #                                   line))
+                output_file.write(line)
                 
             for line in stderr:
                 if line:

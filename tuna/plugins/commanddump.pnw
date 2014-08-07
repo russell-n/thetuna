@@ -151,21 +151,22 @@ class CommandDump(BasePlugin):
                                                option='timeout',
                                                optional=True,
                                                default=DumpConstants.default_timeout)
-        mode = self.configuration.get_float(section=self.section_header,
-                                            option='mode',
+        mode = self.configuration.get(section=self.section_header,
+                                        option='mode',
                                             optional=True,
                                             default=DumpConstants.default_mode)
-        options = 'connection timeout mode plugin component'.split() + self.configuration.defaults
+        options = 'connection timeout mode plugin component'.split() + self.configuration.defaults.keys()
         identifiers = [identifier for identifier in self.configuration.options(self.section_header)
                        if identifier not in options]
         self._product = SimpleComposite()
         for identifier in identifiers:
             self._product.add(TheDump(command=self.configuration.get(section=self.section_header,
-                                                             option=identifier),
-                                                             connection=client,
-                                                             identifier=identifier,
-                                                             timeout=timeout,
-                                                             mode=mode))
+                                                                     option=identifier),
+                                                                     storage=self.storage,
+                                                                     connection=client,
+                                                                     identifier=identifier,
+                                                                     timeout=timeout,
+                                                                     mode=mode))
         return self._product
         
     def fetch_config(self):

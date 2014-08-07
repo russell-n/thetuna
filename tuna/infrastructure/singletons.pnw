@@ -1,29 +1,7 @@
 The Singletons
 ==============
-<<name='license', echo=False>>=
-# The MIT License (MIT)
-# 
-# Copyright (c) 2013 Russell Nakamura
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-@
-This is a module to hold singletons. The (initial) problem it is trying to solve is the need for the plugins to be able to share a common composite without knowing about each other. In earlier incarnations if the APE I did something similar by having the *hortator* hold an object for others to share, but this ended up making the *hortator* large and complicated. The particular first-use will be for watchers which will be registered with a :ref:`Composite <composite-class>` :ref:`Singleton <ape-documentation-exploring-singletons>`.
+
+This is a module to hold singletons. The (initial) problem it is trying to solve is the need for the plugins to be able to share a common composite without knowing about each other. In earlier incarnations of the APE I did something similar by having the *hortator* hold an object for others to share, but this ended up making the *hortator* large and complicated. The particular first-use will be for watchers which will be registered with a :ref:`Composite <composite-class>` :ref:`Singleton <ape-documentation-exploring-singletons>`.
 
 Setting Up
 ----------
@@ -51,7 +29,7 @@ class SingletonEnum(object):
     filestorage = 'filestorage'
 @
 
-.. currentmodule:: ape.commoncode.singletons
+.. module:: tuna.infrastructure.singletons
 .. autosummary::
    :toctree: api
 
@@ -64,7 +42,6 @@ The Composite Singleton can be retrieved via the ``get_composite`` method. It ta
 
 .. '
 
-.. currentmodule:: ape.commoncode.singletons
 .. autosummary::
    :toctree: api
 
@@ -106,7 +83,6 @@ Get FileStorage
 
 The ``get_filestorage`` function gets a :ref:`FileStorage <file-storage-module>` object. The intention is for each Operator Composite to set the path of the File Storage before creating its components, then each of the plugins can just open a file using the singleton. This creates a little bit of a different case from the composites in that if sub-groups are used they are going to need to copy the original file-storage and change its path (assuming the path will be different, which is the only case that I can think of where sub-groups might be useful).
 
-.. currentmodule:: ape.commoncode.singletons
 .. autosummary::
    :toctree: api
 

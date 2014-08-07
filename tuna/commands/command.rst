@@ -3,14 +3,6 @@ The Command
 
 
 
-Contents:
-
-    * :ref:`Introduction <command-introduction>`
-    * :ref:`Design <command-design>`
-    * :ref:`Command Constants <command-constants>`
-    * :ref:`socketerrors Decorator <command-socketerrors-decorator>`
-    * :ref:`Command Class <command-class>`
-
 .. _command-introduction:
 
 Introduction
@@ -79,6 +71,7 @@ A holder of constants for TheCommand.
     EVERYTHING = GROUP.format(ANYTHING + ZERO_OR_MORE)
     NOTHING = r'a' + START_OF_STRING
     NEWLINE = '\n'
+    NA = "NA"
     
     class CommandConstants(object):
         """
@@ -91,6 +84,7 @@ A holder of constants for TheCommand.
         default_trap_errors = True
         default_data_expression = EVERYTHING
         default_error_expression = NOTHING
+        default_not_available = NA
     
     
 

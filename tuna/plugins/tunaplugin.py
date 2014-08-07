@@ -70,9 +70,8 @@ CONFIGURATION = '''[{0}]
 # if you want to put an end time (this will override repetitions and total time):
 # end_time = November 23, 2013 8:00 am
 
-# if you want to store files in a sub-folder
-# If you add {{timestamp}} to the name a timestamp will be added when the folder is created
-# {1} = <name>_{{timestamp}}
+# if you want to store files in a sub-folder:
+# {1} = <name>
 
 # If you get a ParserError check:
 #   - is everything flush-left?

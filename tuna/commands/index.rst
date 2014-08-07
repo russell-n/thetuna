@@ -9,12 +9,15 @@ These are commands to send to devices whose input and output have been defined i
 .. toctree::
    :maxdepth: 1
 
+   The Command <command.rst>
+   The Dump <dump.rst>
+   The Query Class <query.rst>
 
 .. toctree::
    :maxdepth: 1
 
-   The Command <command/index.rst>
    Iperf Things <iperf/index.rst>
    Ping Things <ping/index.rst>
+   Testing the Command <tests/index.rst>
 
 

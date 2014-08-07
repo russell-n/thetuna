@@ -8,7 +8,10 @@ The Tuna-Plugins
    :maxdepth: 1
 
    The Base Plugin <base_plugin.rst>
+   The CommandDump Plugin <commanddump.rst>
+   The CommandQuery Plugin <commandquery.rst>
    The GridSearch Plugin <gridsearch.rst>
+   The RandomRestarts Plugin <randomrestarts.rst>
    The SimulatedAnnealing Plugin <simulatedannealing.rst>
    Sleep Plugin <sleep_plugin.rst>
    The Tuna Plugin <tunaplugin.rst>

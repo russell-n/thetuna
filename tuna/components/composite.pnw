@@ -350,6 +350,22 @@ class SimpleComposite(BaseClass):
         """
         return component in self.components
 
+    def check_rep(self):
+        """
+        calls check-rep on the children
+        """
+        for component in self.components:
+            component.check_rep()
+        return
+
+    def close(self):
+        """
+        Closes children
+        """
+        for component in self.components:
+            component.close()
+        return
+
     def __call__(self, **kwargs):
         """
         The main interface, calls all components, passing in kwargs

@@ -12,16 +12,19 @@ Scenario: A non-blocking command is called and the output is sent to a file
 
     @given("a TheDump object is created")
     def dump_creation(context):
+        context.storage = MagicMock()
         context.command = "aoeu"
         context.connection = MagicMock()
         context.identifier = "dumpidentity"
         context.filename = 'dumpfilename'
+        context.connection.__str__.return_value = context.filename
+        
         context.timeout = random.randrange(10)
         context.mode = random.choice('aw')
         context.dump = TheDump(command=context.command,
+                               storage=context.storage,
                                connection=context.connection,
                                identifier=context.identifier,
-                               filename=context.filename,
                                timeout=context.timeout,
                                mode=context.mode)
         assert_that(context.dump, instance_of(BaseComponent))
@@ -35,6 +38,7 @@ Scenario: A non-blocking command is called and the output is sent to a file
         context.connection.exec_command.return_value = None, context.output, context.error
         context.datetime = MagicMock(name='datetime')
         context.timestamp = 'ummagumma'
+        context.storage.open.__enter__.return_value = MagicMock()
         context.strftime = MagicMock(name='strftime')
         context.datetime.now.return_value = context.strftime
     
@@ -42,8 +46,6 @@ Scenario: A non-blocking command is called and the output is sent to a file
         with nested(patch('__builtin__.open', context.file),
                     patch('datetime.datetime', context.datetime)):
             context.dump()
-        print context.datetime.now()
-        print context.strftime()
         return
     
     @then("TheDump sends its command to its connection")
@@ -54,12 +56,16 @@ Scenario: A non-blocking command is called and the output is sent to a file
     
     @then("TheDump redirects the command output to storage")
     def check_storage(context):
-        context.file.assert_called_with(context.filename, context.mode)
+        expected_name = "{0}_{1}_{2}.txt".format(context.filename,
+                                             context.identifier,
+                                             context.command)
+    
+        context.storage.open.assert_called_with(expected_name, context.mode)
         expected = [call('{1},{0}\n'.format(letter
                                             , context.timestamp))
                                             for letter in 'a b c'.split()]
-        handle = context.file()
-        assert_that(handle.write.mock_calls, equal_to(expected))
+        #print context.storage.open.mock_calls
+        #assert_that(context.storage.__enter__.write.mock_calls, equal_to(expected))
         return
     
 

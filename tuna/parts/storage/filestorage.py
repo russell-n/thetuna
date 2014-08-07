@@ -185,7 +185,7 @@ class FileStorage(BaseStorage):
             opened = self
         opened.name = name
         opened._file = open(name, mode)
-        opened.mode = 'w'
+        opened.mode = mode
         opened.closed = False
         return opened
 

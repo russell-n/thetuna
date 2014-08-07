@@ -16,6 +16,7 @@ GROUP = r'({0})'
 EVERYTHING = GROUP.format(ANYTHING + ZERO_OR_MORE)
 NOTHING = r'a' + START_OF_STRING
 NEWLINE = '\n'
+NA = "NA"
 
 class CommandConstants(object):
     """
@@ -28,6 +29,7 @@ class CommandConstants(object):
     default_trap_errors = True
     default_data_expression = EVERYTHING
     default_error_expression = NOTHING
+    default_not_available = NA
 
 
 def socketerrors(method,  *args, **kwargs):
@@ -57,14 +59,15 @@ class TheCommand(BaseClass):
     """
     Command to get output from a device
     """
-    def __init__(self, connection, command,
+    def __init__(self, connection,
+                 command,
                  data_expression=None,
                  error_expression=None,
                  arguments=None,
                  identifier=None,
                  timeout=CommandConstants.default_timeout,
                  trap_errors=CommandConstants.default_trap_errors,
-                 not_available=None):
+                 not_available=CommandConstants.default_not_available):
         """
         The Command constructor
 
