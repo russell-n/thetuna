@@ -38,7 +38,7 @@ It uses numpy's ``random.uniform`` function as well as it's ``clip`` method.
 Gaussian Convolution
 --------------------
 
-This samples from a normal distribution instead of a uniform one. It will tend to make very small changes but occasionally make very large ones _[EOM]. Most of what it does looks the same as the UniformConvolution except with different variable or function names but I thought that keeping them separate would make it easier to remember the parameters.
+This samples from a normal distribution instead of a uniform one. It will tend to make very small changes but occasionally make very large ones [EOM]_. Most of what it does looks the same as the UniformConvolution except with different variable or function names but I thought that keeping them separate would make it easier to remember the parameters.
 
 .. currentmodule:: tuna.tweaks.convolutions
 .. autosummary::
@@ -127,8 +127,8 @@ This is a class to build the XYConvolution from a configuration map.
 
 ::
 
-    [ 5.06226949  7.56865501]
-    [ 47  -5 -30]
-    [16  5 15]
+    [ 4.37584907  4.84794674]
+    [-23  23   2]
+    [44  5  5]
     
 

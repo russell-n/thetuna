@@ -8,14 +8,17 @@ Problem
 
 How can we understand how the :ref:`Hill Climbing with Random Restarts <hill-climbing-random-restarts>` parameters should be set while trying to optimize device placement on a table and how does it perform relative to the :ref:`Simulated Annealing <tuna-optimizers-simulatedannealing-background>` optimizer?
 
-As with the :ref:`Simulated Annealing Case Study <case-study-annealing-simulated-table>`,  we'll use data collected by exhaustively sweeping a table and passing it to the optimizer to see how it performs. Since we did an exhaustive sweep we know what the best and worst cases are so we can see how many times the optimizer has to lookup a value to see how good a candidate is. The count of lookups can then be compared with a `real` iperf session or by estimating the number of seconds each lookup would take.
-
+As with the :ref:`Simulated Annealing Case Study <case-study-annealing-simulated-table>`,  we'll use data collected by exhaustively sweeping a table and pass this data to the optimizer to see how it performs. Since we did an exhaustive sweep we know what the best and worst cases and we can see how many times the optimizer has to lookup a value to see how good a candidate is before reaching a solution. The count of lookups can then be compared with a `real` iperf session or by estimating the number of seconds each lookup would take.
 .. '
 
 The Simulation Data
 -------------------
 
-Alex created the data-set (:download:`download <../data/data_step50.csv>`) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf. The file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50). The values are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).
+This is a duplication of what is in the :ref:`Simulated Annealing Case Study <case-study-annealing-simulated-table>` so if you have already seen it you can jump down to the explanation of :ref:`how the Random-Restarts works <case-study-random-restarts-pseudocode>`.
+
+Alex created the data-set (:download:`download <../data/data_step50.csv>`) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf. The table I'm referring to is a two-axis table that Cameron created for another project but wasn't using (a version of the control code that I modified to run in the tuna is somewhat documented `here <http://rallion.bitbucket.org/others/xytable/index.html>`_).
+
+The data-file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50 so row 1 (using a zero-based index) maps to y=50 on the physical table). The values in the data are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).
 
 Data Plots
 ~~~~~~~~~~
@@ -145,87 +148,66 @@ In the case of the worst data point (in the blue rectangle), it occurred near th
 
 .. '
 
+.. _case-study-random-restarts-pseudocode:
+
 Pseudocode for Random Restarts
 ------------------------------
 
-To get an idea of the parameters that need to be adjusted it might be helpful to understand the basic operation.
+To get an idea of the parameters that need to be adjusted it might be helpful to understand the basic operation. As you can probably guess by the name, the Hill-Climbing with Random Restarts optimizer is a hill-climber that does a stochastic local search to find the optima but every once in a while jumps to a random location and starts over so that it doesn't get trapped in a local optimum. Because it's using GaussianConvolution (in this case) this actually kind of happens anyway, but when the local search times are short enough it can be more aggressive about jumping around.
 
 .. figure:: figures/random_restarts_pseudocode.svg
 
-Simulated Annealing
--------------------
+   Pseudocode for the random restart hill-climbing. *T* is a random (uniform) distribution of local-search times.
 
-First let's look at `3.2. (a random number is less than the annealing value)`.
-
-The :ref:`SimulatedAnnealing <optimization-optimizers-simulatedannealing-background>` documentation has more detail of how it works but the main thing to note here is that we determine how it behaves by setting an initial temperature (:math:`T_0`) and a constant :math:`\alpha` such that :math:`T(t)`, the temperature at time `t`, is defined by the function:
-
-.. math::
-
-   T(t) = T_0 \alpha^t\\
-
-And since time is assumed to be positive, this means that :math:`\alpha` has to be less than one if we want the temperature to drop (cool) with time. 
-
-The temperature is used to decide whether a candidate solution that is worse than the current solution is accepted as a new solution. The higher the initial temperature, the more likely this is to happen in the beginning of the search and so the more the optimizer will explore. If :math:`\alpha` is closer to 0 or the initial temperature is low, then the optimizer will tend to choose only local optima and would rely on the `tweak` to periodically make a big random jump to be able to escape non-global-optima spaces. The actual choice of parameter-value has to be determined by the data. 
+The meta-heuristic is primarily comprised of two loops. The outer loop generates random candidate solutions (table-positions in this case) and then runs the inner loop. The inner-loop searches locally until it times out or happens to find the ideal solution. 
 
 Gaussian Convolution
 --------------------
 
-Now we can look at `3.1. (get a new candidate by tweaking the current solution)`. 
-
-In this case the new candidate is found by selecting values from a Normal distribution and adding them to the current solution. Since we are using a Normal distribution we know that about 68% of the values we pick will be within one standard deviation of the mean, 95% of the values will be within two standard deviations from the mean, and 99.7% of the data will be within three standard deviations from the mean. So by picking the mean (:math:`\mu`) and standard deviation (:math:`\sigma`) for our distribution, we can determine how far each new candidate is most likely to be from the previous solution, but not exactly how far, since it's random (sometimes, although rarely, the chosen value will be more than three standard deviations from the mean).
-
-Once again the :ref:`actual implementation <optimization-tweaks-gaussian>` has more information.
+The `Tweak` in this case is :ref:`Gaussian Convolution <optimization-tweaks-gaussian>`.
 
 Sample Configuration File
 -------------------------
 
-This is a sample configuration file for running this test. The parameters of interest are for the annealing and the convolution. Note that I set a :math:`T_{final}` but in practice the time-out gets hit before this is actually reached.
+This is a sample configuration file for running this test (and was used to collect the data used later in this document). The main parameters of interest are in the `[RandomRestarts]` section.
 
-.. csv-table:: Simulated Annealing Parameters
-   :header: Variable,Configuration Option, Value
-
-   :math:`T_0`, ``start_temperature``, :math:`10^{5}`
-   :math:`T_{final}`, ``stop_temperature``, `0.01`
-   :math:`\alpha`, ``alpha_temperature``, 0.99
-   
-.. csv-table:: Gaussian Convolution Parameters
-   :header: Variable,Configuration Option, Value
-
-   :math:`\mu`, ``location``, 0 
-   :math:`\sigma`, ``scale``, 2
-
-.. literalinclude:: ../data/simulated_annealing_exhaustive.ini
+.. literalinclude:: data/random_restarts_full_table.ini
    :language: ini
+
+In this case each local search will run for some random time from 1 to 10 seconds (because this is simulated data not a real trial) and each of the overall tests will be limited to 10 Minutes, with the simulation run 1,000 times (in the worst case this would take a week to finish so I'm hoping it will do well enough to quit early when it finds a good-enough solution.
+
+.. '
 
 TUNA Section
 ~~~~~~~~~~~~
 
-The ``[TUNA]`` section is a place to list what the plugin sections will be. In this case we're telling the `tuna` that there will only be one plugin and the information to configure it will be in a section named ``[Annealing]``.
+The ``[TUNA]`` section is a place to list what the plugin sections will be. In this case we're telling the `tuna` that there will only be one plugin and the information to configure it will be in a section named ``[RandomRestarts]``.
+
+..'
 
 DEFAULT Section
 ~~~~~~~~~~~~~~~
 
-We're going to repeat the simulation 100 times and store the data in a folder named `annealing_tabledata_t0_10000_scale_2` next to the configuration file.
+We're going to repeat the simulation 1,000 times and store the data in a folder named `random_restarts_full_table_scale_1` next to the configuration file.
+..'
 
 MODULES Section
 ~~~~~~~~~~~~~~~
 
-In this case we're simulating the use of Cameron's XYTable so we need to tell the `tuna` which module contains the plugin to fake the table's operation. This isn't really needed for the simulation but provides a way to check and see that the `tuna` is calling it the way we expect. The listed module will be imported so the ``xytable`` package has to have been installed for this to work.
+We're simulating the use of Cameron's XYTable so we need to tell the `tuna` which module contains the plugin to fake the table's operation. This isn't needed for the simulation but provides a way to check and see that the `tuna` is calling it the way we expect. The listed module will be imported so the ``xytable`` package has to have been installed for this to work.
 
-Annealing Section
-~~~~~~~~~~~~~~~~~
+RandomRestarts Section
+~~~~~~~~~~~~~~~~~~~~~~
 
-The ``plugin = SimulatedAnnealing`` line tells the tuna to load the `SimulatedAnnealing` class. 
+The ``plugin = RandomRestarts`` line tells the tuna to load the `RandomRestarts` class. 
 
-The ``components = fake_table, table_data`` line tells the tuna to create components using the `fake_table` and `table_data` section in this configuration and give it to the Simulated Annealer (wrapped in a :ref:`composite <simple-composite>`). The components will be used to decide how good a location is. In this case we're substituting mocks for a table control object (fake_table) and an iperf object (table_data). `fake_table` will just log the calls made to it so we can check that the program is running like we think it should. The `table_data` object will lookup the data that Alex recorded using the table-coordinates it was given and give it back to the Simulated Annealer.
+The ``components = fake_table, table_data`` line tells the tuna to create components using the `fake_table` and `table_data` section in this configuration files and give it to the RandomRestarts optimizer (wrapped in a :ref:`composite <simple-composite>`). The components will be used to decide how good a location is (they make up the `Quality` function calls shown in the pseudocode). We're substituting mocks for a table control object (fake_table) and an iperf object (table_data). `fake_table` will log the calls made to it so we can check that the program is running like we think it should. The `table_data` object will lookup the data that Alex recorded using the table-coordinates it was given and give it back to the optimizer.
 
-The ``observers = fake_table`` line tells the `tuna` to give the `Simulated Annealer` a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.
+The ``observers = fake_table`` line tells the `tuna` to give the optimizer a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.
 
-The temperature related settings were explained above.
+The ``location`` and ``scale`` for the  ``GaussianConvolution`` sets :math:`\mu` and :math:`\sigma` values for the random distribution that the optimizer samples from to generate new candidate solutions to explore. ``number_type = integer`` tells it to cast the values to integers (so that the x,y coordinates will be whole numbers not fractions). The data-set is represented as a :math:`61 \times 61` table so the ``lower_bound`` and ``upper_bound`` represent the indices for the table.
 
-The ``candidate = 20, 20`` tells the ``tuna`` to tell the Simulated Annealer to start its searching at x=20, y=20. I'm going to add a better random-candidate chooser, but for now if the initial candidate isn't passed in it ends up at 0,0 most of the time which it turns out makes the Annealer perform better just by luck, so I'm setting it to 20,20 to make the search a little harder.
-
-The ``location`` and ``scale`` for the  ``GaussianConvolution`` were discussed previously. ``number_type = integer`` tells it to cast the values to integers (so that the x,y coordinates will be whole numbers not fractions). The data-set is represented as a :math:`61 \times 61` table so the ``lower_bound`` and ``upper_bound`` represent the indices for the table. The ``GaussianConvolution`` expects a square table but after looking at the data I realized that the search might perform better if only the left-half of the table was used. You could just halve the ``upper_bound`` parameter, but that would quarter the range of the table search, not halve it, so I created another class, the :ref:`XYConvolution <tweaks-xyconvolution>` that acts like the `Gaussian Convolution` but takes separate bounds for the x and y axes which can be used if it turns out we want to halve the search. Since this just adds more parameters I'm using the Gaussian Convolution to test the simulation under the assumption that we won't be able to halve the search space in most cases.
+.. '
 
 The Outcome
 -----------
@@ -233,19 +215,37 @@ The Outcome
 How many times did it find the maximum-bandwidth location?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Using the log file (`tuna.log`) we can see how the operations went. The file itself is large so I'm going to document what I did but not include the data itself. 
-
-To get a count of the number of times the test was run I counted the occurences of the string "Initial" to match the "Initial Best Solution" lines, whose messaged look like this example::
-
-   Initial Best Solution: Inputs: [ 20.  20.] Output: 58.6
-
+Using the log file (`tuna.log`) we can see how the operations went. The file itself is large (over a gigabyte) so I'm going to document what I did but not include the data itself.
 .. '
 
-.. code-block:: bash
+The first order of business was getting the data into a single file. Because I had run the `tuna` before there was old logging in the files that needed to be ignored and since I had put a limit of 1 gigabyte on the files the logger broke the output into two files ('tuna.log' and the older 'tuna.log.1').
 
-   grep "Initial" tuna.log | wc -l
+The first line of the new data contained this string::
 
-This showed that it was run 100 times. When the `tuna` finds the ideal value (or it exceeds the time limit we set) it outputs "Stop condition reached" along with the coordinates and bandwidth found, which look like this example::
+    2014-08-04 18:43:13
+
+.. highlight:: python
+
+So I created a new single file using python::
+
+    with open('tuna_re.log','w') as w:
+        lines = open('tuna.log.1')
+    for line in lines:
+        if '2014-08-04 18:43:14' in line:
+            w.write(line)
+            break
+    for line in lines:
+        w.write(line)
+    for line in open('tuna.log'):
+        w.write(line)
+                        
+To make sure that it ran 1,000 times I grepped how many times the solution the Restarter found was passed to the XYTable::
+
+    grep "RandomRestarter giving solution to" tuna_re.log | wc -l
+
+Which confirmed that it was run 1,000 times.
+
+When the `tuna` finds the ideal value (or it exceeds the time limit we set) it outputs "Stop condition reached" along with the coordinates and bandwidth found, which look like this example::
 
    Stop condition reached with solution: Inputs: [  7.  51.] Output: 72.7
 
@@ -253,9 +253,9 @@ To get the number of cases where 72.7 Mbits/second was found:
 
 .. code-block:: bash
 
-   grep "Stop.*Output:[[:space:]]*72\.7" tuna.log  | wc -l
+   grep "Stop.*Output:[[:space:]]*72\.7" tuna_re.log  | wc -l
 
-This gives us 30 so it found it 30% of the time. 
+This gives us 801 so it found it 80% of the time, compared to 30% for the Simulated Annealer.
 
 How many times did it do well enough?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -264,23 +264,35 @@ Picking an arbitrary value of 70 Mbits/second as the lower bound of an acceptabl
 
 .. code-block:: bash
 
-   grep "Quality.*Output:[[:space:]]*7[[:digit:]]" tuna.log  | wc -l
+   grep "Quality.*Output:[[:space:]]*7[[:digit:]]" tuna_re.log  | wc -l
 
-Gave an output of 100. I had to use the sub-string "Quality Checks" instead of "Stop Condition" because for some reason there was one case where the temperature dropped low enough to quit without triggering the stop-condition. Anyway, it looks like in all cases the `tuna` found a solution that gave at least 70 Mbits/second.
+Gave an output of 1,000. I had to use the sub-string "Quality Checks" instead of "Stop Condition" because for some reason the message only got printed when the ideal solution was found. I think I didn't set a delta so the cases where it timed-out before it reached 72.7 didin't create this message.
 
 How well did it typically do?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-By diverting the output from the previous `grep` search to a (:download:`file <data/solution_bandwidths.csv>`) instead of piping it to `wc`, I was able to get the final bandwidths the `tuna` reached (it's included in the "Quality Checks" line as "Output:")::
+By diverting the output from the previous `grep` search to a file instead of piping it to `wc`, I was able to get the final bandwidths the `tuna` reached (it's included in the "Quality Checks" line as "Output:")::
 
    Quality Checks: 1486 Solution: Inputs: [  7.  51.] Output: 72.7
 
 .. '
 
+.. highlight:: python
+
+I then extracted the (:download:`bandwidths <data/solution_bandwidths.csv>`)into another file::
+
+    with open('solutions_bandwidths.csv', 'w') as w:
+        w.write("Bandwidth\n")
+        for line in open("full_table_solutions_bandwidths.log"):
+            w.write("{0}\n".format(line.rsplit(" ", 2)[-2 ]))))
+
+The lines have invisible formatting characters at the end of them so the bandwidth ended up being the second sub-string from the right even though the log output looks like it should be the last sub-string.
+
+Now we can get some summary statistics using Pandas.
 
 ::
 
-    bandwidths = pandas.read_csv('../data/solution_bandwidths.csv')
+    bandwidths = pandas.read_csv('data/solutions_bandwidths.csv')
     description = bandwidths.Bandwidth.describe()
     
     
@@ -290,144 +302,141 @@ By diverting the output from the previous `grep` search to a (:download:`file <d
 .. csv-table:: Bandwidth Solutions Summary
    :header: Statistic, Value
 
-   count,100.0
-   mean,72.082
-   std,0.493058891727
-   min,70.3
-   25%,72.0
-   50%,72.0
-   75%,72.7
-   max,72.7
+   count,1000.00
+   mean,72.55
+   std,0.31
+   min,70.60
+   25%,72.70
+   50%,72.70
+   75%,72.70
+   max,72.70
 
 .. figure:: figures/bandwidths_kde.png
    :scale: 75%
 
 
 
-So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval. Since the data isn't normal I'll use resampling.
+So in the worst case it did 70.3 Mbits/second (), which might prove sufficient. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval. Since the data isn't normal I'll use resampling.
 
 .. '
 
-::
-
-    trials = 10**5
-    n = len(bandwidths)
-    samples = numpy.random.choice(bandwidths.Bandwidth,
-                                  size=(n, trials))
-    means = samples.mean(axis=0)
-    alpha = 0.01
-    p = alpha/2
-    
-    low = numpy.percentile(means, p)
-    high = numpy.percentile(means, 1-p)
-    
-    
-
-**99% Confidence Interval:** (71.89699995, 71.965)
-
-
-
-So if we ran the optimizer often enough and the data always looked like our data set then we would expect the mean of the outcomes to be between 71.9 and 72.0 Mbits/Second 99% of the time. But this really the whole story -- the exhaustive search gets the best value 100% of the time. We're using the optimizer because it's infeasible to run it (the current estimate is 12 hours of execution time). So how long did the optimizer take to get to these values?
-
-How long were the execution times?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To estimate the execution times we need to see how many times the Temperature was changed for each search (the temperature changes before each candidate-check). First a subset of the log was created.
-
-.. code-block:: bash
-
-    grep "Initial\|Temperature" tuna.log > initial_temperatures.log
-
-Then I counted the temperature checks between the "Initial" lines.
-
-::
-
-    repetitions = 0
-    out_file = "../data/best_repetitions_counts.csv"
-    if not os.path.isfile(out_file):
-        with open(out_file, 'w') as w:
-            w.write("TemperatureCount\n")
-            for line in open("data/initial_temperatures.log"):
-                if "Initial" in line and repetitions !=0:
-                    w.write("{0}\n".format(repetitions))
-                    repetitions = 0
-                    continue
-                if "Temperature" in line:
-                    repetitions += 1
-            w.write("{0}\n".format(repetitions))
-    
-    
-
-::
-
-    counts = pandas.read_csv(out_file)
-    description = counts.TemperatureCount.describe()
-    
-    
-
-
-
-.. csv-table:: Temperature Counts Summary
-   :header: Statistic, Value
-
-   count,100
-   mean,918.72
-   std,285.195
-   min,67
-   25%,836.75
-   50%,1008
-   75%,1099.25
-   max,1375
-
-
-
-To estimate the running time we have to now pick an arbitrary time for each execution. I'll use 15 seconds on the assumption that the default iperf run-time of 10 seconds is used and it takes 5 seconds to move the table (on average).
-
-.. '
-
-.. math::
-
-   estimate = runtime \times count
-   
-::
-
-    RUNTIME = 15
-    SECONDS_PER_HOUR = 60.0 * 60.0
-    
-    
-
-
-
-.. csv-table:: Estimated Running Times
-   :header: Statistic, Running Time (Hours)
-
-   min,0.28
-   50%,4.2
-   max,5.7
-
-::
-
-    runtimes = counts.TemperatureCount * RUNTIME/SECONDS_PER_HOUR
-    samples = numpy.random.choice(runtimes, size=(len(runtimes), trials))
-    means = samples.mean(axis=0)
-    medians = numpy.median(samples, axis=0)
-    low = numpy.percentile(means, p)
-    high = numpy.percentile(means, 1-p)
-    
-    low_median = numpy.percentile(medians, p)
-    high_median = numpy.percentile(medians, 1-p)
-    
-    
-
-**99% Confidence Interval (mean):** (3.31, 3.54)
-
-**99% Confidence Interval (Median):** (3.84, 4.06)
-
-.. figure:: figures/runtime_kde.png
-   :scale: 75%
-
-
-
-   Estimated running times for each search based on a 15 second iperf/table-movement time.
-
-So it looks like if we wanted to be very sure we got a high-enough solution we would need to let the Annealer run for about six hours. But on average it takes 3.86 to 4.06 hours (I'm assuming the median is the safer interval since it's higher).
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. e between 71.9 and 72.0 Mbits/Second 99% of the time. But this really the whole story -- the exhaustive search gets the best value 100% of the time. We're using the optimizer because it's infeasible to run it (the current estimate is 12 hours of execution time). So how long did the optimizer take to get to these values?
+.. 
+.. 
+.. 
+.. 
+.. re each candidate-check). First a subset of the log was created.
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. efault iperf run-time of 10 seconds is used and it takes 5 seconds to move the table (on average).
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. 
+.. But on average it takes 3.86 to 4.06 hours (I'm assuming the median is the safer interval since it's higher).

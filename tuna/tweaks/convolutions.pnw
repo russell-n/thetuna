@@ -74,7 +74,7 @@ class UniformConvolution(object):
 Gaussian Convolution
 --------------------
 
-This samples from a normal distribution instead of a uniform one. It will tend to make very small changes but occasionally make very large ones _[EOM]. Most of what it does looks the same as the UniformConvolution except with different variable or function names but I thought that keeping them separate would make it easier to remember the parameters.
+This samples from a normal distribution instead of a uniform one. It will tend to make very small changes but occasionally make very large ones [EOM]_. Most of what it does looks the same as the UniformConvolution except with different variable or function names but I thought that keeping them separate would make it easier to remember the parameters.
 
 .. currentmodule:: tuna.tweaks.convolutions
 .. autosummary::
