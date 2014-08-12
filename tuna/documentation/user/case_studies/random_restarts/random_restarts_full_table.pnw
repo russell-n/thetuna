@@ -619,7 +619,7 @@ if not os.path.isfile(output):
     good_enough_data.time.plot(kind='kde', ax=axe, alpha=0.5, color='b',
                               title='Estimated (Good Enough) Runtimes')
         
-    axe.axvline(numpy.median(calls.times), color='r', alpha=0.5)
+    axe.axvline(numpy.median(good_enough_data.time), color='r', alpha=0.5)
     axe.set_xlabel("Estimated Runtimes (hours)")
         
     figure.savefig(output)
