@@ -183,7 +183,7 @@ TUNA Section
 
 The ``[TUNA]`` section is a place to list what the plugin sections will be. In this case we're telling the `tuna` that there will only be one plugin and the information to configure it will be in a section named ``[RandomRestarts]``.
 
-..'
+.. '
 
 DEFAULT Section
 ~~~~~~~~~~~~~~~
@@ -216,6 +216,7 @@ How many times did it find the maximum-bandwidth location?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Using the log file (`tuna.log`) we can see how the operations went. The file itself is large (over a gigabyte) so I'm going to document what I did but not include the data itself.
+
 .. '
 
 The first order of business was getting the data into a single file. Because I had run the `tuna` before there was old logging in the files that needed to be ignored and since I had put a limit of 1 gigabyte on the files the logger broke the output into two files ('tuna.log' and the older 'tuna.log.1').
@@ -266,7 +267,7 @@ Picking an arbitrary value of 70 Mbits/second as the lower bound of an acceptabl
 
    grep "Quality.*Output:[[:space:]]*7[[:digit:]]" tuna_re.log  | wc -l
 
-Gave an output of 1,000. I had to use the sub-string "Quality Checks" instead of "Stop Condition" because for some reason the message only got printed when the ideal solution was found. I think I didn't set a delta so the cases where it timed-out before it reached 72.7 didin't create this message.
+Gave an output of 1,000. I had to use the sub-string "Quality Checks" instead of "Stop Condition" because for some reason the message only got printed when the ideal solution was found. I think I didn't set a delta so the cases where it timed-out before it reached 72.7 didn't create this message (but I have to look into this).
 
 How well did it typically do?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -316,127 +317,158 @@ Now we can get some summary statistics using Pandas.
 
 
 
-So in the worst case it did 70.3 Mbits/second (), which might prove sufficient. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval. Since the data isn't normal I'll use resampling.
+So in the worst case it did 70.6 compared to 70.3 Mbits/second for the SimulatedAnnealing, which might prove sufficient. To get an idea of a reasonable range for the `mean` bandwidth I'll use a 99% confidence interval with resampling.
 
 .. '
 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. e between 71.9 and 72.0 Mbits/Second 99% of the time. But this really the whole story -- the exhaustive search gets the best value 100% of the time. We're using the optimizer because it's infeasible to run it (the current estimate is 12 hours of execution time). So how long did the optimizer take to get to these values?
-.. 
-.. 
-.. 
-.. 
-.. re each candidate-check). First a subset of the log was created.
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. efault iperf run-time of 10 seconds is used and it takes 5 seconds to move the table (on average).
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. 
-.. But on average it takes 3.86 to 4.06 hours (I'm assuming the median is the safer interval since it's higher).
+::
+
+    trials = 10**5
+    n = len(bandwidths)
+    output = 'data/random_restarts_full_table_confidence.pkl'
+    if not os.path.isfile(output):
+        samples = numpy.random.choice(bandwidths.Bandwidth,
+                                      size=(n, trials))
+        #numpy.savez(output, samples=samples)
+        means = samples.mean(axis=0)
+        alpha = 0.01
+        p = alpha/2
+    
+        low = numpy.percentile(means, p)
+        high = numpy.percentile(means, 1-p)
+        interval = pandas.Series([low, high], index='low high'.split())
+        interval.to_pickle(output)
+    else:
+        #samples = numpy.load(output)['samples']
+        interval = pandas.read_pickle(output)
+    
+    
+
+**99% Confidence Interval:** (72.510, 72.527)
+
+
+
+So 99% of the time we would expect the mean bandwidth to be between 72.51 Mbits/second and 72.53 Mbits/second.
+
+How long were the execution times?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. highlight:: bash
+
+To get an estimate of the times I'm going to use the "*** Starting hillclimber ***" sub-string to indicate the start of every trial and the "'setPosition' attribute called on railA" sub-string to indicate the number of times that the table was told to move. First those lines were extracted::
+
+    grep "Starting hillclimber\|railA > rail_calls.log"
+
+.. '
+
+.. highlight:: python
+    
+This file is too large to include here, but I created a csv-file with the count of the table-calls per-trial::
+
+    table_calls = 0
+    with open('table_calls.csv', 'w') as w:
+        w.write("RailCalls\n")
+        for line in open('rail_calls.log'):
+            if 'Starting' in line and table_calls !=0:
+                w.write("{0}\n".format(table_calls))
+                table_calls = 0
+                continue
+            if "railA" in line:
+                table_calls += 1
+        w.write("{0}\n".format(table_calls))
+
+This will over-estimate the time because the last call in each trial tells the table to move to the solution that was found without running iperf. So it has to be adjusted by the assumed iperf run-time of 10 seconds per trial (with a total of 1,000 trials).
+
+::
+
+    calls = pandas.read_csv('data/table_calls.csv')
+    
+    
+
+
+
+.. csv-table:: Table Call Counts Summary
+   :header: Statistic, Value
+
+   count,1000.000
+   mean,1568.724
+   std,855.189
+   min,87.000
+   25%,837.750
+   50%,1612.000
+   75%,2288.000
+   max,3395.000
+
+
+
+To convert it to a time-per trial I'll use:
+
+.. math::
+
+   time \gets (iperf + move) \times count - iperf
+
+Where 15 is the assumed run-time per check (iperf + move) in seconds and the last iperf session is subtracted out to reflect the final move of the table to the best solution found. This gives seconds so I'll also divide it by 3600 to convert it to hours.
+
+::
+
+    calls['times'] = (15 * calls.RailCalls - 10)/3600.
+    
+    
+
+
+
+.. csv-table:: Execution Times Summary
+   :header: Statistic, Value
+
+   count,1000.000
+   mean,6.534
+   std,3.563
+   min,0.360
+   25%,3.488
+   50%,6.714
+   75%,9.531
+   max,14.143
+
+.. figure:: figures/runtimes_kde_full_table.png
+   :scale: 75%
+
+
+
+This seems to indicate that the Random Restarts did worse than the Simulated Annealer (which had an estimated min of 0.28, median of 4.2, and max of 5.7). Before concluding this, however, it might be useful to ask when did it first reach the 70 Mbits/Second mark? If this we decide this is good enough, does it make a difference?
+
+.. highlight:: bash
+
+First we need the "Starting" lines that indicate the start of a trial and the "New best solution" lines that have at least 70 Mbits/second of output::
+
+   grep "Starting hillclimber\|New.*Output:[[:space:]]*7[[:digit:]]" tuna_re.log > good_enough.log
+
+.. highlight:: python
+   
+Now we need to save the first line in each trial.
+
+.. literalinclude:: code/good_enough.py
+
+::
+
+    output = 'data/good_enough.csv'
+    good_enough_data = pandas.read_csv(output)
+    
+    
+
+
+
+.. csv-table:: Good Enough Counts and Times
+   :header: Statistic, Count, Time, Bandwidth
+
+   count,1000.000,1000.000,1000.000
+   mean,259.218,1.080,70.834
+   std,162.736,0.678,0.678
+   min,59.000,0.246,70.000
+   25%,133.000,0.554,70.400
+   50%,212.000,0.883,70.500
+   75%,334.250,1.393,71.200
+   max,1098.000,4.575,72.700
+
+.. figure:: figures/good_enough_runtimes_kde_full_table.png
+   :scale: 75%
+
