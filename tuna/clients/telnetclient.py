@@ -25,6 +25,8 @@ class TelnetClient(BaseClient):
     def __init__(self, prompt=None, password=None, end_of_line='\r\n',
                  login_prompt="login:", password_prompt='Password:', *args, **kwargs):
         """
+        TelnetClient constructor
+
         :param:
 
          - `hostname`: The address of the telnet server
@@ -87,7 +89,7 @@ class TelnetClient(BaseClient):
     @property
     def client(self):
         """
-        Tries to login before returning.
+        Tries to login before returning the Telnet object.
 
         :rtype: telnetlib.Telnet
         :return: The telnet client
@@ -206,7 +208,7 @@ class TelnetClient(BaseClient):
          - `command`: The command to execute on the device
          - `timeout`: The readline timeout
 
-        :return: TelnetOutput with the this object's as client
+        :return: TelnetOutput with the this object as client
         """
         self.client.timeout = timeout
         command = command.rstrip('\n')
@@ -232,6 +234,8 @@ class TelnetClient(BaseClient):
                                    
     def writeline(self, message=""):
         """
+        Adds a newline to the message and sends it.
+
         :param:
 
          - `message`: A message to send to the device.

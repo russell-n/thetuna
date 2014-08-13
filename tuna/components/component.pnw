@@ -3,13 +3,6 @@ The Components
 
 .. _the-components:
 
-Contents:
-
-    * :ref:`Introduction <components-introduction>`
-    * :ref:`The BaseComponent Class <component-class>`
-
-.. _components-introduction:
-
 Introduction
 ------------
 

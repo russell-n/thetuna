@@ -1,11 +1,6 @@
 The Ping
 ========
 
-Contents:
-
-   * :ref:`The Ping <ping-ping>`
-   * :ref:`The Ping Constants <ping-ping-constants>`
-
 <<name='imports', echo=False>>=
 # python standard library
 import re
@@ -229,7 +224,7 @@ A holder of constants for the ping.
    rtt_expression, regular expression to match a successful ping
 
 
-<<name='PingConstants', echo=False>>=
+<<name='PingConstants'>>=
 class PingConstants(object):
     """
     Ping constants (so other modules can reference them)

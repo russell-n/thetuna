@@ -10,12 +10,8 @@ The Telnet Client is an adapter that provides an interface that matches the :ref
    :toctree: api
 
    telnetlib.Telnet
-
-Contents:
-
-   * :ref:`Telnet Client <telnet-client>`
-   * :ref:`Telnet Output <telnet-client-telnet-output>`
-   * :ref:`About the Connect Method <telnet-connect>`
+   telnetlib.Telnet.expect
+   telnetlib.Telnet.read_very_eager
 
 
 
@@ -73,7 +69,7 @@ One of the things that makes the telnet and serial interfaces hard to work with 
 .. figure:: figures/telnet_connect_activities.svg
    :align: center
 
-The diagram is probably more complicated than you would normally expect for a telnet connection but I am expecting to use this to work with forwarded serial connections as well, and they tend to be a little... difficult.
+The diagram is probably more complicated than you would normally expect for a telnet connection but I am expecting to use this to work with forwarded serial connections as well, and they tend to be a little difficult.
 
 
 

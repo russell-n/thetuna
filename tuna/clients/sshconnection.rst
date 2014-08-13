@@ -56,7 +56,7 @@ There's also a lock so that if multiple pieces of code are using the same connec
 
 
 
-.. currentmodule:: cameraobscura.SSH.sshconnection
+.. module:: tuna.clients.sshconnection
 .. autosummary::
    :toctree: api
 

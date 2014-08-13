@@ -61,8 +61,7 @@ class IperfParser(BaseClass):
     The Iperf Parser extracts bandwidth and other information from the output
     """
     def __init__(self, expected_interval=1, interval_tolerance=0.1, units="Mbits",
-                 threads=4,
-                 maximum=10**9):
+                 threads=4, maximum=10**9):
         """
         IperfParser Constructor
         

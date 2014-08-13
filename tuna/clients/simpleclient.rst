@@ -10,19 +10,13 @@ SSHClient::
    c = SSHClient()
    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
    c.load_system_host_keys()
-   c.connect(hostname='192.168.10.24', username='allion')
+   c.connect(hostname='192.168.10.24', username='bob')
    stdin, stdout, stderror = c.exec_command('ls')
 
 SimpleClient::
 
-   c = SimpleClient(hostname='192.168.10.24', username='allion')
+   c = SimpleClient(hostname='192.168.10.24', username='bob')
    stdin, stdout, stderr = c.exec_command('ls')
-
-Contents:
-
-    * :ref:`Paramiko SSHClient <simpleclient-paramiko>`
-    * :ref:`ConnectionError <simpleclient-connectionerror>`
-    * :ref:`The SimpleClient <simpleclient>`
 
 .. _simpleclient-paramiko:   
 
@@ -67,7 +61,7 @@ This is just a sub-class of the `CameraobscuraError` so anything that traps that
 
    TunaError <|-- ConnectionError
 
-.. currentmodule:: TunaError.clients.simpleclient
+.. currentmodule:: tuna.clients.simpleclient
 .. autosummary::
    :toctree: api
 

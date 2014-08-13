@@ -11,7 +11,7 @@ This is basically the same as the Sleep Plugin but I wanted to make it available
    TheBigSleep : __init__(end, total, interval, verbose)
    TheBigSleep : __call__()
 
-.. currentmodule:: tuna.components.sleep.sleep
+.. currentmodule:: tuna.components.sleep_component
 .. autosummary::
    :toctree: api
 

@@ -3,15 +3,6 @@ The Iperf
 
 A set of convenience classes and methods for running iperf traffic.
 
-Contents:
-
-    * :ref:`ClientServer named tuple <iperf-client-server-namedtuple>`
-    * :ref:`Iperf Class <iperf-class>`
-    * :ref:`Event Timer <iperf-event-timer>`
-    * :ref:`Iperf Constants (enum) <iperf-enum>`
-    * :ref:`Iperf Configuration <iperf-configuration>`
-    * :ref:`Iperf Metric <iperf-metric>`
-
 
 
 .. _iperf-client-server-namedtuple:
@@ -77,6 +68,28 @@ Iperf Enum
 ----------
 
 A holder of constants.
+
+::
+
+    class IperfEnum(object):
+        """
+        Iperf constants
+        """
+        __slots__ = ()
+        section = 'iperf'
+        old_section = 'traffic'
+        false = 'off no false'.split()
+    
+        # options
+        direction = 'direction'
+        upstream = 'upstream'
+        downstream = 'downstream'
+        both = 'both'
+    
+        # defaults
+        default_direction = both
+    
+    
 
 
 

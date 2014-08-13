@@ -1,17 +1,6 @@
 IperfSettings
 =============
 
-Contents:
-
-    * :ref:`Iperf Settings Constants <iperf-settings-constants>`
-    * :ref:`Iperf Base Settings <iperf-base-settings>`
-    * :ref:`General Iperf Constants <iperf-general-constants>`
-    * :ref:`Common (General) Iperf Settings <iperf-settings-common>`
-    * :ref:`Iperf Composite Base <iperf-composite-base>`
-    * :ref:`Iperf Server Settings <iperf-server-settings>`
-    * :ref:`Iperf Client Constants <iperf-client-constants>`
-    * :ref:`Iperf Client Settings <iperf-client-settings>`
-
 
 
 .. warning:: To make it more transparent these settings don't assume any overridden defaults. If you don't set any of them the iperf defaults are used. This way, hopefully, referring to the man page should be enough for the user to know what the code is doing.
@@ -58,6 +47,7 @@ This is the base class for all the settings.
 
    BaseClass <|-- IperfBaseSettings
 
+.. module:: tuna.commands.iperf.iperfsettings
 .. autosummary::
    :toctree: api
 

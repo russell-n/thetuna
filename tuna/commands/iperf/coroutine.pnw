@@ -1,6 +1,6 @@
 Coroutines
 ==========
-.. currentmodule:: iperflexer.coroutine
+.. currentmodule:: tuna.commands.iperf.coroutine
 
 A module for generic coroutines.
 

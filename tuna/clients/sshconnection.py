@@ -30,7 +30,7 @@ import threading
 import paramiko
 
 # this package
-from cameraobscura import BaseClass, CameraobscuraError
+from tuna import BaseClass, TunaError
 
 
 SEMICOLON_JOIN = "{0};{1}"

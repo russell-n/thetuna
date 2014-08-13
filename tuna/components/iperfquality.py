@@ -187,7 +187,7 @@ class IperfMetric(BaseComponent):
                                                   inputs="_".join([str(item) for item in target.inputs]))
                     outcomes.append(self.iperf(direction, filename))            
             target.output = self.aggregator(outcomes)
-            self.logger.info("{0} of {1} iperf repetitions: {2}".format(self.aggregator.__name__,
+            self.log_info("{0} of {1} iperf repetitions: {2}".format(self.aggregator.__name__,
                                                                         self.repetitions,
                                                                         target.output))
         return target.output

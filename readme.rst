@@ -11,4 +11,4 @@ The package was written using `Pweave <http://mpastell.com/pweave/>`_ and so has
 Plugins
 -------
 
-To allow the running of non-tuna code a rudimentary plugin system was created that requires sub-classing the tuna's BasePlugin class and pointing to it in the config file. There's an example plugin at the top-level of the tuna's folder-structure (next to the setup.py file).
+To allow the running of non-tuna code a rudimentary plugin system was created that requires sub-classing the tuna's BasePlugin class and pointing to it in the config file. There's an example plugin at the top-level of the tuna's folder-structure (next to the setup.py file). An implemented example can be found `here <http://rallion.bitbucket.org/others/xytable/tableplugin.html>`_.

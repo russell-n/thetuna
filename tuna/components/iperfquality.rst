@@ -33,7 +33,7 @@ This `quality` metric runs iperf on two `hosts` and takes returns the median ban
 
    BaseComponent <|-- IperfDataQuality
 
-.. currentmodule:: tuna.components.iperfmetric
+.. currentmodule:: tuna.components.iperfquality
 .. autosummary::
    :toctree: api
 
@@ -182,7 +182,7 @@ This is yet another aggregator. In this case I needed some way to interpret the 
    IperfMetric : filename
    IperfMetric : aggregator
 
-.. currentmodule:: tuna.commands.iperf.iperf   
+.. currentmodule:: tuna.components.iperfquality   
 .. autosummary::
    :toctree: api
 

@@ -99,7 +99,7 @@ This is a decorator to handle catching socket errors so the __call__ doesn't get
 
 .. '
 
-.. currentmodule:: tuna.commands.command.command
+.. currentmodule:: tuna.commands.command
 .. autosummary::
    :toctree: api
 
@@ -150,10 +150,10 @@ The only required arguments are `connection` and `command`. Arguments are option
 The Call
 ~~~~~~~~
 
-.. figure:: figures/command_activity.svg
-   :align: center
-
-   TheCommand's Activity Diagram
+.. .. figure:: figures/command_activity.svg
+..    :align: center
+.. 
+..    TheCommand's Activity Diagram
 
 .. '
    

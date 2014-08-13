@@ -1,17 +1,6 @@
 IperfSettings
 =============
 
-Contents:
-
-    * :ref:`Iperf Settings Constants <iperf-settings-constants>`
-    * :ref:`Iperf Base Settings <iperf-base-settings>`
-    * :ref:`General Iperf Constants <iperf-general-constants>`
-    * :ref:`Common (General) Iperf Settings <iperf-settings-common>`
-    * :ref:`Iperf Composite Base <iperf-composite-base>`
-    * :ref:`Iperf Server Settings <iperf-server-settings>`
-    * :ref:`Iperf Client Constants <iperf-client-constants>`
-    * :ref:`Iperf Client Settings <iperf-client-settings>`
-
 <<name='imports', echo=False>>=
 # python standard library
 from types import IntType, FloatType, NoneType, StringType
@@ -110,6 +99,7 @@ This is the base class for all the settings.
 
    BaseClass <|-- IperfBaseSettings
 
+.. module:: tuna.commands.iperf.iperfsettings
 .. autosummary::
    :toctree: api
 

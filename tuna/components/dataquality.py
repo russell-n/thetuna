@@ -95,6 +95,7 @@ class XYDataQuality(BaseComponent):
         self.quality_checks += 1
         if target.output is None:
             target.output = self.data[target.inputs[0], target.inputs[1]]
+            self.logger.debug(str(target))
         return target.output
 
     def check_rep(self):

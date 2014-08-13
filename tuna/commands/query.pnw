@@ -291,7 +291,7 @@ The QueryConfiguration
    QueryConfiguration : List fields
    QueryConfiguration : List commands
    
-.. currentmodule:: cameraobscura.utilities.query
+.. module:: tuna.commands.query
 .. autosummary::
    :toctree: api
 

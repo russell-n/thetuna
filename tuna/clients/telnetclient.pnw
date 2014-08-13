@@ -10,12 +10,8 @@ The Telnet Client is an adapter that provides an interface that matches the :ref
    :toctree: api
 
    telnetlib.Telnet
-
-Contents:
-
-   * :ref:`Telnet Client <telnet-client>`
-   * :ref:`Telnet Output <telnet-client-telnet-output>`
-   * :ref:`About the Connect Method <telnet-connect>`
+   telnetlib.Telnet.expect
+   telnetlib.Telnet.read_very_eager
 
 <<name='imports', echo=False>>=
 # python Libraries
@@ -62,6 +58,8 @@ class TelnetClient(BaseClient):
     def __init__(self, prompt=None, password=None, end_of_line='\r\n',
                  login_prompt="login:", password_prompt='Password:', *args, **kwargs):
         """
+        TelnetClient constructor
+
         :param:
 
          - `hostname`: The address of the telnet server
@@ -124,7 +122,7 @@ class TelnetClient(BaseClient):
     @property
     def client(self):
         """
-        Tries to login before returning.
+        Tries to login before returning the Telnet object.
 
         :rtype: telnetlib.Telnet
         :return: The telnet client
@@ -243,7 +241,7 @@ class TelnetClient(BaseClient):
          - `command`: The command to execute on the device
          - `timeout`: The readline timeout
 
-        :return: TelnetOutput with the this object's as client
+        :return: TelnetOutput with the this object as client
         """
         self.client.timeout = timeout
         command = command.rstrip('\n')
@@ -269,6 +267,8 @@ class TelnetClient(BaseClient):
                                    
     def writeline(self, message=""):
         """
+        Adds a newline to the message and sends it.
+
         :param:
 
          - `message`: A message to send to the device.
@@ -428,7 +428,7 @@ One of the things that makes the telnet and serial interfaces hard to work with 
 .. figure:: figures/telnet_connect_activities.svg
    :align: center
 
-The diagram is probably more complicated than you would normally expect for a telnet connection but I am expecting to use this to work with forwarded serial connections as well, and they tend to be a little... difficult.
+The diagram is probably more complicated than you would normally expect for a telnet connection but I am expecting to use this to work with forwarded serial connections as well, and they tend to be a little difficult.
 
 
 

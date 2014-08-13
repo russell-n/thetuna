@@ -91,13 +91,12 @@ The Dump Class
 
    BaseClass <|-- TheDump   
 
-.. currentmodule:: cameraobscura
+.. module:: tuna.commands.dump
 .. autosummary::
    :toctree: api
 
    BaseClass
 
-.. currentmodule:: cameraobscura.utilities.dump
 .. autosummary::
    :toctree: api
 

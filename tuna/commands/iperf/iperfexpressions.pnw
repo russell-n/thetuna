@@ -183,7 +183,9 @@ As with the above, the main regular expressions are defined in the :ref:`oatbran
    interval &\gets start + DASH + end\\
    transfer &\gets \mathbb{Z}\\
    bandwidth &\gets \mathbb{Z}\\
-   expression &\gets timestamp + COMMA + sender\_ip + COMMA + sender\_port + COMMA + receiver\_ip + COMMA + receiver\_port + COMMA + thread + COMMA + interval + COMMA + transfer + bandwidth\\
+   nodes &\gets sender\_ip + COMMA + sender\_port + COMMA + receiver\_ip + COMMA + receiver\_port\\
+   data &\gets interval + COMMA + transfer + bandwidth\\
+   expression &\gets timestamp + COMMA + node + COMMA + thread + COMMA + data
 
 <<name='CSVExpression', echo=False>>=
 class CsvExpression(ExpressionBase):
