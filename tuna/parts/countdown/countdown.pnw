@@ -3,13 +3,6 @@ The Countdown
 
 The Countdown Timers are meant to be used by the composites and components to keep track of elapsed (and sometimes remaining) time. The :ref:`Time Tracker <tuna-parts-countdown-timetracker>` is used to keep track of how long execution is taking. This is meant primarily for someone wanting to estimate future times by looking at past logs. The :ref:`CountDown Timer <tuna-parts-countdown-countdowntimer>` also keeps track of execution time but is meant to also keep track of whether the composite should repeat or not (based on remaining repetitions or time).
 
-Contents:
-
-    * :ref:`TimeTracker <tuna-parts-countdown-timetracker>`
-
-    * :ref:`CountdownTimer <tuna-parts-countdown-countdowntimer>`
-
-
 .. currentmodule:: tuna.parts.countdown.countdown
 
 <<name='imports', echo=False>>=

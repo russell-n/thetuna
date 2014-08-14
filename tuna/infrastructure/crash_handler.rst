@@ -13,6 +13,7 @@ The try-except Decorator
 This decorator allows exceptions to be caught and logged, rather than having the interpreter dump the stack-trace to standard-error (it still logs the stack-trace and displays some of the output).
 
 .. module:: tuna.infrastructure.crash_handler
+
 .. autosummary::
    :toctree: api
 
@@ -32,6 +33,7 @@ The log_error Function
 ----------------------
 
 .. module:: tuna.infrastructure.crash_handler
+
 .. autosummary::
    :toctree: api
 
@@ -53,6 +55,9 @@ This is a function that does pretty much what log_error does but uses print-stat
     import os
     
     def print_traceback(error):
+        """
+        reformats information from traceback and prints to stdout
+        """
         exc_type, exc_value, exc_tb = sys.exc_info()
         tb_info = traceback.extract_tb(exc_tb)
         filename, linenum, funcname, source = tb_info[-1]

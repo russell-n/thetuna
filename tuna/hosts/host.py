@@ -11,17 +11,34 @@ from tuna import BaseClass, TunaError
 from tuna.infrastructure.baseconfiguration import BaseConfiguration
 
 
-class HostConstants(object):
+class HostEnum(object):
     """
-    A holder of constants for the Host
+    A holder of Host constants
     """
     __slots__ = ()
-    # connection types
-    ssh = 'ssh'
-    telnet = 'telnet'
 
+    # options  
+    control_ip = 'control_ip'
+    password = 'password'
+    connection_type = 'connection_type'
+    test_ip = 'test_ip'
+    username = 'username'
+    port = 'port'
+    timeout = 'timeout'
+    prefix = 'prefix'
+    operating_system = 'operating_system'
+    telnet = 'telnet'
     prefix_command = '{p} {c}'
-# end HostConstants    
+    
+    options = (control_ip, password, connection_type, test_ip, username,
+               port, timeout, prefix, operating_system)
+    # defaults
+    default_port = 22
+    default_type = 'ssh'
+    default_timeout = 1
+    default_operating_system = 'linux'
+    
+# end HostEnum    
 
 
 class TheHost(BaseClass):
@@ -29,7 +46,7 @@ class TheHost(BaseClass):
     The main host used to build the other hosts
     """
     def __init__(self, hostname, test_interface, username=None, timeout=1, prefix=None, 
-                 operating_system='linux', connection_type=HostConstants.ssh,
+                 operating_system='linux', connection_type=HostEnum.default_type,
                  **kwargs):
         """
         TheHost Constructor
@@ -42,7 +59,7 @@ class TheHost(BaseClass):
          - `timeout`: timeout for reading from the connection
          - `prefix`: string to add to every command sent to the connection
          - `operating_system`: os to help commands predict syntax
-         - `connection_type`: Identifier for the connection (see HostConstants)
+         - `connection_type`: Identifier for the connection (see HostEnum)
          - `kwargs`: extra parameters for connections other than the SimpleClient
         """
         super(TheHost, self).__init__()
@@ -95,7 +112,7 @@ class TheHost(BaseClass):
         :return: dict of type:class definition objects
         """
         if self._client_constructors is None:
-            self._client_constructors = dict(zip((HostConstants.ssh, HostConstants.telnet),
+            self._client_constructors = dict(zip((HostEnum.default_type, HostEnum.telnet),
                                                  (SimpleClient, TelnetClient)))
         return self._client_constructors
 
@@ -112,7 +129,7 @@ class TheHost(BaseClass):
         :return: Stdin, Stdout, Stderr
         """
         if self.prefix is not None:
-            command = HostConstants.prefix_command.format(p=self.prefix,
+            command = HostEnum.prefix_command.format(p=self.prefix,
                                                           c=command)
         with self.lock:
             return self.client.exec_command(command,
@@ -181,33 +198,6 @@ class TheHost(BaseClass):
                                                                self.client)
 
 # end class TheHost    
-
-
-class HostEnum(object):
-    """
-    A holder of Host constants
-    """
-    __slots__ = ()
-
-    # options  
-    control_ip = 'control_ip'
-    password = 'password'
-    connection_type = 'connection_type'
-    test_ip = 'test_ip'
-    username = 'username'
-    port = 'port'
-    timeout = 'timeout'
-    prefix = 'prefix'
-    operating_system = 'operating_system'
-
-    options = (control_ip, password, connection_type, test_ip, username,
-               port, timeout, prefix, operating_system)
-    # defaults
-    default_port = 22
-    default_type = 'ssh'
-    default_timeout = 1
-    default_operating_system = 'linux'
-# end HostEnum    
 
 
 class HostConfiguration(BaseConfiguration):

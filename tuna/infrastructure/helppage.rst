@@ -193,7 +193,8 @@ The output from the first call will not show up in the documentation output, so 
 So you need to do something like this::
 
     command = 'less -R'.split()
-    subprocess.Popen(command, stdin=subprocess.PIPE).communicate(input=long_wrapped_text)
+    subprocess.Popen(command,
+                     stdin=subprocess.PIPE).communicate(input=long_wrapped_text)
 
 The HelpPage
 ------------
@@ -206,7 +207,7 @@ With that background material to the aside, here is the actual pager.
    HelpPage o- subprocess.Popen
    HelpPage o- textwrap.TextWrapper
 
-.. currentmodule:: ape.plugins.helppage
+.. currentmodule:: tuna.infrastructure.helppage
 .. autosummary::
    :toctree: api
 
@@ -214,7 +215,7 @@ With that background material to the aside, here is the actual pager.
    HelpPage.__call__
    HelpPage.text
 
-.. warning:: The HelpPage is using the `string.format <http://docs.python.org/2/library/stdtypes.html#str.format`_ method so putting curly braces ('{}') in the help-strings is probably a bad idea. If you need them, make sure to double them -- ('{{like this}}').
+.. warning:: The HelpPage is using the `string.format <http://docs.python.org/2/library/stdtypes.html#str.format>`_ method so putting curly braces ('{}') in the help-strings is probably a bad idea. If you need them, make sure to double them -- (`{{like this}}`).
 
 If the `headers` argument is not set then the keys from the `sections` argument will be used (this way an ordered dict can be used to make things simpler).
    

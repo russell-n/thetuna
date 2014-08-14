@@ -30,7 +30,7 @@ from tuna.components.component import BaseComponent
 The Help Arguments Constants
 ----------------------------
 
-.. currentmodule:: tuna.interface.arguments.helparguments
+.. module:: tuna.infrastructure.arguments.helparguments
 .. autosummary::
    :toctree: api
 

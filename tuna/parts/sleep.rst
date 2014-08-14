@@ -5,12 +5,6 @@ The Big Sleep
 
 This is a module to integrate pauses with human-readable feedback into the ape.
 
-Contents:
-
-    * :ref:`Parameters <tuna-thebigsleep-parameters>`
-
-    * :ref:`UML Model <tuna-thebigsleep-model>`
-
 
 
 .. _ape-thebigsleep-parameters:
@@ -54,7 +48,7 @@ The Class Model
    TheBigSleep : close()
 
 
-.. currentmodule:: ape.parts.sleep.sleep
+.. currentmodule:: tuna.parts.sleep
 .. autosummary::
    :toctree: api
 

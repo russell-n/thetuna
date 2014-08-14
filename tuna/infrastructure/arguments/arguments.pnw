@@ -52,12 +52,6 @@ from tuna.infrastructure.ryemother import RyeMother
 <<name='check_pweave', echo=False>>=
 document_this = __name__ == '__builtin__'
 @
-
-Contents:
-
-   * :ref:`The Argument Constants <tuna-interface-arguments-argumentconstants>`
-   * :ref:`The BaseArguments <tuna-interface-arguments-basearguments>`
-
    
 .. _tuna-interface-arguments-argumentconstants:
 

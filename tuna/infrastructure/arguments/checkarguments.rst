@@ -25,12 +25,6 @@ The Check Sub-Command Arguments
 
 See the :ref:`developer documentation <docopt-reproducingtuna-check-sub-command>` for more information about this.
 
-Contents:
-
-   * :ref:`Check Arguments Constants <tuna-interface-arguments-check-arguments-constants>`
-   * :ref:`Check Arguments Class <tuna-interface-arguments-check-arguments-class>`
-   * :ref:`Check Strategy <tuna-interface-arguments-check-strategy>`
-
 
 
 .. _tuna-interface-arguments-check-arguments-constants:
@@ -65,7 +59,8 @@ The Check Class
 
    BaseArguments <|-- Check
 
-.. currentmodule:: tuna.interface.arguments.checkarguments
+.. currentmodule:: tuna.infrastructure.arguments.checkarguments
+
 .. autosummary::
    :toctree: api
 

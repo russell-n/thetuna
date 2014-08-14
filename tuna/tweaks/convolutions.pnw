@@ -167,6 +167,8 @@ class GaussianConvolutionConstants(object):
     number_type_default='float'     
 @
 
+.. module:: tuna.tweaks.convolutions
+
 .. autosummary::
    :toctree: api
 

@@ -17,13 +17,6 @@ Options;
 """
 @
 
-See the :ref:`developer documentation <docopt-reproducingoptimizer-run-sub-command>` for more information about this section.
-
-Contents:
-
-    * :ref:`Run Arguments Constants <tuna-interface-run-arguments-constants>`
-    * :ref:`Run Arguments Class <tuna-interface-run-arguments-class>`
-    * :ref:`Run Strategy <tuna-interface-run-strategy>`
 
 <<name='imports', echo=False>>=
 # python standard library
@@ -63,13 +56,14 @@ The RunArguments Class
 
    BaseArguments <|-- RunArguments
 
-.. currentmodule:: tuna.interface.arguments.runarguments
+.. module:: tuna.infrastructure.arguments.runarguments
 .. autosummary::
    :toctree: api
 
-   RunArguments
-   RunArguments.configfiles
-   RunArguments.reset
+   Run
+   Run.configfiles
+   Run.function
+   Run.reset
 
 <<name='RunArguments', echo=False>>=
 class Run(BaseArguments):

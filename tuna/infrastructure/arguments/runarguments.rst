@@ -22,16 +22,6 @@ The Run Sub-Command Arguments
 
 
 
-See the :ref:`developer documentation <docopt-reproducingoptimizer-run-sub-command>` for more information about this section.
-
-Contents:
-
-    * :ref:`Run Arguments Constants <tuna-interface-run-arguments-constants>`
-    * :ref:`Run Arguments Class <tuna-interface-run-arguments-class>`
-    * :ref:`Run Strategy <tuna-interface-run-strategy>`
-
-
-
 .. _tuna-interface-run-arguments-constants:
 
 The RunArguments Constants
@@ -63,13 +53,14 @@ The RunArguments Class
 
    BaseArguments <|-- RunArguments
 
-.. currentmodule:: tuna.interface.arguments.runarguments
+.. module:: tuna.infrastructure.arguments.runarguments
 .. autosummary::
    :toctree: api
 
-   RunArguments
-   RunArguments.configfiles
-   RunArguments.reset
+   Run
+   Run.configfiles
+   Run.function
+   Run.reset
 
 
 

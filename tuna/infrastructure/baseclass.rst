@@ -62,6 +62,7 @@ This will raise a ``TypeError`` if the child class doesn't implement run and it 
 .. '
 
 .. currentmodule::: tuna.infrastructure.baseclass
+
 .. autosummary::
    :toctree: api
 

@@ -66,6 +66,9 @@ import sys
 import os
 
 def print_traceback(error):
+    """
+    reformats information from traceback and prints to stdout
+    """
     exc_type, exc_value, exc_tb = sys.exc_info()
     tb_info = traceback.extract_tb(exc_tb)
     filename, linenum, funcname, source = tb_info[-1]

@@ -22,31 +22,6 @@ These are classes meant to be dropped into place where `Quality` classes are cal
     
     
 
-
-
-The IperfData Quality
----------------------
-
-This `quality` metric runs iperf on two `hosts` and takes returns the median bandwidth as the `quality` of their end-to-end connection. The language used can be sort of confusing, but here one of the hosts is called a `client` and the other a `server`, even though they can assume either role when running iperf. The assumption is that the `client` is the device that is being tested while the `server` is a well-provisioned server that facilitates the testing.
-
-.. uml::
-
-   BaseComponent <|-- IperfDataQuality
-
-.. currentmodule:: tuna.components.iperfquality
-.. autosummary::
-   :toctree: api
-
-   IperfDataQuality
-   IperfDataQuality.client
-   IperfDataQuality.server
-   IperfDataQuality.IperfClientSettings
-   IperfDataQuality.IperfServerSettings
-   IperfDataQuality.product
-   IperfDataQuality.__call__
-   IperfDataQuality.check_rep
-   IperfDataQuality.close
-
 ::
 
     CONFIGURATION = """

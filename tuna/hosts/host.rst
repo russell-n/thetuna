@@ -2,49 +2,29 @@ Host
 ====
 
 A bundle of client and some leftover methods and information. The `Host` builds the connection based on the identified connection type.
-
-Contents:
-
-   * :ref:`Host Constants <host-constants>`
-   * :ref:`The Host <host-host>`
-   * :ref:`Host Configuration <host-configuration>`
    
 
 
-.. _host-constants:
-
-Host Constants
---------------
-
-A central place for constants needed by the Host.
-
-
-
-.. _host-host:
-
-The Host
---------
-
-There used to be multiple hosts, but now there is one. It uses the connection type to build the other hosts and return them.
-
-.. uml::
-
-   BaseClass <|-- TheHost
-   TheHost o- SimpleClient
-   TheHost o- TelnetClient
-
-
-.. currentmodule:: tuna.hosts.host
-.. autosummary:: 
-   :toctree: api
-
-   TheHost
-   TheHost.client
-   TheHost.exec_command
-   TheHost.close
-   TheHost.kill_all
-
-
+.. .. _host-constants:
+.. 
+.. Host Constants
+.. --------------
+.. 
+.. A central place for constants needed by the Host.
+.. 
+.. <<name='HostConstants'>>=
+.. class HostConstants(object):
+..     """
+..     A holder of constants for the Host
+..     """
+..     __slots__ = ()
+..     # connection types
+..     ssh = 'ssh'
+..     telnet = 'telnet'
+.. 
+..     prefix_command = '{p} {c}'
+.. # end HostConstants    
+.. 
 
 .. _host-enum:
 
@@ -71,7 +51,9 @@ A place to store constants that other classes might need to refer to.
         timeout = 'timeout'
         prefix = 'prefix'
         operating_system = 'operating_system'
-    
+        telnet = 'telnet'
+        prefix_command = '{p} {c}'
+        
         options = (control_ip, password, connection_type, test_ip, username,
                    port, timeout, prefix, operating_system)
         # defaults
@@ -79,9 +61,37 @@ A place to store constants that other classes might need to refer to.
         default_type = 'ssh'
         default_timeout = 1
         default_operating_system = 'linux'
+        
     # end HostEnum    
     
     
+
+
+
+
+.. _host-host:
+
+The Host
+--------
+
+There used to be multiple hosts, but now there is one. It uses the connection type to build the other hosts and return them.
+
+.. uml::
+
+   BaseClass <|-- TheHost
+   TheHost o- SimpleClient
+   TheHost o- TelnetClient
+
+
+.. currentmodule:: tuna.hosts.host
+.. autosummary:: 
+   :toctree: api
+
+   TheHost
+   TheHost.client
+   TheHost.exec_command
+   TheHost.close
+   TheHost.kill_all
 
 
 

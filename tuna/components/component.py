@@ -15,9 +15,6 @@ from tuna import ConfigurationError
 from tuna.parts.countdown.countdown import TimeTracker
 
 
-DOCUMENT_THIS = __name__ == '__builtin__'
-
-
 class BaseComponent(BaseClass):
     """
     A base-class for Composite and Leaf

@@ -15,6 +15,8 @@ In order to support multiple output-targets, a Composite will be used to store S
    StorageComposite : add(storage)
    StorageComposite : remove(component)
 
+.. module:: tuna.parts.storage.storagecomposite
+
 .. autosummary::
    :toctree: api
 

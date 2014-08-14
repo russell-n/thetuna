@@ -26,7 +26,7 @@ The BaseSimulation Class
    BaseSimulation : domain_end
    BaseSimulation : domain_step
 
-.. currentmodule:: optimization.simulations.basesimulation
+.. currentmodule:: tuna.qualities.basesimulation
 .. autosummary::
    :toctree: api
 

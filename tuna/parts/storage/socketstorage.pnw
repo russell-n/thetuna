@@ -5,12 +5,6 @@ Socket Storage
 
 This is a module for classes that implement a file-like interface to a socket. Its main purpose is to catch socket timeout errors.
 
-Contents:
-
-    * :ref:`SocketStorage Model <socket-storage-model>`
-
-    * :ref:`SocketStorage API <socket-storage-api>`
-
 <<name='imports', echo=False>>=
 # python standard library
 import os

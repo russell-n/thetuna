@@ -3,10 +3,6 @@ The Steepest Ascent Hill Climber (With Replacement)
 
 *Steepest Ascent Hill-Climbing With Replacement* makes the search more aggresive than a regular hill-climber by sampling multiple times around the current candidate solution [EOM]_.
 
-Contents:
-
-   * :ref:`SteepestAscent Class <optimization-optimizers-steepestascent>`
-
 For examples:
        
    * :ref:`Normal Distribution Example <optimization-optimizers-steepestascent-normalexample>`

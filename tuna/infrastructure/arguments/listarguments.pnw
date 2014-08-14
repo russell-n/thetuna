@@ -17,7 +17,6 @@ optional arguments:
 """
 @
 
-See the :ref:`developer documentation <docopt-reproducingtuna-list-sub-command>` for more information.
 
 <<name='imports', echo=False>>=
 # the tuna
@@ -52,7 +51,7 @@ The List Class
 
    BaseArguments <|-- List
 
-.. currentmodule:: tuna.interface.arguments.listarguments
+.. currentmodule:: tuna.infrastructure.arguments.listarguments
 .. autosummary::
    :toctree: api
 

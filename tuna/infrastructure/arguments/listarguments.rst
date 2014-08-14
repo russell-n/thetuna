@@ -20,10 +20,6 @@ The List Sub-Command Arguments
 
 
 
-See the :ref:`developer documentation <docopt-reproducingtuna-list-sub-command>` for more information.
-
-
-
 .. _tuna-interface-arguments-list-arguments-constants:
 
 The ListArguments Constants
@@ -53,7 +49,7 @@ The List Class
 
    BaseArguments <|-- List
 
-.. currentmodule:: tuna.interface.arguments.listarguments
+.. currentmodule:: tuna.infrastructure.arguments.listarguments
 .. autosummary::
    :toctree: api
 

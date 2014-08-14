@@ -35,7 +35,8 @@ The purpose of this class is to enforce some expected attributes and to provide 
    BaseConfiguration : check_rep()
    BaseConfiguration : reset()
 
-.. currentmodule:: tuna.common.baseconfiguration
+.. currentmodule:: tuna.infrastructure.baseconfiguration
+
 .. autosummary::
    :toctree: api
 

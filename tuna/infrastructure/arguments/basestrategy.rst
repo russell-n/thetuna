@@ -3,12 +3,6 @@ The BaseStrategy
 
 .. currentmodule:: tuna.infrastructure.arguments.basestrategy
 
-Contents:
-
-    * :ref:`Introduction <tuna-infrastructure-arguments-base-strategy>`
-    * :ref:`Class Model <tuna-infrastructure-arguments-basestrategy-class-model>`
-    * :ref:`Error Explanations <tuna-infrastructure-arguments-basestrategy-errors>`
-
 
 
 .. _tuna-infrastructure-arguments-base-strategy:
@@ -29,7 +23,12 @@ Class Model
    BaseStrategy o- Tuna
    BaseStrategy --|> BaseClass
 
+.. autosummary::
+   :toctree: api
 
+   BaseStrategy
+   BaseStrategy.build_tuna
+   BaseStrategy.clean_up
 
 .. _tuna-infrastructure-arguments-basestrategy-errors:
 

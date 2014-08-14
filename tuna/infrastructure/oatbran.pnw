@@ -1,6 +1,6 @@
 The OatBran
 ===========
-.. currentmodule:: ape.commoncode.oatbran
+.. module:: tuna.infrastructure.oatbran
 Oat Bran helps with regular expressions. Names are uppercased to avoid keyword clashes
 <<name='import', echo=False>>=
 import string
@@ -11,22 +11,6 @@ import string
 LEFT_BRACKET = '['
 RIGHT_BRACKET = ']'
 @
-
-Contents:
-
-    * :ref:`Formal Definition <ape-oatbran-formar-definition>`
-
-    * :ref:`Groups <ape-oatbran-groups>`
-
-    * :ref:`Quantifiers <ape-oatbran-quantifiers>`
-
-    * :ref:`Character Classes <ape-oatbran-character-classes>`
-
-    * :ref:`Boundaries <ape-oatbran-boundaries>`
-
-    * :ref:`Common Patterns <ape-oatbran-common-patterns>`
-
-    * :ref:`Numbers <ape-oatbran-numbers>`
 
 .. _ape-oatbran-formal-definition:    
     
@@ -42,15 +26,7 @@ These are the basic building blocks of regular expressions.
    alternative (OR),:math:`|`
    kleene_star, :math:`*`
 
-.. autosummary::
-   :toctree: api
-
-   FormalDefinition.empty_string
-   FormalDefinition.alternative
-   FormalDefinition.OR
-   FormalDefinition.kleene_star
-
-<<name='FormalDefinition', echo=False>>=
+<<name='FormalDefinition'>>=
 class FormalDefinition(object):
     """
     The basic operators and elements of a regular expression
@@ -232,20 +208,7 @@ Character Classes
 
 A helper with character classes (stuff put in square-brackets ('[]')). There are some similar patterns in other classes. I tried to put single characters in this class (e.g. digit) and multiple characters or those with quantifiers in other classes (e.g. digits or optional_digits).
 
-.. autosummary::
-   :toctree: api
-
-   CharacterClass
-   CharacterClass.character_class
-   CharacterClass.alpha_num
-   CharacterClass.alpha_nums
-   CharacterClass.digit
-   CharacterClass.non_digit
-   CharacterClass.non_zero_digit
-   CharacterClass.character_class
-   CharacterClass.not_in
-   
-<<name='CharacterClass', echo=False>>=
+<<name='CharacterClass'>>=
 class CharacterClass(object):
     """
     A class to help with character classes
@@ -294,12 +257,10 @@ Boundaries
    :toctree: api
 
    Boundaries
-   Boundaries.string_start
-   Boundaries.string_end
    Boundaries.word
    Boundaries.string
    
-<<name='Boundaries', echo=False>>=
+<<name='Boundaries'>>=
 class Boundaries(object):
     """
     A class to hold boundaries for expressions
@@ -343,21 +304,8 @@ Common Patterns
 
 These are pattens that I use a lot but I could not think of where to put them.
 
-.. autosummary::
-   :toctree: api
-
-   CommonPatterns.anything
-   CommonPatterns.everything
-   CommonPatterns.letter
-   CommonPatterns.letters
-   CommonPatterns.optional_letters
-   CommonPatterns.space
-   CommonPatterns.spaces
-   CommonPatterns.optional_spaces
-   CommonPatterns.not_space
-   CommonPatterns.not_spaces
    
-<<name='common_patterns', echo=False>>=
+<<name='common_patterns'>>=
 class CommonPatterns(object):
     """
     The common patterns that were leftover
@@ -388,8 +336,8 @@ The numbers are broken up into types based on those listed `here <http://mathwor
    :delim: ;
 
    positive_integer; :math:`1,2,\ldots`;:math:`\mathbb{Z}^+`
-   non_negative_integer; :math:0,1,\ldots` ; :math:`\mathbb{Z}^*`
-   non_positive_integer; :math:0, -1, -2,\ldots`;
+   non_negative_integer; :math:`0,1,\ldots` ; :math:`\mathbb{Z}^*`
+   non_positive_integer; :math:`0, -1, -2,\ldots`;
    integer;positive, negative, 0; :math:`\mathbb{Z}`
    real_number;Positive,negative, 0;:math:`\mathbb{R}`
 
@@ -399,22 +347,8 @@ The numbers are broken up into types based on those listed `here <http://mathwor
 .. warning:: Along with the previous warning it should be noted that `nonnegative_integer` extracts the non-negative portion, it does not ignore negative integers. So if you have -300, the match will be 300. This may change once I start using this, but for now that is the behavior (useful for extracting ranges, maybe -- nonnegative_integer + '-' + nonnegative_integer):
 
 .. note:: `real` is treated as a super-set that matches floats or integers.
-
-.. autosummary::
-   :toctree: api
-
-   Numbers
-   Numbers.decimal_point
-   Numbers.digits
-   Numbers.two_digits
-   Numbers.one_hundreds
-   Numbers.positive_integer
-   Numbers.nonnegative_integer
-   Numbers.integer
-   Numbers.real
-   Numbers.hexadecimal
    
-<<name='Numbers', echo=False>>=
+<<name='Numbers'>>=
 class Numbers(object):
     """
     A class to hold number-related expressions

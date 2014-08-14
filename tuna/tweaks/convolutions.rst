@@ -65,6 +65,8 @@ This is a class to build a GaussianConvolution from a configuration map.
 
 
 
+.. module:: tuna.tweaks.convolutions
+
 .. autosummary::
    :toctree: api
 
@@ -127,8 +129,8 @@ This is a class to build the XYConvolution from a configuration map.
 
 ::
 
-    [ 4.37584907  4.84794674]
-    [-23  23   2]
-    [44  5  5]
+    [ 5.23094215  6.79860567]
+    [ 5 13  1]
+    [ 5  5 34]
     
 

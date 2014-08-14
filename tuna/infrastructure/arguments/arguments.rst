@@ -45,12 +45,6 @@ The Arguments
 
 .. currentmodule:: tuna.infrastructure.arguments
 
-
-Contents:
-
-   * :ref:`The Argument Constants <tuna-interface-arguments-argumentconstants>`
-   * :ref:`The BaseArguments <tuna-interface-arguments-basearguments>`
-
    
 .. _tuna-interface-arguments-argumentconstants:
 

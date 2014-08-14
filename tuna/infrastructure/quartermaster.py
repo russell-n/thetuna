@@ -10,9 +10,6 @@ from tuna.infrastructure.ryemother import RyeMother
 from tuna.plugins.base_plugin import BasePlugin
 
 
-document_this = __name__ == '__builtin__'
-
-
 class QuarterMaster(BaseClass):
     """
     A plugin manager

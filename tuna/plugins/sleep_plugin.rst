@@ -11,7 +11,7 @@ This is a plugin for :ref:`The Big Sleep <tuna-big-sleep>`, code that does nothi
    TheBigSleep : __init__(end, total, interval, verbose)
    TheBigSleep : __call__()
 
-.. currentmodule:: tuna.parts.sleep.sleep
+.. currentmodule:: tuna.plugins.sleep
 .. autosummary::
    :toctree: api
 

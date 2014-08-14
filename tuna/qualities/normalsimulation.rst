@@ -4,13 +4,6 @@ The Normally Distributed Data
 
 This creates data that is normally distributed.
 
-Contents:
-
-    * :ref:`Normal Simulation Implementation <optimization-simulations-normalsimulation>`
-    * :ref:`Normal Data Example <optimization-simulations-normal-data>`
-    * :ref:`Needle in a Haystack <optimization-simulations-needle-in-haystack>`
-    * :ref:`Normal But Noisy <optimization-simulations-normal-noisy>`
-
 .. _optimization-simulations-normalsimulation:
 
 Normal Simulation Implementation
@@ -27,6 +20,7 @@ Normal Simulation Implementation
    BaseSimulation <|-- NormalSimulation
 
 .. currentmodule:: tuna.qualities.normalsimulation
+
 .. autosummary::
    :toctree: api
 

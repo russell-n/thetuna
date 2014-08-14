@@ -78,7 +78,7 @@ The help-sections.
 The Component
 -------------
 
-.. currentmodule:: tuna.component.sleep_plugin
+.. currentmodule:: tuna.components.sleep_component
 .. autosummary::
    :toctree: api
 

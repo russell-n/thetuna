@@ -27,9 +27,5 @@ These are the public attributes of the `QuarterMaster`. Only `get_plugin` and `l
    QuarterMaster.list_plugins
    QuarterMaster.plugins
    QuarterMaster.get_plugin
-
-Auto-Generated Diagrams
------------------------
-
-These are auto-generated so they will always be more up-to-date than the previous class-diagrams, but they tend to be harder to read as well (and are just not pretty) so I will leave both in.
+   QuarterMaster.import_plugins
 

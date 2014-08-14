@@ -27,7 +27,7 @@ Components bundle parts for the Composite.
 .. toctree::
    :maxdepth: 1
 
-   The Components <component.rst>
+   The Base Components <component.rst>
    The Composite <composite.rst>
    The Data Qualities <dataquality.rst>
    The Dummy Component <dummycomponent.rst>

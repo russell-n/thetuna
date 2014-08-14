@@ -17,9 +17,6 @@ RED_ERROR = "{red}{bold}{{error}}{reset}".format(red=RED,
 INFO_STRING = '{b}**** {{0}} ****{r}'.format(b=BOLD, r=RESET)
 
 
-DOCUMENT_THIS = __name__ == '__builtin__'
-
-
 class BaseStrategy(BaseClass):
     """
     A base for the sub-commands

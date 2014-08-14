@@ -10,7 +10,7 @@ This is a generalization of the `Quality` function used by the optimizers to ass
 QualityMapping Class
 --------------------
 
-.. currentmodule:: optimization.datamappings.qualitymapping
+.. currentmodule:: tuna.qualities.qualitymapping
 .. autosummary::
    :toctree: api
 

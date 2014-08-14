@@ -228,10 +228,6 @@ By and large the intention is to use this like a time-delta object but with extr
    RelativeTime.populate_fields
    RelativeTime.reset
    RelativeTime.total_seconds
-   source_required
-   operation_error
-   number_error
-   unary_error
 
    
 I've run into a circular call problem -- my intention was to defer the calculations of the properties until someone called them, but since the larger properties cascade into the smaller ones (e.g. 1.5 minutes would add 30 to seconds to get rid of the fraction) I have to have a single point where the calculations are done so that all of them are done. To do this without requiring anyone to do an explicit method call I'm doing the calculations on the setting of the source. Since I am averse to forcing calculations on construction of an object, the `source` parameter has been changed to optional and setting it to None should reset the fields.
@@ -264,6 +260,15 @@ TunaError Translators
 ---------------------
 
 Since the operations are expected to raise TunaErrors whenever possible, these decorators will translate standard exceptions to TunaErrors.
+
+.. autosummary::
+   :toctree: api
+
+   source_required
+   operation_error
+   number_error
+   unary_error
+
 
 <<name='decorators', echo=False>>=
 def source_required(method):
@@ -679,7 +684,7 @@ Since the timedelta supports operations, the RelativeTime has overloaded the fol
    t1 + t2, Sums two timedeltas
    t1 - t2, Subtracts one timedelta from another
    t1 * int, Mulitplies a timedelta by an integer
-   t1 // int, Calculates the floor of a timedelta, throws away the remainder
+   t1 // int, Calculates the floor of a timedelta and throws away the remainder
    +t1, Makes the timedelta positive
    -t1, Negates the timedelta
    abs(t1), Depends on number of days

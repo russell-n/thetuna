@@ -13,7 +13,7 @@ Since I'm re-using a bunch of parts that think their main role is to collect dat
 NullStorage API
 ---------------
 
-.. currentmodule:: tuna.parts.storage.filestorage
+.. currentmodule:: tuna.parts.storage.nullstorage
 .. autosummary::
    :toctree: api
 
@@ -25,8 +25,5 @@ NullStorage API
    NullStorage.write
    NullStorage.writeline
    NullStorage.writelines
-
-NullStorage Definition
-----------------------
 
 

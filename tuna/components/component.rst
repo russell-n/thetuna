@@ -1,17 +1,16 @@
-The Components
-==============
+The Base Components
+===================
 
 .. _the-components:
 
 Introduction
 ------------
 
-This is a module to hold classes that (loosely) implement the `Composite Pattern <http://en.wikipedia.org/wiki/Composite_pattern>`_. See the :ref:`Tuna Plugin <tuna-plugin>` for how the Composites are being used in the `tuna` (it is implemented in the `product` property).
+This is a module to hold the base class that (loosely) implements the `Composite Pattern <http://en.wikipedia.org/wiki/Composite_pattern>`_. See the :ref:`Tuna Plugin <tuna-plugin>` for how the Composites are being used in the `tuna` (it is implemented in the Tuna-plugin's `product` property).
 
 
 
-
-.. _component-class:
+.. _basecomponent-class:
 
 The BaseComponent Class
 -----------------------

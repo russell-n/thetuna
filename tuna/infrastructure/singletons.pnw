@@ -1,7 +1,7 @@
 The Singletons
 ==============
 
-This is a module to hold singletons. The (initial) problem it is trying to solve is the need for the plugins to be able to share a common composite without knowing about each other. In earlier incarnations of the APE I did something similar by having the *hortator* hold an object for others to share, but this ended up making the *hortator* large and complicated. The particular first-use will be for watchers which will be registered with a :ref:`Composite <composite-class>` :ref:`Singleton <ape-documentation-exploring-singletons>`.
+This is a module to hold singletons. The (initial) problem it is trying to solve is the need for the plugins to be able to share a common composite without knowing about each other. In earlier incarnations of the `APE <http://rallion.bitbucket.org/hortators/ape/index.html>`_ I did something similar by having the *hortator* hold an object for others to share, but this ended up making the *hortator* large and complicated. The particular first-use will be for watchers which will be registered with a :ref:`Composite <composite-class>` :ref:`Singleton <ape-documentation-exploring-singletons>`.
 
 Setting Up
 ----------
@@ -15,11 +15,11 @@ from tuna.components.composite import Composite
 from tuna.parts.storage.filestorage import FileStorage
 from tuna import FILE_TIMESTAMP
 @
-<<name='singletons', echo=False>>=
+<<name='singletons'>>=
 # the singletons will be kept in this dictionary
 singletons = {}
 @
-<<name='enum', echo=False>>=
+<<name='enum'>>=
 class SingletonEnum(object):
     """
     A holder for singleton names
@@ -30,10 +30,6 @@ class SingletonEnum(object):
 @
 
 .. module:: tuna.infrastructure.singletons
-.. autosummary::
-   :toctree: api
-
-   SingletonEnum   
 
 Get Composite
 -------------
@@ -116,8 +112,8 @@ Refresh
 
 The ``refresh`` function clears the ``singletons`` dictionary. It is meant to be called whenever a new operation is created so that the objects from previous operations aren't still being held by the singletons. Since I don't have a use-case for selectively destroying singletons it clears all of them, but you could selectively delete types or categories::
 
-    from ape.commoncode.singletons import singletons, SingletonEnum
-    from ape.commoncode.singletons import refresh
+    from tuna.infrastructure.singletons import singletons, SingletonEnum
+    from tuna.infrastructure.singletons import refresh
 
     enum = SingletonEnum
 

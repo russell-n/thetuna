@@ -19,7 +19,7 @@ from tuna import TunaError
 NullStorage API
 ---------------
 
-.. currentmodule:: tuna.parts.storage.filestorage
+.. currentmodule:: tuna.parts.storage.nullstorage
 .. autosummary::
    :toctree: api
 
@@ -31,9 +31,6 @@ NullStorage API
    NullStorage.write
    NullStorage.writeline
    NullStorage.writelines
-
-NullStorage Definition
-----------------------
 
 
 <<name='NullStorage', echo=False>>=

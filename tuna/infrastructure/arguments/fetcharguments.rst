@@ -24,12 +24,6 @@ The Fetch Sub-Command Arguments
 
 These are arguments for the `fetch` sub-command (see the :ref:`developer documentation <docopt-reproducingoptimizer-fetch-sub-command>` for more information).
 
-Contents:
-
-   * :ref:`Fetch Arguments Constants <optimizer-interface-arguments-fetch-constants>`
-   * :ref:`Fetch Arguments Class <optimizer-interface-arguments-fetch-arguments>`
-   * :ref:`Fetch Strategy <optimizer-interface-arguments-fetch-strategy>`
-
 
 
 .. _optimizer-interface-arguments-fetch-constants:
@@ -65,15 +59,17 @@ The FetchArguments
 
    BaseArguments <|-- FetchArguments
 
-.. currentmodule:: tuna.interface.arguments.fetcharguments
+
+.. module:: tuna.infrastructure.arguments.fetcharguments
+
 .. autosummary::
    :toctree: api
 
-   FetchArguments
-   FetchArguments.names
-   FetchArguments.modules
-   FetchArguments.components
-   FetchArguments.reset
+   Fetch
+   Fetch.names
+   Fetch.modules
+   Fetch.components
+   Fetch.reset
 
 
 

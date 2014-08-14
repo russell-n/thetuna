@@ -1,13 +1,6 @@
 EventTimer
 ==========
 
-Contents:
-
-    * :ref:`The EventTimer <tuna-event-timer>`
-    * :ref:`The Constructor Parameters <eventtimer-constructor-parameters>`
-    * :ref:`The Wait Decorator <tuna-wait-decorator>`
-
-
 
 
 .. _tuna-event-timer:
@@ -21,6 +14,8 @@ I've confused myself a bit while trying to remember what this does, so I think I
 
 .. '
 
+These are from python's threading module:
+
 .. currentmodule:: threading
 .. autosummary::
    :toctree: api
@@ -31,6 +26,9 @@ I've confused myself a bit while trying to remember what this does, so I think I
    Event.wait
    Timer
 
+EventTimer Class
+----------------
+
 .. uml::
 
    EventTimer o- threading.Event
@@ -39,7 +37,7 @@ I've confused myself a bit while trying to remember what this does, so I think I
    EventTimer : __init__(event, seconds)
    EventTimer : close()
 
-.. currentmodule:: ape.commoncode.eventtimer
+.. currentmodule:: tuna.parts.eventtimer
 .. autosummary::
    :toctree: api
 

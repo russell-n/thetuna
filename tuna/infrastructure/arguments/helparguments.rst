@@ -20,20 +20,12 @@ The Help Sub-Command Arguments
 
 
 
-Contents:
-
-   * :ref:`Help Constants <tuna-interface-arguments-help-constants>`
-   * :ref:`Help Arguments Class <tuna-interface-help-arguments-class>`
-   * :ref:`Help Strategy <tuna-interface-arguments-help-strategy>`
-
-
-
 .. _tuna-interface-arguments-help-constants:
 
 The Help Arguments Constants
 ----------------------------
 
-.. currentmodule:: tuna.interface.arguments.helparguments
+.. module:: tuna.infrastructure.arguments.helparguments
 .. autosummary::
    :toctree: api
 
