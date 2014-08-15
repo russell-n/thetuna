@@ -1,9 +1,9 @@
-The Query Class
+The Poller Class
 ===============
 
-.. _query-class:
+.. _poller-class:
 
-To accomodate the almost arbitrary ways to get device-state information from a DUT, a general `Query` class is created to let user's specify commands to send and expressions to extract information from their output.
+To accomodate the almost arbitrary ways to get device-state information from a DUT, a general `Poller` class is created to let user's specify commands to send and expressions to extract information from their output. This is related to the :ref:`Query <query-class>` but is intended to run continuously, calling the command(s) at periodic intervals.
 
 .. '
 
@@ -12,9 +12,9 @@ To accomodate the almost arbitrary ways to get device-state information from a D
 import re
 import csv
 import datetime
-import socket
 import textwrap
 import os
+import threading
 
 # this package
 from tuna import BaseClass
@@ -22,98 +22,43 @@ from tuna import TunaError
 from tuna.clients.simpleclient import ConnectionError
 from tuna.infrastructure.baseconfiguration import BaseConfiguration
 from tuna.commands.command import TheCommand
+from tuna.parts.eventtimer import EventTimer, wait
 @
 
-.. _query-class-responsibilities:
-
-Responsibilities
-----------------
-
-   #. Maintains list of `fields` to use as headers for the files
-   #. Maintains `commands` to send to the device 
-   #. Maintains `expressions` (regular) to parse the output
-   #. Maintains a csv-writer so save the output
-   #. Maintains a connection to the device
-   #. Traverses the fields, sending commands, checking output, and writing the results to the csv-writer
-   
-.. _query-class-collaborators:
-
-Collaborators
--------------
-
-    * csv.DictWriter
-    * paramiko.SSHClient (or equivalent)
-
-.. currentmodule:: csv
-.. autosummary::
-   :toctree: api
-
-   csv.writer
-   csv.DictWriter
-
-.. module:: paramiko
-.. autosummary::
-   :toctree: api
-
-   SSHClient
-
-.. _query-class-path:
-
-Main Path
----------
-
-    1. Check if csv-output has been opened.
-       1.1. Open csv-output if not opened
-       1.2. Write header if output just opened
-    2. Traverse fields
-       2.1. Send field's command to connection
-       2.2. traverse lines of output from connection
-          2.2.1. check if field's expression matches line and add match to output-dictionary if it does
-          2.2.2. If no match, continue to next line
-       2.2. If no match made, add not-available token to output-dictionary
-   3. Send output-dictionary to csv-output
-
-.. figure:: figures/query_activity_diagram.svg
-   :align: center
-
-   Activity Diagram for Query call
-
-.. _query-class-implementation:
-
-The Query Class
+The Poller Class
 ---------------
 
 .. uml::
 
-   BaseClass <|-- Query
-   Query : File output_file
-   Query : SSHClient connection   
-   Query : List fields
-   Query : Dict commands
-   Query : Dict expressions
-   Query : DictWriter writer
-   Query : String not_available
-   Query : __call__()
-   Query o- csv.DictWriter
-   Query o- client
-   Query o- TheCommand
+   BaseClass <|-- Poller
+   Poller : File output_file
+   Poller : SSHClient connection   
+   Poller : List fields
+   Poller : Dict commands
+   Poller : Dict expressions
+   Poller : DictWriter writer
+   Poller : String not_available
+   Poller : __call__()
+   Poller o- csv.DictWriter
+   Poller o- client
+   Poller o- TheCommand
 
-.. module:: tuna.commands.query
+.. module:: tuna.commands.poller
 .. autosummary::
    :toctree: api
 
-   Query
-   Query.output_file
-   Query.writer
-   Query.close
-   Query.__call__
-   Query.check_rep
-   Query.__del__
+   Poller
+   Poller.output_file
+   Poller.writer
+   Poller.close
+   Poller.__call__
+   Poller.check_rep
+   Poller.__del__
 
-The Call
+The Run
 --------
 
-The call builds a dictionary of data output from the Query's commands. It always starts with a timestamp, then adds any 'extra_data' that was passed in to the call before calling each command. After calling each command once it writes the output as a row in the (csv) output-file.
+The `run` method builds a dictionary of data output from the Poller's commands. It always starts with a timestamp  before calling each command. After calling each command once it writes the output as a row in the (csv) output-file.
 
 .. '
 
@@ -127,12 +72,13 @@ APPENDABLE = 'a'
 WRITEABLE = 'w'
 @
 
-<<name='Query', echo=False>>=
-class Query(BaseClass):
+<<name='Poller', echo=False>>=
+class Poller(BaseClass):
     """
     A querier of devices
     """
-    def __init__(self, storage, output_filename, connection, fields, commands):
+    def __init__(self, storage, output_filename, connection, fields,
+                 commands, timer=None, interval=1):
         """
         Query constructor
 
@@ -143,16 +89,30 @@ class Query(BaseClass):
          - `connection`: Connection to the DUT
          - `fields`: list of fields for headers (and keys to 'commands' dict)
          - `commands`: dict of field:command where commands are callable objects that
+         - `interval`: time (seconds) between calling the commands
+         - `timer`: an EventTimer
         """
-        super(Query, self).__init__()
+        super(Poller, self).__init__()
         self.storage = storage
         self._output_file = None
         self.output_filename = output_filename
         self.fields = fields
         self.commands = commands
         self.new_file = True
+        self.interval = interval
         self._writer = None
-        return        
+        self._timer = None
+        self.stop = False
+        return
+
+    @property
+    def timer(self):
+        """
+        an EventTimer for the `wait` decorator
+        """
+        if self._timer is None:
+            self._timer = EventTimer(seconds=self.interval)
+        return self._timer
 
     @property
     def output_file(self):
@@ -169,7 +129,7 @@ class Query(BaseClass):
         """
         if self._output_file is None:
             # an ugly hack to let the writer know if this is a new file
-            # because onec it's open, it will exist, even if not written to
+            # because once it's open, it will exist, even if not written to
             full_path = os.path.join(self.storage.path, self.output_filename)
             self.new_file = not os.path.isfile(full_path)
             self._output_file = self.storage.open(self.output_filename,
@@ -202,31 +162,44 @@ class Query(BaseClass):
 
     def close(self):
         """
-        Closes the output-file
+        stops the poller, closes the output-file
         """
+        self.stop = True
         self.output_file.close()
         return
 
-    def __call__(self, extra_data=None):
+    @wait
+    def run_once(self):
         """
-        The main interface, traverses commands and saves output to csv
+        traverses commands and saves output to csv
 
-        :param:
-
-         - `extra_data`: extra data to add to the csv (keys have to already be added to the `fields` list)
-
-        :raise: CameraobscuraError if the regular expressions matches but there's no group
+        :raise: TunaError if the regular expressions matches but there's no group
         """
         output = {TIMESTAMP:datetime.datetime.now().isoformat()}
-        if extra_data is not None:
-            output.update(extra_data)
-                
         for field, command in self.commands.iteritems():
             self.logger.debug("Checking field {0}".format(field))
             output[field] = command()
 
         self.logger.info(output)
         self.writer.writerow(output)
+        return
+
+    def run(self):
+        """
+        repeatedly calls `run_once` until stopped
+        """
+        self.stop = False
+        while not self.stop:
+            self.run_once()
+        return
+
+    def __call__(self):
+        """
+        starts a thread with the `run` method
+        """
+        self.thread = threading.Thread(target=self.run)
+        self.thread.daemon = True
+        self.thread.start()
         return
 
     def check_rep(self):
@@ -240,6 +213,7 @@ class Query(BaseClass):
         for key in self.commands.iterkeys():
             assert key in self.fields, "Extra key in 'commands': {0}".format(key)
         return
+
     
     def __del__(self):
         """

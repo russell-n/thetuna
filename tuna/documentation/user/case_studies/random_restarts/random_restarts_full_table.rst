@@ -363,7 +363,7 @@ To get an estimate of the times I'm going to use the "*** Starting hillclimber *
 
 .. highlight:: python
     
-This file is too large to include here, but I created a csv-file with the count of the table-calls per-trial::
+This file is too large to include here, but I created a :download:`csv-file <data/table_calls.csv>` with the count of the table-calls per-trial::
 
     table_calls = 0
     with open('table_calls.csv', 'w') as w:

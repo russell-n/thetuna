@@ -74,7 +74,6 @@ The constructor takes two optional parameters.
 
 The `event` should only be set if this EventTimer has to share its event with other objects. Probably some case with threads, or somesuch... that's not the actual expected use for this.
 
-.. '
 
 <<name='EventTimer', echo=False>>=
 class EventTimer(BaseClass):

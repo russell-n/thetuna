@@ -2,6 +2,7 @@
 # python standard library
 from abc import abstractproperty, abstractmethod
 import socket
+import threading
 
 # this package
 from tuna import BaseClass, TunaError
@@ -15,7 +16,8 @@ class BaseClient(BaseClass):
     """
     A base class for clients.
     """
-    def __init__(self, hostname, username=None, port=None, timeout=TIMEOUT, **kwargs):
+    def __init__(self, hostname, username=None, port=None, lock=None,
+                 timeout=TIMEOUT, **kwargs):
         """
         Constructor
 
@@ -26,6 +28,7 @@ class BaseClient(BaseClass):
          - `timeout`: Time to give the client to connect
          - `port`: TCP port of the server
          - `kwargs`: anything else that the client can use will be passed in to it
+         - `lock`: re-entrant lock to block calls
         """
         super(BaseClient, self).__init__()
         self._logger = None
@@ -35,6 +38,7 @@ class BaseClient(BaseClass):
         self._client = None
         self.port = port
         self.kwargs = kwargs
+        self._lock = None
         return
 
     @abstractproperty
@@ -60,6 +64,15 @@ class BaseClient(BaseClass):
         :raise: TunaError for client exceptions
         """
         return
+
+    @property
+    def lock(self):
+        """
+        Re-entrant lock so users can use it in threads
+        """
+        if self._lock is None:
+            self._lock = threading.RLock()
+        return self._lock
         
     def close(self):
         """

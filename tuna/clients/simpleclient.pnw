@@ -140,10 +140,11 @@ class SimpleClient(BaseClient):
          - `username`: the login name.
          - `timeout`: Time to give the client to connect
          - `port`: TCP port of the server
+         - `lock`: re-entrant lock to block exec_command calls
          - `args, kwargs`: anything else that the SSHClient.connect can use will be passed in to it
         """
         super(SimpleClient, self).__init__(*args, **kwargs)
-        self._client = None
+        self._client = None        
         return
 
     @property
@@ -219,6 +220,7 @@ class SimpleClient(BaseClient):
     def exec_command(self, command, timeout=TIMEOUT):
         """
         A pass-through to the SSHClient's exec_command.
+        User re-entrant lock for threading
 
         :param:
 
@@ -236,7 +238,8 @@ class SimpleClient(BaseClient):
             self.logger.debug("({0}) Sending to paramiko -- '{1}', timeout={2}".format(self,
                                                                                        command,
                                                                                        timeout))
-            return self.client.exec_command(command, timeout=timeout)
+            with self.lock:
+                return self.client.exec_command(command, timeout=timeout)
 
         except socket.timeout:
             self.logger.debug("socket timed out")

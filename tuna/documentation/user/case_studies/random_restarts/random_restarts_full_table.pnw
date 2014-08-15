@@ -455,7 +455,7 @@ if not os.path.isfile(output):
     bandwidths.Bandwidth.plot(kind='kde', ax=axe, alpha=0.5, color='b',
                               title='Best Bandwidth Solutions Found')
         
-    axe.axvline(numpy.median(flat_data), color='r', alpha=0.5)
+    axe.axvline(numpy.median(bandwidths.Bandwidth), color='r', alpha=0.5)
     axe.set_xlabel("Throughput (Mb/s)")
         
     figure.savefig(output)
@@ -508,7 +508,7 @@ To get an estimate of the times I'm going to use the "*** Starting hillclimber *
 
 .. highlight:: python
     
-This file is too large to include here, but I created a csv-file with the count of the table-calls per-trial::
+This file is too large to include here, but I created a :download:`csv-file <data/table_calls.csv>` with the count of the table-calls per-trial::
 
     table_calls = 0
     with open('table_calls.csv', 'w') as w:
@@ -627,3 +627,4 @@ print '.. figure:: ' + output
 print "   :scale: 75%"
 @
    
+Interestingly, like the Simulated Annealer, the worst case seems to be when the Random Restarter finds the maximum and couldn't find any of the other 70+ Mbits/seconds positions.
