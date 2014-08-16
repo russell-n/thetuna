@@ -9,7 +9,9 @@ The Tuna-Plugins
 
    The Base Plugin <base_plugin.rst>
    The CommandDump Plugin <commanddump.rst>
+   The CommandPoller Plugin <commandpoller.rst>
    The CommandQuery Plugin <commandquery.rst>
+   The CommandWatcher Plugin <commandwatcher.rst>
    The GridSearch Plugin <gridsearch.rst>
    The RandomRestarts Plugin <randomrestarts.rst>
    The SimulatedAnnealing Plugin <simulatedannealing.rst>

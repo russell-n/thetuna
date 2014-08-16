@@ -1,7 +1,7 @@
-The CommandWatcher Plugin
-=========================
+The CommandPoller Plugin
+========================
 
-This plugin creates a :ref:`Composite <the-composite>` of :ref:`TheWatcher <the-watcher>` command to file watchers.
+This creates a :ref:`Command Poller <query-class>`.
 
 <<name='imports', echo=False>>=
 # python standard library
@@ -14,65 +14,77 @@ from base_plugin import BasePlugin
 from tuna.parts.storage.storageadapter import StorageAdapter
 from tuna.hosts.host import TheHost, HostConfiguration
 
-from tuna.commands.watcher import TheWatcher, WatcherConstants
-from tuna.components.composite import SimpleComposite
-
+from tuna.commands.poller import PollerBuilder, PollerConfiguration
+from tuna.commands.poller import EXAMPLE_CONFIGURATION as POLLER_EXAMPLE
+@
+<<name='check_pweave', echo=False>>=
+in_pweave = __name__ == '__builtin__'
 @
 <<name='constants', echo=False>>=
-SECTION = 'CommandWatcher'
-CONFIGURATION = '''[{section}]
+SECTION = 'CommandPoller'
+CONFIGURATION = """
+[{section}]
 # the section-name has to match an option in the TUNA section
 # the plugin has to be the actual class name
-plugin = CommandWatcher
+plugin = CommandPoller
 
 # the connection should be the name of a section in the config
 # that has information to setup a connection to the device
 connection = DUT
 
-# the mode should be either 'a' (append to one file)
-# or 'w' (write to separate files)
-# mode = w
-
-# the commands to dump should take the form
-<identifier 1> = <command 1>
-<identifer 2> = <command 2>
-'''.format(section=SECTION)
+{poller_example}
+""".format(section=SECTION,
+           poller_example=POLLER_EXAMPLE)
+@
+<<name='check_weave', echo=False>>=
+output_documentation = __name__ == '__builtin__'
 @
 
 .. uml::
 
-   CommandWatcher --|> BasePlugin
-   CommandWatcher o-- HelpPage
-   CommandWatcher o-- TheWatcher
+   CommandQuery --|> BasePlugin
+   CommandQuery o-- HelpPage
+   CommandQuery o-- Poller
 
-.. _commandwatcher-api:
+.. _commanddump-api:
 
 The API
 -------
 
-.. module:: tuna.plugins.commandwatcher
+.. module:: tuna.plugins.commandpoller
 .. autosummary::
    :toctree: api
 
-   CommandWatcher
-   CommandWatcher.help
-   CommandWatcher.product
-   CommandWatcher.sections
-   CommandWatcher.fetch_config
+   CommandPoller
+   CommandPoller.help
+   CommandPoller.product
+   CommandPoller.sections
+   CommandPoller.fetch_config
    
-<<name='CommandWatcher', echo=False>>=
-class CommandWatcher(BasePlugin):
+<<name='CommandPoller', echo=False>>=
+class CommandPoller(BasePlugin):
     """
-    A composite to watch command output
+    A threaded command to csv-file plugin
     """
     def __init__(self, *args, **kwargs):
         """
-        CommandWatcher plugin Constructor
+        CommandPoller plugin Constructor
 
         """
-        super(CommandWatcher, self).__init__(*args, **kwargs)
+        super(CommandPoller, self).__init__(*args, **kwargs)
         self._storage = None
+        self._poller_configuration = None
         return
+
+    @property
+    def poller_configuration(self):
+        """
+        A PollerConfiguration object
+        """
+        if self._poller_configuration is None:
+            self._poller_configuration = QueryConfiguration(configuration=self.configuration,
+                                                           section=self.section_header)
+        return self._poller_configuration
 
     @property
     def storage(self):
@@ -92,12 +104,12 @@ class CommandWatcher(BasePlugin):
         if self._sections is None:
             bold = '{bold}'
             reset = '{reset}'
-            name = 'CommandWatcher'
+            name = 'CommandPoller'
             bold_name = bold + name + reset
 
             self._sections = OrderedDict()
-            self._sections['Name'] = '{blue}' + name + reset + ' -- a command watcher'
-            self._sections['Description'] = bold_name + ' stores the output of a command in the background. It is meant for things like log files that block the call and periodically emit text.'
+            self._sections['Name'] = '{blue}' + name + reset + ' -- a threaded commands to csv creator '
+            self._sections['Description'] = bold_name + ' stores the output of threaded commands as a csv'
             self._sections["Configuration"] = CONFIGURATION
             self._sections['Files'] = __file__
         return self._sections
@@ -118,34 +130,22 @@ class CommandWatcher(BasePlugin):
     @property
     def product(self):
         """
-        This is the CommandWatcher product
+        This is the CommandPoller product
 
-        To allow repeated running the CommandWatcher is created anew every time
+        To allow repeated running the CommanPoller is created anew every time
 
         :precondition: self.configuration is a configuration map
         """
         kwargs = dict(self.configuration.items(section=self.section_header,
                                                    optional=False))
-        self.logger.debug("Building the CommandWatcher with: {0}".format(kwargs))
+        self.logger.debug("Building the CommandPoller with: {0}".format(kwargs))
 
         connection_section = self.configuration.get(section=self.section_header,
                                                     option='connection')
         client = self.host_builder(connection_section)
-        mode = self.configuration.get(section=self.section_header,
-                                        option='mode',
-                                            optional=True,
-                                            default=WatcherConstants.default_mode)
-        options = 'connection mode plugin component'.split() + self.configuration.defaults.keys()
-        identifiers = [identifier for identifier in self.configuration.options(self.section_header)
-                       if identifier not in options]
-        self._product = SimpleComposite()
-        for identifier in identifiers:
-            self._product.add(TheWatcher(command=self.configuration.get(section=self.section_header,
-                                                                        option=identifier),
-                                                                        storage=self.storage,
-                                                                        connection=client,
-                                                                        identifier=identifier,
-                                                                        mode=mode))
+        self._product = PollerBuilder(connection=client,
+                                      configuration=self.query_configuration,
+                                      storage=self.storage).product
         return self._product
         
     def fetch_config(self):
@@ -153,5 +153,5 @@ class CommandWatcher(BasePlugin):
         Prints example configuration to stdout
         """
         print CONFIGURATION
-# end class CommandWatcher
+# end class CommandPoller
 @

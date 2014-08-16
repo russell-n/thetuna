@@ -11,7 +11,9 @@ These are commands to send to devices whose input and output have been defined i
 
    The Command <command.rst>
    The Dump <dump.rst>
+   The Poller Class <poller.rst>
    The Query Class <query.rst>
+   The Watcher <watcher.rst>
 
 .. toctree::
    :maxdepth: 1
