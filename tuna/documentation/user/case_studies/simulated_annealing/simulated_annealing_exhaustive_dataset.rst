@@ -47,6 +47,17 @@ I'm assuming that the origin marks the front-left of the table (whatever 'front'
 
 
 The contour map gives a somewhat more informative view. You can see that one side of the table tends to get more of the good throughput (which I think Bryce and Brent indicated).
+
+Interactive Map
+~~~~~~~~~~~~~~~
+
+The :download:`source <table_experiment.pde>`.
+
+.. raw:: html
+
+   <script src='processing-1.4.1.min.js'></script>
+   <canvas data-processing-sources="../../../../_downloads/table_experiment.pde"></canvas>
+
  
 .. figure:: figures/best_worst_scatter.png
    :scale: 75%
@@ -347,7 +358,7 @@ By diverting the output from the previous `grep` search to a (:download:`file <d
 
    count,100.0
    mean,72.082
-   std,0.493058891727
+   std,0.493058891723
    min,70.3
    25%,72.0
    50%,72.0
@@ -378,7 +389,7 @@ So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To 
     
     
 
-**99% Confidence Interval:** (71.88799995, 71.966)
+**99% Confidence Interval:** (71.88399955, 71.966)
 
 
 
@@ -474,7 +485,7 @@ To estimate the running time we have to now pick an arbitrary time for each exec
     
     
 
-**99% Confidence Interval (mean):** (3.33, 3.54)
+**99% Confidence Interval (mean):** (3.35, 3.54)
 
 **99% Confidence Interval (Median):** (3.86, 4.06)
 

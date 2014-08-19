@@ -129,6 +129,17 @@ print "   Max-throughput ({0} Mb/s) at ({1}, {2}) indicated by intersection of r
 @
 
 The contour map gives a somewhat more informative view. You can see that one side of the table tends to get more of the good throughput (which I think Bryce and Brent indicated).
+
+Interactive Map
+~~~~~~~~~~~~~~~
+
+The :download:`source <table_experiment.pde>`.
+
+.. raw:: html
+
+   <script src='processing-1.4.1.min.js' type="text/javascript"></script>
+   <canvas data-processing-sources="../../../../_downloads/table_experiment.pde"></canvas>
+
  
 <<name='scatter_data', echo=False, results='sphinx', wrap=False>>=
 output = 'figures/best_worst_scatter.png'
