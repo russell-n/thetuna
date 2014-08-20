@@ -17,7 +17,7 @@ What we'll do here is use data collected by exhaustively sweeping a table and pa
 The Simulation Data
 -------------------
 
-Alex created the data-set (:download:`download <data/data_step50.csv>`) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf (I don't know what the scale of 50 means in human terms, but the annealer doesn't need to know either). The file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50). The values are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).
+Alex created the data-set (:download:`download <../data/data_step50.csv>`) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf (I don't know what the scale of 50 means in human terms, but the annealer doesn't need to know either). The file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50). The values are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).
 
 I'll examine the data so we can see what the Simulated Annealer is working with.
 
@@ -51,12 +51,16 @@ The contour map gives a somewhat more informative view. You can see that one sid
 Interactive Map
 ~~~~~~~~~~~~~~~
 
-The :download:`source <table_experiment.pde>`.
+The :download:`source <table_experiment.pde>` and :download:`Table class <Table.pde>`. :download:`Test download <test.pde>`.
 
 .. raw:: html
 
-   <script src='processing-1.4.1.min.js'></script>
    <canvas data-processing-sources="../../../../_downloads/table_experiment.pde"></canvas>
+
+
+.. raw:: html
+
+   <canvas data-processing-sources="../../../../_downloads/test.pde"></canvas>
 
  
 .. figure:: figures/best_worst_scatter.png
@@ -147,7 +151,7 @@ These are the points surrounding the minimum and maximum values for the entire d
 Maximum Neighborhood
 ++++++++++++++++++++
 
-.. figure:: figures/bad_neighborhood.svg
+.. figure:: ../figures/bad_neighborhood.svg
 
    The neighborhood around the best-bandwidth location.
 
@@ -158,7 +162,7 @@ The arrows represent a path that a hill climber using a local search might take.
 Minimum Neighborhood
 ++++++++++++++++++++
 
-.. figure:: figures/worst_neighborhood.svg
+.. figure:: ../figures/worst_neighborhood.svg
 
    The neighborhood around the worst-bandwidth location.
 
@@ -358,7 +362,7 @@ By diverting the output from the previous `grep` search to a (:download:`file <d
 
    count,100.0
    mean,72.082
-   std,0.493058891723
+   std,0.493058891727
    min,70.3
    25%,72.0
    50%,72.0
@@ -389,7 +393,7 @@ So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To 
     
     
 
-**99% Confidence Interval:** (71.88399955, 71.966)
+**99% Confidence Interval:** (71.89599995, 71.966)
 
 
 

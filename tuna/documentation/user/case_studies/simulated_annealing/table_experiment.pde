@@ -1,3 +1,90 @@
+class Table {
+  int rowCount;
+  int columnCount;
+  String[][] data;
+  
+  
+  Table(String filename, String delimiter) {
+    String[] rows = loadStrings(filename);
+    data = new String[rows.length][];
+    
+    for (int i = 0; i < rows.length; i++) {
+      if (trim(rows[i]).length() == 0) {
+        continue; // skip empty rows
+      }
+      if (rows[i].startsWith("#")) {
+        continue;  // skip comment lines
+      }
+      
+      // split the row on the tabs
+      String[] pieces = split(rows[i], delimiter);
+      // copy to the table array
+      data[rowCount] = pieces;
+      rowCount++;
+      columnCount = pieces.length;
+      // this could be done in one fell swoop via:
+      //data[rowCount++] = split(rows[i], TAB);
+    }
+     //<>//
+    // resize the 'data' array as necessary
+    data = (String[][]) subset(data, 0, rowCount);
+  }
+  
+  
+  int getRowCount() {
+    return rowCount;
+  }
+  
+  int getColumnCount(){
+    return columnCount;
+  }
+  // find a row by its name, returns -1 if no row found
+  int getRowIndex(String name) {
+    for (int i = 0; i < rowCount; i++) {
+      if (data[i][0].equals(name)) {
+        return i;
+      }
+    }
+    println("No row named '" + name + "' was found");
+    return -1;
+  }
+  
+  
+  String getRowName(int row) {
+    return getString(row, 0);
+  }
+
+
+  String getString(int rowIndex, int column) {
+    return data[rowIndex][column];
+  }
+
+  
+  String getString(String rowName, int column) {
+    return getString(getRowIndex(rowName), column);
+  }
+
+  
+  int getInt(String rowName, int column) {
+    return parseInt(getString(rowName, column));
+  }
+
+  
+  int getInt(int rowIndex, int column) {
+    return parseInt(getString(rowIndex, column));
+  }
+
+  
+  float getFloat(String rowName, int column) {
+    return parseFloat(getString(rowName, column));
+  }
+
+  
+  float getFloat(int rowIndex, int column) {
+    return parseFloat(getString(rowIndex, column));
+  }  
+}
+
 
 Table data;
 int columns;
@@ -8,8 +95,8 @@ float color_scalar;
 float blue_scale, green_scale;
 float red_scale;
 int radius;
-Integer big_x = null;
-Integer big_y = null;
+int big_x = 0;
+int big_y = 0;
 int big_x_index;
 int big_y_index;
 float big_r;
@@ -27,6 +114,7 @@ float biggest_b;
 float biggest_g;
 
 void setup(){
+  ellipse(width/2, height/2, 5,5);
   scalar = 10;
   radius = scalar/2;
   offset = scalar/2;
@@ -35,11 +123,13 @@ void setup(){
   blue_scale = 1.5;
   green_scale = 1.5;
   textSize(text_size);
-  data = loadTable("data_step50.csv");
+  //data = loadTable("data_step50.csv");
+  data = new Table("../../../../_downloads/data_step50.csv", ",");
   columns = data.getColumnCount();
   rows = data.getRowCount();
   size(rows * scalar, columns * scalar);
   rectMode(CORNER);
+  print("Ending Setup");
 }
 
 void draw(){
@@ -84,7 +174,7 @@ void draw(){
    } //end column traversal
    
   }// end row traversal
-  if(big_x != null){
+  //if(big_x != 0){
     ellipseMode(CENTER);
     rectMode(CORNER);
     fill(big_r, big_g, big_b);
@@ -99,9 +189,9 @@ void draw(){
     fill(255);
     text(output, width/2 - offset, height/2);
 
-    big_x = null;
-    big_y = null;
-  }
+    big_x = 0;
+    big_y = 0;
+  //}
   
   if(keyPressed){
     if(key == 'b'){
@@ -112,10 +202,10 @@ void draw(){
       line(0, biggest_y, width, biggest_y);
       line(biggest_x, 0, biggest_x, height);
        fill(255);
-       String output = String.format("<%s, %s> \n(%s Mbits/sec)", biggest_x_index,
+       String big_output = String.format("<%s, %s> \n(%s Mbits/sec)", biggest_x_index,
             biggest_y_index, biggest_tput);
-       float offset = textWidth(output)/2;
-      text(output, width/2 - offset, biggest_y);
+       float big_offset = textWidth(big_output)/2;
+      text(big_output, width/2 - big_offset, biggest_y);
     }
   }
 }// end draw
