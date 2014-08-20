@@ -208,4 +208,5 @@ void draw(){
       text(big_output, width/2 - big_offset, biggest_y);
     }
   }
+noLoop();
 }// end draw
