@@ -114,8 +114,7 @@ float biggest_b;
 float biggest_g;
 
 void setup(){
-    frameRate(30);pexit
-
+  ellipse(width/2, height/2, 5,5);
   scalar = 10;
   radius = scalar/2;
   offset = scalar/2;
@@ -130,12 +129,12 @@ void setup(){
   rows = data.getRowCount();
   size(rows * scalar, columns * scalar);
   rectMode(CORNER);
+  print("Ending Setup");
 }
 
 void draw(){
   for(int row=0; row < rows; row++){
    for(int column=0; column < columns; column++){
-       ellipse(row, column, 20, 20);
      float value = data.getFloat(row, column);
      float scaled_value = (value * color_scalar) % 255;
      
