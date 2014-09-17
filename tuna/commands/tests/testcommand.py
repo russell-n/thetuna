@@ -11,7 +11,7 @@ from mock import Mock
 
 # this package
 from tuna import TunaError
-from tuna.commands.command.command import TheCommand, CommandConstants
+from tuna.commands.command import TheCommand, CommandConstants
 from tuna.infrastructure.helpers import random_string_of_letters
 
 
@@ -69,7 +69,7 @@ class TestTheCommand(unittest.TestCase):
         self.assertEqual(re.compile('(.*)'), command.data_expression)
         self.assertEqual(re.compile(CommandConstants.default_error_expression),
                          command.error_expression)
-        self.assertIsNone(command.not_available)
+        self.assertEqual('NA', command.not_available)
         return
 
     def test_expressions(self):

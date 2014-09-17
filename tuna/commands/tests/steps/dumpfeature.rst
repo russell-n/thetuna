@@ -15,6 +15,7 @@ Scenario: A non-blocking command is called and the output is sent to a file
         context.storage = MagicMock()
         context.command = "aoeu"
         context.connection = MagicMock()
+        context.connection.hostname = "bob"
         context.identifier = "dumpidentity"
         context.filename = 'dumpfilename'
         context.connection.__str__.return_value = context.filename
@@ -56,11 +57,11 @@ Scenario: A non-blocking command is called and the output is sent to a file
     
     @then("TheDump redirects the command output to storage")
     def check_storage(context):
-        expected_name = "{0}_{1}_{2}.txt".format(context.filename,
+        expected_name = "{0}_{1}_{2}.txt".format(context.connection.hostname,
                                              context.identifier,
                                              context.command)
     
-        context.storage.open.assert_called_with(expected_name, context.mode)
+        context.storage.open.assert_called_with(expected_name, mode=context.mode)
         expected = [call('{1},{0}\n'.format(letter
                                             , context.timestamp))
                                             for letter in 'a b c'.split()]

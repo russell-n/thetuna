@@ -30,6 +30,7 @@ class CommandConstants(object):
     default_data_expression = EVERYTHING
     default_error_expression = NOTHING
     default_not_available = NA
+    command_warning = "Expression: {0} matched no output for command '{1}'"
 
 
 def socketerrors(method,  *args, **kwargs):
@@ -62,6 +63,7 @@ class TheCommand(BaseClass):
     def __init__(self, connection,
                  command,
                  data_expression=None,
+                 delimiter=',',
                  error_expression=None,
                  arguments=None,
                  identifier=None,
@@ -77,6 +79,7 @@ class TheCommand(BaseClass):
          - `connection`: Connection to send command to
          - `command`: string to send to the connection
          - `data_expression` regular expression to get data from command output
+         - `delimiter`: token to separate multiple matching groups
          - `error_expression`: regular expression to match fatal errors
          - `arguments`: string of arguments to add to the command
          - `timeout`: seconds to wait for output from device
@@ -91,6 +94,7 @@ class TheCommand(BaseClass):
         self.arguments = arguments
         self._data_expression = None
         self.data_expression = data_expression
+        self.delimiter = delimiter
         self._error_expression = None
         self.error_expression = error_expression
 
@@ -215,23 +219,36 @@ class TheCommand(BaseClass):
         """
         stdin, stdout, stderr = self.connection.exec_command(self.command_arguments,
                                                              timeout=self.timeout)
-        data = self.not_available
-        for line in stdout:
-            self.logger.debug(line)
-            match = self.data_expression.search(line)
-            if match:
-                try:
-                    data = match.groups()[0]
-                except IndexError as error:
-                    self.logger.error(error)
-                    raise TunaError("Data Expression '{0}' missing group to extract data".format(self.data_expression))
-                self.logger.debug("Matched: {0}".format(data))
-                break
-                
+        #data = self.not_available
+        #for line in stdout:
+        #    self.logger.debug(line)
+        #    match = self.data_expression.search(line)
+        #    if match:
+        #        try:
+        #            data = match.groups()[0]
+        #        except IndexError as error:
+        #            self.logger.error(error)
+        #            raise TunaError("Data Expression '{0}' missing group to extract data".format(self.data_expression))
+        #        self.logger.debug("Matched: {0}".format(data))
+        #        break
+        #
+        matches = (self.data_expression.search(line) for line in stdout)
+        lines = (self.delimiter.join((group for group in match.groups() if group is not None))
+                 for match in matches if match is not None)
+        data = self.delimiter.join(lines)
+        print data
+        if not data:
+            self.logger.warning(CommandConstants.command_warning.format(self.data_expression.pattern,
+                                                                        self.command_arguments.rstrip('\n')))
+            data = self.not_available
+        elif not data.strip(self.delimiter):
+            data = self.not_available
+            raise TunaError("Invalid Data Expression: '{0}' missing group to extract data".format(self.data_expression.pattern))
+            
         for line in stderr:
             self.logger.error(line)
             if self.error_expression.search(line):
                 raise TunaError("Fatal Error: '{0}' running command '{1}1".format(line,
-                                                                                        self.command_arguments))
+                                                                                  self.command_arguments))
         return data
 # end class TheCommand

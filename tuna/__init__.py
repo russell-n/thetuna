@@ -41,6 +41,7 @@ class DontCatchError(Exception):
     """
 
 from tuna.infrastructure.baseclass import BaseClass
+from tuna.infrastructure.baseconfiguration import BaseConfiguration
 from tuna.plugins.base_plugin import BasePlugin
 from tuna.components.component import BaseComponent
 from tuna.parts.dummy.dummy import DummyClass    

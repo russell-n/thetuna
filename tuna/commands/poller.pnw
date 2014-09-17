@@ -3,7 +3,7 @@ The Poller Class
 
 .. _poller-class:
 
-To accomodate the almost arbitrary ways to get device-state information from a DUT, a general `Poller` class is created to let user's specify commands to send and expressions to extract information from their output. This is related to the :ref:`Query <query-class>` but is intended to run continuously, calling the command(s) at periodic intervals.
+To accomodate the almost arbitrary ways to get device-state information from a device, a general `Poller` class was created to let user's specify commands to send to the device and regular expressions to extract information from their output. This is related to the :ref:`Query <query-class>` but is intended to run continuously in the background, calling the command(s) at periodic intervals.
 
 .. '
 
@@ -19,8 +19,10 @@ import threading
 # this package
 from tuna import BaseClass
 from tuna import TunaError
+from tuna import BaseConfiguration
+
 from tuna.clients.simpleclient import ConnectionError
-from tuna.infrastructure.baseconfiguration import BaseConfiguration
+
 from tuna.commands.command import TheCommand
 from tuna.parts.eventtimer import EventTimer, wait
 @
@@ -43,6 +45,12 @@ The Poller Class
    Poller o- client
    Poller o- TheCommand
 
+.. module:: tuna
+.. autosummary::
+   :toctree: api
+
+   BaseClass
+   
 .. module:: tuna.commands.poller
 .. autosummary::
    :toctree: api
@@ -58,10 +66,23 @@ The Poller Class
    Poller.check_rep
    Poller.__del__
 
+.. module:: tuna.commands.command
+.. autosummary::
+   :toctree: api
+
+   TheCommand
+
+.. module:: tuna.parts.eventtimer
+.. autosummary::
+   :toctree: api
+
+   EventTimer
+   wait
+
 The Run
 --------
 
-The `run_once` method builds a dictionary of data output from the Poller's commands. It always starts with a timestamp  before calling each command. After calling each command once it writes the output as a row in the (csv) output-file.
+The `run_once` method builds a dictionary of data output from the Poller's commands. It always starts by adding a timestamp before calling each command. After calling each command once it writes the output as a row in the (csv) output-file.
 
 .. '
 
@@ -80,7 +101,7 @@ class Poller(BaseClass):
     """
     A poller of devices
     """
-    def __init__(self, storage, output_filename, connection, fields,
+    def __init__(self, storage, output_filename, fields,
                  commands, timer=None, interval=1):
         """
         Poller constructor
@@ -89,9 +110,8 @@ class Poller(BaseClass):
 
          - `storage`: A file-like object to send the data to
          - `output_filename`: name of file to use to save data
-         - `connection`: Connection to the DUT
          - `fields`: list of fields for headers (and keys to 'commands' dict)
-         - `commands`: dict of field:command where commands are callable objects that
+         - `commands`: dict of field:command where commands are callable objects 
          - `interval`: time (seconds) between calling the commands
          - `timer`: an EventTimer
         """
@@ -225,8 +245,13 @@ class Poller(BaseClass):
         """
         self.close()
         return
-# end Query    
+# end Poller
 @
+
+The PollerEnum
+--------------
+
+The purpose of the enum is to make it easier to troubleshoot errors due to misspellings and provide an interface for users of this module to get the string constants they might need.
 
 <<name='PollerEnum'>>=
 class PollerEnum(object):
@@ -262,12 +287,20 @@ class PollerEnum(object):
 The PollerConfiguration
 ----------------------
 
+The PollerConfiguration is used by the PollerBuilder to build the Poller. It takes a ConfigParser-like object and a section name and builds the parameters the PollerBuilder needs for the Poller.
+
 .. uml::
 
    BaseConfiguration <|-- PollerConfiguration
    PollerConfiguration : String delimiter
    PollerConfiguration : List fields
    PollerConfiguration : List commands
+
+.. module:: tuna
+.. autosummary::
+   :toctree: api
+
+   BaseConfiguration
    
 .. module:: tuna.commands.poller
 .. autosummary::
@@ -526,7 +559,7 @@ class PollerConfiguration(BaseConfiguration):
         """
         super(PollerConfiguration, self).check_rep()
         return
-# end class QueryConfiguration    
+# end class PollerConfiguration    
 @
 
 The Poller Builder
@@ -537,17 +570,22 @@ This is a first builder. The intent is that for each high-level component there 
     * Configurations map config-files to parameters needed to build a component
     * Builders map configurations and built-objects to built components
 
+Given a connection to a device, a PollerConfiguration object and a file-like storage, the PollerBuilder will build a poller as its product.    
+
 .. uml::
 
    PollerBuilder : ThePoller product
    PollerBuilder : TheHost connection
    PollerBuilder : PollerConfiguration configuration
-    
+   PollerBuilder : FileStorage storage
+
+.. module:: tuna.commands.poller   
 .. autosummary::
    :toctree: api
 
    PollerBuilder
    PollerBuilder.product
+   PollerBuilder.commands
 
 <<name='PollerBuilder', echo=False>>=
 class PollerBuilder(object):

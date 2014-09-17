@@ -114,25 +114,28 @@ float biggest_b;
 float biggest_g;
 
 void setup(){
-    frameRate(30);pexit
+    frameRate(30);
 
-  scalar = 10;
-  radius = scalar/2;
-  offset = scalar/2;
-  color_scalar = 3;
-  red_scale = 1.25;
-  blue_scale = 1.5;
-  green_scale = 1.5;
-  textSize(text_size);
-  //data = loadTable("data_step50.csv");
-  data = new Table("../../../../_downloads/data_step50.csv", ",");
-  columns = data.getColumnCount();
-  rows = data.getRowCount();
-  size(rows * scalar, columns * scalar);
-  rectMode(CORNER);
+    scalar = 10;
+    radius = scalar/2;
+    offset = scalar/2;
+    color_scalar = 3;
+    red_scale = 1.25;
+    blue_scale = 1.5;
+    green_scale = 1.5;
+    textSize(text_size);
+    //data = loadTable("data_step50.csv");
+    data = new Table("../../../../_downloads/data_step50.csv", ",");
+    columns = data.getColumnCount();
+    rows = data.getRowCount();
+    size(rows * scalar, columns * scalar);
+    rectMode(CORNER);
+    noLoop();
+    draw();
 }
 
 void draw(){
+
   for(int row=0; row < rows; row++){
    for(int column=0; column < columns; column++){
        ellipse(row, column, 20, 20);
@@ -209,5 +212,5 @@ void draw(){
       text(big_output, width/2 - big_offset, biggest_y);
     }
   }
-noLoop();
+
 }// end draw

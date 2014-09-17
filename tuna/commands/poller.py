@@ -10,8 +10,10 @@ import threading
 # this package
 from tuna import BaseClass
 from tuna import TunaError
+from tuna import BaseConfiguration
+
 from tuna.clients.simpleclient import ConnectionError
-from tuna.infrastructure.baseconfiguration import BaseConfiguration
+
 from tuna.commands.command import TheCommand
 from tuna.parts.eventtimer import EventTimer, wait
 
@@ -29,7 +31,7 @@ class Poller(BaseClass):
     """
     A poller of devices
     """
-    def __init__(self, storage, output_filename, connection, fields,
+    def __init__(self, storage, output_filename, fields,
                  commands, timer=None, interval=1):
         """
         Poller constructor
@@ -38,9 +40,8 @@ class Poller(BaseClass):
 
          - `storage`: A file-like object to send the data to
          - `output_filename`: name of file to use to save data
-         - `connection`: Connection to the DUT
          - `fields`: list of fields for headers (and keys to 'commands' dict)
-         - `commands`: dict of field:command where commands are callable objects that
+         - `commands`: dict of field:command where commands are callable objects 
          - `interval`: time (seconds) between calling the commands
          - `timer`: an EventTimer
         """
@@ -174,7 +175,7 @@ class Poller(BaseClass):
         """
         self.close()
         return
-# end Query    
+# end Poller
 
 
 class PollerEnum(object):
@@ -204,9 +205,7 @@ class PollerEnum(object):
     default_timeout = 10
 
 
-EXAMPLE_CONFIGURATION = """
-#[poller]
-# these are arbitrary commands that will be called in a thread
+EXAMPLE_CONFIGURATION = """# these are arbitrary commands that will be called in a thread
 # it's original use-case is to get RSSI and other monitoring information
 # but since it's free-form you can pass in whatever you like
             
@@ -435,7 +434,7 @@ class PollerConfiguration(BaseConfiguration):
         """
         super(PollerConfiguration, self).check_rep()
         return
-# end class QueryConfiguration    
+# end class PollerConfiguration    
 
 
 class PollerBuilder(object):

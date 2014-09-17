@@ -8,9 +8,11 @@ The Command
 Introduction
 ------------
 
-This is a building block to execute non-blocking commands and extracting data from the output. It's probably not the right choice for things like `iperf` where there is a lot of data (although if you aren't using the ``--interval`` flag it might work).
+This is a building block to execute non-blocking commands and extract data from the output. It's probably not the right choice for things like `iperf` where there is a lot of data (although if you aren't using the ``--interval`` flag it might work).
 
-It is based on :ref:`The Query <query-class-implementation>` (and should be what the Query is using). The idea is to allow user's an open-ended way to send commands to the device and get data. It's assumed that this data will then be used in some way -- as opposed to :ref:`The Dump <the-dump-class>` which just dumps the output to a files. To make this possible three things are needed:
+It is based on :ref:`The Query <query-class-implementation>` (and should be what the Query is using). The idea is to allow users an open-ended way to send commands to the device and get data. It's assumed that this data will then be manipulated in some way -- as opposed to :ref:`The Dump <the-dump-class>` which just dumps the output to a file. To make this possible three things are needed:
+
+.. '
 
    * The command string
    * An argument string for the command
@@ -85,6 +87,8 @@ A holder of constants for TheCommand.
         default_data_expression = EVERYTHING
         default_error_expression = NOTHING
         default_not_available = NA
+        command_warning = "Expression: {0} matched no output for command '{1}'"
+    
     
     
 
