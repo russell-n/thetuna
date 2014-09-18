@@ -1,5 +1,8 @@
-The Query Class
+The Query Classes
 ===============
+
+TheQuery
+--------
 
 .. _query-class:
 
@@ -89,7 +92,6 @@ The Query Class
 
    Query
    Query.output_file
-   Query.expressions
    Query.writer
    Query.close
    Query.__call__
@@ -198,4 +200,13 @@ This is a first builder. The intent is that for each high-level component there 
 
    QueryBuilder
    QueryBuilder.product
+
+
+
+The SummaryQuery
+----------------
+
+.. uml::
+
+   Query <|-- SummaryQuery
 

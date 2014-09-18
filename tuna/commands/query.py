@@ -28,7 +28,7 @@ class Query(BaseClass):
     """
     A querier of devices
     """
-    def __init__(self, storage, output_filename, connection, fields, commands):
+    def __init__(self, storage, output_filename, fields, commands):
         """
         Query constructor
 
@@ -36,7 +36,6 @@ class Query(BaseClass):
 
          - `storage`: A file-like object to send the data to
          - `output_filename`: name of file to use to save data
-         - `connection`: Connection to the DUT
          - `fields`: list of fields for headers (and keys to 'commands' dict)
          - `commands`: dict of field:command where commands are callable objects that
         """
@@ -426,3 +425,16 @@ class QueryBuilder(object):
                                   commands=self.commands)
         return self._product        
 # end QueryBuilder                
+
+
+class SummaryQuery(Query):
+    """
+    A summary-statistic querier
+    """
+    def __init__(self, *args, **kwargs):
+        """
+        SummaryQuery Constructor
+        """
+        super(SummaryQuery, self).__init__(*args, **kwargs)
+        return
+# end SummaryQuery    
