@@ -187,7 +187,7 @@ output_documentation = __name__ == '__builtin__'
 The API
 -------
 
-.. currentmodule:: tuna.plugins.tunaplugin   
+.. module:: tuna.plugins.tunaplugin   
 .. autosummary::
    :toctree: api
 
@@ -202,10 +202,10 @@ The API
    
 <<name='Tuna', echo=False>>=
 EXAMPLES = '''
-ape run ape.ini
-ape help
-ape fetch
-ape list'''
+tuna run tuna.ini
+tuna help
+tuna fetch
+tuna list'''
 
 class Tuna(BasePlugin):
     """
@@ -292,7 +292,7 @@ class Tuna(BasePlugin):
             # of external packages, and I don't want namespace clashes
             quartermaster = QuarterMaster()
 
-            # each APE config gets its own Operator
+            # each TUNA config gets its own Operator
             operator = Composite(identifier="Operator",
                                  error=TunaError,
                                  error_message='Operation Crash',
@@ -325,8 +325,8 @@ class Tuna(BasePlugin):
                                     if option not in defaults]
                 quartermaster.external_modules = external_modules                        
             
-            # traverse the APE Section's options to get Operations
-            # configuration.options(TUNASECTION) is a list of config-file options in the [APE] section
+            # traverse the TUNA Section's options to get Operations
+            # configuration.options(SECTION) is a list of config-file options in the [TUNA] section
             # names is filtered to get rid of the DEFAULT options
             names = (name for name in configuration.options(SECTION) if not
                      (name in defaults and
@@ -343,7 +343,7 @@ class Tuna(BasePlugin):
             self.initialize_file_storage(configuration)
             
             for operation_name in names:
-                # every option in the APE section gets an operation
+                # every option in the TUNA section gets an operation
                 operation = Composite(identifier='Operation',
                                       error=DontCatchError,
                                       error_message='{0} Crash'.format(operation_name),
@@ -352,7 +352,8 @@ class Tuna(BasePlugin):
 
                 #traverse this line to get plugins
                 # get_list is a list of comma-separated strings in the operation line
-                for plugin_section_name in configuration.get_list(SECTION, operation_name):                    
+                for plugin_section_name in configuration.get_list(SECTION,
+                                                                  operation_name):                    
                     # the quartermaster returns a class-definition, not an instance
                     # so we can pass in the configuration and build it to get the `product`
 
@@ -362,12 +363,14 @@ class Tuna(BasePlugin):
                     # plugin definition
                     plugin_name = configuration.get(plugin_section_name, 'plugin')
                     if plugin_name is None:
-                        raise ConfigurationError("Plugin for section '{0}' missing (e.g. plugin=HillClimber)".format(plugin_section_name))
+                        raise ConfigurationError(("Plugin for section '{0}' missing"
+                                                  " (e.g. plugin=HillClimber)").format(plugin_section_name))
                     plugin_def = quartermaster.get_plugin(plugin_name)
                     try:
                         # since there are now arbitrary names for the sections
                         # either the specific section or the section name has to be passed in
-                        plugin = plugin_def(configuration=configuration, section_header=plugin_section_name).product
+                        plugin = plugin_def(configuration=configuration,
+                                            section_header=plugin_section_name).product
                         if plugin is None:
                             raise TunaError("{0} is missing a `product` (returned None)".format(plugin_name))
                     except TypeError as error:

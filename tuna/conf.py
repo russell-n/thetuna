@@ -181,7 +181,7 @@ html_show_sphinx = True
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-basename = "optimizer"
+basename = "tuna"
 htmlhelp_basename = basename + 'doc'
 
 

@@ -10,13 +10,6 @@ The `Rye Mother <http://www.pitt.edu/~dash/gerchange.html#GrimmRyeMother>`_ gath
 
    Source: `Wikipedia <http://en.wikipedia.org/wiki/File:En_kv%C3%A4ll_vid_midsommartid_gingo_de_med_Bianca_Maria_djupt_in_i_skogen2.jpg>`_
 
-Contents:
-
-   * :ref:`The Entry Points <tuna-commoncode-rye-mother-entry-points>`
-   * :ref:`The RyeMother Class <tuna-commoncode-rye-mother-class>`
-   * :ref:`Dependencies <tuna-commoncode-rye-mother-dependecies>`
-   * :ref:`What it does <tuna-commoncode-rye-mother-algorithm>`
-
 .. _tuna-commoncode-rye-mother-entry-points:
    
 The Entry Points
@@ -112,7 +105,9 @@ The `parent` parameter for the RyeMother is the actual class definition object. 
 Then `BaseArguments` is what should be passed to the call and all the classes that inherit from it will be returned. If we defined `tuna.subcommands` as the group and  `subcommands` as the name in the `setup.py` `entry_points` variable as mentioned :ref:`earlier <tuna-commoncode-rye-mother-entry-points>`, and we wanted to retrieve the `Run` class, we could use something like this::
 
    mother = RyeMother()
-   children = mother(parent=BaseArguments, group='tuna.subcommands', name='subcommands')
+   children = mother(parent=BaseArguments, 
+                     group='tuna.subcommands',
+                     name='subcommands')
    Run = children['Run']
    run_instance = Run()
 
@@ -138,7 +133,7 @@ This is the main path for the ``__call__``:
     #. For each member, if `keyfunction` is defined, transform its name
     #. For each member, add it to the children dictionary, using the name as a key and the class-definition object as the value
 
-.. _tuna-commoncode-rye-mother-class:
+.. _tuna-infrastructure-rye-mother-class:
 
 The RyeMother Class
 -------------------

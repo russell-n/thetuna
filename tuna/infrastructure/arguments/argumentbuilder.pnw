@@ -7,7 +7,7 @@ This is an adapter to make the `docopt` based argument-parsers look like argpars
 
    ArgumentBuilder o- BaseArguments
 
-.. currentmodule:: tuna.interface.arguments.argumentbuilder
+.. module:: tuna.infrastructure.arguments.argumentbuilder
 .. autosummary::
    :toctree: api
 
@@ -69,12 +69,12 @@ class ArgumentBuilder(BaseClass):
 
         :return: sub-argument (e.g. RunArguments) based on command in args
         """
-        args = BaseArguments(args=self.args)
         try:
             return self.argument_definitions[args.command](args=self.args)
         except KeyError as error:
             self.logger.debug(error)
             self.logger.error("Unknown sub-command '{0}'".format(args.command))
+            args = BaseArguments(args=self.args)
             print args.usage
             sys.exit()
         return args

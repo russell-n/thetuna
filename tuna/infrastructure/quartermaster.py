@@ -73,14 +73,14 @@ class QuarterMaster(BaseClass):
 
     def get_plugin(self, name):
         """
-        Retrieves a plugin object.
+        Retrieves a plugin class definition.
 
         :param:
 
          - `name`: The name of a plugin class
          - `configuration`: A configuration map instance
 
-        :return: An un-built plugin object definition
+        :return: An un-instantiated plugin definition
         """
         self.logger.debug("Retrieving {0}".format(name))
         try:

@@ -140,7 +140,7 @@ This is the main path for the ``__call__``:
     #. For each member, if `keyfunction` is defined, transform its name
     #. For each member, add it to the children dictionary, using the name as a key and the class-definition object as the value
 
-.. _tuna-commoncode-rye-mother-class:
+.. _tuna-infrastructure-rye-mother-class:
 
 The RyeMother Class
 -------------------
