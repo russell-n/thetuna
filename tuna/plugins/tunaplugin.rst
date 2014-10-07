@@ -104,7 +104,7 @@ This means:
 The API
 -------
 
-.. currentmodule:: tuna.plugins.tunaplugin   
+.. module:: tuna.plugins.tunaplugin   
 .. autosummary::
    :toctree: api
 
