@@ -1,7 +1,7 @@
 Exhaustive Search
 =================
 
-This is as exhaustive grid-search.
+This is an exhaustive grid-search.
 
 <<name='imports', echo=False>>=
 # python standard library
@@ -35,6 +35,12 @@ class ExhaustiveSearchConstants(object):
 Exhaustive Search Implementation
 --------------------------------
 
+.. uml::
+
+   BaseComponent <|-- ExhaustiveSearch
+   ExhaustiveSearch o- XYSolution
+   ExhaustiveSearch o- numpy.array
+
 .. module:: tuna.optimizers.exhaustivesearch
 .. autosummary::
    :toctree: api
@@ -44,6 +50,28 @@ Exhaustive Search Implementation
    ExhaustiveSearch.close
    ExhaustiveSearch.carry
    ExhaustiveSearch.__call__
+
+Constructor
+~~~~~~~~~~~
+
+The constructor takes five required arguments and one optional argument.
+
+.. csv-table:: ExhaustiveSearch Arguments
+   :header: Argument, Type, Description
+
+   ``minima``, numpy array, lowest-allowed coordinates
+   ``maxima``, numpy array, highest-allowed coordinates
+   ``increment``, numpy array, step-sizes for coordinate changes
+   ``quality``, Object, jude of the quality of candidate solutions
+   ``solutions``,writeable object, place to write outcome of candidate
+   ``observers``,callable object, receiver of best solution found
+
+The Call
+~~~~~~~~
+
+The ``__call__`` method is the main way to use the ExhaustiveSearch optimizer.
+
+.. image:: figures/exhaustive_search_call.png
    
 <<name='ExhaustiveSearch', echo=False>>=
 class ExhaustiveSearch(BaseComponent):
@@ -132,9 +160,6 @@ class ExhaustiveSearch(BaseComponent):
         self.log_info("Initial Best Solution: {0}".format(best))
         
         self.solutions.write("Time,Solution\n")
-        #timestamp = datetime.datetime.now().strftime(LOG_TIMESTAMP)
-        #output = "{0},1,{1}\n".format(timestamp, candidate)
-        #self.solutions.write(output)
         
         while not numpy.array_equal(candidate.inputs, self.maxima):           
             candidate.inputs = self.carry(candidate.inputs + increment)

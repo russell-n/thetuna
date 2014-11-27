@@ -439,7 +439,7 @@ class Tuna(BasePlugin):
 Using External Plugins
 ----------------------
 
-In order to allow the execution of plugins that are not a part of the ``ape``, I am allowing the declaration of 
+In order to allow the execution of plugins that are not a part of the ``tuna``, I am allowing the declaration of 
 modules in the configuration file::
 
     [MODULES]
@@ -467,7 +467,7 @@ The FakePlugin returns a :ref:`DummyClass <dummy-class>` as its `product` so the
 
 If we wanted to configure a second FakePlugin, for instance, we could do something like this::
 
-    [APE]
+    [TUNA]
     operation_1 = apple, banana
 
     [MODULES]

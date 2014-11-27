@@ -40,3 +40,5 @@ class BaseClimber(object):
         return
 # end BaseClimber    
 @
+
+Right now only the constructor is defined. I'm not sure how much use it is.
