@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.qualities.qualitycomposite &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.qualities.qualitycomposite</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna.components.composite</span> <span class="kn">import</span> <span class="n">Composite</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure.quartermaster</span> <span class="kn">import</span> <span class="n">QuarterMaster</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">DontCatchError</span><span class="p">,</span> <span class="n">MODULES_SECTION</span>
+
+
+<div class="viewcode-block" id="QualityComposite"><a class="viewcode-back" href="../../../qualities/api/tuna.qualities.qualitycomposite.QualityComposite.html#tuna.qualities.qualitycomposite.QualityComposite">[docs]</a><span class="k">class</span> <span class="nc">QualityComposite</span><span class="p">(</span><span class="n">Composite</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A quality for the optimizer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="QualityComposite.__init__"><a class="viewcode-back" href="../../../qualities/api/tuna.qualities.qualitycomposite.QualityComposite.html#tuna.qualities.qualitycomposite.QualityComposite.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">QualityComposite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_checks</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="QualityComposite.__call__"><a class="viewcode-back" href="../../../qualities/api/tuna.qualities.qualitycomposite.QualityComposite.__call__.html#tuna.qualities.qualitycomposite.QualityComposite.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calls the components, passing along the arguments</span>
+
+<span class="sd">        :return: last output from the components not None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># since the quality-components are buried in a list</span>
+        <span class="c1"># this is here to help see how efficient the optimizers are</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_checks</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+            <span class="n">returned</span> <span class="o">=</span> <span class="n">component</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">returned</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">returned</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="QualityComposite.reset"><a class="viewcode-back" href="../../../qualities/api/tuna.qualities.qualitycomposite.QualityComposite.html#tuna.qualities.qualitycomposite.QualityComposite.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the quality-checks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">QualityComposite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_checks</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span></div></div>
+<span class="c1"># end QualityComposite    </span>
+
+
+<div class="viewcode-block" id="QualityCompositeBuilder"><a class="viewcode-back" href="../../../qualities/api/tuna.qualities.qualitycomposite.QualityCompositeBuilder.html#tuna.qualities.qualitycomposite.QualityCompositeBuilder">[docs]</a><span class="k">class</span> <span class="nc">QualityCompositeBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A builder of quality-composites</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="QualityCompositeBuilder.__init__"><a class="viewcode-back" href="../../../qualities/api/tuna.qualities.qualitycomposite.QualityCompositeBuilder.html#tuna.qualities.qualitycomposite.QualityCompositeBuilder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">section_header</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        QualityCompositeBuilder constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configuration`: configuration map with options to build this thing</span>
+<span class="sd">         - `section_header`: section in the configuration with values needed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section_header</span> <span class="o">=</span> <span class="n">section_header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A built Quality Composite</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">quartermaster</span> <span class="o">=</span> <span class="n">QuarterMaster</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;components&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="n">QualityComposite</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">DontCatchError</span><span class="p">,</span>
+                                      <span class="n">error_message</span><span class="o">=</span><span class="s2">&quot;Component has failed.&quot;</span><span class="p">,</span>
+                                      <span class="n">component_category</span><span class="o">=</span><span class="s1">&#39;quality&#39;</span><span class="p">)</span>
+            <span class="n">defaults</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">defaults</span>
+            <span class="k">if</span> <span class="n">MODULES_SECTION</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+                <span class="n">external_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">option</span> <span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">MODULES_SECTION</span><span class="p">)</span>
+                                    <span class="k">if</span> <span class="n">option</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">defaults</span><span class="p">]</span>
+                <span class="n">quartermaster</span><span class="o">.</span><span class="n">external_modules</span> <span class="o">=</span> <span class="n">external_modules</span>
+            <span class="k">for</span> <span class="n">component_section</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_list</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                                 <span class="n">option</span><span class="o">=</span><span class="s1">&#39;components&#39;</span><span class="p">):</span>
+                <span class="n">component_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">component_section</span><span class="p">,</span>
+                                                        <span class="n">option</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span>
+                                                        <span class="n">optional</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">component_def</span> <span class="o">=</span> <span class="n">quartermaster</span><span class="o">.</span><span class="n">get_plugin</span><span class="p">(</span><span class="n">component_name</span><span class="p">)</span>
+                <span class="n">component</span> <span class="o">=</span> <span class="n">component_def</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                          <span class="n">component_section</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_product</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_product</span><span class="o">.</span><span class="n">components</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s2">&quot;Unable to build quality components using &#39;components={0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                                                                            <span class="n">option</span><span class="o">=</span><span class="s1">&#39;components&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.optimizers.hillclimber &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.optimizers.hillclimber</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna.optimizers.baseclimber</span> <span class="kn">import</span> <span class="n">BaseClimber</span>
+
+
+<div class="viewcode-block" id="HillClimber"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.hillclimber.HillClimber.html#tuna.optimizers.hillclimber.HillClimber">[docs]</a><span class="k">class</span> <span class="nc">HillClimber</span><span class="p">(</span><span class="n">BaseClimber</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Hill-Climbing optimizer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="HillClimber.__init__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.hillclimber.HillClimber.html#tuna.optimizers.hillclimber.HillClimber.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        HillClimber constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `emit`: if True, print new solutions as they appear</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HillClimber</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emit</span> <span class="o">=</span> <span class="n">emit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="HillClimber.__call__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.hillclimber.HillClimber.__call__.html#tuna.optimizers.hillclimber.HillClimber.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        runs the hill-climber</span>
+
+<span class="sd">        :return: `best` solution found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_condition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">):</span>
+            <span class="n">candidate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweak</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emit</span><span class="p">:</span>
+                    <span class="k">print</span> <span class="n">candidate</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="n">candidate</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">solution</span></div></div>
+<span class="c1"># end HillClimber    </span>
+
+
+<span class="n">IN_PWEAVE</span> <span class="o">=</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span>
+<span class="k">def</span> <span class="nf">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">solution</span> <span class="o">=</span> <span class="n">climber</span><span class="p">()</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s2">&quot;solution: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&quot;Ideal: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&quot;Difference: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">output</span> <span class="o">-</span> <span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&quot;Elapsed: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">datetime</span>
+    <span class="kn">from</span> <span class="nn">tuna.qualities.normalsimulation</span> <span class="kn">import</span> <span class="n">NormalSimulation</span>
+    <span class="kn">from</span> <span class="nn">tuna.parts.stopcondition</span> <span class="kn">import</span> <span class="n">StopConditionIdeal</span>
+    <span class="kn">from</span> <span class="nn">tuna.tweaks.convolutions</span> <span class="kn">import</span> <span class="n">UniformConvolution</span>
+    <span class="kn">from</span> <span class="nn">tuna.parts.xysolution</span> <span class="kn">import</span> <span class="n">XYSolution</span><span class="p">,</span> <span class="n">XYTweak</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+    <span class="n">simulator</span> <span class="o">=</span> <span class="n">NormalSimulation</span><span class="p">(</span><span class="n">domain_start</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span>
+                                 <span class="n">domain_end</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                 <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+    <span class="n">stop</span> <span class="o">=</span> <span class="n">StopConditionIdeal</span><span class="p">(</span><span class="n">ideal_value</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">,</span>
+                              <span class="n">delta</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+                              <span class="n">time_limit</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">300</span><span class="p">))</span>
+    
+    <span class="n">tweak</span> <span class="o">=</span> <span class="n">UniformConvolution</span><span class="p">(</span><span class="n">half_range</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                               <span class="n">lower_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span><span class="p">,</span>
+                               <span class="n">upper_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span><span class="p">)</span>
+
+    <span class="n">xytweak</span> <span class="o">=</span> <span class="n">XYTweak</span><span class="p">(</span><span class="n">tweak</span><span class="p">)</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span><span class="p">,</span>
+                                  <span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span><span class="p">,</span>
+                                  <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">candidate</span> <span class="o">=</span> <span class="n">XYSolution</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="c1"># this is a kludge until I get the call-ordering worked out</span>
+    <span class="c1"># right now the simulator is setting the .output as a side-effect</span>
+    <span class="n">simulator</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+    
+    <span class="n">climber</span> <span class="o">=</span> <span class="n">HillClimber</span><span class="p">(</span><span class="n">solution</span><span class="o">=</span><span class="n">candidate</span><span class="p">,</span>
+                          <span class="n">stop_condition</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+                          <span class="n">tweak</span><span class="o">=</span><span class="n">xytweak</span><span class="p">,</span>
+                          <span class="n">quality</span><span class="o">=</span><span class="n">simulator</span><span class="p">)</span>
+    <span class="n">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_solutions</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">climber</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;figures/{0}.svg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">axe</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">solution</span><span class="o">.</span><span class="n">output</span> <span class="k">for</span> <span class="n">solution</span> <span class="ow">in</span> <span class="n">climber</span><span class="o">.</span><span class="n">solutions</span><span class="p">]</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s1">&#39;.. figure:: &#39;</span>  <span class="o">+</span> <span class="n">output</span>
+    <span class="k">return</span>    
+
+
+<span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="n">plot_solutions</span><span class="p">(</span><span class="s1">&#39;normal_hill_climb&#39;</span><span class="p">,</span> <span class="n">climber</span><span class="p">,</span>
+                   <span class="s2">&quot;Normal Hill Climbing (Tweak Half-range=0.1)&quot;</span><span class="p">)</span>    
+
+
+<span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="c1"># make the target different so we know the data changed</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="c1">#simulator.functions = [lambda x: 10 * x + 5]</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">candidate</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">simulator</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+    <span class="n">climber</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="n">candidate</span>
+
+    <span class="n">stop</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">stop</span><span class="o">.</span><span class="n">ideal_value</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span>
+
+    <span class="c1"># this takes forever, make it lenient</span>
+    <span class="n">tweak</span> <span class="o">=</span> <span class="n">UniformConvolution</span><span class="p">(</span><span class="n">half_range</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                               <span class="n">lower_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span><span class="p">,</span>
+                               <span class="n">upper_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span><span class="p">)</span>
+
+    <span class="n">xytweak</span> <span class="o">=</span> <span class="n">XYTweak</span><span class="p">(</span><span class="n">tweak</span><span class="p">)</span>
+
+    <span class="n">stop</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+    <span class="n">climber</span><span class="o">.</span><span class="n">tweak</span> <span class="o">=</span> <span class="n">xytweak</span>
+    <span class="k">print</span> <span class="s2">&quot;Ideal: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">)</span>
+    <span class="n">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="n">plot_solutions</span><span class="p">(</span><span class="s1">&#39;needle_haystack_hill_climb&#39;</span><span class="p">,</span>
+                   <span class="n">climber</span><span class="p">,</span>
+                   <span class="s2">&quot;Needle In a Haystack Hill Climbing (Tweak Half-range=10)&quot;</span><span class="p">)</span>    
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

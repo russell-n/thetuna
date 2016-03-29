@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Crash Handler &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Infrastructure" href="index.html" />
+    <link rel="prev" title="ConfigParser.NoOptionError" href="api/ConfigParser.NoOptionError.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Crash Handler</a><ul>
+<li><a class="reference internal" href="#the-try-except-decorator">The try-except Decorator</a></li>
+<li><a class="reference internal" href="#module-tuna.infrastructure.crash_handler">The log_error Function</a></li>
+<li><a class="reference internal" href="#print-traceback">print_traceback</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="api/ConfigParser.NoOptionError.html" title="Previous Chapter: ConfigParser.NoOptionError"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; ConfigParser....</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/infrastructure/crash_handler.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="crash-handler">
+<h1>Crash Handler<a class="headerlink" href="#crash-handler" title="Permalink to this headline">¶</a></h1>
+<p>This is a module to help with catching exceptions.</p>
+<div class="section" id="the-try-except-decorator">
+<span id="tuna-infrastructure-try-except-decorator"></span><h2>The try-except Decorator<a class="headerlink" href="#the-try-except-decorator" title="Permalink to this headline">¶</a></h2>
+<p>This decorator allows exceptions to be caught and logged, rather than having the interpreter dump the stack-trace to standard-error (it still logs the stack-trace and displays some of the output).</p>
+<span class="target" id="module-tuna.infrastructure.crash_handler"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">try_except</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>This wraps methods, not functions (it uses <cite>self</cite>). <cite>self</cite> must have access to <cite>self.error</cite> (the exception to trap), <cite>self.error_message</cite> a string to put in the title of the error message and <cite>self.logger</cite> a logging instance to send error messages to. Since it is catching exceptions, any method wrapped with this won&#8217;t raise an error if the exception in self.error is raised by code it is running.</p>
+<p>I have now added a call to a  <cite>self.close</cite> method after an exception is caught so users of this decorator should have that implemented as well (but it checks to see if the method exists so it won&#8217;t try and call it if it wasn&#8217;t implemented).</p>
+</div>
+<div class="section" id="module-tuna.infrastructure.crash_handler">
+<span id="the-log-error-function"></span><span id="ape-commoncode-crash-handler-log-error"></span><h2>The log_error Function<a class="headerlink" href="#module-tuna.infrastructure.crash_handler" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">log_error</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The <cite>log_error</cite> function was created to log the traceback and error messages. It was broken out from the <cite>try_except</cite> decorator so that when the <cite>clean_up</cite> is called the class using the decorator can decide what the error message should be (based on the error that was raised) and call this function directly. If the class has no <cite>clean_up</cite> method, the <cite>try_except</cite> decorator will then log the error itself.</p>
+</div>
+<div class="section" id="print-traceback">
+<h2>print_traceback<a class="headerlink" href="#print-traceback" title="Permalink to this headline">¶</a></h2>
+<p>This is a function that does pretty much what log_error does but uses print-statements and no formatting so that I can use it in pweave.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">print_traceback</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    reformats information from traceback and prints to stdout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">exc_tb</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+    <span class="n">tb_info</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_tb</span><span class="p">(</span><span class="n">exc_tb</span><span class="p">)</span>
+    <span class="n">filename</span><span class="p">,</span> <span class="n">linenum</span><span class="p">,</span> <span class="n">funcname</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="n">tb_info</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                                                    <span class="n">error</span><span class="p">)</span>
+
+    <span class="nb">print</span> <span class="s2">&quot;Failed Line: &#39;</span><span class="si">{0}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">source</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="s2">&quot;In Function: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">funcname</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="s2">&quot;In File: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+    <span class="nb">print</span> <span class="s2">&quot;At Line: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">linenum</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">print_traceback</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

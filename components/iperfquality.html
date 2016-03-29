@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Iperf Metric &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Components" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Iperf Metric</a><ul>
+<li><a class="reference internal" href="#the-iperfmetric">The IperfMetric</a></li>
+<li><a class="reference internal" href="#the-iperfmetric-builder">The IperfMetric Builder</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/components/iperfquality.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-iperf-metric">
+<h1>The Iperf Metric<a class="headerlink" href="#the-iperf-metric" title="Permalink to this headline">¶</a></h1>
+<p>These are classes meant to be dropped into place where <cite>Quality</cite> classes are called. They take csv-files, convert them to arrays and return matching output values based on indices of the arrays.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IperfDataConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants for builders of the XYData class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">store_output_option</span> <span class="o">=</span> <span class="s1">&#39;store_output&#39;</span>
+    <span class="n">repetitions_option</span> <span class="o">=</span> <span class="s1">&#39;iperf_repetitions&#39;</span>
+    <span class="n">direction_option</span> <span class="o">=</span> <span class="s1">&#39;direction&#39;</span>
+    <span class="n">client_section_option</span> <span class="o">=</span> <span class="s1">&#39;client_section&#39;</span>
+    <span class="n">server_section_option</span> <span class="o">=</span> <span class="s1">&#39;server_section&#39;</span>
+    <span class="n">aggregator_option</span> <span class="o">=</span> <span class="s1">&#39;aggregator&#39;</span>
+    <span class="n">use_sums_option</span> <span class="o">=</span> <span class="s1">&#39;use_sums&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CONFIGURATION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">[IperfData]</span>
+<span class="s2"># this follows the pattern for plugins --</span>
+<span class="s2"># the header has to match what&#39;s in the `components` list</span>
+<span class="s2"># the component option has to be &#39;Iperf&#39;</span>
+<span class="s2">component = Iperf</span>
+
+<span class="s2"># to shorten this section the configuration</span>
+<span class="s2"># for the client (DUT) and server (Traffic PC)</span>
+<span class="s2"># are broken out so you have to indicate their</span>
+<span class="s2"># section names here (this is case-sensitive)</span>
+<span class="s2">client_section = DUT</span>
+<span class="s2">server_section = TPC</span>
+
+<span class="s2"># if store output is set to true, save the raw iperf files</span>
+<span class="s2">#store_output = True</span>
+
+<span class="s2"># if use_sums is True, don&#39;t re-add the threads, use the summed lines</span>
+<span class="s2"># use_sums = True</span>
+
+<span class="s2"># the iperf output has to be reduced to a single number</span>
+<span class="s2"># the default is to take the median of all outputs</span>
+<span class="s2"># for something else change it (only max, min, mean, median, or sum for now</span>
+<span class="s2">#)</span>
+<span class="s2"># this affects both the value returned with each iperf session</span>
+<span class="s2"># and how the sessions are aggregated if you use more than 1 repetition</span>
+<span class="s2">#aggregator = sum</span>
+
+<span class="s2"># if you suspect there&#39;s variation, it might make sense to run it multiple</span>
+<span class="s2">#times</span>
+<span class="s2"># This sets how many times to re-run iperf before trying another solution</span>
+<span class="s2"># I&#39;m not sure if this is more effective than running longer instead</span>
+<span class="s2"># iperf_repetitions = 1</span>
+
+<span class="s2"># direction can be anything that starts with &#39;u&#39; (for upstream only),</span>
+<span class="s2"># &#39;d&#39; (downstream only), or &#39;b&#39; (both)</span>
+<span class="s2"># I have no idea how to interpret the best location if you measure both, th</span>
+<span class="s2">#ough</span>
+<span class="s2"># &#39;upstream&#39; means DUT -&gt; Server</span>
+<span class="s2"># &#39;downstream&#39; means SERVER -&gt; DUT</span>
+<span class="s2">direction = downstream</span>
+
+<span class="s2"># iperf settings</span>
+<span class="s2"># these can be any long-form iperf options (without the dashes)</span>
+<span class="s2"># so looking at the iperf man page (or `iperf -h`) will give you the valid</span>
+<span class="s2">#options</span>
+<span class="s2"># note that in some cases iperf uses shortenings (e.g. `len` vs `length`)</span>
+<span class="s2"># Any option not given will use the iperf defaults</span>
+<span class="s2"># parallel = 4</span>
+
+<span class="s2"># if the option takes no settings, use True to turn on</span>
+<span class="s2"># udp = True</span>
+
+<span class="s2"># but note that udp isn&#39;t well tested</span>
+<span class="s2"># also the --client &lt;hostname&gt; and --server options are set using the</span>
+<span class="s2"># DUT and Server info so don&#39;t set them</span>
+
+<span class="s2">[DUT]</span>
+<span class="s2"># this is an example for the connection to the dut</span>
+<span class="s2"># the section header has to match what&#39;s declared in the</span>
+<span class="s2"># iperf section</span>
+
+<span class="s2"># the connection_type can be ssh or telnet</span>
+<span class="s2">connection_type = ssh</span>
+<span class="s2">control_ip = 192.168.10.50</span>
+<span class="s2">test_ip = 192.168.20.50</span>
+<span class="s2">username = tester</span>
+
+<span class="s2"># password is optional if host-keys are set up and you are using ssh</span>
+
+<span class="s2"># password = testlabs</span>
+
+<span class="s2"># the &#39;prefix&#39; will be prepended to all commands sent to the device</span>
+<span class="s2"># the main uses are adding &#39;adb shell&#39; or path-directories</span>
+<span class="s2"># because these two cases are different (`adb shell` is space separated fro</span>
+<span class="s2">#m commands</span>
+<span class="s2"># while setting a PATH has to be semi-colon separated) the prefix is added</span>
+<span class="s2">#as-is</span>
+<span class="s2"># it&#39;s up to the user to create a sensible one</span>
+<span class="s2"># it looks funny with the &#39;=&#39; but everything to the right of the first &#39;=&#39;</span>
+<span class="s2">#is</span>
+<span class="s2"># read as a string</span>
+
+<span class="s2"># prefix = PATH=/opt/wifi:$PATH; adb shell</span>
+
+<span class="s2"># timeout is amount of time to allow a command to run before giving up</span>
+<span class="s2"># because timeouts raise an error, this should only be used for</span>
+<span class="s2"># problematic devices</span>
+<span class="s2"># timeout = 1 minute 30 seconds</span>
+
+<span class="s2"># operating-system is currently just an identifier</span>
+<span class="s2"># operating_system = linux</span>
+
+<span class="s2"># These are the subset of parameters that I thought necessary</span>
+<span class="s2"># if you need to add more and you know it&#39;s supported by</span>
+<span class="s2"># paramiko or telnet&#39;s constructors you should be able to add it</span>
+<span class="s2"># e.g. if you know there is a &#39;port&#39; parameter you can set it:</span>
+<span class="s2"># port = 52686</span>
+
+<span class="s2">[TPC]</span>
+<span class="s2"># this is basically configured the same way as the client-section</span>
+<span class="s2">connection_type = ssh</span>
+<span class="s2">control_ip = 192.168.10.50</span>
+<span class="s2">test_ip = 192.168.20.50</span>
+<span class="s2">username = tester</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The Iperf quality metric runs iperf and returns the median bandwidth to the</span>
+<span class="s2"> optimizer that calls it.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="the-iperfmetric">
+<span id="iperf-metric"></span><h2>The IperfMetric<a class="headerlink" href="#the-iperfmetric" title="Permalink to this headline">¶</a></h2>
+<p>This is yet another aggregator. In this case I needed some way to interpret the directions (e.g. <cite>upstream</cite>) and realised that assuming only one direction is not necessarily the best way to do things so I&#8217;m now going to allow the user to specify repetitions, directions and an aggregator that will reduce multiple runs to a single value.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-3a1716003aeff4c72be7667d6f47b7e6d594d04a.png" alt="IperfMetric o- IperfClass
+IperfMetric : repetitions
+IperfMetric : directions
+IperfMetric : filename
+IperfMetric : aggregator" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">IperfMetric</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">IperfMetric.aggregator</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">IperfMetric.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this seems almost generic &#8211; except for the need to pass in a filename. If this condition is removed then this could be made into a generic aggregator.</p>
+</div>
+<p>To match the older-code the call has to expect an object of the form:</p>
+<p class="plantuml">
+<img src="../_images/plantuml-6c70391743bad5d4b850f33e9b24faef1877d01b.png" alt="Data : inputs
+Data : output" />
+</p>
+<p>If the output is not set it sets it using the inputs and returns the output. It also maintains a count of all the calls made (<cite>self.quality_checks</cite>) so that the efficiency can be double-checked.</p>
+</div>
+<div class="section" id="the-iperfmetric-builder">
+<h2>The IperfMetric Builder<a class="headerlink" href="#the-iperfmetric-builder" title="Permalink to this headline">¶</a></h2>
+<p>A convenience class for building <cite>IperfMetric</cite> objects. It implements the plugin interface so the help and list sub-commands can use it.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-c4f23cfbf00ea0702aee2603d29666f5a4ce1936.png" alt="BasePlugin &lt;|-- Iperf" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Iperf</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Iperf.product</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Iperf.iperf_configuration</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Iperf.iperf_parser</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Iperf.aggregator</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

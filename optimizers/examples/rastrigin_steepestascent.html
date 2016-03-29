@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Steepest Ascent &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Steepest Ascent</a><ul>
+<li><a class="reference internal" href="#more-agressive-search">More Agressive Search</a></li>
+<li><a class="reference internal" href="#even-more-aggressive-search">Even More Aggressive Search</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/optimizers/examples/rastrigin_steepestascent.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="steepest-ascent">
+<h1>Steepest Ascent<a class="headerlink" href="#steepest-ascent" title="Permalink to this headline">¶</a></h1>
+<p>First, I&#8217;ll try the same parameters as with the normal data-sets (4 local searches and a Standard Normal distribution for the convolution).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># third-party</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">optimization.datamappings.examples.functions</span> <span class="k">import</span> <span class="n">RastriginMapping</span>
+<span class="kn">from</span> <span class="nn">optimization.components.stopcondition</span> <span class="k">import</span> <span class="n">StopConditionIdeal</span>
+<span class="kn">from</span> <span class="nn">optimization.components.convolutions</span> <span class="k">import</span> <span class="n">GaussianConvolution</span>
+<span class="kn">from</span> <span class="nn">optimization.components.xysolution</span> <span class="k">import</span> <span class="n">XYSolution</span><span class="p">,</span> <span class="n">XYTweak</span>
+<span class="kn">from</span> <span class="nn">optimization.optimizers.steepestascent</span> <span class="k">import</span> <span class="n">SteepestAscent</span>
+<span class="kn">from</span> <span class="nn">pweave_helpers</span> <span class="k">import</span> <span class="n">run_climber</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rastrigin_data</span> <span class="o">=</span> <span class="n">RastriginMapping</span><span class="p">()</span>
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">rastrigin_data</span><span class="o">.</span><span class="n">mapping</span>
+
+<span class="n">stop</span> <span class="o">=</span> <span class="n">StopConditionIdeal</span><span class="p">(</span><span class="n">ideal_value</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">,</span>
+                                   <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+                                   <span class="n">time_limit</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="n">tweak</span> <span class="o">=</span> <span class="n">GaussianConvolution</span><span class="p">(</span><span class="n">lower_bound</span><span class="o">=</span><span class="n">rastrigin_data</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                            <span class="n">upper_bound</span><span class="o">=</span><span class="n">rastrigin_data</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+<span class="n">xytweak</span> <span class="o">=</span> <span class="n">XYTweak</span><span class="p">(</span><span class="n">tweak</span><span class="p">)</span>
+<span class="n">candidate</span> <span class="o">=</span> <span class="n">XYSolution</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">climber</span> <span class="o">=</span> <span class="n">SteepestAscent</span><span class="p">(</span><span class="n">solution</span><span class="o">=</span><span class="n">candidate</span><span class="p">,</span>
+                         <span class="n">stop_condition</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+                         <span class="n">tweak</span><span class="o">=</span><span class="n">xytweak</span><span class="p">,</span>
+                         <span class="n">quality</span><span class="o">=</span><span class="n">simulator</span><span class="p">,</span>
+                         <span class="n">local_searches</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To try and make the outcomes predictable I&#8217;ll set  the numpy seed to YYYYMMDDHHMM.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tweak</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">201406041238</span><span class="p">)</span>
+<span class="n">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">4.52241057</span>  <span class="mf">4.51943379</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">80.7040489751</span>
+<span class="n">Ideal</span><span class="p">:</span> <span class="mf">80.7041689429</span>
+<span class="n">Difference</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.000119967791164</span>
+<span class="n">Elapsed</span><span class="p">:</span> <span class="mf">4.66973686218</span>
+<span class="n">Quality</span> <span class="n">Checks</span><span class="p">:</span> <span class="mi">221991</span>
+<span class="n">Comparisons</span><span class="p">:</span> <span class="mf">110995.0</span>
+<span class="n">Solutions</span><span class="p">:</span> <span class="mi">13</span>
+<span class="n">Solutions</span><span class="o">/</span><span class="n">Comparisons</span><span class="p">:</span> <span class="mf">0.000117122392901</span>
+</pre></div>
+</div>
+<div class="section" id="more-agressive-search">
+<h2>More Agressive Search<a class="headerlink" href="#more-agressive-search" title="Permalink to this headline">¶</a></h2>
+<p>Now I&#8217;ll try a more aggresive search, turning up both the number of local searches and the spread for the convolution.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">climber</span><span class="o">.</span><span class="n">local_searches</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">tweak</span><span class="o">.</span><span class="n">standard_deviation</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">candidate</span> <span class="o">=</span> <span class="n">XYSolution</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># reset the counters</span>
+<span class="n">rastrigin_data</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">climber</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">climber</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="n">candidate</span>
+<span class="n">stop</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">tweak</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">201406041241</span><span class="p">)</span>
+<span class="n">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">4.51912495</span>  <span class="mf">4.52186726</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">80.703421832</span>
+<span class="n">Ideal</span><span class="p">:</span> <span class="mf">80.7041689429</span>
+<span class="n">Difference</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.000747110867877</span>
+<span class="n">Elapsed</span><span class="p">:</span> <span class="mf">9.48477697372</span>
+<span class="n">Quality</span> <span class="n">Checks</span><span class="p">:</span> <span class="mi">452665</span>
+<span class="n">Comparisons</span><span class="p">:</span> <span class="mf">226332.0</span>
+<span class="n">Solutions</span><span class="p">:</span> <span class="mi">28</span>
+<span class="n">Solutions</span><span class="o">/</span><span class="n">Comparisons</span><span class="p">:</span> <span class="mf">0.000123712068996</span>
+</pre></div>
+</div>
+<p>This took longer, probably because of all the extra searching.</p>
+</div>
+<div class="section" id="even-more-aggressive-search">
+<h2>Even More Aggressive Search<a class="headerlink" href="#even-more-aggressive-search" title="Permalink to this headline">¶</a></h2>
+<p>What if we make it even more aggressive? Will it do better?</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">climber</span><span class="o">.</span><span class="n">local_searches</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">tweak</span><span class="o">.</span><span class="n">standard_deviation</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">candidate</span> <span class="o">=</span> <span class="n">XYSolution</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># reset the counters</span>
+<span class="n">rastrigin_data</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">climber</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">climber</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="n">candidate</span>
+<span class="n">stop</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">tweak</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">201406041413</span><span class="p">)</span>
+<span class="n">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.52619713</span> <span class="o">-</span><span class="mf">4.52250986</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">80.7045426072</span>
+<span class="n">Ideal</span><span class="p">:</span> <span class="mf">80.7041689429</span>
+<span class="n">Difference</span><span class="p">:</span> <span class="mf">0.000373664302643</span>
+<span class="n">Elapsed</span><span class="p">:</span> <span class="mf">20.7312529087</span>
+<span class="n">Quality</span> <span class="n">Checks</span><span class="p">:</span> <span class="mi">998683</span>
+<span class="n">Comparisons</span><span class="p">:</span> <span class="mf">499341.0</span>
+<span class="n">Solutions</span><span class="p">:</span> <span class="mi">39</span>
+<span class="n">Solutions</span><span class="o">/</span><span class="n">Comparisons</span><span class="p">:</span> <span class="mf">7.81029396745e-05</span>
+</pre></div>
+</div>
+<p>I tried these twice &#8211; once with a delta of 0.0001 and once with a delta of 0.001. When the delta is smaller, the initial and really aggresive search never finishes, although the values are close, and the second, somewhat agressive search does much better (9 seconds instead of timing out). But with the larger delta, the first searcher finishes in under 5 seconds, better than the other two and the really aggressive finishes but takes longer than the other two. So it appears that it isn&#8217;t just the shape of the data and the parameters to the search that matter but also how much of a difference you are willing to tolerate. But in any case, being too aggressive always does poorly (for this dataset). Additionally, the the more aggresive search, increasing the standard deviation without increasing the local-searches also increased the search time, presumably because it picks more sub-optimal values.</p>
+<p>Of course, in a real data-set, we wouldn&#8217;t have the actual maximum so all of them would time out.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>EventTimer &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Parts" href="index.html" />
+    <link rel="next" title="threading.Event" href="api/threading.Event.html" />
+    <link rel="prev" title="The Parts" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">EventTimer</a><ul>
+<li><a class="reference internal" href="#the-event-timer">The Event Timer</a></li>
+<li><a class="reference internal" href="#eventtimer-class">EventTimer Class</a></li>
+<li><a class="reference internal" href="#the-constructor-parameters">The Constructor Parameters</a></li>
+<li><a class="reference internal" href="#the-wait-decorator">The <code class="docutils literal"><span class="pre">wait</span></code> Decorator</a></li>
+<li><a class="reference internal" href="#an-example">An Example</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: The Parts"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; The Parts</span>
+    </a>
+  </li>
+  <li>
+    <a href="api/threading.Event.html" title="Next Chapter: threading.Event"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">threading.Event &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/parts/eventtimer.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="eventtimer">
+<h1>EventTimer<a class="headerlink" href="#eventtimer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-event-timer">
+<span id="tuna-event-timer"></span><h2>The Event Timer<a class="headerlink" href="#the-event-timer" title="Permalink to this headline">¶</a></h2>
+<p>An EventTimer will block if you try to make a new request too soon (too soon being something that needs to be empirically determined by the user). It was originally created to prevent calls to a (slow) AP&#8217;s http server from trying <cite>GET</cite> requests too frequently, as that caused the server to timeout. I think that it will be more useful here as a way to provide even intervals to things that have to make calls at certain times (e.g. code that watches a proc-file).</p>
+<p>I&#8217;ve confused myself a bit while trying to remember what this does, so I think I&#8217;ll elaborate a little more. The <cite>EventTimer</cite> bundles threading.event and threading.Timer. By itself it will block until the time expires. The <span class="xref std std-ref">wait decorator</span> calls this event before executing the method it decorates. If you want to use them to maintain intervals, then, the wait decorator has to decorate a method that will be called once, then that method should be called repeatedly.</p>
+<p>These are from python&#8217;s threading module:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="api/threading.Event.html#threading.Event" title="threading.Event"><code class="xref py py-obj docutils literal"><span class="pre">Event</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>A factory function that returns a new event.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Event.set</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Event.clear</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Event.wait</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="api/threading.Timer.html#threading.Timer" title="threading.Timer"><code class="xref py py-obj docutils literal"><span class="pre">Timer</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Factory function to create a Timer object.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="eventtimer-class">
+<h2>EventTimer Class<a class="headerlink" href="#eventtimer-class" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-22ceaf4fd4951e35c31527316c5d4433ddab6fcf.png" alt="EventTimer o- threading.Event
+EventTimer o- threading.Timer
+EventTimer -|&gt; BaseClass
+EventTimer : __init__(event, seconds)
+EventTimer : close()" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer.event</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer.timer</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer.set_event</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer.start</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer.clear</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer.wait</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer.close</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-constructor-parameters">
+<span id="eventtimer-constructor-parameters"></span><h2>The Constructor Parameters<a class="headerlink" href="#the-constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<p>The constructor takes two optional parameters.</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">EventTimer Constructor Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>seconds</td>
+<td>time to block</td>
+<td>0.5 seconds</td>
+</tr>
+<tr class="row-odd"><td>event</td>
+<td>threading.event instance</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>The <cite>event</cite> should only be set if this EventTimer has to share its event with other objects. Probably some case with threads, or somesuch... that&#8217;s not the actual expected use for this.</p>
+</div>
+<div class="section" id="the-wait-decorator">
+<span id="tuna-wait-decorator"></span><h2>The <code class="docutils literal"><span class="pre">wait</span></code> Decorator<a class="headerlink" href="#the-wait-decorator" title="Permalink to this headline">¶</a></h2>
+<p>To make using the <code class="docutils literal"><span class="pre">EventTimer</span></code> easier, you can use the <code class="docutils literal"><span class="pre">wait</span></code> decorator. What it does:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Call event.wait in case a previous timer is still running</li>
+<li>Clear the event</li>
+<li>Call the decorated method</li>
+<li>Start the timer</li>
+</ol>
+</div></blockquote>
+<p>Basic Use:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@wait</span>
+<span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># do something here after the event-timer expires</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is a method decorator &#8211; it assumes the object it belongs to has a <span class="xref std std-ref">timer</span> property.</p>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">wait</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="an-example">
+<h2>An Example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<p>As a basic example, suppose you want to print &#8216;Able was I ere I saw Elba&#8217; every second. You could do something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Napolean</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">EventTimer</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="nd">@wait</span>
+    <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span> <span class="s1">&#39;Able was I ere I saw Elba&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And this would print the palindrome with 1 second pauses in between:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">speak</span> <span class="o">=</span> <span class="n">Napolean</span><span class="p">()</span>
+<span class="n">speak</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The previous example does&#8217;n actually work as advertised. By default the event won&#8217;t block on the first call. This makes sense if you are trying to protect something that can&#8217;t becalled too frequently:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="s1">&#39;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>&#64;wait
+def hit_server(self):</p>
+<blockquote>
+<div>self.server.get()</div></blockquote>
+</div></blockquote>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

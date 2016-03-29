@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>File Storage &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../index.html" />
+    <link rel="up" title="Storage" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">File Storage</a><ul>
+<li><a class="reference internal" href="#filestorage-model">FileStorage Model</a></li>
+<li><a class="reference internal" href="#extras">Extras</a></li>
+<li><a class="reference internal" href="#sub-folders">Sub-Folders</a></li>
+<li><a class="reference internal" href="#redundant-files">Redundant Files</a><ul>
+<li><a class="reference internal" href="#adding-timestamps">Adding Timestamps</a></li>
+<li><a class="reference internal" href="#appending-increments">Appending Increments</a></li>
+<li><a class="reference internal" href="#side-effects">Side Effects</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-tuna.parts.storage.filestorage">FileStorage API</a></li>
+<li><a class="reference internal" href="#filestorage-definition">FileStorage Definition</a><ul>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
+<li><a class="reference internal" href="#the-open-method">The <code class="docutils literal"><span class="pre">open</span></code> Method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/parts/storage/filestorage.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="file-storage">
+<h1>File Storage<a class="headerlink" href="#file-storage" title="Permalink to this headline">¶</a></h1>
+<p>This is a module for classes that implement a file-like interface to disk-files but also add some extra features meant to make them easier to use within the TUNA.</p>
+<div class="section" id="filestorage-model">
+<span id="file-storage-model"></span><h2>FileStorage Model<a class="headerlink" href="#filestorage-model" title="Permalink to this headline">¶</a></h2>
+<p>Since the ultimate model for all storage classes is <code class="docutils literal"><span class="pre">__builtin__.file</span></code> (see: <span class="xref std std-ref">exploring files</span> for the API and some notes), this class will implement all the non-optional methods and attributes. In addition it will inherit from the <a class="reference internal" href="../../components/composite.html#composite-class"><span class="std std-ref">Composite</span></a> in order to allow non-homogeneous storage (e.g. stdout and disk &#8211; the equivalent of the unix <cite>tee</cite>).</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-91fb4cba792ff326687a14a464598533145c1c70.png" alt="FileStorage : FileStorage __init__(path, [,mode])
+FileStorage : open(name[, mode])
+FileStorage : close()
+FileStorage : flush()
+FileStorage : String read()
+FileStorage : String readline()
+FileStorage : List readlines()
+FileStorage : write(text)
+FileStorage : writeline(text)
+FileStorage : writelines(list)
+FileStorage : closed
+FileStorage : mode
+FileStorage : name
+FileStorage : path
+FileStorage : add(component)
+FileStorage : components
+FileStorage : __enter__
+FileStorage : __exit__
+FileStorage : __iter__" />
+</p>
+</div>
+<div class="section" id="extras">
+<span id="file-storage-extras"></span><h2>Extras<a class="headerlink" href="#extras" title="Permalink to this headline">¶</a></h2>
+<p>Although the built-in <code class="docutils literal"><span class="pre">file</span></code> is the model for the <code class="docutils literal"><span class="pre">FileStorage</span></code>, it wouldn&#8217;t make much sense to replicate it exactly. The main impetus for creating this (besides keeping an eye on non-disk output in the future) is to have something that can keep track of extra persistent data &#8211; in particular:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Sub-folders</li>
+<li>Existing files with redundant names (and how to handle them)</li>
+<li>Time-stamps</li>
+<li>Locks</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="sub-folders">
+<span id="file-storage-sub-folders"></span><h2>Sub-Folders<a class="headerlink" href="#sub-folders" title="Permalink to this headline">¶</a></h2>
+<p>In order to help tame the explosion of files that can often happen from the repeated execution of code that collects data the FileStorage will accept a path which it will then prepend to any file-name when it is opened. If the sub-folder does not exist it will be created.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="n">example_path</span> <span class="o">=</span> <span class="s1">&#39;aoeu/snth&#39;</span>
+    <span class="n">example_file</span> <span class="o">=</span> <span class="s1">&#39;umma.gumma&#39;</span>
+
+
+    <span class="c1"># this is the part that should be part of the path property</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">example_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">example_path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;aoeu&#39;</span><span class="p">):</span>
+        <span class="nb">print</span> <span class="n">name</span>
+
+    <span class="c1"># this will be run multiple times, remove the example so it gets started fresh</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">example_path</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">example_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">snth</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="redundant-files">
+<span id="file-storage-redundant-files"></span><h2>Redundant Files<a class="headerlink" href="#redundant-files" title="Permalink to this headline">¶</a></h2>
+<p>It often happens that data-collecting code will be run multiple times. The two ways proposed to avoid inadvertently overriding files are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Appending count-numbers (e.g. a_0.txt, a_1.txt)</li>
+<li>Adding Timestamps</li>
+</ul>
+</div></blockquote>
+<p>The first scheme is more easily generalizable, while the second adds more useful information. It will therefore be assumed that both will be implemented and the increment scheme will only come into effect in the cases where the two files of the same name have been requested in too short a time-interval for the timestamps to differentiate them.</p>
+<div class="section" id="adding-timestamps">
+<h3>Adding Timestamps<a class="headerlink" href="#adding-timestamps" title="Permalink to this headline">¶</a></h3>
+<p>The timestamp will be added using string formatting &#8211; it will look for a <cite>timestamp</cite> keyword:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;test_</span><span class="si">{timestamp}</span><span class="s2">.csv&quot;</span>
+    <span class="nb">print</span> <span class="n">name</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">FILE_TIMESTAMP</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">test_2014_08_06_02</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">17</span><span class="n">_PM</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="appending-increments">
+<h3>Appending Increments<a class="headerlink" href="#appending-increments" title="Permalink to this headline">¶</a></h3>
+<p>In the event that no <cite>timestamp</cite> formatting was added or the files were created less than a second apart, the <cite>FileStorage</cite> will add a count to the end of the base file-name prefix.</p>
+</div>
+<div class="section" id="side-effects">
+<h3>Side Effects<a class="headerlink" href="#side-effects" title="Permalink to this headline">¶</a></h3>
+<p>Because the name is being made to never match an existing file, the FileStorage can only write files, not read them. A separate file-reader needs to be built if that&#8217;s something needed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="c1"># what&#39;s here?</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;txt&#39;</span><span class="p">)):</span>
+        <span class="nb">print</span> <span class="n">name</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;innagaddadavida.txt&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">full_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_name</span><span class="p">):</span>
+        <span class="n">base</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">digit</span> <span class="o">=</span> <span class="s1">r&#39;\d&#39;</span>
+        <span class="n">one_or_more</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span>
+        <span class="n">underscore</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span>
+
+        <span class="n">suffix</span> <span class="o">=</span> <span class="n">underscore</span> <span class="o">+</span> <span class="n">digit</span> <span class="o">+</span> <span class="n">one_or_more</span>
+        <span class="n">expression</span> <span class="o">=</span> <span class="s2">r&quot;</span><span class="si">{b}{s}{e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="n">base</span><span class="p">,</span>
+                                          <span class="n">s</span><span class="o">=</span><span class="n">suffix</span><span class="p">,</span>
+                                            <span class="n">e</span><span class="o">=</span><span class="n">extension</span><span class="p">)</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{b}</span><span class="s2">_</span><span class="si">{c}{e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="n">extension</span><span class="p">)</span>
+
+    <span class="nb">print</span> <span class="n">name</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">innagaddadavida</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="module-tuna.parts.storage.filestorage">
+<span id="filestorage-api"></span><span id="file-storage-api"></span><h2>FileStorage API<a class="headerlink" href="#module-tuna.parts.storage.filestorage" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage.path</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage.safe_name</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage.open</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage.close</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage.write</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage.writeline</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">FileStorage.writelines</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="filestorage-definition">
+<h2>FileStorage Definition<a class="headerlink" href="#filestorage-definition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constructor">
+<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
+<p>The constructor takes two parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li>path</li>
+<li>timestamp</li>
+</ul>
+</div></blockquote>
+<p>The <code class="docutils literal"><span class="pre">path</span></code> is the main reason for using the <code class="docutils literal"><span class="pre">FileStorage</span></code> &#8211; by keeping it persistent it frees the users of the <code class="docutils literal"><span class="pre">FileStorage</span></code> from having to know about sub-folders. The <code class="docutils literal"><span class="pre">timestamp</span></code> is a <cite>strftime</cite> string-format. The default is stored in the global-space of this module as a constant called <code class="docutils literal"><span class="pre">FILE_TIMESTAMP</span></code>.</p>
+</div>
+<div class="section" id="the-open-method">
+<h3>The <code class="docutils literal"><span class="pre">open</span></code> Method<a class="headerlink" href="#the-open-method" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">open</span></code> method is where things get kind of different from a regular file (and may not be a good idea if examined too closely). In order to preserve the path a copy of the <code class="docutils literal"><span class="pre">FileStorage</span></code> is created and a new opened-file is added to it before returning the copy.</p>
+<p>Path:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Append an integer if needed (or asked for) to requested filename to prevent over-writing an existing file with the same name</li>
+<li>Create a copy of the FileStorage</li>
+<li>Open a writeable file-object using the (possibly fixed) filename</li>
+<li>Set the FileStorage copy&#8217;s <code class="docutils literal"><span class="pre">file</span></code> attribute to the opened file</li>
+<li>Set the mode for the FileStorage copy</li>
+<li>Set the <cite>closed</cite> attribute of the copy to False</li>
+<li>Return the new FileStorage copy</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

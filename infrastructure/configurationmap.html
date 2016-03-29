@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Configuration Map &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Infrastructure" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Configuration Map</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#uml-model">UML Model</a></li>
+<li><a class="reference internal" href="#the-configurationerror">The ConfigurationError</a></li>
+<li><a class="reference internal" href="#the-api">The API</a></li>
+<li><a class="reference internal" href="#the-configurationmap-parser">The ConfigurationMap.parser</a></li>
+<li><a class="reference internal" href="#configparser">ConfigParser</a></li>
+<li><a class="reference internal" href="#configparser-exceptions">ConfigParser Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/infrastructure/configurationmap.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-configuration-map">
+<h1>The Configuration Map<a class="headerlink" href="#the-configuration-map" title="Permalink to this headline">¶</a></h1>
+<p id="configuration-map">The <cite>Configuration Map</cite> maps a configuration-file-name to data. It extends the <cite>ConfigParser</cite> to have more data-types (and allow missing values) and to add sub-configuration-files (see the <span class="xref std std-ref">ConfigParser Explorations</span> to get some idea of what I am getting at).</p>
+<div class="section" id="background">
+<span id="configurationmap-background"></span><h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>ConfigParser</cite> module along with the <cite>glob</cite> module will be used to find and convert files to data. The ConfigParser has methods for the main singular data-types but I will also add collections and times. Additionally I will automatically add any sub-config files matching a <cite>config_glob</cite> found in the DEFAULT section of the main file given. I am also setting the <cite>allow_no_value</cite> option to True so that you can use options without values:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">SECTION</span><span class="p">]</span>
+<span class="n">option</span> <span class="o">=</span> <span class="n">value</span>
+<span class="n">valueless_option</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uml-model">
+<span id="configurationmap-uml"></span><h2>UML Model<a class="headerlink" href="#uml-model" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-0093fa74baa20a209e87abf5ab1246c7d2d153ef.png" alt="ConfigurationMap -|&gt; BaseClass
+ConfigurationMap o- ConfigParser" />
+</p>
+</div>
+<div class="section" id="the-configurationerror">
+<span id="configurationmap-configurationerror"></span><h2>The ConfigurationError<a class="headerlink" href="#the-configurationerror" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>ConfigurationMap</cite> will raise a ConfigurationError to try and trickle up more useful information.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationError</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-api">
+<span id="configurationmap-api"></span><h2>The API<a class="headerlink" href="#the-api" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_type</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_int</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_float</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_boolean</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_list</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_tuple</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_dictionary</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_ordered_dictionary</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_named_tuple</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_relativetime</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.get_datetime</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.sections</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.has_option</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.options</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.items</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.defaults</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConfigurationMap.write</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">get_relativetime and get_absolutetime are currently using the defaults. If more control is needed, you will need to grab the option and build them yourself.</p>
+</div>
+</div>
+<div class="section" id="the-configurationmap-parser">
+<span id="configurationmap-parser"></span><h2>The ConfigurationMap.parser<a class="headerlink" href="#the-configurationmap-parser" title="Permalink to this headline">¶</a></h2>
+<p>This property is a SafeConfigParser instance. When it is created, the ConfigurationMap reads the filename passed in on instantiation and checks if the loaded configuration has a <code class="docutils literal"><span class="pre">[DEFAULT]</span> <span class="pre">:</span> <span class="pre">config_glob</span></code> option. If it does, it gets the <cite>config_glob</cite> value, traverses the expanded glob and loads all the files that match.</p>
+</div>
+<div class="section" id="configparser">
+<span id="configurationmap-configparser"></span><h2>ConfigParser<a class="headerlink" href="#configparser" title="Permalink to this headline">¶</a></h2>
+<p>These are the <cite>ConfigParser</cite> methods that will be used.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.html#ConfigParser.SafeConfigParser" title="ConfigParser.SafeConfigParser"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser</span></code></a>([defaults,&nbsp;dict_type,&nbsp;...])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.options.html#ConfigParser.SafeConfigParser.options" title="ConfigParser.SafeConfigParser.options"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.options</span></code></a>(section)</td>
+<td>Return a list of option names for the given section name.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.sections.html#ConfigParser.SafeConfigParser.sections" title="ConfigParser.SafeConfigParser.sections"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.sections</span></code></a>()</td>
+<td>Return a list of section names, excluding [DEFAULT]</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.items.html#ConfigParser.SafeConfigParser.items" title="ConfigParser.SafeConfigParser.items"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.items</span></code></a>(section[,&nbsp;raw,&nbsp;vars])</td>
+<td>Return a list of tuples with (name, value) for each option in the section.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.read.html#ConfigParser.SafeConfigParser.read" title="ConfigParser.SafeConfigParser.read"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.read</span></code></a>(filenames)</td>
+<td>Read and parse a filename or a list of filenames.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.write.html#ConfigParser.SafeConfigParser.write" title="ConfigParser.SafeConfigParser.write"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.write</span></code></a>(fp)</td>
+<td>Write an .ini-format representation of the configuration state.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.get.html#ConfigParser.SafeConfigParser.get" title="ConfigParser.SafeConfigParser.get"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.get</span></code></a>(section,&nbsp;option[,&nbsp;raw,&nbsp;...])</td>
+<td>Get an option value for a given section.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.getint.html#ConfigParser.SafeConfigParser.getint" title="ConfigParser.SafeConfigParser.getint"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.getint</span></code></a>(section,&nbsp;option)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.getfloat.html#ConfigParser.SafeConfigParser.getfloat" title="ConfigParser.SafeConfigParser.getfloat"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.getfloat</span></code></a>(section,&nbsp;option)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.getboolean.html#ConfigParser.SafeConfigParser.getboolean" title="ConfigParser.SafeConfigParser.getboolean"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.getboolean</span></code></a>(section,&nbsp;option)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.has_option.html#ConfigParser.SafeConfigParser.has_option" title="ConfigParser.SafeConfigParser.has_option"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.has_option</span></code></a>(section,&nbsp;option)</td>
+<td>Check for the existence of a given option in a given section.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/ConfigParser.SafeConfigParser.has_section.html#ConfigParser.SafeConfigParser.has_section" title="ConfigParser.SafeConfigParser.has_section"><code class="xref py py-obj docutils literal"><span class="pre">SafeConfigParser.has_section</span></code></a>(section)</td>
+<td>Indicate whether the named section is present in the configuration.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="configparser-exceptions">
+<span id="configurationmap-exceptions"></span><h2>ConfigParser Exceptions<a class="headerlink" href="#configparser-exceptions" title="Permalink to this headline">¶</a></h2>
+<p>These are the <cite>ConfigParser</cite> Exceptions that I will handle in the <cite>ConfigurationMap</cite>.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.Error.html#ConfigParser.Error" title="ConfigParser.Error"><code class="xref py py-obj docutils literal"><span class="pre">ConfigParser.Error</span></code></a>([msg])</td>
+<td>Base class for ConfigParser exceptions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/ConfigParser.NoSectionError.html#ConfigParser.NoSectionError" title="ConfigParser.NoSectionError"><code class="xref py py-obj docutils literal"><span class="pre">ConfigParser.NoSectionError</span></code></a>(section)</td>
+<td>Raised when no section matches a requested option.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="api/ConfigParser.NoOptionError.html#ConfigParser.NoOptionError" title="ConfigParser.NoOptionError"><code class="xref py py-obj docutils literal"><span class="pre">ConfigParser.NoOptionError</span></code></a>(option,&nbsp;section)</td>
+<td>A requested option was not found.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

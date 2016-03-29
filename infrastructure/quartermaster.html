@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The QuarterMaster &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Infrastructure" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The QuarterMaster</a><ul>
+<li><a class="reference internal" href="#public-methods-and-properties">Public Methods and Properties</a></li>
+<li><a class="reference internal" href="#the-constructor-parameters">The Constructor Parameters</a><ul>
+<li><a class="reference internal" href="#default-parameters">Default Parameters</a></li>
+<li><a class="reference internal" href="#components">Components</a></li>
+<li><a class="reference internal" href="#subcommands">Subcommands</a></li>
+<li><a class="reference internal" href="#external-plugins">External Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#retrieving-a-plugin">Retrieving a Plugin</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/infrastructure/quartermaster.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="module-tuna.infrastructure.quartermaster">
+<span id="the-quartermaster"></span><h1>The QuarterMaster<a class="headerlink" href="#module-tuna.infrastructure.quartermaster" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://en.wikipedia.org/wiki/Quartermaster">QuarterMaster</a> handles finding and retrieving plugin class-definitions.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-28a85c3086bab1615f1585ddbe0b46e140d5ac78.png" alt="BaseClass &lt;|-- QuarterMaster
+QuarterMaster o- RyeMother" />
+</p>
+<div class="section" id="public-methods-and-properties">
+<span id="tuna-infrastructure-quartermaster"></span><h2>Public Methods and Properties<a class="headerlink" href="#public-methods-and-properties" title="Permalink to this headline">¶</a></h2>
+<p>These are the public attributes of the <cite>QuarterMaster</cite>. Only <cite>get_plugin</cite> and <cite>list_plugins</cite> are meant for users, the others are building blocks.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">QuarterMaster</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">QuarterMaster.list_plugins</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">QuarterMaster.plugins</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">QuarterMaster.get_plugin</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">QuarterMaster.import_plugins</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-constructor-parameters">
+<h2>The Constructor Parameters<a class="headerlink" href="#the-constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">external_modules</span></code></td>
+<td>List of non-tuna modules to look in for plugins</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">parent</span></code></td>
+<td>Parent class to identify plugins</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">group</span></code></td>
+<td><code class="docutils literal"><span class="pre">setup.py</span></code> <code class="docutils literal"><span class="pre">entry_point</span></code> group</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">name</span></code></td>
+<td><code class="docutils literal"><span class="pre">setup.py</span></code> <code class="docutils literal"><span class="pre">entry_point</span></code> name</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">exclusions</span></code></td>
+<td>List of modules to ignore</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal"><span class="pre">group</span></code> and <code class="docutils literal"><span class="pre">name</span></code> are based on the <code class="docutils literal"><span class="pre">setup.py</span></code> <code class="docutils literal"><span class="pre">entry_points</span></code> variable. The <code class="docutils literal"><span class="pre">entry_points</span></code> uses an ini-file-like format with the form:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">group</span><span class="p">]</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">module</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="ryemother.html#tuna-commoncode-rye-mother-entry-points"><span class="std std-ref">RyeMother</span></a> for more information.</p>
+<div class="section" id="default-parameters">
+<h3>Default Parameters<a class="headerlink" href="#default-parameters" title="Permalink to this headline">¶</a></h3>
+<p>If you build the <cite>QuarterMaster</cite> with no arguments it will assume:</p>
+<blockquote>
+<div><ul class="simple">
+<li>There are no external modules to search</li>
+<li>The plugins all extend the <code class="docutils literal"><span class="pre">BasePlugin</span></code> class</li>
+<li>The group (from the <code class="docutils literal"><span class="pre">setup.py</span></code> <code class="docutils literal"><span class="pre">entry_points</span></code>) with plugins will be <cite>tuna.plugins</cite></li>
+<li>The name will be <cite>plugins</cite></li>
+</ul>
+</div></blockquote>
+<p>The defaults are based on the <code class="docutils literal"><span class="pre">setup.py</span></code> <code class="docutils literal"><span class="pre">entry_points</span></code> having the following in its string:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">tuna</span><span class="o">.</span><span class="n">plugins</span><span class="p">]</span>
+<span class="n">plugins</span> <span class="o">=</span> <span class="n">tuna</span><span class="o">.</span><span class="n">plugins</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="components">
+<h3>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>tuna</cite> also has the following in the <code class="docutils literal"><span class="pre">[tuna.plugins]</span></code> section of the <code class="docutils literal"><span class="pre">entry_points</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">components</span> <span class="o">=</span> <span class="n">tuna</span><span class="o">.</span><span class="n">components</span>
+</pre></div>
+</div>
+<p>So to load components instead you would create the quartermaster like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">quartermaster</span> <span class="o">=</span> <span class="n">QuarterMaster</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;components&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="subcommands">
+<h3>Subcommands<a class="headerlink" href="#subcommands" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">entry_points</span></code> for the <cite>tuna</cite> also has the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">tuna</span><span class="o">.</span><span class="n">subcommands</span><span class="p">]</span>
+<span class="n">subcommands</span> <span class="o">=</span> <span class="n">tuna</span><span class="o">.</span><span class="n">infrastructure</span><span class="o">.</span><span class="n">arguments</span>
+</pre></div>
+</div>
+<p>So to create a <cite>QuarterMaster</cite> to load the sub-commands you can use:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tuna.interface.arguments</span> <span class="k">import</span> <span class="n">BaseArguments</span>
+<span class="n">quartermaster</span> <span class="o">=</span> <span class="n">QuarterMaster</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;tuna.subcommands&#39;</span><span class="p">,</span>
+                              <span class="n">name</span><span class="o">=</span><span class="s1">&#39;subcommands&#39;</span><span class="p">,</span>
+                              <span class="n">parent</span><span class="o">=</span><span class="n">BaseArguments</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is just an example, the actual sub-commands are being retrieved from the <a class="reference internal" href="ryemother.html#tuna-infrastructure-rye-mother-class"><span class="std std-ref">RyeMother</span></a> directly, since the QuarterMaster is only a convenience class to set some defaults to get plugins.</p>
+</div>
+</div>
+<div class="section" id="external-plugins">
+<h3>External Plugins<a class="headerlink" href="#external-plugins" title="Permalink to this headline">¶</a></h3>
+<p>Say you had an external package named <code class="docutils literal"><span class="pre">xytable</span></code> that you wanted to use within the <cite>tuna</cite> so you created a plugin class in <code class="docutils literal"><span class="pre">xytable.xytable</span></code> named XYTable that inherited from the BasePlugin. Then to create the QuarterMaster you would pass in the module (file) name:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">quartermaster</span> <span class="o">=</span> <span class="n">QuarterMaster</span><span class="p">(</span><span class="n">external_modules</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;xytable.xytable&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="retrieving-a-plugin">
+<h2>Retrieving a Plugin<a class="headerlink" href="#retrieving-a-plugin" title="Permalink to this headline">¶</a></h2>
+<p>Once the QuarterMaster is built you retrieve the class definition for the plugin using the <cite>get_plugin</cite> method. Say we wanted to load the <cite>XYTable</cite> plugin from the <cite>External Plugins</cite> example, then you would get the class definition with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">XYTable</span> <span class="o">=</span> <span class="n">quartermaster</span><span class="o">.</span><span class="n">get_plugin</span><span class="p">(</span><span class="s1">&#39;XYTable&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then to use it you would instantiate the object (assuming in this case that it takes no parameters):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">XYTable</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

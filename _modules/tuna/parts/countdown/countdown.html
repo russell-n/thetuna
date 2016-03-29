@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.parts.countdown.countdown &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../../index.html" />
+    <link rel="up" title="tuna" href="../../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.parts.countdown.countdown</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># python standard library</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+
+<span class="c1"># third party</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">BaseClass</span><span class="p">,</span> <span class="n">TunaError</span><span class="p">,</span> <span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span>
+
+
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+<span class="n">INFO</span> <span class="o">=</span> <span class="s1">&#39;info&#39;</span>
+<span class="n">STAT_STRING</span> <span class="o">=</span> <span class="s1">&#39;Time Stats -- Min: {min}, Q1: {q1}, Med: {med}, Q3: {q3}, Max: {max}, Mean: {mean}, StD: {std}&#39;</span>
+<span class="n">ELAPSED_STRING</span> <span class="o">=</span> <span class="s1">&#39;{0}Elapsed Time:{1} {{0}}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span><span class="p">)</span>
+<span class="n">TOTAL_ELAPSED_STRING</span> <span class="o">=</span> <span class="s1">&#39;{0}Total Elapsed Time:{1} {{0}}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span><span class="p">)</span>
+<span class="n">ESTIMATED_REMAINING</span> <span class="o">=</span> <span class="s1">&#39;{0}Estimated Remaining Time:{1} {{0}}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span>
+                                                                     <span class="n">RESET</span><span class="p">)</span>
+<span class="n">REPETITIONS_REMAINING</span> <span class="o">=</span> <span class="s2">&quot;{0}Repetitions Remaining:{1} {{0}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span><span class="p">)</span>
+<span class="n">TIME_LIMIT</span> <span class="o">=</span> <span class="s2">&quot;{0}Time-Limit Reached:{1} {{0}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span><span class="p">)</span>
+<span class="n">TIME_REMAINING</span> <span class="o">=</span> <span class="s2">&quot;{0}Time-Out Request in:{1} {{0}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span><span class="p">)</span>
+<span class="n">HARD_TIMEOUT</span> <span class="o">=</span> <span class="s2">&quot;{0}Absolute Quit at:{1} {{0}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span><span class="p">)</span>
+<span class="n">END_TIME</span> <span class="o">=</span> <span class="s2">&quot;{0}End-Time Reached:{1} {{0}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BOLD</span><span class="p">,</span> <span class="n">RESET</span><span class="p">)</span>
+<span class="n">MIN_PERCENTILE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">Q1_PERCENTILE</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">MEDIAN_PERCENTILE</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">Q3_PERCENTILE</span> <span class="o">=</span> <span class="mi">75</span>
+<span class="n">MAX_PERCENTILE</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">CONTINUE</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">STOP</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">NOT_SET</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">UNSET</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">DECREMENT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">FINISHED</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">ANNIHILATE</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+<span class="k">class</span> <span class="nc">TimeTracker</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A tracker of elapsed time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TimeTracker.__init__"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.TimeTracker.__init__.html#tuna.parts.countdown.countdown.TimeTracker.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="n">DEBUG</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param: `log_level`: level at which to report elapsed times (default=&#39;debug&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TimeTracker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="n">log_level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        collection of elapsed times</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span>
+
+    <span class="nd">@times.setter</span>
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param: ``times`` - collection</span>
+<span class="sd">        :postcondition: self._times set to times</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">times</span>
+        <span class="k">return</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The logger method indicated by the log_level</span>
+
+<span class="sd">        :return: logger.debug or logger.info</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_level</span> <span class="o">==</span> <span class="n">INFO</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_level</span> <span class="o">==</span> <span class="n">DEBUG</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;Unknown log level: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_level</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span>
+        
+
+<div class="viewcode-block" id="TimeTracker.append"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.TimeTracker.append.html#tuna.parts.countdown.countdown.TimeTracker.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Appends the item to the times array</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `item`: item to append to self.times (a numpy array)</span>
+
+<span class="sd">        :postcondition: self.times contains item</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="p">[</span><span class="n">item</span><span class="p">])</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="TimeTracker.percentile"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.TimeTracker.percentile.html#tuna.parts.countdown.countdown.TimeTracker.percentile">[docs]</a>    <span class="k">def</span> <span class="nf">percentile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percentile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        calculates the percentile (e.g. 50 gets the median (the 50% item))</span>
+
+<span class="sd">        :return: value for percintile of self.times as a timedelta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">percentile</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">log_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elapsed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Outputs to the log the most recent elapsed time information</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `elapsed`: timedelta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">elapsed_string</span> <span class="o">=</span> <span class="n">ELAPSED_STRING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elapsed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">elapsed_string</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">STAT_STRING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">MIN_PERCENTILE</span><span class="p">),</span>
+                                    <span class="n">q1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">Q1_PERCENTILE</span><span class="p">),</span>
+                                    <span class="n">med</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">MEDIAN_PERCENTILE</span><span class="p">),</span>
+                                    <span class="n">q3</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">Q3_PERCENTILE</span><span class="p">),</span>
+                                    <span class="nb">max</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">MAX_PERCENTILE</span><span class="p">),</span>
+                                    <span class="n">mean</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)),</span>
+                                    <span class="n">std</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">))))</span>
+        <span class="k">return</span>
+
+
+<div class="viewcode-block" id="TimeTracker.__call__"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.TimeTracker.__call__.html#tuna.parts.countdown.countdown.TimeTracker.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The main interface - starts and stops (toggles) the timer</span>
+
+<span class="sd">        :return: True if starting, False if stopping</span>
+<span class="sd">        :postcondition: elapsed time logged and added to self.times</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>            
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+        <span class="c1"># numpy can&#39;t handle timedeltas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_update</span><span class="p">(</span><span class="n">elapsed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">False</span></div>
+
+
+<div class="viewcode-block" id="CountdownTimer"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.CountdownTimer.html#tuna.parts.countdown.countdown.CountdownTimer">[docs]</a><span class="k">class</span> <span class="nc">CountdownTimer</span><span class="p">(</span><span class="n">TimeTracker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A time-tracker that counts down</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="CountdownTimer.__init__"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.CountdownTimer.html#tuna.parts.countdown.countdown.CountdownTimer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repetitions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">total_time</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param:</span>
+
+<span class="sd">         - ``repetitions``: number of calls to accept before stopping</span>
+<span class="sd">         - ``end_time``: datetime to stop</span>
+<span class="sd">         - ``total_time``: timedelta for amount of time to run</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CountdownTimer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="o">=</span> <span class="n">repetitions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">end_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">=</span> <span class="n">total_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="CountdownTimer.time_remains"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.CountdownTimer.html#tuna.parts.countdown.countdown.CountdownTimer.time_remains">[docs]</a>    <span class="k">def</span> <span class="nf">time_remains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluates if there is still time (or repetitions) remaining</span>
+
+<span class="sd">        :precondition: if total_time is set, self.start is set</span>
+<span class="sd">        :return: True if reps or time remains, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">this_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="c1"># check that the parameters have been set</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">STOP</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>            
+            <span class="k">if</span> <span class="n">this_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
+                <span class="c1"># end-time takes first-precedence</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">END_TIME</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">STOP</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">HARD_TIMEOUT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+            <span class="c1"># total_time is a relative time so it has to be on the LHS (need to fix this)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">this_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">):</span>
+                <span class="c1"># total-time takes precedence over repetitions</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">TIME_LIMIT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_time</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">STOP</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">TIME_REMAINING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">-</span> <span class="p">(</span><span class="n">this_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)))</span>
+            
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="o">+=</span> <span class="n">DECREMENT</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="o">&lt;=</span> <span class="n">FINISHED</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">STOP</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">REPETITIONS_REMAINING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span><span class="p">))</span>
+            
+        <span class="c1"># of no stopping-condtions are met, assume time-remains</span>
+        <span class="k">return</span> <span class="n">CONTINUE</span></div>
+
+<div class="viewcode-block" id="CountdownTimer.log_estimated_time_remaining"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.CountdownTimer.html#tuna.parts.countdown.countdown.CountdownTimer.log_estimated_time_remaining">[docs]</a>    <span class="k">def</span> <span class="nf">log_estimated_time_remaining</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Log an estitmated remaining time based on the median and repetitions  x xx </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">this_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ESTIMATED_REMAINING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="n">estimated_end</span> <span class="o">=</span> <span class="n">estimated_total</span> <span class="o">=</span> <span class="n">estimated_reps</span> <span class="o">=</span> <span class="n">timedelta</span><span class="o">.</span><span class="n">max</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+            <span class="n">estimated_end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">this_time</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+            <span class="n">estimated_total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">-</span> <span class="p">(</span><span class="n">this_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+            <span class="n">estimated_reps</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="o">*</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">MEDIAN_PERCENTILE</span><span class="p">))</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ESTIMATED_REMAINING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">estimated_end</span><span class="p">,</span>
+                                                <span class="n">estimated_total</span><span class="p">,</span>
+                                                <span class="n">estimated_reps</span><span class="p">)))</span>
+        <span class="k">return</span></div>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The main interface. Each call re-starts the timer and decrements the repetitions</span>
+
+<span class="sd">        :return: True if repetitions &gt; 0, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">call_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="ow">is</span> <span class="n">NOT_SET</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span> <span class="o">=</span> <span class="n">call_time</span>
+            <span class="k">return</span> <span class="n">CONTINUE</span>
+
+        <span class="c1"># convert to seconds so numpy can calculate statistics</span>
+        <span class="n">elapsed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span> <span class="o">=</span> <span class="n">call_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_time</span><span class="p">,</span> <span class="n">call_time</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_update</span><span class="p">(</span><span class="n">elapsed</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_remains</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_estimated_time_remaining</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">CONTINUE</span>
+
+        <span class="c1"># out of time or repetitions, tear it down</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">TOTAL_ELAPSED_STRING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">call_time</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">STOP</span>    
+
+<div class="viewcode-block" id="CountdownTimer.close"><a class="viewcode-back" href="../../../../parts/countdown/api/tuna.parts.countdown.countdown.CountdownTimer.html#tuna.parts.countdown.countdown.CountdownTimer.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the attributes (makes __call__ always evaluate to false, not once like default)</span>
+
+<span class="sd">        :postcondition:</span>
+
+<span class="sd">         - ``self.end_time`` is None</span>
+<span class="sd">         - ``self.total_time`` is None</span>
+<span class="sd">         - ``self.repetitions`` is 0</span>
+<span class="sd">         - ``self.start`` is None</span>
+<span class="sd">         - ``self._times`` is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">UNSET</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">UNSET</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">=</span> <span class="n">UNSET</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div></div>
+<span class="c1"># end class CountdownTimer</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

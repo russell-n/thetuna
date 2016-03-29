@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Tuna Plugin &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Tuna-Plugins" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Tuna Plugin</a><ul>
+<li><a class="reference internal" href="#the-components">The Components</a></li>
+<li><a class="reference internal" href="#the-errors">The Errors</a></li>
+<li><a class="reference internal" href="#the-run-state-diagram">The Run State Diagram</a></li>
+<li><a class="reference internal" href="#module-tuna.plugins.tunaplugin">The API</a></li>
+<li><a class="reference internal" href="#using-external-plugins">Using External Plugins</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/plugins/tunaplugin.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-tuna-plugin">
+<h1>The Tuna Plugin<a class="headerlink" href="#the-tuna-plugin" title="Permalink to this headline">¶</a></h1>
+<img alt="../_images/blackfin_tuna_duane_raver_jr1.jpg" class="align-center" src="../_images/blackfin_tuna_duane_raver_jr1.jpg" />
+<p>This is the plugin that creates the master composite to run other <a class="reference internal" href="../components/composite.html#composite-class"><span class="std std-ref">Composites</span></a>. It will be used when the <cite>run</cite> subcommand is called by the user.</p>
+<div class="section" id="the-components">
+<span id="tunaplugin-components"></span><h2>The Components<a class="headerlink" href="#the-components" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-006d334ab81b8cc303f39c44abf3c8000b75a770.png" alt="Component --|&gt; BaseClass
+Composite --|&gt; Component
+Leaf --|&gt; Component
+Hortator --|&gt; Composite
+Operator --|&gt; Composite
+Operation --|&gt; Composite
+Hortator &quot;1&quot; o- &quot;1..*&quot; Operator
+Operator &quot;1&quot; o- &quot;1..*&quot; Operation
+Operation &quot;1&quot; o- &quot;1..*&quot; Leaf" />
+</p>
+<p>The <cite>Hortator</cite>, <cite>Operator</cite> and <cite>Operation</cite> are instances of the Composite and so aren&#8217;t functionally different but they catch different levels of exceptions so that there can be a certain level of self-recovery and error handling. Each execution of the <cite>tuna</cite> have one <cite>Hortator</cite> composed of <cite>Operators</cite> (one <cite>Operator</cite> per configuration file with a <cite>TUNA</cite> section). Each line in the TUNA will correspond to an <cite>Operation</cite> composed of <cite>Leafs</cite> (one <cite>Leaf</cite> per item on the comma-separated line). Each Leaf is a plugin&#8217;s product. Thus when a plugin is created, the product should inherit from the <cite>Component</cite> class in order to make sure it has the same interface.</p>
+<p>The reason for differentiating the three Composites is to allow different levels of error handling.  For instance, differentiating <cite>Operation</cite> vs  <cite>Operator</cite>  allows the user to decide on a set of plugins that will be called even if the first set crashes. e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">TUNA</span><span class="p">]</span>
+<span class="n">op_1</span> <span class="o">=</span> <span class="n">WatchRSSI</span><span class="p">,</span><span class="n">IperfSession</span>
+<span class="n">op_2</span> <span class="o">=</span> <span class="n">CleanUp</span>
+</pre></div>
+</div>
+<p>When translated to objects, this configuration would create one <cite>Operation</cite> composite for each line and both lines would be composed in an <cite>Operator</cite> (and if there are multiple config-files with <code class="docutils literal"><span class="pre">[TUNA]</span></code> sections, an <cite>Operator</cite> will be created for each and all <cite>Operators</cite> will be composed in the <cite>Hortator</cite>). If one of the <cite>Leafs</cite> in <cite>op_1</cite> (<cite>WatchRSSI</cite> or <cite>IperfSession</cite>) crashes in a predictable way (raising a <cite>TunaError</cite> or the equivalent) then the <cite>op_2</cite> Leaf (CleanUp) should still be executed. The reason for only catching tuna-defined exceptions is so that if something is really wrong with the code or system and another exception is raised (either a python-built-in exception or from an external third-party package), it will be assumed that the configuration is un-runnable and the Hortator will move on to the next <cite>Operator</cite>.</p>
+</div>
+<div class="section" id="the-errors">
+<span id="tunaplugin-errors"></span><h2>The Errors<a class="headerlink" href="#the-errors" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-ab327519b3281e01b0c9b3e85f7e8373f00de8ff.png" alt="TunaError --|&gt; Exception
+DontCatchError --|&gt; Exception" />
+</p>
+<p>Since the two errors are siblings, catching the <code class="docutils literal"><span class="pre">TunaError</span></code> won&#8217;t catch the <cite>DontCatchError</cite>.</p>
+</div>
+<div class="section" id="the-run-state-diagram">
+<span id="tunaplugin-run-state-diagram"></span><h2>The Run State Diagram<a class="headerlink" href="#the-run-state-diagram" title="Permalink to this headline">¶</a></h2>
+<p>The assumed flow for the <code class="docutils literal"><span class="pre">run</span></code> sub-command is something like this:</p>
+<img src="../_images/graphviz-657cee19610f9c185dd5091178e11c95525d72f5.png" alt="digraph run_state_diagram {
+rankdir = LR
+pa [label=&quot;Parse Args&quot;]
+bc [label=&quot;Build Map&quot;]
+bo [label=&quot;Build Composites&quot;]
+run [label=&quot;Run&quot;, shape=diamond]
+data [label=&quot;Data&quot;, shape=rect]
+start [label=&quot;Start&quot;, shape=diamond]
+configurations [label=&quot;Configurations&quot;, shape=rect]
+
+start -&gt; pa [label=&quot;args&quot;]
+pa -&gt; bc [label=&quot;name&quot;]
+configurations -&gt; bc [label=&quot;config&quot;]
+bc -&gt; bo [label=&quot;map&quot;]
+bo -&gt; run [label=&quot;Hortator&quot;]
+run -&gt; data [label=&quot;datum&quot;]
+}" />
+<p>This means:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The <cite>Parse Args</cite> state has been reached before this plugin is created.</li>
+<li>The <cite>Build Map</cite> uses a <cite>ConfigurationMap &lt;configuration-map&gt;</cite></li>
+<li>the <cite>Build Composites</cite> happens in creating the <code class="docutils literal"><span class="pre">product</span></code></li>
+</ul>
+</div></blockquote>
+<p class="plantuml">
+<img src="../_images/plantuml-bda033448b7434bf4f56193f7c2e2f372bb5fc2d.png" alt="Tuna --|&gt; BasePlugin
+Tuna o-- HelpPage
+Tuna o-- Composite
+Tuna o-- QuarterMaster
+Tuna o-- ConfigurationMap
+Tuna o-- FileStorage" />
+</p>
+</div>
+<div class="section" id="module-tuna.plugins.tunaplugin">
+<span id="the-api"></span><span id="tunaplugin-api"></span><h2>The API<a class="headerlink" href="#module-tuna.plugins.tunaplugin" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Tuna</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Tuna.help</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Tuna.product</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Tuna.fetch_config</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Tuna.arguments</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Tuna.sections</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The ConfigParser adds all options in the DEFAULT section to the other sections. I am assuming that anything in the DEFAULT section that is the same as something in the TUNA section (same option:value) should be ignored.</p>
+</div>
+</div>
+<div class="section" id="using-external-plugins">
+<span id="tunaplugin-external-plugins"></span><h2>Using External Plugins<a class="headerlink" href="#using-external-plugins" title="Permalink to this headline">¶</a></h2>
+<p>In order to allow the execution of plugins that are not a part of the <code class="docutils literal"><span class="pre">ape</span></code>, I am allowing the declaration of
+modules in the configuration file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">MODULES</span><span class="p">]</span>
+<span class="n">package</span><span class="o">.</span><span class="n">module</span>
+</pre></div>
+</div>
+<p>Or something similar. The ape will search modules named in the MODULES section for children of the <cite>ape.plugins.base_plugin.BasePlugin</cite> class and load and call them if found. The idea is that rather than having to mix up the ape and other packages, a <cite>sandbox</cite> package can be setup with plugins that act as the interface between the <cite>ape</cite> and the other package(s).</p>
+<p>Using the <cite>FakePlugin</cite> created for the <span class="xref std std-ref">Exploring External Imports</span> section, the config file for the ape could look something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">TUNA</span><span class="p">]</span>
+<span class="n">operation_1</span> <span class="o">=</span> <span class="n">FakePlugin</span>
+
+<span class="p">[</span><span class="n">MODULES</span><span class="p">]</span>
+<span class="n">fakepackage</span><span class="o">.</span><span class="n">fakeplugin</span>
+
+<span class="p">[</span><span class="n">FakePlugin</span><span class="p">]</span>
+<span class="n">plugin</span> <span class="o">=</span> <span class="n">FakePlugin</span>
+<span class="n">option</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+</div>
+<p>The FakePlugin returns a <a class="reference internal" href="../parts/dummy/dummy.html#dummy-class"><span class="std std-ref">DummyClass</span></a> as its <cite>product</cite> so the FAKEPLUGIN section doesn&#8217;t really do anything.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In order to allow more than one instance of a plugin to be created, the <code class="docutils literal"><span class="pre">plugin=&lt;plugin</span> <span class="pre">class</span> <span class="pre">name&gt;</span></code> line was added. Each section that configures a plugin needs it. The header for the section is arbitrary but must match the value defined in the APE section.</p>
+</div>
+<p>If we wanted to configure a second FakePlugin, for instance, we could do something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">APE</span><span class="p">]</span>
+<span class="n">operation_1</span> <span class="o">=</span> <span class="n">apple</span><span class="p">,</span> <span class="n">banana</span>
+
+<span class="p">[</span><span class="n">MODULES</span><span class="p">]</span>
+<span class="n">fakepackage</span><span class="o">.</span><span class="n">fakeplugin</span>
+
+<span class="p">[</span><span class="n">apple</span><span class="p">]</span>
+<span class="n">plugin</span> <span class="o">=</span> <span class="n">FakePlugin</span>
+<span class="n">option</span> <span class="o">=</span> <span class="n">value</span>
+
+<span class="p">[</span><span class="n">banana</span><span class="p">]</span>
+<span class="n">plugin</span> <span class="o">=</span> <span class="n">FakePlugin</span>
+<span class="n">options</span> <span class="o">=</span> <span class="n">other_value</span>
+</pre></div>
+</div>
+<p>This is the intended way for it to work, anyway. If the plugin wasn&#8217;t built to use the <code class="docutils literal"><span class="pre">section_header</span></code> attribute when retrieving section information it won&#8217;t work.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

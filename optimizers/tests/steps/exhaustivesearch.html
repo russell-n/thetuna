@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Feature: Exhaustive Search &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Feature: Exhaustive Search</a><ul>
+<li><a class="reference internal" href="#scenario-exhaustivesearch-creation">Scenario: ExhaustiveSearch creation</a></li>
+<li><a class="reference internal" href="#scenario-exhaustivesearch-mis-configuration">Scenario: ExhaustiveSearch mis-configuration</a></li>
+<li><a class="reference internal" href="#scenario-one-dimensional-grid">Scenario: One Dimensional Grid</a></li>
+<li><a class="reference internal" href="#scenario-unbounded-one-dimensional-carries">Scenario: Unbounded one dimensional carries</a></li>
+<li><a class="reference internal" href="#scenario-two-dimensional-grid-search">Scenario: Two-Dimensional Grid Search</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../../_sources/optimizers/tests/steps/exhaustivesearch.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="feature-exhaustive-search">
+<h1>Feature: Exhaustive Search<a class="headerlink" href="#feature-exhaustive-search" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-gherkin"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> Exhaustive Search</span>
+
+<span class="nf">    As a user</span>
+<span class="nf">    I want to be able to exhaustively search a grid</span>
+<span class="nf">    So that I can find the maximum value in it</span>
+
+<span class="k">Scenario:</span><span class="nf"> ExhaustiveSearch creation</span>
+<span class="k">    Given </span><span class="nf">an ExhaustiveSearch configuration</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the ExhaustiveSearch is created</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">the ExhaustiveSearch implements the Component interface</span>
+
+<span class="k">Scenario:</span><span class="nf"> ExhaustiveSearch mis-configuration</span>
+<span class="k">    Given </span><span class="nf">an invalid ExhaustiveSearch configuration</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the ExhaustiveSearch.check_rep is called</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">the ExhaustiveSearch raises a ConfigurationError</span>
+
+<span class="k">Scenario:</span><span class="nf"> One Dimensional Grid</span>
+
+<span class="k">    Given </span><span class="nf">a one-dimensional search space is set up</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the user calls the ExhaustiveSearch</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">it searches the space along one axis</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">returns the highest value</span>
+
+<span class="k">Scenario:</span><span class="nf"> Unbounded one dimensional carries</span>
+
+<span class="k">    Given </span><span class="nf">a one-dimensional search space is set up</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the bounded flag is not set</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">a candidate that&#39;s too big is passed to carry</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">the candidate is set to the minimum</span>
+
+<span class="k">Scenario:</span><span class="nf"> Two-Dimensional Grid Search</span>
+
+<span class="k">    Given </span><span class="nf">a two-dimensional search space is set up</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the user calls the ExhaustiveSearch</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">it searches the entire </span><span class="s">2</span><span class="nf">D space</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">returns the highest value</span>
+<span class="nf">    </span>
+</pre></div>
+</div>
+<div class="section" id="scenario-exhaustivesearch-creation">
+<h2>Scenario: ExhaustiveSearch creation<a class="headerlink" href="#scenario-exhaustivesearch-creation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;an ExhaustiveSearch configuration&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">setup_configuration</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">minima</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">maxima</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">increments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">quality</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="k">return</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the ExhaustiveSearch is created&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_search</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">search</span> <span class="o">=</span> <span class="n">ExhaustiveSearch</span><span class="p">(</span><span class="n">minima</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">minima</span><span class="p">,</span>
+                                      <span class="n">maxima</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">maxima</span><span class="p">,</span>
+                                      <span class="n">increments</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">increments</span><span class="p">,</span>
+                                      <span class="n">quality</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span>
+                                      <span class="n">solutions</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">storage</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;the ExhaustiveSearch implements the Component interface&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">check_component</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">search</span><span class="p">,</span> <span class="n">is_</span><span class="p">(</span><span class="n">instance_of</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">)))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-exhaustivesearch-mis-configuration">
+<h2>Scenario: ExhaustiveSearch mis-configuration<a class="headerlink" href="#scenario-exhaustivesearch-mis-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;an invalid ExhaustiveSearch configuration&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">invalid_configuration</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">minima</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">increments</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">maxima</span> <span class="o">=</span> <span class="n">increments</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">one_dimension</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">quality</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">storage</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">invalid_minima</span> <span class="o">=</span> <span class="n">ExhaustiveSearch</span><span class="p">(</span><span class="n">minima</span><span class="o">=</span><span class="n">maxima</span><span class="p">,</span>
+                                              <span class="n">maxima</span><span class="o">=</span><span class="n">minima</span><span class="p">,</span>
+                                              <span class="n">increments</span><span class="o">=</span><span class="n">increments</span><span class="p">,</span>
+                                              <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span>
+                                              <span class="n">solutions</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">invalid_minima_dimension</span> <span class="o">=</span> <span class="n">ExhaustiveSearch</span><span class="p">(</span><span class="n">minima</span><span class="o">=</span><span class="n">one_dimensio</span>
+<span class="n">n</span><span class="p">,</span>
+                                                        <span class="n">maxima</span><span class="o">=</span><span class="n">maxima</span><span class="p">,</span>
+                                                        <span class="n">increments</span><span class="o">=</span><span class="n">incremen</span>
+<span class="n">ts</span><span class="p">,</span>
+                                                        <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span>
+                                                        <span class="n">solutions</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">invalid_increments_dimension</span> <span class="o">=</span> <span class="n">ExhaustiveSearch</span><span class="p">(</span><span class="n">minima</span><span class="o">=</span><span class="n">minima</span><span class="p">,</span>
+                                                            <span class="n">maxima</span><span class="o">=</span><span class="n">maxima</span><span class="p">,</span>
+                                                            <span class="n">increments</span><span class="o">=</span><span class="n">one_</span>
+<span class="n">dimension</span><span class="p">,</span>
+                                                            <span class="n">quality</span><span class="o">=</span><span class="n">quality</span>
+<span class="p">,</span>
+                                                            <span class="n">solutions</span><span class="o">=</span><span class="n">stora</span>
+<span class="n">ge</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the ExhaustiveSearch.check_rep is called&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">check_rep</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="c1">#since this raises an error the calls are in the next function</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;the ExhaustiveSearch raises a ConfigurationError&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">raise_error</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">invalid_minima</span><span class="o">.</span><span class="n">check_rep</span><span class="p">,</span> <span class="n">raises</span><span class="p">(</span><span class="n">ConfigurationError</span>
+<span class="p">))</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">invalid_increments_dimension</span><span class="o">.</span><span class="n">check_rep</span><span class="p">,</span> <span class="n">raises</span><span class="p">(</span><span class="n">Conf</span>
+<span class="n">igurationError</span><span class="p">))</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">invalid_minima_dimension</span><span class="o">.</span><span class="n">check_rep</span><span class="p">,</span>
+                <span class="n">raises</span><span class="p">(</span><span class="n">ConfigurationError</span><span class="p">))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-one-dimensional-grid">
+<h2>Scenario: One Dimensional Grid<a class="headerlink" href="#scenario-one-dimensional-grid" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;a one-dimensional search space is set up&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">one_dimension</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">quality</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">best</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">minima</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">maxima</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">set_output</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">maxima</span>
+        <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">set_output</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">best</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">maxima</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">increments</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">search</span> <span class="o">=</span> <span class="n">ExhaustiveSearch</span><span class="p">(</span><span class="n">minima</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">minima</span><span class="p">,</span>
+                                      <span class="n">maxima</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">maxima</span><span class="p">,</span>
+                                      <span class="n">increments</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">increments</span><span class="p">,</span>
+                                      <span class="n">quality</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span>
+                                      <span class="n">solutions</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">storage</span><span class="p">)</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">minima</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">minima</span><span class="p">))</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">maxima</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">maxima</span><span class="p">))</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">increments</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">increments</span><span class="p">))</span>
+    <span class="k">return</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the user calls the ExhaustiveSearch&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">search_call</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">outcome</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;it searches the space along one axis&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">one_axis_check</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="c1">#for coordinate in xrange(context.minima[0],</span>
+    <span class="c1">#                         context.maxima[0]):</span>
+    <span class="c1">#    expected.append(call(context.maxima[0]))</span>
+    <span class="c1">#    expected.append(call(coordinate))</span>
+    <span class="c1">#assert_that(context.quality.mock_calls, equal_to(expected))</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;returns the highest value&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">return_maximum_check</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="c1">#assert_that(numpy.array_equal(context.best,</span>
+    <span class="c1">#                              context.outcome))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-unbounded-one-dimensional-carries">
+<h2>Scenario: Unbounded one dimensional carries<a class="headerlink" href="#scenario-unbounded-one-dimensional-carries" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the bounded flag is not set&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">unset_flag</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">bounded</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">return</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;a candidate that&#39;s too big is passed to carry&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">carry_value</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">candidate</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">maxima</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">candidate</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">carry</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;the candidate is set to the minimum&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">check_minimum</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">candidate</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">minima</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-two-dimensional-grid-search">
+<h2>Scenario: Two-Dimensional Grid Search<a class="headerlink" href="#scenario-two-dimensional-grid-search" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;a two-dimensional search space is set up&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">setup_2d</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">minima</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">increments</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">maxima</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">increments</span> <span class="o">*</span> <span class="mi">9</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">best</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">quality_check</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">context</span><span class="o">.</span><span class="n">best</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="n">quality</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">quality_check</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">search</span> <span class="o">=</span> <span class="n">ExhaustiveSearch</span><span class="p">(</span><span class="n">minima</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">minima</span><span class="p">,</span>
+                                      <span class="n">maxima</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">maxima</span><span class="p">,</span>
+                                      <span class="n">increments</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">increments</span><span class="p">,</span>
+                                      <span class="n">quality</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span>
+                                      <span class="n">solutions</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">storage</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;it searches the entire 2D space&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">check_2d_search</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="c1"># the numpy candidate array is always the same</span>
+    <span class="c1"># so the mock_calls only have the last value</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

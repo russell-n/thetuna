@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simulated Annealing With Simulated Table Data &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../../index.html" />
+    <link rel="up" title="Simulated Annealing Examples" href="index.html" />
+    <link rel="next" title="Simulated Annealing With Simulated (Half) Table Data" href="simulated_annealing_half_table.html" />
+    <link rel="prev" title="Simulated Annealing Examples" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Simulated Annealing With Simulated Table Data</a><ul>
+<li><a class="reference internal" href="#problem">Problem</a></li>
+<li><a class="reference internal" href="#the-simulation-data">The Simulation Data</a><ul>
+<li><a class="reference internal" href="#data-plots">Data Plots</a></li>
+<li><a class="reference internal" href="#interactive-map">Interactive Map</a></li>
+<li><a class="reference internal" href="#summary-statistics">Summary Statistics</a></li>
+<li><a class="reference internal" href="#the-neighborhood">The Neighborhood</a><ul>
+<li><a class="reference internal" href="#maximum-neighborhood">Maximum Neighborhood</a></li>
+<li><a class="reference internal" href="#minimum-neighborhood">Minimum Neighborhood</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#partitioning-the-data">Partitioning the Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pseudocode-for-simulated-annealing">Pseudocode for Simulated Annealing</a></li>
+<li><a class="reference internal" href="#simulated-annealing">Simulated Annealing</a></li>
+<li><a class="reference internal" href="#gaussian-convolution">Gaussian Convolution</a></li>
+<li><a class="reference internal" href="#sample-configuration-file">Sample Configuration File</a><ul>
+<li><a class="reference internal" href="#tuna-section">TUNA Section</a></li>
+<li><a class="reference internal" href="#default-section">DEFAULT Section</a></li>
+<li><a class="reference internal" href="#modules-section">MODULES Section</a></li>
+<li><a class="reference internal" href="#annealing-section">Annealing Section</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-outcome">The Outcome</a><ul>
+<li><a class="reference internal" href="#how-many-times-did-it-find-the-maximum-bandwidth-location">How many times did it find the maximum-bandwidth location?</a></li>
+<li><a class="reference internal" href="#how-many-times-did-it-do-well-enough">How many times did it do well enough?</a></li>
+<li><a class="reference internal" href="#how-well-did-it-typically-do">How well did it typically do?</a></li>
+<li><a class="reference internal" href="#how-long-were-the-execution-times">How long were the execution times?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Simulated Annealing Examples"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Simulated Ann...</span>
+    </a>
+  </li>
+  <li>
+    <a href="simulated_annealing_half_table.html" title="Next Chapter: Simulated Annealing With Simulated (Half) Table Data"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Simulated Ann... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../../../_sources/documentation/user/case_studies/simulated_annealing/simulated_annealing_exhaustive_dataset.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="simulated-annealing-with-simulated-table-data">
+<h1>Simulated Annealing With Simulated Table Data<a class="headerlink" href="#simulated-annealing-with-simulated-table-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="problem">
+<span id="case-study-annealing-simulated-table"></span><h2>Problem<a class="headerlink" href="#problem" title="Permalink to this headline">¶</a></h2>
+<p><em>How can we understand how the `Simulated Annealing` parameters should be set while trying to optimize device placement on a table?</em></p>
+<p>In order to make the optimization work we need to know how to set the parameters that affect whether the optimizer will emphasize <em>exploration</em> or <em>exploitation</em> (will it jump around a lot or will it stick to looking around where it is?). We also need to know a reasonable stopping condition &#8211; setting an ideal value would allow a short-circuit to end the optimization but runs the risk that we&#8217;ve chosen an incorrect ideal value, while setting a time-out runs the risk of either being too short and missing the optimal value or being too long and searching needlessly while delaying moving on to the next phase of the experiment.</p>
+<p>What we&#8217;ll do here is use data collected by exhaustively sweeping a table and passing it to the optimizer to see how it performs. Since we did an exhaustive sweep we know what the best and worst cases are so we can see how many times the optimizer has to lookup a value to see how good a candidate is. The count of lookups can then be compared with a <cite>real</cite> iperf session or by estimating the number of seconds each lookup would take. The second option isn&#8217;t as straight-forward as it may seem because the candidates store their solutions once they are given so a candidate may be asked for its solution multiple times but there would only be one real check (meaning one iperf session run) and the remainder of the times the solution would be retrieved from memory.</p>
+</div>
+<div class="section" id="the-simulation-data">
+<h2>The Simulation Data<a class="headerlink" href="#the-simulation-data" title="Permalink to this headline">¶</a></h2>
+<p>Alex created the data-set (<a class="reference download internal" href="../../../../_downloads/data_step50.csv" download=""><code class="xref download docutils literal"><span class="pre">download</span></code></a>) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf (I don&#8217;t know what the scale of 50 means in human terms, but the annealer doesn&#8217;t need to know either). The file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50). The values are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).</p>
+<p>I&#8217;ll examine the data so we can see what the Simulated Annealer is working with.</p>
+<div class="section" id="data-plots">
+<h3>Data Plots<a class="headerlink" href="#data-plots" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../../../_images/data_profile2.png"><img alt="../../../../_images/data_profile2.png" src="../../../../_images/data_profile2.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text"><em>Side View</em> (0,0) is at rear-left, (3000,3000) at front right, z-axis is Mbits/second.</span></p>
+</div>
+<p>I&#8217;m assuming that the origin marks the front-left of the table (whatever &#8216;front&#8217; means). It looks like the front of the table gets better throughput than the back.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/data_angled2.png"><img alt="../../../../_images/data_angled2.png" src="../../../../_images/data_angled2.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../../../../_images/contoured2.png"><img alt="../../../../_images/contoured2.png" src="../../../../_images/contoured2.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text">Max-throughput (72.7 Mb/s) at (350, 2550) indicated by intersection of red lines. Min-throughput (0.22 Mb/s) at (1200, 2950) indicated by intersection of blue lines.</span></p>
+</div>
+<p>The contour map gives a somewhat more informative view. You can see that one side of the table tends to get more of the good throughput (which I think Bryce and Brent indicated).</p>
+</div>
+<div class="section" id="interactive-map">
+<h3>Interactive Map<a class="headerlink" href="#interactive-map" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference download internal" href="../../../../_downloads/table_experiment.pde" download=""><code class="xref download docutils literal"><span class="pre">source</span></code></a> and <a class="reference download internal" href="../../../../_downloads/Table.pde" download=""><code class="xref download docutils literal"><span class="pre">Table</span> <span class="pre">class</span></code></a>. <a class="reference download internal" href="../../../../_downloads/test.pde" download=""><code class="xref download docutils literal"><span class="pre">Test</span> <span class="pre">download</span></code></a>.</p>
+<canvas data-processing-sources="../../../../_downloads/table_experiment.pde"></canvas><canvas data-processing-sources="../../../../_downloads/test.pde"></canvas><div class="figure" id="id3">
+<a class="reference internal image-reference" href="../../../../_images/best_worst_scatter1.png"><img alt="../../../../_images/best_worst_scatter1.png" src="../../../../_images/best_worst_scatter1.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text">Best and worst throughput locations. Black indicates &lt; 10 Mbits/second. Red indicates &gt; 70 Mbits/second.
+Intersection of red lines indicate best overall location. Intersection of blue lines indicate worst location.</span></p>
+</div>
+<p>The best points appear to have a clear bias toward the left side, and the worst points do appear to be a little denser to the right, but for the most part the worst points appear to be nearly randomly scattered around the table.</p>
+</div>
+<div class="section" id="summary-statistics">
+<h3>Summary Statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils" id="id4">
+<caption><span class="caption-text">Summary Table</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>3721</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>46.0563</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>16.8165</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>0.22</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>36.8</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>49.5</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>59</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>72.7</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/box_plot1.png"><img alt="../../../../_images/box_plot1.png" src="../../../../_images/box_plot1.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>We can see from the box-plot that the data is fairly spread out and left-skewed.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/data_kde1.png"><img alt="../../../../_images/data_kde1.png" src="../../../../_images/data_kde1.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>Looking at the distribution we can see there are two (possibly 3) sub-distributions with a significant amount of data under 10 Mbits/second.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/data_cdf1.png"><img alt="../../../../_images/data_cdf1.png" src="../../../../_images/data_cdf1.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>Looking at the left-hand side of the CDF we can see that there&#8217;s a jump of about 5% very near 0 Mbits/Second and it stays relatively flat until around 20 Mbits/Second so that initial bump in the KDE/Histogram is for data points that are very near 0. We can check the proportion of points that are less than 1 Mbits/second to see.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">total</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flat_data</span><span class="p">))</span>
+<span class="n">less_than_one</span> <span class="o">=</span> <span class="n">flat_data</span><span class="p">[</span><span class="n">flat_data</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">one_to_twenty</span> <span class="o">=</span> <span class="n">flat_data</span><span class="p">[(</span><span class="n">flat_data</span> <span class="o">&gt;=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">flat_data</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p><strong>Less than 1 Mbits/Second:</strong> 0.0468</p>
+<p><strong>From 1 to less than 20 Mbits/Second:</strong> 0.0247</p>
+<p>So about 5% of the data is less than 1 Mbits/second, contributing most of the data points from 0-20 Mbits/second.</p>
+<table border="1" class="docutils" id="id5">
+<caption><span class="caption-text">Binned Fractions</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Values</th>
+<th class="head">Count</th>
+<th class="head">Fraction of Total</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0-9</td>
+<td>219</td>
+<td>0.059</td>
+</tr>
+<tr class="row-odd"><td>10-19</td>
+<td>47</td>
+<td>0.013</td>
+</tr>
+<tr class="row-even"><td>20-29</td>
+<td>297</td>
+<td>0.080</td>
+</tr>
+<tr class="row-odd"><td>30-39</td>
+<td>585</td>
+<td>0.157</td>
+</tr>
+<tr class="row-even"><td>40-49</td>
+<td>745</td>
+<td>0.200</td>
+</tr>
+<tr class="row-odd"><td>50-59</td>
+<td>1006</td>
+<td>0.270</td>
+</tr>
+<tr class="row-even"><td>60-69</td>
+<td>792</td>
+<td>0.213</td>
+</tr>
+<tr class="row-odd"><td>&gt;= 70</td>
+<td>30</td>
+<td>0.008</td>
+</tr>
+</tbody>
+</table>
+<p>If the whole table is searched you would have about a 50-50 chance of getting a value greater than 50 Mbits/second just by randomly picking a location, but less than 1% chance of getting throughput greater than 70 Mbits/Second and a 5% chance of getting less than 1 Mbits/second. Looking at the plot of just the best and worst points above you can see that the best points disappear just before the half way point (from left to right). If we somehow knew in advance that this was always true, we could limit the search to just the left half of the table and improve the chances of finding a location with better values.</p>
+</div>
+<div class="section" id="the-neighborhood">
+<h3>The Neighborhood<a class="headerlink" href="#the-neighborhood" title="Permalink to this headline">¶</a></h3>
+<p>These are the points surrounding the minimum and maximum values for the entire data set. First the neighborhood around the maximum value.</p>
+<div class="section" id="maximum-neighborhood">
+<h4>Maximum Neighborhood<a class="headerlink" href="#maximum-neighborhood" title="Permalink to this headline">¶</a></h4>
+<div class="figure" id="id6">
+<img src="../../../../_images/bad_neighborhood1.svg" /><p class="caption"><span class="caption-text">The neighborhood around the best-bandwidth location.</span></p>
+</div>
+<p>I&#8217;m using index slicing to get the data from the table so the values are rotated &#8211; the values on the right of the neighborhood diagram are on the top in the contour and scatter plots.</p>
+<p>The arrows represent a path that a hill climber using a local search might take. The three blue circles are local optima that prevent their neighbors from reaching the global optima (the blue rectangle). Of the sixteen nodes making up the outer ring, eleven fail to reach the global optima and five are able to find it. All of the five successful cases approach the global optima from the top right of the neighborhood. I&#8217;m assuming that the nodes in the outer ring are themselves all reachable but that might not be the case if we looked at the nodes surrounding them.</p>
+</div>
+<div class="section" id="minimum-neighborhood">
+<h4>Minimum Neighborhood<a class="headerlink" href="#minimum-neighborhood" title="Permalink to this headline">¶</a></h4>
+<div class="figure" id="id7">
+<img src="../../../../_images/worst_neighborhood1.svg" /><p class="caption"><span class="caption-text">The neighborhood around the worst-bandwidth location.</span></p>
+</div>
+<p>In the case of the worst data point (in the blue rectangle), it occurred near the edge of the table so I left the right most column empty to keep it centered in the figure. Just below the lowest point is another local optima which would trap a hill-climber. The minimum doesn&#8217;t appear to have any real relationship to the data-points around them. It would be interesting to find out why the dead-spots occur.</p>
+<p>While working on the diagram it occurred to me that if a hill-climber only looks at its nearest neighbors (one cell away) then the dead-spots would generally not be picked as a next step, since they don&#8217;t appear to be clustered and the climber would always pick the adjacent neighbor with the higher value. If, however, there are clusters of poorer performers forming a buffer around some cells then those cells might never be seen. This shouldn&#8217;t be the case for Simulated Annealing, which occasionally picks the solution that is worse than the current solution (and doesn&#8217;t do a local search anyway) but points out that more randomness has to be used by whatever optimization scheme is used rather than trying to create an efficient climber that always chooses the best neighbor.</p>
+</div>
+</div>
+<div class="section" id="partitioning-the-data">
+<h3>Partitioning the Data<a class="headerlink" href="#partitioning-the-data" title="Permalink to this headline">¶</a></h3>
+<p>If we know that the data will always look like the set we have wherein the left half of the table has all the best bandwidth spots then we can reduce our search space to just half of the table. Here I&#8217;ll see how that affects the probability of finding the best value.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/sub_set.png"><img alt="../../../../_images/sub_set.png" src="../../../../_images/sub_set.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<div class="figure" id="id8">
+<a class="reference internal image-reference" href="../../../../_images/sub_scatter.png"><img alt="../../../../_images/sub_scatter.png" src="../../../../_images/sub_scatter.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text">Best and worst throughput locations. Red indicates &lt; 10 Mbits/second. Black indicates &gt; 70 Mbits/second.</span></p>
+</div>
+<table border="1" class="docutils" id="id9">
+<caption><span class="caption-text">Binned Fractions (Left Half)</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Values</th>
+<th class="head">Count</th>
+<th class="head">Fraction of Total</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0-9</td>
+<td>89</td>
+<td>0.049</td>
+</tr>
+<tr class="row-odd"><td>10-19</td>
+<td>7</td>
+<td>0.004</td>
+</tr>
+<tr class="row-even"><td>20-29</td>
+<td>20</td>
+<td>0.011</td>
+</tr>
+<tr class="row-odd"><td>30-39</td>
+<td>72</td>
+<td>0.039</td>
+</tr>
+<tr class="row-even"><td>40-49</td>
+<td>236</td>
+<td>0.129</td>
+</tr>
+<tr class="row-odd"><td>50-59</td>
+<td>687</td>
+<td>0.375</td>
+</tr>
+<tr class="row-even"><td>60-69</td>
+<td>689</td>
+<td>0.377</td>
+</tr>
+<tr class="row-odd"><td>&gt;= 70</td>
+<td>30</td>
+<td>0.016</td>
+</tr>
+</tbody>
+</table>
+<p>If only the left-half of the table were searched then you would have about a 77% chance of getting 50 Mbits/second or higher, but the chance of getting greater than 70 Mbits/second remains low at around 2%. The fraction of data points less than 10 Mbits/second goes down only 1% (from 0.059 to 0.049).</p>
+</div>
+</div>
+<div class="section" id="pseudocode-for-simulated-annealing">
+<h2>Pseudocode for Simulated Annealing<a class="headerlink" href="#pseudocode-for-simulated-annealing" title="Permalink to this headline">¶</a></h2>
+<p>To get an idea of the parameters that need to be adjusted it might be helpful to understand the basic simulated annealing operation.</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Get a candidate solution</p>
+</li>
+<li><p class="first">Make the current solution and the best solution the candidate solution</p>
+</li>
+<li><p class="first">While time remains and the best solution is not the ideal solution repeat:</p>
+<p>3.1. Get a new candidate by tweaking the current solution</p>
+<p>3.2. If new candidate is better than current solution or a random number is less than the annealing value, make the current solution the new candidate</p>
+<p>3.3. If the current solution is better than the best solution, make the current solution the best solution</p>
+</li>
+<li><p class="first">Return the best solution</p>
+</li>
+</ol>
+</div></blockquote>
+<p>The two points that we need to look at are 3.1. (get a new candidate by tweaking the current solution) and 3.2. (... a random number is less than the annealing value).</p>
+</div>
+<div class="section" id="simulated-annealing">
+<h2>Simulated Annealing<a class="headerlink" href="#simulated-annealing" title="Permalink to this headline">¶</a></h2>
+<p>First let&#8217;s look at <cite>3.2. (a random number is less than the annealing value)</cite>.</p>
+<p>The <a class="reference internal" href="../../../../optimizers/simulatedannealing.html#optimization-optimizers-simulatedannealing-background"><span class="std std-ref">SimulatedAnnealing</span></a> documentation has more detail of how it works but the main thing to note here is that we determine how it behaves by setting an initial temperature (<img class="math" src="../../../../_images/math/19065cca1578b64f0167444335e4c0e48376634d.png" alt="T_0"/>) and a constant <img class="math" src="../../../../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> such that <img class="math" src="../../../../_images/math/020a03f3187227381f3383bf68dfc257cb873705.png" alt="T(t)"/>, the temperature at time <cite>t</cite>, is defined by the function:</p>
+<div class="math">
+<p><img src="../../../../_images/math/29d52ac322aba6e422f1d735cd55d253bab8e843.png" alt="T(t) = T_0 \alpha^t\\"/></p>
+</div><p>And since time is assumed to be positive, this means that <img class="math" src="../../../../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> has to be less than one if we want the temperature to drop (cool) with time.</p>
+<p>The temperature is used to decide whether a candidate solution that is worse than the current solution is accepted as a new solution. The higher the initial temperature, the more likely this is to happen in the beginning of the search and so the more the optimizer will explore. If <img class="math" src="../../../../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> is closer to 0 or the initial temperature is low, then the optimizer will tend to choose only local optima and would rely on the <cite>tweak</cite> to periodically make a big random jump to be able to escape non-global-optima spaces. The actual choice of parameter-value has to be determined by the data.</p>
+</div>
+<div class="section" id="gaussian-convolution">
+<h2>Gaussian Convolution<a class="headerlink" href="#gaussian-convolution" title="Permalink to this headline">¶</a></h2>
+<p>Now we can look at <cite>3.1. (get a new candidate by tweaking the current solution)</cite>.</p>
+<p>In this case the new candidate is found by selecting values from a Normal distribution and adding them to the current solution. Since we are using a Normal distribution we know that about 68% of the values we pick will be within one standard deviation of the mean, 95% of the values will be within two standard deviations from the mean, and 99.7% of the data will be within three standard deviations from the mean. So by picking the mean (<img class="math" src="../../../../_images/math/126e84ba38f7dece5f0ad64e929b9588b20f6440.png" alt="\mu"/>) and standard deviation (<img class="math" src="../../../../_images/math/2298cf1485084afe72757a9c8483af49a138d81f.png" alt="\sigma"/>) for our distribution, we can determine how far each new candidate is most likely to be from the previous solution, but not exactly how far, since it&#8217;s random (sometimes, although rarely, the chosen value will be more than three standard deviations from the mean).</p>
+<p>Once again the <a class="reference internal" href="../../../../tweaks/convolutions.html#optimization-tweaks-gaussian"><span class="std std-ref">actual implementation</span></a> has more information.</p>
+</div>
+<div class="section" id="sample-configuration-file">
+<h2>Sample Configuration File<a class="headerlink" href="#sample-configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>This is a sample configuration file for running this test. The parameters of interest are for the annealing and the convolution. Note that I set a <img class="math" src="../../../../_images/math/628a8695f5ef128d3fa287216d901c0b9e58db7e.png" alt="T_{final}"/> but in practice the time-out gets hit before this is actually reached.</p>
+<table border="1" class="docutils" id="id10">
+<caption><span class="caption-text">Simulated Annealing Parameters</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Configuration Option</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><img class="math" src="../../../../_images/math/19065cca1578b64f0167444335e4c0e48376634d.png" alt="T_0"/></td>
+<td><code class="docutils literal"><span class="pre">start_temperature</span></code></td>
+<td><img class="math" src="../../../../_images/math/0766bbe5767b57dd5c04df925931df6fb03dab9f.png" alt="10^{5}"/></td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../../../_images/math/628a8695f5ef128d3fa287216d901c0b9e58db7e.png" alt="T_{final}"/></td>
+<td><code class="docutils literal"><span class="pre">stop_temperature</span></code></td>
+<td><cite>0.01</cite></td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../../../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/></td>
+<td><code class="docutils literal"><span class="pre">alpha_temperature</span></code></td>
+<td>0.99</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils" id="id11">
+<caption><span class="caption-text">Gaussian Convolution Parameters</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Configuration Option</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><img class="math" src="../../../../_images/math/126e84ba38f7dece5f0ad64e929b9588b20f6440.png" alt="\mu"/></td>
+<td><code class="docutils literal"><span class="pre">location</span></code></td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../../../_images/math/2298cf1485084afe72757a9c8483af49a138d81f.png" alt="\sigma"/></td>
+<td><code class="docutils literal"><span class="pre">scale</span></code></td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-ini"><div class="highlight"><pre><span></span>[TUNA]
+annealer = Annealing
+
+[DEFAULT]
+repetitions = 100
+subfolder = annealing_tabledata_t0_10000_scale_2
+
+[MODULES]
+xytable.tableplugin
+
+[Annealing]
+plugin = SimulatedAnnealing
+
+components = fake_table, table_data
+observers = fake_table
+
+start_temperature = 10000
+stop_temperature = 0.01
+alpha_temperature = 0.99
+
+candidate = 20, 20
+
+tweak_type=GaussianConvolution
+number_type = integer
+location = 0
+scale = 2
+
+# the bounds have to match the table data
+lower_bound = 0
+upper_bound = 60
+
+time_limit = 10 Minutes
+ideal_value = 72.7
+
+[table_data]
+component = XYData
+filename= datasources/data_step50.csv
+
+[fake_table]
+component = FakeTable
+
+# these are all optional
+# &#39;port&#39; is the serial port
+port = COM/USB0
+
+# some rate at which the table moves
+speed = 666
+
+# time to sleep before trying to use the table
+initial_sleep = 1
+
+</pre></div>
+</div>
+<div class="section" id="tuna-section">
+<h3>TUNA Section<a class="headerlink" href="#tuna-section" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">[TUNA]</span></code> section is a place to list what the plugin sections will be. In this case we&#8217;re telling the <cite>tuna</cite> that there will only be one plugin and the information to configure it will be in a section named <code class="docutils literal"><span class="pre">[Annealing]</span></code>.</p>
+</div>
+<div class="section" id="default-section">
+<h3>DEFAULT Section<a class="headerlink" href="#default-section" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;re going to repeat the simulation 100 times and store the data in a folder named <cite>annealing_tabledata_t0_10000_scale_2</cite> next to the configuration file.</p>
+</div>
+<div class="section" id="modules-section">
+<h3>MODULES Section<a class="headerlink" href="#modules-section" title="Permalink to this headline">¶</a></h3>
+<p>In this case we&#8217;re simulating the use of Cameron&#8217;s XYTable so we need to tell the <cite>tuna</cite> which module contains the plugin to fake the table&#8217;s operation. This isn&#8217;t really needed for the simulation but provides a way to check and see that the <cite>tuna</cite> is calling it the way we expect. The listed module will be imported so the <code class="docutils literal"><span class="pre">xytable</span></code> package has to have been installed for this to work.</p>
+</div>
+<div class="section" id="annealing-section">
+<h3>Annealing Section<a class="headerlink" href="#annealing-section" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">plugin</span> <span class="pre">=</span> <span class="pre">SimulatedAnnealing</span></code> line tells the tuna to load the <cite>SimulatedAnnealing</cite> class.</p>
+<p>The <code class="docutils literal"><span class="pre">components</span> <span class="pre">=</span> <span class="pre">fake_table,</span> <span class="pre">table_data</span></code> line tells the tuna to create components using the <cite>fake_table</cite> and <cite>table_data</cite> section in this configuration and give it to the Simulated Annealer (wrapped in a <a class="reference internal" href="../../../../components/composite.html#simple-composite"><span class="std std-ref">composite</span></a>). The components will be used to decide how good a location is. In this case we&#8217;re substituting mocks for a table control object (fake_table) and an iperf object (table_data). <cite>fake_table</cite> will just log the calls made to it so we can check that the program is running like we think it should. The <cite>table_data</cite> object will lookup the data that Alex recorded using the table-coordinates it was given and give it back to the Simulated Annealer.</p>
+<p>The <code class="docutils literal"><span class="pre">observers</span> <span class="pre">=</span> <span class="pre">fake_table</span></code> line tells the <cite>tuna</cite> to give the <cite>Simulated Annealer</cite> a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.</p>
+<p>The temperature related settings were explained above.</p>
+<p>The <code class="docutils literal"><span class="pre">candidate</span> <span class="pre">=</span> <span class="pre">20,</span> <span class="pre">20</span></code> tells the <code class="docutils literal"><span class="pre">tuna</span></code> to tell the Simulated Annealer to start its searching at x=20, y=20. I&#8217;m going to add a better random-candidate chooser, but for now if the initial candidate isn&#8217;t passed in it ends up at 0,0 most of the time which it turns out makes the Annealer perform better just by luck, so I&#8217;m setting it to 20,20 to make the search a little harder.</p>
+<p>The <code class="docutils literal"><span class="pre">location</span></code> and <code class="docutils literal"><span class="pre">scale</span></code> for the  <code class="docutils literal"><span class="pre">GaussianConvolution</span></code> were discussed previously. <code class="docutils literal"><span class="pre">number_type</span> <span class="pre">=</span> <span class="pre">integer</span></code> tells it to cast the values to integers (so that the x,y coordinates will be whole numbers not fractions). The data-set is represented as a <img class="math" src="../../../../_images/math/08ca98686ea93bd062f7c8bf757f7a7479bd03d0.png" alt="61 \times 61"/> table so the <code class="docutils literal"><span class="pre">lower_bound</span></code> and <code class="docutils literal"><span class="pre">upper_bound</span></code> represent the indices for the table. The <code class="docutils literal"><span class="pre">GaussianConvolution</span></code> expects a square table but after looking at the data I realized that the search might perform better if only the left-half of the table was used. You could just halve the <code class="docutils literal"><span class="pre">upper_bound</span></code> parameter, but that would quarter the range of the table search, not halve it, so I created another class, the <a class="reference internal" href="../../../../tweaks/convolutions.html#tweaks-xyconvolution"><span class="std std-ref">XYConvolution</span></a> that acts like the <cite>Gaussian Convolution</cite> but takes separate bounds for the x and y axes which can be used if it turns out we want to halve the search. Since this just adds more parameters I&#8217;m using the Gaussian Convolution to test the simulation under the assumption that we won&#8217;t be able to halve the search space in most cases.</p>
+</div>
+</div>
+<div class="section" id="the-outcome">
+<h2>The Outcome<a class="headerlink" href="#the-outcome" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-many-times-did-it-find-the-maximum-bandwidth-location">
+<h3>How many times did it find the maximum-bandwidth location?<a class="headerlink" href="#how-many-times-did-it-find-the-maximum-bandwidth-location" title="Permalink to this headline">¶</a></h3>
+<p>Using the log file (<cite>tuna.log</cite>) we can see how the operations went. The file itself is large so I&#8217;m going to document what I did but not include the data itself.</p>
+<p>To get a count of the number of times the test was run I counted the occurences of the string &#8220;Initial&#8221; to match the &#8220;Initial Best Solution&#8221; lines, whose messaged look like this example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Initial</span> <span class="n">Best</span> <span class="n">Solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">20.</span>  <span class="mf">20.</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">58.6</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Initial&quot;</span> tuna.log <span class="p">|</span> wc -l
+</pre></div>
+</div>
+<p>This showed that it was run 100 times. When the <cite>tuna</cite> finds the ideal value (or it exceeds the time limit we set) it outputs &#8220;Stop condition reached&#8221; along with the coordinates and bandwidth found, which look like this example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Stop</span> <span class="n">condition</span> <span class="n">reached</span> <span class="k">with</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span>  <span class="mf">7.</span>  <span class="mf">51.</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">72.7</span>
+</pre></div>
+</div>
+<p>To get the number of cases where 72.7 Mbits/second was found:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Stop.*Output:[[:space:]]*72\.7&quot;</span> tuna.log  <span class="p">|</span> wc -l
+</pre></div>
+</div>
+<p>This gives us 30 so it found it 30% of the time.</p>
+</div>
+<div class="section" id="how-many-times-did-it-do-well-enough">
+<h3>How many times did it do well enough?<a class="headerlink" href="#how-many-times-did-it-do-well-enough" title="Permalink to this headline">¶</a></h3>
+<p>Picking an arbitrary value of 70 Mbits/second as the lower bound of an acceptable bandwidth, how often did the optimizer exceed this lower bound?</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Quality.*Output:[[:space:]]*7[[:digit:]]&quot;</span> tuna.log  <span class="p">|</span> wc -l
+</pre></div>
+</div>
+<p>Gave an output of 100. I had to use the sub-string &#8220;Quality Checks&#8221; instead of &#8220;Stop Condition&#8221; because for some reason there was one case where the temperature dropped low enough to quit without triggering the stop-condition. Anyway, it looks like in all cases the <cite>tuna</cite> found a solution that gave at least 70 Mbits/second.</p>
+</div>
+<div class="section" id="how-well-did-it-typically-do">
+<h3>How well did it typically do?<a class="headerlink" href="#how-well-did-it-typically-do" title="Permalink to this headline">¶</a></h3>
+<p>By diverting the output from the previous <cite>grep</cite> search to a (<code class="xref download docutils literal"><span class="pre">file</span></code>) instead of piping it to <cite>wc</cite>, I was able to get the final bandwidths the <cite>tuna</cite> reached (it&#8217;s included in the &#8220;Quality Checks&#8221; line as &#8220;Output:&#8221;):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Quality</span> <span class="n">Checks</span><span class="p">:</span> <span class="mi">1486</span> <span class="n">Solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span>  <span class="mf">7.</span>  <span class="mf">51.</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">72.7</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bandwidths</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/solution_bandwidths.csv&#39;</span><span class="p">)</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">bandwidths</span><span class="o">.</span><span class="n">Bandwidth</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id12">
+<caption><span class="caption-text">Bandwidth Solutions Summary</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>100.0</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>72.082</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>0.493058891727</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>70.3</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>72.0</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>72.0</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>72.7</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>72.7</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/bandwidths_kde1.png"><img alt="../../../../_images/bandwidths_kde1.png" src="../../../../_images/bandwidths_kde1.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>So in the worst case it did 70.3 Mbits/second, which might prove sufficient. To get an idea of a reasonable range for the <cite>mean</cite> bandwidth I&#8217;ll use a 99% confidence interval. Since the data isn&#8217;t normal I&#8217;ll use resampling.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trials</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bandwidths</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">bandwidths</span><span class="o">.</span><span class="n">Bandwidth</span><span class="p">,</span>
+                              <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">trials</span><span class="p">))</span>
+<span class="n">means</span> <span class="o">=</span> <span class="n">samples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">low</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">high</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>99% Confidence Interval:</strong> (71.89599995, 71.966)</p>
+<p>So if we ran the optimizer often enough and the data always looked like our data set then we would expect the mean of the outcomes to be between 71.9 and 72.0 Mbits/Second 99% of the time. But this really the whole story &#8211; the exhaustive search gets the best value 100% of the time. We&#8217;re using the optimizer because it&#8217;s infeasible to run it (the current estimate is 12 hours of execution time). So how long did the optimizer take to get to these values?</p>
+</div>
+<div class="section" id="how-long-were-the-execution-times">
+<h3>How long were the execution times?<a class="headerlink" href="#how-long-were-the-execution-times" title="Permalink to this headline">¶</a></h3>
+<p>To estimate the execution times we need to see how many times the Temperature was changed for each search (the temperature changes before each candidate-check). First a subset of the log was created.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Initial\|Temperature&quot;</span> tuna.log &gt; initial_temperatures.log
+</pre></div>
+</div>
+<p>Then I counted the temperature checks between the &#8220;Initial&#8221; lines.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">repetitions</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">out_file</span> <span class="o">=</span> <span class="s2">&quot;../data/best_repetitions_counts.csv&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">out_file</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;TemperatureCount</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/initial_temperatures.log&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;Initial&quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">repetitions</span> <span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repetitions</span><span class="p">))</span>
+                <span class="n">repetitions</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="s2">&quot;Temperature&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">repetitions</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repetitions</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">TemperatureCount</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id13">
+<caption><span class="caption-text">Temperature Counts Summary</span><a class="headerlink" href="#id13" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>100</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>918.72</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>285.195</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>67</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>836.75</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>1008</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>1099.25</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>1375</td>
+</tr>
+</tbody>
+</table>
+<p>To estimate the running time we have to now pick an arbitrary time for each execution. I&#8217;ll use 15 seconds on the assumption that the default iperf run-time of 10 seconds is used and it takes 5 seconds to move the table (on average).</p>
+<div class="math">
+<p><img src="../../../../_images/math/f1d18dc8f2e816273e537fa1cf8809db139c89ce.png" alt="estimate = runtime \times count"/></p>
+</div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RUNTIME</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">SECONDS_PER_HOUR</span> <span class="o">=</span> <span class="mf">60.0</span> <span class="o">*</span> <span class="mf">60.0</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id14">
+<caption><span class="caption-text">Estimated Running Times</span><a class="headerlink" href="#id14" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Running Time (Hours)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>min</td>
+<td>0.28</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>4.2</td>
+</tr>
+<tr class="row-even"><td>max</td>
+<td>5.7</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">runtimes</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">TemperatureCount</span> <span class="o">*</span> <span class="n">RUNTIME</span><span class="o">/</span><span class="n">SECONDS_PER_HOUR</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">runtimes</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">runtimes</span><span class="p">),</span> <span class="n">trials</span><span class="p">))</span>
+<span class="n">means</span> <span class="o">=</span> <span class="n">samples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">medians</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">low</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">high</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+
+<span class="n">low_median</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">medians</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">high_median</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">medians</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>99% Confidence Interval (mean):</strong> (3.35, 3.54)</p>
+<p><strong>99% Confidence Interval (Median):</strong> (3.86, 4.06)</p>
+<div class="figure" id="id15">
+<a class="reference internal image-reference" href="../../../../_images/runtime_kde.png"><img alt="../../../../_images/runtime_kde.png" src="../../../../_images/runtime_kde.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text">Estimated running times for each search based on a 15 second iperf/table-movement time.</span></p>
+</div>
+<p>So it looks like if we wanted to be very sure we got a high-enough solution we would need to let the Annealer run for about six hours. But on average it takes 3.86 to 4.06 hours (I&#8217;m assuming the median is the safer interval since it&#8217;s higher).</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.parts.stopcondition &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.parts.stopcondition</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># python standard library</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">BaseClass</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">ConfigurationError</span>
+
+
+<span class="k">class</span> <span class="nc">StopConditionConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1"># options</span>
+    <span class="n">ideal</span> <span class="o">=</span> <span class="s1">&#39;ideal_value&#39;</span>
+    <span class="n">time_limit</span> <span class="o">=</span> <span class="s1">&#39;time_limit&#39;</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="s1">&#39;end_time&#39;</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="s1">&#39;delta&#39;</span>
+    <span class="n">default_delta</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">maximum_time</span> <span class="o">=</span> <span class="s1">&#39;maximum_local_time&#39;</span>
+    <span class="n">minimum_time</span> <span class="o">=</span> <span class="s1">&#39;minimum_local_time&#39;</span>
+
+
+<div class="viewcode-block" id="StopCondition"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopCondition.html#tuna.parts.stopcondition.StopCondition">[docs]</a><span class="k">class</span> <span class="nc">StopCondition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A halting-condition for the optimizers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="StopCondition.__init__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopCondition.html#tuna.parts.stopcondition.StopCondition.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_limit</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StopCondition constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `end_time`: absolute time-out</span>
+<span class="sd">         - `time_limit`: max seconds from first call to stop (timedelta object)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="n">end_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time_limit</span> <span class="o">=</span> <span class="n">time_limit</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">time_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The max time to allow (datetime.timedelta)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_limit</span>
+
+    <span class="nd">@time_limit.setter</span>
+    <span class="k">def</span> <span class="nf">time_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_limit</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the time-limit and resets the end-time</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `new_limit`: max seconds to allow</span>
+
+<span class="sd">        :postcondition: self._end_time is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time_limit</span> <span class="o">=</span> <span class="n">new_limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        datetime to stop</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span>
+
+    <span class="nd">@end_time.setter</span>
+    <span class="k">def</span> <span class="nf">end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the time to stop</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `new_time`: datetime to stop</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="n">new_time</span>
+        <span class="k">return</span>
+
+<div class="viewcode-block" id="StopCondition.__call__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopCondition.__call__.html#tuna.parts.stopcondition.StopCondition.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns False until it&#39;s time to stop</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `solution`: Candidate solution, not used here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span></div>
+
+<div class="viewcode-block" id="StopCondition.reset"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopCondition.reset.html#tuna.parts.stopcondition.StopCondition.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the end_time to None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div></div>
+<span class="c1"># end StopCondition    </span>
+
+
+<div class="viewcode-block" id="StopConditionIdeal"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionIdeal.html#tuna.parts.stopcondition.StopConditionIdeal">[docs]</a><span class="k">class</span> <span class="nc">StopConditionIdeal</span><span class="p">(</span><span class="n">StopCondition</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stop condition for the optimizers with known ideal values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="StopConditionIdeal.__init__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionIdeal.html#tuna.parts.stopcondition.StopConditionIdeal.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ideal_value</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StopConditionIdeal constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `end_time`: datetime to quit</span>
+<span class="sd">         - `time_limit`: datetime.timedelta to allow</span>
+<span class="sd">         - `ideal_value`: value if reached will stop the optimizers</span>
+<span class="sd">         - `delta`: difference from the ideal_value to accept</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StopConditionIdeal</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ideal_value</span> <span class="o">=</span> <span class="n">ideal_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>        
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="StopConditionIdeal.__call__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionIdeal.__call__.html#tuna.parts.stopcondition.StopConditionIdeal.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns False until it&#39;s time to stop</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `solution`: Candidate solution to test against ideal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">output</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ideal_value</span> <span class="ow">or</span>
+                <span class="nb">abs</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">output</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ideal_value</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="ow">or</span>
+                <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span></div></div>
+<span class="c1"># end StopConditionIdeal</span>
+
+
+<div class="viewcode-block" id="StopConditionGenerator"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionGenerator.html#tuna.parts.stopcondition.StopConditionGenerator">[docs]</a><span class="k">class</span> <span class="nc">StopConditionGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A creator of randomized stop conditions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="StopConditionGenerator.__init__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionGenerator.html#tuna.parts.stopcondition.StopConditionGenerator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_limit</span><span class="p">,</span> <span class="n">maximum_time</span><span class="p">,</span> <span class="n">minimum_time</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                 <span class="n">end_time</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ideal</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">use_singleton</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">random_function</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StopConditionGenerator</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `time_limit`: timedelta to generate stop-conditions</span>
+<span class="sd">         - `maximum_time`: upper-bound on the number of seconds</span>
+<span class="sd">         - `minimum_time`: lower-bound on the number of seconds</span>
+<span class="sd">         - `end_time`: datetime to end</span>
+<span class="sd">         - `ideal`: value to compare test-cases to for stop-condition</span>
+<span class="sd">         - `delta`: amount test-case can differ from ideal</span>
+<span class="sd">         - `use_singleton`: Generate same StopCondition object</span>
+<span class="sd">         - `random_function`: Function to get time-out values (default is random.uniform)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span> <span class="o">=</span> <span class="n">time_limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maximum_time</span> <span class="o">=</span> <span class="n">maximum_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minimum_time</span> <span class="o">=</span> <span class="n">minimum_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="n">end_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ideal</span> <span class="o">=</span> <span class="n">ideal</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_singleton</span> <span class="o">=</span> <span class="n">use_singleton</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_function</span> <span class="o">=</span> <span class="n">random_function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop_condition</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_global_stop_condition</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The datetime to stop all stop-conditions (time-limit + now)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">global_stop_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A stop condition using the total time instead of the random-times</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_global_stop_condition</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ideal</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_global_stop_condition</span> <span class="o">=</span> <span class="n">StopCondition</span><span class="p">(</span><span class="n">time_limit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span><span class="p">,</span>
+                                                            <span class="n">end_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_global_stop_condition</span> <span class="o">=</span> <span class="n">StopConditionIdeal</span><span class="p">(</span><span class="n">time_limit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span><span class="p">,</span>
+                                                                 <span class="n">end_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
+                                                                 <span class="n">ideal_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ideal</span><span class="p">,</span>
+                                                                 <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_global_stop_condition</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stop_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A Stop-Condition object with new end-time set every time it&#39;s retrieved</span>
+<span class="sd">        Or a new StopCondition object every-time it&#39;s retrieved if not use_singleton</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_function</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_time</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">maximum_time</span><span class="p">)</span>
+        <span class="c1"># set an upper-bound on times</span>
+        <span class="n">end_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">time_limit</span><span class="p">)</span> <span class="o">+</span>
+                       <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span>
+
+        <span class="c1"># this probably isn&#39;t necessary, but for checks there should be</span>
+        <span class="c1"># some consistency, I think</span>
+        <span class="k">if</span> <span class="n">end_time</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
+            <span class="n">time_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_condition</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_singleton</span><span class="p">:</span>                
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ideal</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>                
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stop_condition</span> <span class="o">=</span> <span class="n">StopCondition</span><span class="p">(</span><span class="n">time_limit</span><span class="o">=</span><span class="n">time_limit</span><span class="p">,</span>
+                                                     <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stop_condition</span> <span class="o">=</span> <span class="n">StopConditionIdeal</span><span class="p">(</span><span class="n">time_limit</span><span class="o">=</span><span class="n">time_limit</span><span class="p">,</span>
+                                                          <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
+                                                          <span class="n">ideal_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ideal</span><span class="p">,</span>
+                                                          <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_singleton</span><span class="p">:</span>
+            <span class="c1"># the object existed, we need to give it new times</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stop_condition</span><span class="o">.</span><span class="n">time_limit</span> <span class="o">=</span> <span class="n">time_limit</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stop_condition</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">end_time</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_condition</span>
+
+<div class="viewcode-block" id="StopConditionGenerator.__iter__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionGenerator.__iter__.html#tuna.parts.stopcondition.StopConditionGenerator.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        generates stop-conditions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_condition</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="StopConditionGenerator.reset"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionGenerator.html#tuna.parts.stopcondition.StopConditionGenerator.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets some values (assumes iter already done)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abort</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_global_stop_condition</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_singleton</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_stop_condition</span><span class="o">.</span><span class="n">time_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_stop_condition</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span>
+        <span class="k">return</span></div></div>
+
+
+<div class="viewcode-block" id="StopConditionGeneratorBuilder"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionGeneratorBuilder.html#tuna.parts.stopcondition.StopConditionGeneratorBuilder">[docs]</a><span class="k">class</span> <span class="nc">StopConditionGeneratorBuilder</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A builder of stop-condition-generators</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="StopConditionGeneratorBuilder.__init__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionGeneratorBuilder.html#tuna.parts.stopcondition.StopConditionGeneratorBuilder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StopConditionGeneratorBuilder constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configuration`: configuration map with settings to build</span>
+<span class="sd">         - `section`: name of section in map with settings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="n">section</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Built StopConditionGenerator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ideal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                 <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">ideal</span><span class="p">,</span>
+                                                 <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">time_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_relativetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                             <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">time_limit</span><span class="p">,</span>
+                                                             <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_datetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                           <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
+                                                           <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                 <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span>
+                                                 <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                 <span class="n">default</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">default_delta</span><span class="p">)</span>
+
+
+            <span class="n">maximum_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_relativetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                        <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">maximum_time</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+            <span class="n">minimum_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_relativetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                        <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">minimum_time</span><span class="p">,</span>
+                                                        <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">minimum_time</span><span class="p">,</span> <span class="s1">&#39;total_seconds&#39;</span><span class="p">):</span>
+                <span class="n">minimum_time</span> <span class="o">=</span> <span class="n">minimum_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="n">StopConditionGenerator</span><span class="p">(</span><span class="n">time_limit</span><span class="o">=</span><span class="n">time_limit</span><span class="p">,</span>
+                                                   <span class="n">maximum_time</span><span class="o">=</span><span class="n">maximum_time</span><span class="p">,</span>
+                                                   <span class="n">minimum_time</span><span class="o">=</span><span class="n">minimum_time</span><span class="p">,</span>
+                                                   <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
+                                                   <span class="n">ideal</span><span class="o">=</span><span class="n">ideal</span><span class="p">,</span>
+                                                   <span class="n">delta</span><span class="o">=</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span></div>
+
+
+<div class="viewcode-block" id="StopConditionBuilder"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionBuilder.html#tuna.parts.stopcondition.StopConditionBuilder">[docs]</a><span class="k">class</span> <span class="nc">StopConditionBuilder</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A builder of stop-conditions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="StopConditionBuilder.__init__"><a class="viewcode-back" href="../../../parts/api/tuna.parts.stopcondition.StopConditionBuilder.html#tuna.parts.stopcondition.StopConditionBuilder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StopConditionBuilder constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configuration`: configuration map with settings to build</span>
+<span class="sd">         - `section`: name of section in map with settings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="n">section</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Built StopCondition</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ideal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                 <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">ideal</span><span class="p">,</span>
+                                                 <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">time_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_relativetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                             <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">time_limit</span><span class="p">,</span>
+                                                             <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_datetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                           <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
+                                                           <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+         
+            <span class="k">if</span> <span class="n">ideal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                     <span class="n">option</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span>
+                                                     <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                     <span class="n">default</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">default_delta</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="n">StopConditionIdeal</span><span class="p">(</span><span class="n">time_limit</span><span class="o">=</span><span class="n">time_limit</span><span class="p">,</span>
+                                                   <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
+                                                   <span class="n">ideal_value</span><span class="o">=</span><span class="n">ideal</span><span class="p">,</span>
+                                                   <span class="n">delta</span><span class="o">=</span><span class="n">delta</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">time_limit</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s2">&quot;Need an end_time or time_limit if no ideal value is given&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="n">StopCondition</span><span class="p">(</span><span class="n">time_limit</span><span class="o">=</span><span class="n">time_limit</span><span class="p">,</span>
+                                              <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Host &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="Hosts" href="index.html" />
+    <link rel="prev" title="Hosts" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Host</a><ul>
+<li><a class="reference internal" href="#the-host-enum">The Host Enum</a></li>
+<li><a class="reference internal" href="#the-host">The Host</a></li>
+<li><a class="reference internal" href="#the-host-configuration">The Host Configuration</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Hosts"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Hosts</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/hosts/host.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="host">
+<h1>Host<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h1>
+<p>A bundle of client and some leftover methods and information. The <cite>Host</cite> builds the connection based on the identified connection type.</p>
+<div class="section" id="the-host-enum">
+<span id="host-enum"></span><h2>The Host Enum<a class="headerlink" href="#the-host-enum" title="Permalink to this headline">¶</a></h2>
+<p>A place to store constants that other classes might need to refer to.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HostEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A holder of Host constants</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="c1"># options</span>
+    <span class="n">control_ip</span> <span class="o">=</span> <span class="s1">&#39;control_ip&#39;</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;password&#39;</span>
+    <span class="n">connection_type</span> <span class="o">=</span> <span class="s1">&#39;connection_type&#39;</span>
+    <span class="n">test_ip</span> <span class="o">=</span> <span class="s1">&#39;test_ip&#39;</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="s1">&#39;username&#39;</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="s1">&#39;port&#39;</span>
+    <span class="n">timeout</span> <span class="o">=</span> <span class="s1">&#39;timeout&#39;</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;prefix&#39;</span>
+    <span class="n">operating_system</span> <span class="o">=</span> <span class="s1">&#39;operating_system&#39;</span>
+    <span class="n">telnet</span> <span class="o">=</span> <span class="s1">&#39;telnet&#39;</span>
+    <span class="n">prefix_command</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{p}</span><span class="s1"> </span><span class="si">{c}</span><span class="s1">&#39;</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="p">(</span><span class="n">control_ip</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">connection_type</span><span class="p">,</span> <span class="n">test_ip</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span>
+               <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">operating_system</span><span class="p">)</span>
+    <span class="c1"># defaults</span>
+    <span class="n">default_port</span> <span class="o">=</span> <span class="mi">22</span>
+    <span class="n">default_type</span> <span class="o">=</span> <span class="s1">&#39;ssh&#39;</span>
+    <span class="n">default_timeout</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">default_operating_system</span> <span class="o">=</span> <span class="s1">&#39;linux&#39;</span>
+
+<span class="c1"># end HostEnum</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-host">
+<span id="host-host"></span><h2>The Host<a class="headerlink" href="#the-host" title="Permalink to this headline">¶</a></h2>
+<p>There used to be multiple hosts, but now there is one. It uses the connection type to build the other hosts and return them.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-0061d9908bde06f6405068d765a72fb4adaf145f.png" alt="BaseClass &lt;|-- TheHost
+TheHost o- SimpleClient
+TheHost o- TelnetClient" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TheHost</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TheHost.client</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TheHost.exec_command</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TheHost.close</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TheHost.kill_all</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-host-configuration">
+<span id="host-configuration"></span><h2>The Host Configuration<a class="headerlink" href="#the-host-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This is a configuration holder for host-configurations. It is created as an Abstract Base Class so that separate <cite>dut</cite> and <cite>server</cite> configurations can be used. They need to inherit from it and set the section name.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-c4f573f5a6ac074a7e83a403ccbb2634f82f8c54.png" alt="BaseConfiguration &lt;|-- HostConfiguration" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.example</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.section</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.control_ip</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.password</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.connection_type</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.test_ip</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.prefix</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.timeout</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.username</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.operating_system</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.kwargs</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.reset</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HostConfiguration.check_rep</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">HostConfiguration Attributes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribute</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>control_ip</td>
+<td>Hostname for the control interface</td>
+<td>None</td>
+</tr>
+<tr class="row-odd"><td>password</td>
+<td>Login password</td>
+<td>None</td>
+</tr>
+<tr class="row-even"><td>connection_type</td>
+<td>Type of connection to the device</td>
+<td>ssh</td>
+</tr>
+<tr class="row-odd"><td>test_ip</td>
+<td>Hostname for the test-interface</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>username</td>
+<td>Login username</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>port</td>
+<td>port for the connection</td>
+<td>22</td>
+</tr>
+<tr class="row-even"><td>timeout</td>
+<td>timeout for the connection</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>prefix</td>
+<td>string to prepend to the commands sent to the device</td>
+<td>None</td>
+</tr>
+<tr class="row-even"><td>operating_system</td>
+<td>name of OS so commands can be altered as needed</td>
+<td>linux</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.plugins.tunaplugin &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.plugins.tunaplugin</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># python standard library</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="c1"># this package</span>
+<span class="kn">import</span> <span class="nn">tuna.infrastructure.arguments.arguments</span> <span class="kn">as</span> <span class="nn">basearguments</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure.arguments.argumentbuilder</span> <span class="kn">import</span> <span class="n">ArgumentBuilder</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure.configurationmap</span> <span class="kn">import</span> <span class="n">ConfigurationMap</span>
+<span class="kn">from</span> <span class="nn">tuna.components.composite</span> <span class="kn">import</span> <span class="n">Composite</span>
+<span class="c1">#from tuna.parts.storage.filestorage import FileStorage</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure</span> <span class="kn">import</span> <span class="n">singletons</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">GLOBAL_NAME</span>
+
+<span class="kn">from</span> <span class="nn">base_plugin</span> <span class="kn">import</span> <span class="n">BasePlugin</span>
+
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">TunaError</span><span class="p">,</span> <span class="n">DontCatchError</span><span class="p">,</span> <span class="n">ConfigurationError</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">SECTION</span><span class="p">,</span> <span class="n">MODULES_SECTION</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure.quartermaster</span> <span class="kn">import</span> <span class="n">QuarterMaster</span>
+<span class="kn">from</span> <span class="nn">tuna.parts.countdown.countdown</span> <span class="kn">import</span> <span class="n">INFO</span>
+<span class="kn">from</span> <span class="nn">tuna.parts.countdown.countdown</span> <span class="kn">import</span> <span class="n">CountdownTimer</span>
+
+
+<span class="n">in_pweave</span> <span class="o">=</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span>
+
+
+<span class="n">DEFAULT</span> <span class="o">=</span> <span class="s1">&#39;DEFAULT&#39;</span>
+<span class="n">TUNASECTION</span> <span class="o">=</span> <span class="s1">&#39;TUNA&#39;</span>
+<span class="n">SUBFOLDER</span>  <span class="o">=</span> <span class="s1">&#39;subfolder&#39;</span>
+<span class="n">COMPILED_EXTENSION</span> <span class="o">=</span> <span class="s1">&#39;.compiled&#39;</span>
+<span class="n">FILE_STORAGE_NAME</span> <span class="o">=</span> <span class="s1">&#39;infrastructure&#39;</span>
+<span class="n">TIMESTAMP</span> <span class="o">=</span> <span class="s1">&#39;timestamp&#39;</span>
+
+<span class="n">CONFIGURATION</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;[{0}]</span>
+<span class="s1"># the option names are just identifiers</span>
+<span class="s1"># they will be executed in the order given.</span>
+<span class="s1"># Each option has to have a corresponding section below</span>
+<span class="s1"># e.g. if there is a Sleep1 plugin listed</span>
+<span class="s1"># Then there needs to be a [Sleep1] section below</span>
+<span class="s1"># to configure it</span>
+<span class="s1">&lt;option_name_1&gt; = &lt;comma-separated-list of plugins&gt;</span>
+<span class="s1">&lt;option_name_2&gt; = &lt;comma-separated-list of plugins&gt;</span>
+<span class="s1">...</span>
+<span class="s1">&lt;option_name_n&gt; = &lt;comma-separated-list of plugins&gt;</span>
+
+<span class="s1"># !!!! to use an option in a commented section you need to</span>
+<span class="s1"># uncomment both the section header and the option</span>
+<span class="s1"># if you only uncomment the option it will be assigned</span>
+<span class="s1"># to the first un-commented section header above it, not</span>
+<span class="s1"># necessarily the one you want</span>
+
+<span class="s1">#[MODULES]</span>
+<span class="s1"># If you are getting a plugin from a non-ape package put the module here</span>
+<span class="s1"># it should use the import&#39;s dot-notation. e.g. :</span>
+<span class="s1"># packagename.modulename</span>
+
+<span class="s1">#[DEFAULT]</span>
+<span class="s1"># if you add a configuration-file-glob to the default, all matching files will be added to the configuration</span>
+<span class="s1"># even though these need to be in the ini format I like to use a different file-extension</span>
+<span class="s1"># so they won&#39;t accidentally get picked up if you use a glob to point to the main config files</span>
+<span class="s1">#config_glob = settings*.config</span>
+
+<span class="s1"># if you want to repeat the operation defined in this config, give it repetitions</span>
+<span class="s1"># repetitions = 1000000</span>
+
+<span class="s1"># If you want to put a time limit after which to quit (this overrides repetitions)</span>
+<span class="s1"># total_time = 1 day 3 hours</span>
+
+<span class="s1"># if you want to put an end time (this will override repetitions and total time):</span>
+<span class="s1"># end_time = November 23, 2013 8:00 am</span>
+
+<span class="s1"># if you want to store files in a sub-folder:</span>
+<span class="s1"># {1} = &lt;name&gt;</span>
+
+<span class="s1"># If you get a ParserError check:</span>
+<span class="s1">#   - is everything flush-left?</span>
+<span class="s1">#   - no inline comments? (this won&#39;t raise a Parser error but it will create an error later)</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SECTION</span><span class="p">,</span> <span class="n">SUBFOLDER</span><span class="p">)</span>
+
+
+
+<span class="n">output_documentation</span> <span class="o">=</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span>
+
+
+<span class="n">EXAMPLES</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">tuna run tuna.ini</span>
+<span class="s1">tuna help</span>
+<span class="s1">tuna fetch</span>
+<span class="s1">tuna list&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="Tuna"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.tunaplugin.Tuna.html#tuna.plugins.tunaplugin.Tuna">[docs]</a><span class="k">class</span> <span class="nc">Tuna</span><span class="p">(</span><span class="n">BasePlugin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The default plugin (provides the front-end for the Tuna)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Tuna.__init__"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.tunaplugin.Tuna.html#tuna.plugins.tunaplugin.Tuna.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configfiles</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ape plugin Constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configfiles`: list of config-files to build product (Hortator Composite)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Tuna</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configfiles</span> <span class="o">=</span> <span class="n">configfiles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_arguments</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_storage</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The ArgumentBuilder (used to set up the help-string)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arguments</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_arguments</span> <span class="o">=</span> <span class="n">ArgumentBuilder</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arguments</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An ordered dictionary for the HelpPage</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">bold</span> <span class="o">=</span> <span class="s1">&#39;{bold}&#39;</span>
+            <span class="n">reset</span> <span class="o">=</span> <span class="s1">&#39;{reset}&#39;</span>
+            
+            <span class="n">name</span> <span class="o">=</span> <span class="n">__package__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bold_name</span> <span class="o">=</span> <span class="n">bold</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="n">reset</span>
+            <span class="n">program</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;[.\w]*&#39;</span>
+            <span class="n">expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">program</span><span class="p">)</span>
+
+            <span class="c1"># get sample usage text</span>
+            <span class="n">arg_string</span> <span class="o">=</span> <span class="n">basearguments</span><span class="o">.</span><span class="n">__doc__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Usage: &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+
+            <span class="c1"># the main parser doesn&#39;t show help for the sub-commands (just --debug, --pudb, etc.)</span>
+            <span class="c1"># so they are pulled separately</span>
+            <span class="n">argument_definitions</span> <span class="o">=</span> <span class="n">ArgumentBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">argument_definitions</span>
+            <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">argument_definitions</span><span class="o">.</span><span class="n">itervalues</span><span class="p">():</span>
+                <span class="n">arg_string</span> <span class="o">+=</span> <span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">40</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">arg_string</span> <span class="o">+=</span>  <span class="n">expression</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">bold_name</span><span class="p">,</span>
+                                              <span class="n">definition</span><span class="p">()</span><span class="o">.</span><span class="n">sub_usage</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Usage: &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{blue}&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="n">reset</span> <span class="o">+</span> <span class="s1">&#39; -- an optimizing package&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Synopsis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg_string</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bold_name</span> <span class="o">+</span> <span class="s1">&#39; is the main code-runner. When it is run it looks for a configuration file or list of configuration files. Within each file it looks for an [{0}] section. Each entry in that section is interpreted to be a list of plugins to execute in top-down, left-right ordering.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TUNASECTION</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s2">&quot;Configuration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CONFIGURATION</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Examples&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;tuna run *.ini</span><span class="se">\n</span><span class="s1">tuna help</span><span class="se">\n</span><span class="s1">tuna fetch</span><span class="se">\n</span><span class="s1">tuna list</span><span class="se">\n</span><span class="s1">tuna check *ini&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Errors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{bold}Oops, I crapped my pants:{reset} unexpected error (probably indicates implementation error)&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;subcommands&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;help (this help), fetch (sample configuration), run &lt;configuration-file(s)&gt;, list (known plugins), check (configuration)&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Files&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__file__</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the Hortator Composite product</span>
+
+<span class="sd">        :precondition: self.configfiles has been set </span>
+<span class="sd">        :return: hortator built from self.configfiles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#create a hortator</span>
+        <span class="n">hortator</span> <span class="o">=</span> <span class="n">Composite</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="ne">Exception</span><span class="p">,</span>
+                             <span class="n">identifier</span><span class="o">=</span><span class="s1">&#39;Hortator&#39;</span><span class="p">,</span>
+                             <span class="n">error_message</span><span class="o">=</span><span class="s2">&quot;Operator Crash&quot;</span><span class="p">,</span>
+                             <span class="n">component_category</span><span class="o">=</span><span class="s1">&#39;Operator&#39;</span><span class="p">)</span>
+        <span class="c1"># Set the TimeTracker level to info so it outputs to the screen</span>
+        <span class="n">hortator</span><span class="o">.</span><span class="n">time_remains</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="n">INFO</span>
+        <span class="c1"># traverse the config-files to get Operators and configuration maps</span>
+        <span class="k">for</span> <span class="n">config_file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">configfiles</span><span class="p">:</span>
+            <span class="c1"># the QuarterMaster is being created each time because I am now allowing the addition</span>
+            <span class="c1"># of external packages, and I don&#39;t want namespace clashes</span>
+            <span class="n">quartermaster</span> <span class="o">=</span> <span class="n">QuarterMaster</span><span class="p">()</span>
+
+            <span class="c1"># each TUNA config gets its own Operator</span>
+            <span class="n">operator</span> <span class="o">=</span> <span class="n">Composite</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="s2">&quot;Operator&quot;</span><span class="p">,</span>
+                                 <span class="n">error</span><span class="o">=</span><span class="n">TunaError</span><span class="p">,</span>
+                                 <span class="n">error_message</span><span class="o">=</span><span class="s1">&#39;Operation Crash&#39;</span><span class="p">,</span>
+                                 <span class="n">component_category</span><span class="o">=</span><span class="s1">&#39;Operation&#39;</span><span class="p">)</span>
+
+            <span class="n">configuration</span> <span class="o">=</span> <span class="n">ConfigurationMap</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+            
+            <span class="n">defaults</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">defaults</span>
+
+            <span class="c1"># build the countdown timer</span>
+            <span class="n">repetitions</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">DEFAULT</span><span class="p">,</span>
+                                                <span class="n">option</span><span class="o">=</span><span class="s1">&#39;repetitions&#39;</span><span class="p">,</span>
+                                                <span class="n">optional</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                                                <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">total_time</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get_relativetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">DEFAULT</span><span class="p">,</span>
+                                                        <span class="n">option</span><span class="o">=</span><span class="s1">&#39;total_time&#39;</span><span class="p">,</span>
+                                                        <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                        <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get_datetime</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">DEFAULT</span><span class="p">,</span>
+                                                      <span class="n">option</span><span class="o">=</span><span class="s1">&#39;end_time&#39;</span><span class="p">,</span>
+                                                      <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                      <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+            <span class="n">operator</span><span class="o">.</span><span class="n">time_remains</span> <span class="o">=</span> <span class="n">CountdownTimer</span><span class="p">(</span><span class="n">repetitions</span><span class="o">=</span><span class="n">repetitions</span><span class="p">,</span>
+                                                   <span class="n">total_time</span><span class="o">=</span><span class="n">total_time</span><span class="p">,</span>
+                                                   <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
+                                                   <span class="n">log_level</span><span class="o">=</span><span class="n">INFO</span><span class="p">)</span>
+            <span class="c1"># check for external package declarations</span>
+            <span class="k">if</span> <span class="n">MODULES_SECTION</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+                <span class="n">external_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">option</span> <span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">MODULES_SECTION</span><span class="p">)</span>
+                                    <span class="k">if</span> <span class="n">option</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">defaults</span><span class="p">]</span>
+                <span class="n">quartermaster</span><span class="o">.</span><span class="n">external_modules</span> <span class="o">=</span> <span class="n">external_modules</span>                        
+            
+            <span class="c1"># traverse the TUNA Section&#39;s options to get Operations</span>
+            <span class="c1"># configuration.options(SECTION) is a list of config-file options in the [TUNA] section</span>
+            <span class="c1"># names is filtered to get rid of the DEFAULT options</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">SECTION</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span>
+                     <span class="p">(</span><span class="n">name</span> <span class="ow">in</span> <span class="n">defaults</span> <span class="ow">and</span>
+                      <span class="n">defaults</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">==</span>
+                      <span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SECTION</span><span class="p">,</span> <span class="n">name</span><span class="p">)))</span>
+
+            <span class="c1"># the operations won&#39;t know repetitions or how long the operation has been running</span>
+            <span class="c1"># but since end_time is an absolute time, they can check for that between operations</span>
+            <span class="n">countdown</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">countdown</span> <span class="o">=</span> <span class="n">CountdownTimer</span><span class="p">(</span><span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">)</span>
+
+            <span class="c1"># the next loop is going to start building plugins, so we need to set the FileStorage now</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize_file_storage</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+            
+            <span class="k">for</span> <span class="n">operation_name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="c1"># every option in the TUNA section gets an operation</span>
+                <span class="n">operation</span> <span class="o">=</span> <span class="n">Composite</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="s1">&#39;Operation&#39;</span><span class="p">,</span>
+                                      <span class="n">error</span><span class="o">=</span><span class="n">DontCatchError</span><span class="p">,</span>
+                                      <span class="n">error_message</span><span class="o">=</span><span class="s1">&#39;{0} Crash&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">operation_name</span><span class="p">),</span>
+                                      <span class="n">component_category</span><span class="o">=</span><span class="n">operation_name</span><span class="p">,</span>
+                                      <span class="n">time_remains</span><span class="o">=</span><span class="n">countdown</span><span class="p">)</span>
+
+                <span class="c1">#traverse this line to get plugins</span>
+                <span class="c1"># get_list is a list of comma-separated strings in the operation line</span>
+                <span class="k">for</span> <span class="n">plugin_section_name</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get_list</span><span class="p">(</span><span class="n">SECTION</span><span class="p">,</span>
+                                                                  <span class="n">operation_name</span><span class="p">):</span>                    
+                    <span class="c1"># the quartermaster returns a class-definition, not an instance</span>
+                    <span class="c1"># so we can pass in the configuration and build it to get the `product`</span>
+
+                    <span class="c1"># in order to allow multiple configurations for the same plugin</span>
+                    <span class="c1"># I&#39;m detaching the section name from the plugin name</span>
+                    <span class="c1"># this means there is a requirement that a &#39;plugin&#39; field be in each</span>
+                    <span class="c1"># plugin definition</span>
+                    <span class="n">plugin_name</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">plugin_section_name</span><span class="p">,</span> <span class="s1">&#39;plugin&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">((</span><span class="s2">&quot;Plugin for section &#39;{0}&#39; missing&quot;</span>
+                                                  <span class="s2">&quot; (e.g. plugin=HillClimber)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_section_name</span><span class="p">))</span>
+                    <span class="n">plugin_def</span> <span class="o">=</span> <span class="n">quartermaster</span><span class="o">.</span><span class="n">get_plugin</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="c1"># since there are now arbitrary names for the sections</span>
+                        <span class="c1"># either the specific section or the section name has to be passed in</span>
+                        <span class="n">plugin</span> <span class="o">=</span> <span class="n">plugin_def</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">,</span>
+                                            <span class="n">section_header</span><span class="o">=</span><span class="n">plugin_section_name</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+                        <span class="k">if</span> <span class="n">plugin</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;{0} is missing a `product` (returned None)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Could not build &quot;{0}&quot; plugin&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">))</span>
+                    <span class="n">operation</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+                <span class="n">operator</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+
+            <span class="n">hortator</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
+            <span class="c1"># save the configuration as a copy so there will be a record</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hortator</span>
+
+<div class="viewcode-block" id="Tuna.initialize_file_storage"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.tunaplugin.Tuna.html#tuna.plugins.tunaplugin.Tuna.initialize_file_storage">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_file_storage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This has to be called before the plugins are built so the path will be set</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configuration`: the Configuration (a ConfigParser like object)</span>
+
+<span class="sd">        :postcondition: file-storage singleton with sub-folder from default section added as path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_storage</span> <span class="o">=</span> <span class="n">singletons</span><span class="o">.</span><span class="n">get_filestorage</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">GLOBAL_NAME</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="n">SUBFOLDER</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">defaults</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_storage</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">defaults</span><span class="p">[</span><span class="n">SUBFOLDER</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">TIMESTAMP</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">defaults</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_storage</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">defaults</span><span class="p">[</span><span class="n">TIMESTAMP</span><span class="p">]</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="Tuna.save_configuration"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.tunaplugin.Tuna.html#tuna.plugins.tunaplugin.Tuna.save_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">save_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        saves the configuration map to disk</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configuration`: A ConfigurationMap to save to disk</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_storage</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize_file_storage</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+        <span class="c1"># get the sub-folder (if given) and let the FileStorage mangle the name as needed</span>
+        <span class="c1"># to prevent clobbering files</span>
+
+        <span class="n">filename</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">configuration</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="c1"># the extension is changed so if the user is using a glob</span>
+        <span class="c1"># and didn&#39;t provide a sub-folder the compiled file won&#39;t</span>
+        <span class="c1"># get picked up on re-running the code</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;{0}_{{timestamp}}{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">COMPILED_EXTENSION</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_storage</span><span class="o">.</span><span class="n">safe_name</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">configuration</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span></div>
+        
+<div class="viewcode-block" id="Tuna.fetch_config"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.tunaplugin.Tuna.fetch_config.html#tuna.plugins.tunaplugin.Tuna.fetch_config">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints example configuration to stdout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span> <span class="n">CONFIGURATION</span></div></div>
+<span class="c1"># end class Tuna</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

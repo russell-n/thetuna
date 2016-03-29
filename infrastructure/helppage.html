@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Help Page &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Infrastructure" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Help Page</a><ul>
+<li><a class="reference internal" href="#font-constants">Font Constants</a></li>
+<li><a class="reference internal" href="#python-textwrapper">Python TextWrapper</a></li>
+<li><a class="reference internal" href="#less-is-more">Less is More</a></li>
+<li><a class="reference internal" href="#the-helppage">The HelpPage</a></li>
+<li><a class="reference internal" href="#suggested-sections">Suggested Sections</a></li>
+<li><a class="reference internal" href="#example-use">Example Use</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/infrastructure/helppage.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="help-page">
+<h1>Help Page<a class="headerlink" href="#help-page" title="Permalink to this headline">¶</a></h1>
+<p id="id1">This is a module to help with creating help-pages.</p>
+<div class="section" id="font-constants">
+<h2>Font Constants<a class="headerlink" href="#font-constants" title="Permalink to this headline">¶</a></h2>
+<p>ASCII codes are used to change the text sent to standard output. The available codes are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>BLUE</li>
+<li>RED</li>
+<li>RESET</li>
+<li>BOLD</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>RESET gets rid of the previously set codes (it turns off bold and makes the color black).</li>
+<li>These codes are used in the TEMPLATE so you can use them but it is not required.</li>
+</ul>
+</div>
+<div class="section" id="python-textwrapper">
+<h2>Python TextWrapper<a class="headerlink" href="#python-textwrapper" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://docs.python.org/2/library/textwrap.html#textwrap.TextWrapper">TextWrapper</a> is being used to make the output (hopefully) a little nicer. These are some notes generated while I figure out how to use it. TextWrapper has many options and two methods but I anticipate only use the <cite>width</cite>, and <cite>subsequent_indent</cite> attributes and the <cite>fill(text)</cite> method.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/textwrap.html#textwrap.TextWrapper" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">textwrap.TextWrapper</span></code></a>([width,&nbsp;...])</td>
+<td>Object for wrapping/filling text.</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/library/textwrap.html#textwrap.TextWrapper.width" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">textwrap.TextWrapper.width</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/textwrap.html#textwrap.TextWrapper.drop_whitespace" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">textwrap.TextWrapper.drop_whitespace</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/library/textwrap.html#textwrap.TextWrapper.subsequent_indent" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">textwrap.TextWrapper.subsequent_indent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/textwrap.html#textwrap.TextWrapper.fill" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">textwrap.TextWrapper.fill</span></code></a>(...)</td>
+<td>Reformat the single paragraph in &#8216;text&#8217; to fit in lines of no more than &#8216;self.width&#8217; columns, and return a new string containing the entire wrapped paragraph.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">output_documentation</span><span class="p">:</span>
+    <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">5</span>
+    <span class="n">tw</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">TextWrapper</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">subsequent_indent</span><span class="o">=</span><span class="n">indent</span><span class="p">,</span>
+                              <span class="n">drop_whitespace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">A Little Text:</span>
+
+<span class="s2">Now is the winter of our discontent;</span>
+<span class="s2">Made glorious summer by this Son of York;</span>
+<span class="s2">And all the clouds that lour&#39;d upon our house;</span>
+<span class="s2">In the deep bosom of the ocean buried.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">wrapped_text</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="n">wrapped_text</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">Little</span> <span class="n">Text</span><span class="p">:</span>  <span class="n">Now</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">winter</span> <span class="n">of</span> <span class="n">our</span> <span class="n">discontent</span><span class="p">;</span> <span class="n">Made</span> <span class="n">glorious</span> <span class="n">summer</span> <span class="n">by</span>
+    <span class="n">this</span> <span class="n">Son</span> <span class="n">of</span> <span class="n">York</span><span class="p">;</span> <span class="n">And</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">clouds</span> <span class="n">that</span> <span class="n">lour</span><span class="s1">&#39;d upon our house; In the</span>
+    <span class="n">deep</span> <span class="n">bosom</span> <span class="n">of</span> <span class="n">the</span> <span class="n">ocean</span> <span class="n">buried</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>That was not really what I wanted &#8211; I thought that the empty line before the paragraph would be preserved. It looks like in order to do what I wanted you would need to do it as two separate print calls (and and initial indent added so that the body will be entirely indented).</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/textwrap.html#textwrap.TextWrapper.initial_indent" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">textwrap.TextWrapper.initial_indent</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">output_documentation</span><span class="p">:</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">initial_indent</span> <span class="o">=</span> <span class="n">indent</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;A Little Text:</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Now is the winter of our discontent;</span>
+<span class="s2">Made glorious summer by this Son of York;</span>
+<span class="s2">And all the clouds that lour&#39;d upon our house;</span>
+<span class="s2">In the deep bosom of the ocean buried.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="nb">print</span> <span class="n">header</span>
+    <span class="n">headerless_wrapped_text</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="n">headerless_wrapped_text</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">Little</span> <span class="n">Text</span><span class="p">:</span>
+
+      <span class="n">Now</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">winter</span> <span class="n">of</span> <span class="n">our</span> <span class="n">discontent</span><span class="p">;</span> <span class="n">Made</span> <span class="n">glorious</span> <span class="n">summer</span> <span class="n">by</span> <span class="n">this</span> <span class="n">Son</span> <span class="n">of</span>
+     <span class="n">York</span><span class="p">;</span> <span class="n">And</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">clouds</span> <span class="n">that</span> <span class="n">lour</span><span class="s1">&#39;d upon our house; In the deep bosom of</span>
+     <span class="n">the</span> <span class="n">ocean</span> <span class="n">buried</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Okay, but now the output is all blocky. Try again with the <cite>drop_whitespace</cite> set to True.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">output_documentation</span><span class="p">:</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">drop_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="nb">print</span> <span class="n">header</span>
+    <span class="n">headerless_wrapped_text</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="n">headerless_wrapped_text</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">Little</span> <span class="n">Text</span><span class="p">:</span>
+
+      <span class="n">Now</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">winter</span> <span class="n">of</span> <span class="n">our</span> <span class="n">discontent</span><span class="p">;</span> <span class="n">Made</span> <span class="n">glorious</span> <span class="n">summer</span> <span class="n">by</span> <span class="n">this</span> <span class="n">Son</span> <span class="n">of</span>
+     <span class="n">York</span><span class="p">;</span> <span class="n">And</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">clouds</span> <span class="n">that</span> <span class="n">lour</span><span class="s1">&#39;d upon our house; In the deep bosom of</span>
+     <span class="n">the</span> <span class="n">ocean</span> <span class="n">buried</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Well, it <em>is</em> closer, but that first line in the body is still mysteriously off.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">output_documentation</span><span class="p">:</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">initial_indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">headerless_wrapped_text</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="n">header</span>
+    <span class="nb">print</span> <span class="n">headerless_wrapped_text</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">Little</span> <span class="n">Text</span><span class="p">:</span>
+
+     <span class="n">Now</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">winter</span> <span class="n">of</span> <span class="n">our</span> <span class="n">discontent</span><span class="p">;</span> <span class="n">Made</span> <span class="n">glorious</span> <span class="n">summer</span> <span class="n">by</span> <span class="n">this</span> <span class="n">Son</span> <span class="n">of</span>
+     <span class="n">York</span><span class="p">;</span> <span class="n">And</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">clouds</span> <span class="n">that</span> <span class="n">lour</span><span class="s1">&#39;d upon our house; In the deep bosom of</span>
+     <span class="n">the</span> <span class="n">ocean</span> <span class="n">buried</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">I initially misspelled <code class="docutils literal"><span class="pre">initial_indent</span></code> and it just silently did not change the output behavior &#8211; use the constructor instead of assigning the values like I do here.</p>
+</div>
+</div>
+<div class="section" id="less-is-more">
+<h2>Less is More<a class="headerlink" href="#less-is-more" title="Permalink to this headline">¶</a></h2>
+<p>In addition to using <cite>TextWrap</cite> I will use the less command to keep the text from rolling off the screen.</p>
+<p>This will break if the computer does not have <cite>less</cite>, which seems unlikely since I do not run Windows, but just in case I will use <cite>check_call</cite> so that it can fall back to printing.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.check_call" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">subprocess.check_call</span></code></a>(*popenargs,&nbsp;**kwargs)</td>
+<td>Run command with arguments.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/shlex.html#shlex.split" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">shlex.split</span></code></a>(s[,&nbsp;comments,&nbsp;posix])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">output_documentation</span><span class="p">:</span>
+    <span class="n">long_text</span> <span class="o">=</span> <span class="n">text</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">long_wrapped_text</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">long_text</span><span class="p">)</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;echo &quot;</span><span class="si">{0}</span><span class="s1">&quot; | less -R&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">long_wrapped_text</span><span class="p">))</span>
+
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="s1">&#39;ummagumma&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="n">wrapped_text</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">Little</span> <span class="n">Text</span><span class="p">:</span>  <span class="n">Now</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">winter</span> <span class="n">of</span> <span class="n">our</span> <span class="n">discontent</span><span class="p">;</span> <span class="n">Made</span> <span class="n">glorious</span> <span class="n">summer</span> <span class="n">by</span>
+    <span class="n">this</span> <span class="n">Son</span> <span class="n">of</span> <span class="n">York</span><span class="p">;</span> <span class="n">And</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">clouds</span> <span class="n">that</span> <span class="n">lour</span><span class="s1">&#39;d upon our house; In the</span>
+    <span class="n">deep</span> <span class="n">bosom</span> <span class="n">of</span> <span class="n">the</span> <span class="n">ocean</span> <span class="n">buried</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>The output from the first call will not show up in the documentation output, so it might not be obvious that it does not work. Apparently to do a pipe you need to use <code class="docutils literal"><span class="pre">Popen</span></code> and <code class="docutils literal"><span class="pre">communicate</span></code>.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">Popen</span></code></a>(args[,&nbsp;bufsize,&nbsp;executable,&nbsp;stdin,&nbsp;...])</td>
+<td>Create new Popen instance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen.communicate" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">Popen.communicate</span></code></a>([input])</td>
+<td>Interact with process: Send data to stdin.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.PIPE" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">PIPE</span></code></a></td>
+<td>int(x=0) -&gt; int or long</td>
+</tr>
+</tbody>
+</table>
+<p>So you need to do something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;less -R&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span>
+                 <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">long_wrapped_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-helppage">
+<h2>The HelpPage<a class="headerlink" href="#the-helppage" title="Permalink to this headline">¶</a></h2>
+<p>With that background material to the aside, here is the actual pager.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-8ddf6ae15d686f05aa74adce544c90888e214cca.png" alt="HelpPage -|&gt; BaseClass
+HelpPage o- subprocess.Popen
+HelpPage o- textwrap.TextWrapper" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HelpPage</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HelpPage.__call__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HelpPage.text</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The HelpPage is using the <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#str.format">string.format</a> method so putting curly braces (&#8216;{}&#8217;) in the help-strings is probably a bad idea. If you need them, make sure to double them &#8211; (<cite>{{like this}}</cite>).</p>
+</div>
+<p>If the <cite>headers</cite> argument is not set then the keys from the <cite>sections</cite> argument will be used (this way an ordered dict can be used to make things simpler).</p>
+</div>
+<div class="section" id="suggested-sections">
+<h2>Suggested Sections<a class="headerlink" href="#suggested-sections" title="Permalink to this headline">¶</a></h2>
+<p>My original idea was to put suggested sections in the HelpPage but it made the constructor-signature too big (and seemed too inflexible). So here are what the sections were going to be (taken from <a class="reference external" href="http://man7.org/linux/man-pages/man7/man-pages.7.html">man pages</a>):</p>
+<table border="1" class="docutils" id="id2">
+<caption><span class="caption-text">Suggested Sections</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Header</th>
+<th class="head">Contents</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>NAME</td>
+<td>The topic of the help and a short description.</td>
+</tr>
+<tr class="row-odd"><td>SYNOPSIS</td>
+<td>Comprehensive listing of usage options.</td>
+</tr>
+<tr class="row-even"><td>CONFIGURATION</td>
+<td>Setting up.</td>
+</tr>
+<tr class="row-odd"><td>DESCRIPTION</td>
+<td>The main body of the help describing the topic.</td>
+</tr>
+<tr class="row-even"><td>OPTIONS</td>
+<td>Description of the options.</td>
+</tr>
+<tr class="row-odd"><td>RETURN VALUE</td>
+<td>Values returned on exit (if any).</td>
+</tr>
+<tr class="row-even"><td>ERRORS</td>
+<td>Possible errors raised.</td>
+</tr>
+<tr class="row-odd"><td>FILES</td>
+<td>Paths to relevant files.</td>
+</tr>
+<tr class="row-even"><td>NOTES</td>
+<td>Miscellaneous notes.</td>
+</tr>
+<tr class="row-odd"><td>BUGS</td>
+<td>Known bugs.</td>
+</tr>
+<tr class="row-even"><td>EXAMPLE</td>
+<td>Usage examples.</td>
+</tr>
+<tr class="row-odd"><td>AUTHORS</td>
+<td>Code authors.</td>
+</tr>
+<tr class="row-even"><td>SEE ALSO</td>
+<td>Related topics.</td>
+</tr>
+</tbody>
+</table>
+<p>The man-pages have other sections but these were the ones I thought might be the most relevant for the way I am planning to use this.</p>
+</div>
+<div class="section" id="example-use">
+<h2>Example Use<a class="headerlink" href="#example-use" title="Permalink to this headline">¶</a></h2>
+<p>It is getting too hard to test this thing, so I will just do a plain old usage check.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="s1">&#39;title poem author source&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">poem</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    They fuck you up, your mum and dad.</span>
+<span class="s2">        They may not mean to, but they do.</span>
+<span class="s2">    They fill you with the faults they had</span>
+<span class="s2">        And add some extra, just for you.</span>
+
+<span class="s2">    But they were fucked up in their turn</span>
+<span class="s2">        By fools in old-style hats and coats,</span>
+<span class="s2">    Who half the time were soppy-stern</span>
+<span class="s2">        And half at one another&#39;s throats.</span>
+
+<span class="s2">    Man hands on misery to man.</span>
+<span class="s2">        It deepens like a coastal shelf.</span>
+<span class="s2">    Get out as early as you can,</span>
+<span class="s2">        And don&#39;t have any kids yourself.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">poem</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">poem</span><span class="p">)</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{red}</span><span class="s1">This Be The Verse</span><span class="si">{reset}</span><span class="s1">&#39;</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{blue}</span><span class="s1">Philip Larkin</span><span class="si">{reset}</span><span class="s1">&#39;</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;http://www.poetryfoundation.org/poem/178055&#39;</span>
+    <span class="n">sections</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">poem</span><span class="p">,</span> <span class="n">author</span><span class="p">,</span> <span class="n">source</span><span class="p">)))</span>
+    <span class="n">pager</span> <span class="o">=</span> <span class="n">HelpPage</span><span class="p">(</span><span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span>
+                     <span class="n">sections</span> <span class="o">=</span> <span class="n">sections</span><span class="p">)</span>
+    <span class="n">pager</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

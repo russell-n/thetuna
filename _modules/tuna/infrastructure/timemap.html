@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.infrastructure.timemap &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.infrastructure.timemap</h1><div class="highlight"><pre>
+<span></span>
+<span class="n">IN_PWEAVE</span> <span class="o">=</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span>
+
+
+<span class="c1"># python standard library</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># third-party</span>
+<span class="kn">from</span> <span class="nn">dateutil.relativedelta</span> <span class="kn">import</span> <span class="n">relativedelta</span>
+<span class="kn">import</span> <span class="nn">dateutil.parser</span> 
+
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">BaseClass</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">TunaError</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure.oatbran</span> <span class="kn">import</span> <span class="n">CharacterClass</span><span class="p">,</span> <span class="n">Numbers</span><span class="p">,</span> <span class="n">Group</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure.oatbran</span> <span class="kn">import</span> <span class="n">CommonPatterns</span>
+
+
+<span class="n">ZERO</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+<span class="n">INT_ZERO</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">ONE</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MICRO</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
+
+
+<span class="k">class</span> <span class="nc">RelativeTimeMapGroups</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">years</span> <span class="o">=</span> <span class="s1">&#39;years&#39;</span>
+    <span class="n">months</span> <span class="o">=</span> <span class="s1">&#39;months&#39;</span>
+    <span class="n">weeks</span> <span class="o">=</span> <span class="s1">&#39;weeks&#39;</span>
+    <span class="n">days</span> <span class="o">=</span> <span class="s1">&#39;days&#39;</span>
+    <span class="n">hours</span> <span class="o">=</span> <span class="s1">&#39;hours&#39;</span>
+    <span class="n">minutes</span> <span class="o">=</span> <span class="s1">&#39;minutes&#39;</span>
+    <span class="n">seconds</span> <span class="o">=</span> <span class="s1">&#39;seconds&#39;</span>
+<span class="c1"># end RelativeTimeMapGroups    </span>
+
+
+<div class="viewcode-block" id="RelativeTimeMap"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTimeMap.html#tuna.infrastructure.timemap.RelativeTimeMap">[docs]</a><span class="k">class</span> <span class="nc">RelativeTimeMap</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A converter from strings with relative times to seconds</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="RelativeTimeMap.__init__"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTimeMap.html#tuna.infrastructure.timemap.RelativeTimeMap.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RelativeTimeMap</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_year_expression</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_month_expression</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_week_expression</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_day_expression</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hour_expression</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minute_expression</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_second_expression</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">year_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A compiled regex to match a year (only checks for y)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_year_expression</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_year_expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">named</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">years</span><span class="p">,</span>
+                                                           <span class="n">expression</span><span class="o">=</span><span class="n">Numbers</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">+</span>
+                                                            <span class="n">CommonPatterns</span><span class="o">.</span><span class="n">optional_spaces</span> <span class="o">+</span>
+                                                            <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Yy&#39;</span><span class="p">)</span>
+                                                            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_year_expression</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">month_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A compiled regex to match a month (check for &#39;mo&#39; only)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_month_expression</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_month_expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">named</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">months</span><span class="p">,</span>
+                                                            <span class="n">expression</span><span class="o">=</span><span class="n">Numbers</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">+</span>
+                <span class="n">CommonPatterns</span><span class="o">.</span><span class="n">optional_spaces</span> <span class="o">+</span>
+                <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Mm&#39;</span><span class="p">)</span> <span class="o">+</span>
+                <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Oo&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_month_expression</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">week_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A compiled regex to extract a number of weeks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_week_expression</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_week_expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">named</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">weeks</span><span class="p">,</span>
+                                                           <span class="n">expression</span><span class="o">=</span><span class="n">Numbers</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">+</span>
+                                                           <span class="n">CommonPatterns</span><span class="o">.</span><span class="n">optional_spaces</span> <span class="o">+</span>
+                                                           <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Ww&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_week_expression</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">day_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A compiled regex to extract the number of days</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_day_expression</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_day_expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">named</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">days</span><span class="p">,</span>
+                                                          <span class="n">expression</span><span class="o">=</span><span class="n">Numbers</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">+</span>
+                                                          <span class="n">CommonPatterns</span><span class="o">.</span><span class="n">optional_spaces</span> <span class="o">+</span>
+                                                          <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Dd&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_day_expression</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hour_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A compiled regex to extract the number of hours</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hour_expression</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_hour_expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">named</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span>
+                                                           <span class="n">expression</span><span class="o">=</span><span class="n">Numbers</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">+</span>
+                                                           <span class="n">CommonPatterns</span><span class="o">.</span><span class="n">optional_spaces</span> <span class="o">+</span>
+                                                           <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Hh&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hour_expression</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">minute_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A compiled regex to extract the number of minutes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minute_expression</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_minute_expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">named</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">minutes</span><span class="p">,</span>
+                                                             <span class="n">expression</span><span class="o">=</span><span class="n">Numbers</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">+</span>
+                                                             <span class="n">CommonPatterns</span><span class="o">.</span><span class="n">optional_spaces</span> <span class="o">+</span>
+                                                             <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Mm&#39;</span><span class="p">)</span> <span class="o">+</span>
+                                                             <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Ii&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minute_expression</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">second_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A compiled regex to extract the number of seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_expression</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_second_expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">named</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span>
+                                                             <span class="n">expression</span><span class="o">=</span><span class="n">Numbers</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">+</span>
+                                                             <span class="n">CommonPatterns</span><span class="o">.</span><span class="n">optional_spaces</span> <span class="o">+</span>
+                                                             <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="s1">&#39;Ss&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_expression</span></div>
+<span class="c1">#end class RelativeTimeMap</span>
+
+
+<div class="viewcode-block" id="source_required"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.source_required.html#tuna.infrastructure.timemap.source_required">[docs]</a><span class="k">def</span> <span class="nf">source_required</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Catches AttributeErrors and TypeErrors and raises TunaErrors in their place so the operators can recover</span>
+
+<span class="sd">    :param:</span>
+
+<span class="sd">      - `method`: the method to decorate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;self.source not set (&#39;{0}&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">wrapped</span></div>
+
+<div class="viewcode-block" id="operation_error"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.operation_error.html#tuna.infrastructure.timemap.operation_error">[docs]</a><span class="k">def</span> <span class="nf">operation_error</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Catches AttributeErrors and TypeErrors and raises TunaErrors in their place so the operators can recover</span>
+
+<span class="sd">    :param:</span>
+
+<span class="sd">      - `method`: the method to decorate</span>
+<span class="sd">      - `message`: for TunaError</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;operand must be timedelta object, not &#39;{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">wrapped</span></div>
+
+<div class="viewcode-block" id="number_error"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.number_error.html#tuna.infrastructure.timemap.number_error">[docs]</a><span class="k">def</span> <span class="nf">number_error</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Catches AttributeErrors and TypeErrors and raises TunaErrors in their place so the operators can recover</span>
+
+<span class="sd">    :param:</span>
+
+<span class="sd">      - `method`: the method to decorate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;operand must be numeric object, not &#39;{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">wrapped</span></div>
+
+<div class="viewcode-block" id="unary_error"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.unary_error.html#tuna.infrastructure.timemap.unary_error">[docs]</a><span class="k">def</span> <span class="nf">unary_error</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Catches AttributeErrors and TypeErrors and raises TunaErrors in their place so the operators can recover</span>
+
+<span class="sd">    :param:</span>
+
+<span class="sd">      - `method`: the method to decorate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;timedelta must be object, not &#39;{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">wrapped</span></div>
+
+
+
+
+<div class="viewcode-block" id="RelativeTime"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTime.html#tuna.infrastructure.timemap.RelativeTime">[docs]</a><span class="k">class</span> <span class="nc">RelativeTime</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A timedeltas extension</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="RelativeTime.__init__"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTime.html#tuna.infrastructure.timemap.RelativeTime.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        RelativeTime constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `source`: A string with relative time in it (e.g. &#39;1week 2 days 4.2 seconds&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RelativeTime</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time_map</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>    
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: the source string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span>
+
+    <span class="nd">@source.setter</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the source and all the time values (if source is None, resets the values)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>            
+            <span class="bp">self</span><span class="o">.</span><span class="n">populate_fields</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">return</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">time_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A relative time map instance to parse the source.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_map</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time_map</span> <span class="o">=</span> <span class="n">RelativeTimeMap</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_map</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@source_required</span>
+    <span class="k">def</span> <span class="nf">days</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets the timedelta days</span>
+
+<span class="sd">        :return: number of days as an integer</span>
+<span class="sd">        :raise: TunaError if the timedelta hasn&#39;t been built</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">days</span>
+    
+    <span class="nd">@property</span>
+    <span class="nd">@source_required</span>
+    <span class="k">def</span> <span class="nf">seconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the seconds from the time-delta</span>
+
+<span class="sd">        :return: seconds (not total-seconds) as integer</span>
+<span class="sd">        :raise: TunaError if the timedelta hasn&#39;t been built</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">seconds</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@source_required</span>
+    <span class="k">def</span> <span class="nf">microseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the microseconds from the timedelta</span>
+
+<span class="sd">        :return: seconds (not total-seconds) as an integer</span>
+<span class="sd">        :raise: TunaError if the timedelta not built not set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">microseconds</span>
+
+    <span class="nd">@source_required</span>
+<div class="viewcode-block" id="RelativeTime.get_number"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTime.get_number.html#tuna.infrastructure.timemap.RelativeTime.get_number">[docs]</a>    <span class="k">def</span> <span class="nf">get_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="n">group_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets the number from self.source that matches the expression</span>
+
+<span class="sd">        :return: string with number or &#39;0&#39; if not found</span>
+<span class="sd">        :raise: TunaError if self._source has not been set or group is missing</span>
+<span class="sd">        :raise: IndexError if the group_name is not found (this is likely an implementation error, we want to crash)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">expression</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;0&#39;</span>
+        <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group_name</span><span class="p">)</span></div>
+   
+<div class="viewcode-block" id="RelativeTime.populate_fields"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTime.populate_fields.html#tuna.infrastructure.timemap.RelativeTime.populate_fields">[docs]</a>    <span class="k">def</span> <span class="nf">populate_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        populates the time fields with values (e.g. self.minutes)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">years</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_map</span><span class="o">.</span><span class="n">year_expression</span><span class="p">,</span> <span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">years</span><span class="p">)</span>
+        <span class="n">months</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_map</span><span class="o">.</span><span class="n">month_expression</span><span class="p">,</span> <span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">months</span><span class="p">)</span>
+        <span class="n">weeks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_map</span><span class="o">.</span><span class="n">week_expression</span><span class="p">,</span> <span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">weeks</span><span class="p">)</span>
+        <span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_map</span><span class="o">.</span><span class="n">day_expression</span><span class="p">,</span> <span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">days</span><span class="p">)</span>
+        <span class="n">hours</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_map</span><span class="o">.</span><span class="n">hour_expression</span><span class="p">,</span> <span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">hours</span><span class="p">)</span>
+        <span class="n">minutes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_map</span><span class="o">.</span><span class="n">minute_expression</span><span class="p">,</span> <span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">minutes</span><span class="p">)</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_map</span><span class="o">.</span><span class="n">second_expression</span><span class="p">,</span> <span class="n">RelativeTimeMapGroups</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
+
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="c1"># HACK</span>
+        <span class="c1"># timedelta doesn&#39;t handle varying-units (e.g. 28 vs 30 vs 31 day in a month)</span>
+        <span class="c1"># relativedelta does -- but it returns a datetime object, not a timedelta</span>
+        <span class="c1"># so the adding and subtracting is to convert it to a timedelta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="n">now</span> <span class="o">+</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">years</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">years</span><span class="p">),</span>
+                                             <span class="n">months</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">months</span><span class="p">),</span>
+                                             <span class="n">weeks</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">weeks</span><span class="p">),</span>
+                                             <span class="n">days</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">days</span><span class="p">),</span>
+                                             <span class="n">hours</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">hours</span><span class="p">),</span>
+                                             <span class="n">minutes</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">minutes</span><span class="p">),</span>
+                                             <span class="n">seconds</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">seconds</span><span class="p">))</span> <span class="o">-</span> <span class="n">now</span>
+        
+        <span class="k">return</span></div>
+
+    <span class="nd">@source_required</span>
+<div class="viewcode-block" id="RelativeTime.total_seconds"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTime.total_seconds.html#tuna.infrastructure.timemap.RelativeTime.total_seconds">[docs]</a>    <span class="k">def</span> <span class="nf">total_seconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets the timedelta total_seconds</span>
+
+<span class="sd">        :return: all the times summed to seconds (as a float)</span>
+<span class="sd">        :raise: TunaError if the source has not been set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RelativeTime.reset"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.RelativeTime.reset.html#tuna.infrastructure.timemap.RelativeTime.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the attributes (undoes populate_fields)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="c1"># the operator overloading</span>
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the timedelta is the same as the other.</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `other`: timedelta</span>
+
+<span class="sd">        :return: True if self.timedelta is equal to other</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">==</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the timedelta is less than the other</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">&lt;</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the timedelta is &gt; other        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">&gt;</span> <span class="n">other</span>
+    
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the timedelta is &lt;= other</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">&lt;=</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the timedelta is &gt;= other</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">&gt;=</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks to see if the timedelta isn&#39;t equal to the other</span>
+
+<span class="sd">        :return: True if they aren&#39;t equal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">!=</span> <span class="n">other</span>
+    
+    <span class="k">def</span> <span class="nf">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compares timestamp with other timestamp</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `other`: a timedelta</span>
+
+<span class="sd">        :return: -1 if less, 0 if equal, 1 if greater</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">==</span> <span class="n">other</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">&lt;</span> <span class="n">other</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span>
+    
+    <span class="nd">@operation_error</span>
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        adds the timedelta to other</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `other`: a timedelta object</span>
+
+<span class="sd">        :return: self.timedelta + other</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">+</span> <span class="n">other</span>
+
+    <span class="nd">@operation_error</span>
+    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        adds the timedelta to other</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `other`: a timedelta object</span>
+
+<span class="sd">        :return: self.timedelta + other</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">+</span> <span class="n">other</span>
+
+    <span class="nd">@operation_error</span>
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        subtracts the other from the timedelta</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `other`: a timedelta object</span>
+
+<span class="sd">        :return: self.timedelta - other</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">-</span> <span class="n">other</span>
+
+    <span class="nd">@operation_error</span>
+    <span class="k">def</span> <span class="nf">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        subtracts the timedelta from the other</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `other`: a timedelta object</span>
+
+<span class="sd">        :return: other - self.timedelta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">other</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span>
+
+    <span class="nd">@number_error</span>
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        mulitplies the timedelta</span>
+
+<span class="sd">        :return: timedelta * multiplier        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">*</span> <span class="n">multiplier</span>
+
+    <span class="nd">@number_error</span>
+    <span class="k">def</span> <span class="nf">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        mulitplies the timedelta</span>
+
+<span class="sd">        :return: multiplier * timedelta        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">multiplier</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pass-through to the time-delta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pass-through to the timedelta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="o">.</span><span class="n">__repr__</span><span class="p">()</span>
+
+    <span class="nd">@unary_error</span>
+    <span class="k">def</span> <span class="nf">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Negates the timedelta</span>
+
+<span class="sd">        :return: -self.timedelta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span>
+
+    <span class="nd">@unary_error</span>
+    <span class="k">def</span> <span class="nf">__pos__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Makes the timedelta positive</span>
+
+<span class="sd">        :return: +self.timedelta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span>
+
+    <span class="nd">@unary_error</span>
+    <span class="k">def</span> <span class="nf">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calls the absolute function on the timedelta</span>
+
+<span class="sd">        :return: abs(self.timedelta)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span><span class="p">)</span>
+
+    <span class="nd">@number_error</span>
+    <span class="k">def</span> <span class="nf">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">integer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the floor and throws away the remainder</span>
+
+<span class="sd">        :return: self.timedelta // integer        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">//</span> <span class="n">integer</span></div>
+<span class="c1"># end class RelativeTime    </span>
+
+
+<div class="viewcode-block" id="AbsoluteTime"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.AbsoluteTime.html#tuna.infrastructure.timemap.AbsoluteTime">[docs]</a><span class="k">class</span> <span class="nc">AbsoluteTime</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A container for the dateutil.parser.parse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AbsoluteTime.__init__"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.AbsoluteTime.html#tuna.infrastructure.timemap.AbsoluteTime.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ignoretz</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dayfirst</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                 <span class="n">yearfirst</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">fuzzy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">parserinfo</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        AbsoluteTime constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `default`: datetime object to use to supply missing fields</span>
+<span class="sd">         - `ignoretz`: if true, ignore timezone information in string</span>
+<span class="sd">         - `tzinfos`: dict or function that provides custom timezone information</span>
+<span class="sd">         - `dayfirst`: if true, ambiguous dates assume DD-MM-YY first</span>
+<span class="sd">         - `yearfirst`: if true, ambiguous dates assume YY-MM-DD</span>
+<span class="sd">         - `fuzzy`: if true, ignore unrecognizable tokens</span>
+<span class="sd">         - `parserinfo`: parserinfo class that changes the behavior of the parser</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AbsoluteTime</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignoretz</span> <span class="o">=</span> <span class="n">ignoretz</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tzinfos</span> <span class="o">=</span> <span class="n">tzinfos</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">dayfirst</span> <span class="o">=</span> <span class="n">dayfirst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yearfirst</span> <span class="o">=</span> <span class="n">yearfirst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fuzzy</span> <span class="o">=</span> <span class="n">fuzzy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parserinfo</span> <span class="o">=</span> <span class="n">parserinfo</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="AbsoluteTime.__call__"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.timemap.AbsoluteTime.__call__.html#tuna.infrastructure.timemap.AbsoluteTime.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The main interface -- calls dateutil.parser.parse(source)</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `source`: string with time and date information to create datetime</span>
+
+<span class="sd">        :return: datetime object created from `source`</span>
+<span class="sd">        :raise: TunaError if the string is unrecognizable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">,</span>
+                                         <span class="n">default</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
+                                         <span class="n">ignoretz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignoretz</span><span class="p">,</span>
+                                         <span class="n">tzinfos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tzinfos</span><span class="p">,</span>
+                                         <span class="n">dayfirst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dayfirst</span><span class="p">,</span>
+                                         <span class="n">yearfirst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">yearfirst</span><span class="p">,</span>
+                                         <span class="n">fuzzy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fuzzy</span><span class="p">,</span>
+                                         <span class="n">parserinfo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parserinfo</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;dateutil.parser.parse unable to parse &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+        <span class="k">return</span></div></div>
+<span class="c1"># end class AbsoluteTime            </span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pudb</span><span class="p">;</span> <span class="n">pudb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">RelativeTime</span><span class="p">(</span><span class="s1">&#39;3 seconds&#39;</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">seconds</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">r</span> <span class="o">!=</span> <span class="n">t</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

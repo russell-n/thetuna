@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Arguments &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../index.html" />
+    <link rel="up" title="The Arguments" href="index.html" />
+    <link rel="next" title="docopt.docopt" href="api/docopt.docopt.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Arguments</a><ul>
+<li><a class="reference internal" href="#the-argumentconstants">The ArgumentConstants</a></li>
+<li><a class="reference internal" href="#the-basearguments">The BaseArguments</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="api/docopt.docopt.html" title="Next Chapter: docopt.docopt"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">docopt.docopt &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/infrastructure/arguments/arguments.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-arguments">
+<h1>The Arguments<a class="headerlink" href="#the-arguments" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;tuna (a metaheuristic maximizer)</span>
+
+<span class="sd">Usage: tuna -h | -v</span>
+<span class="sd">       tuna [--debug|--silent] [--pudb|--pdb] &lt;command&gt; [&lt;argument&gt;...]</span>
+
+<span class="sd">Help Options:</span>
+
+<span class="sd">    -h, --help     Display this help message and quit.</span>
+<span class="sd">    -v, --version  Display the version number and quit.</span>
+
+<span class="sd">Logging Options:</span>
+
+<span class="sd">    --debug   Set logging level to DEBUG.</span>
+<span class="sd">    --silent  Set logging level to ERROR.</span>
+
+<span class="sd">Debugging Options:</span>
+
+<span class="sd">    --pudb       Enable the `pudb` debugger (if installed)</span>
+<span class="sd">    --pdb        Enable the `pdb` (python&#39;s default) debugger</span>
+
+<span class="sd">Positional Arguments:</span>
+
+<span class="sd">    &lt;command&gt;      The name of a sub-command (see below)</span>
+<span class="sd">    &lt;argument&gt;...  One or more options or arguments for the sub-command</span>
+
+<span class="sd">Available Sub-Commands:</span>
+
+<span class="sd">    run    Run a plugin</span>
+<span class="sd">    fetch  Fetch a sample configuration-file</span>
+<span class="sd">    help   Display more help</span>
+<span class="sd">    list   List known plugins</span>
+<span class="sd">    check  Check a configuration</span>
+
+<span class="sd">To get help for a sub-command pass `-h` as the argument. e.g.:</span>
+
+<span class="sd">    tuna run -h</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="the-argumentconstants">
+<span id="tuna-interface-arguments-argumentconstants"></span><h2>The ArgumentConstants<a class="headerlink" href="#the-argumentconstants" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ArgumentsConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants for the arguments</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="s2">&quot;--debug&quot;</span>
+    <span class="n">silent</span> <span class="o">=</span> <span class="s1">&#39;--silent&#39;</span>
+    <span class="n">pudb</span> <span class="o">=</span> <span class="s2">&quot;--pudb&quot;</span>
+    <span class="n">pdb</span> <span class="o">=</span> <span class="s1">&#39;--pdb&#39;</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="s1">&#39;--trace&#39;</span>
+    <span class="n">callgraph</span> <span class="o">=</span> <span class="s1">&#39;--callgraph&#39;</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;&lt;command&gt;&quot;</span>
+    <span class="n">argument</span> <span class="o">=</span> <span class="s1">&#39;&lt;argument&gt;&#39;</span>
+<span class="c1"># end ArgumentConstants</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-basearguments">
+<span id="tuna-interface-arguments-basearguments"></span><h2>The BaseArguments<a class="headerlink" href="#the-basearguments" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="api/docopt.docopt.html#docopt.docopt" title="docopt.docopt"><code class="xref py py-obj docutils literal"><span class="pre">docopt</span></code></a>(doc[,&nbsp;argv,&nbsp;help,&nbsp;version,&nbsp;options_first])</td>
+<td>Parse <cite>argv</cite> based on command-line interface described in <cite>doc</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="api/docopt.DocoptExit.html#docopt.DocoptExit" title="docopt.DocoptExit"><code class="xref py py-obj docutils literal"><span class="pre">DocoptExit</span></code></a>([message])</td>
+<td>Exit in case user invoked program with incorrect arguments.</td>
+</tr>
+</tbody>
+</table>
+<p class="plantuml">
+<img src="../../_images/plantuml-d108ff771bad5a46c6a4e45ee527621f4f13a1d3.png" alt="BaseClass &lt;|-- BaseArguments
+BaseArguments o-- CheckArguments
+BaseArguments o-- RunArguments
+BaseArguments o-- FetchArguments
+BaseArguments o-- ListArguments
+BaseArguments o-- HelpArguments" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.arguments</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.sub_arguments</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.debug</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.silent</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.pudb</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.pdb</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.trace</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.callgraph</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseArguments.reset</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

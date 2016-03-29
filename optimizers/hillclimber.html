@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Hill Climber &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="Optimizers" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Hill Climber</a><ul>
+<li><a class="reference internal" href="#simulating-a-hill-climb">Simulating a Hill Climb</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/optimizers/hillclimber.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-hill-climber">
+<h1>The Hill Climber<a class="headerlink" href="#the-hill-climber" title="Permalink to this headline">¶</a></h1>
+<p>The HillClimber is the most basic of the local optimizers.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-5739cbd4c8e6958e9072f22d99ad0fa8819779cd.png" alt="BaseClimber &lt;|-- HillClimber" />
+</p>
+<span class="target" id="module-tuna.optimizers.hillclimber"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HillClimber</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HillClimber.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Since this isn&#8217;t a production-level searcher I&#8217;ll save the solutions to a list, but once better heuristics are created they should be sent to a persistent target.</p>
+<p>The HillClimber implements a simple hill-climbing optimization. It has three dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li>StopCondition</li>
+<li>Tweak</li>
+<li>Quality</li>
+</ul>
+</div></blockquote>
+<p>As well as an initial solution to start the search.</p>
+<div class="section" id="simulating-a-hill-climb">
+<h2>Simulating a Hill Climb<a class="headerlink" href="#simulating-a-hill-climb" title="Permalink to this headline">¶</a></h2>
+<p>I&#8217;ll use the simulated data-sets to create an example of how this might work. The first case will be a <a class="reference internal" href="../qualities/normalsimulation.html#optimization-simulations-normal-data"><span class="std std-ref">standard-normal curve</span></a>.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-7585991114d917c31a7de6a83255fae20db1d4c8.png" alt="HillClimber o- XYSolution
+HillClimber o- XYTweak
+HillClimber o- UniformConvolution
+HillClimber o- StopConditionIdeal
+HillClimber o- NormalSimulation" />
+</p>
+<span class="target" id="module-tuna.qualities.normalsimulation"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">NormalSimulation</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionIdeal</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">UniformConvolution</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-tuna.parts.xysolution"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">XYSolution</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">XYTweak</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">IN_PWEAVE</span> <span class="o">=</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span>
+<span class="k">def</span> <span class="nf">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">solution</span> <span class="o">=</span> <span class="n">climber</span><span class="p">()</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="s2">&quot;solution: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="s2">&quot;Ideal: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="s2">&quot;Difference: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">output</span> <span class="o">-</span> <span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="s2">&quot;Elapsed: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">datetime</span>
+    <span class="kn">from</span> <span class="nn">tuna.qualities.normalsimulation</span> <span class="k">import</span> <span class="n">NormalSimulation</span>
+    <span class="kn">from</span> <span class="nn">tuna.parts.stopcondition</span> <span class="k">import</span> <span class="n">StopConditionIdeal</span>
+    <span class="kn">from</span> <span class="nn">tuna.tweaks.convolutions</span> <span class="k">import</span> <span class="n">UniformConvolution</span>
+    <span class="kn">from</span> <span class="nn">tuna.parts.xysolution</span> <span class="k">import</span> <span class="n">XYSolution</span><span class="p">,</span> <span class="n">XYTweak</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="n">simulator</span> <span class="o">=</span> <span class="n">NormalSimulation</span><span class="p">(</span><span class="n">domain_start</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span>
+                                 <span class="n">domain_end</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                 <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+    <span class="n">stop</span> <span class="o">=</span> <span class="n">StopConditionIdeal</span><span class="p">(</span><span class="n">ideal_value</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">,</span>
+                              <span class="n">delta</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+                              <span class="n">time_limit</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">300</span><span class="p">))</span>
+
+    <span class="n">tweak</span> <span class="o">=</span> <span class="n">UniformConvolution</span><span class="p">(</span><span class="n">half_range</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                               <span class="n">lower_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span><span class="p">,</span>
+                               <span class="n">upper_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span><span class="p">)</span>
+
+    <span class="n">xytweak</span> <span class="o">=</span> <span class="n">XYTweak</span><span class="p">(</span><span class="n">tweak</span><span class="p">)</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span><span class="p">,</span>
+                                  <span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span><span class="p">,</span>
+                                  <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">candidate</span> <span class="o">=</span> <span class="n">XYSolution</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="c1"># this is a kludge until I get the call-ordering worked out</span>
+    <span class="c1"># right now the simulator is setting the .output as a side-effect</span>
+    <span class="n">simulator</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+
+    <span class="n">climber</span> <span class="o">=</span> <span class="n">HillClimber</span><span class="p">(</span><span class="n">solution</span><span class="o">=</span><span class="n">candidate</span><span class="p">,</span>
+                          <span class="n">stop_condition</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+                          <span class="n">tweak</span><span class="o">=</span><span class="n">xytweak</span><span class="p">,</span>
+                          <span class="n">quality</span><span class="o">=</span><span class="n">simulator</span><span class="p">)</span>
+    <span class="n">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_solutions</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">climber</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;figures/</span><span class="si">{0}</span><span class="s1">.svg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">axe</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">solution</span><span class="o">.</span><span class="n">output</span> <span class="k">for</span> <span class="n">solution</span> <span class="ow">in</span> <span class="n">climber</span><span class="o">.</span><span class="n">solutions</span><span class="p">]</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="s1">&#39;.. figure:: &#39;</span>  <span class="o">+</span> <span class="n">output</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">3.26928757</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00189308709596</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">3.22201226</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00221274266817</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">3.13843485</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00292788578651</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">3.11268099</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00315601631642</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">3.09300512</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00331683137455</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">3.08625728</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00339995910683</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">3.02754456</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00403595192244</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.96164755</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00500830575564</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.88120038</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00632711867023</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.79823798</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00794211321393</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.77123512</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.00849203971355</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.67966055</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0110359377309</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.66305844</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0115182244779</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.63575635</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0122755540991</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.54393521</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0157455133096</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.53694365</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0160688737358</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.4932306</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0177709544893</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.45490968</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0196218435258</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.42023909</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0212159137666</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.37528298</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0238072441624</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.36644526</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0242634682713</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.3338906</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0261607018028</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.32618693</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0266534782355</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.27075454</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.030318351697</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.23569608</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0325885676153</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.23088614</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0331768819266</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.13575706</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0409172810977</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.11631929</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0423345934815</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.0933156</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0445317184006</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.02625395</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0508208032913</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.93138013</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0614833566965</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.83441953</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0736992620816</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.79566727</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0792635427738</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.73565514</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0887568329195</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.68755641</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0963559002167</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.64088594</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.104364359146</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.6104854</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.108520847649</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.59183188</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.112777766497</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.52218265</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.124611722285</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.49285899</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.130785076467</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.45554838</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.13873328475</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.38829498</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.151959693008</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.36478599</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.157072181632</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.3400005</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.162262995642</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.33055884</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.164010074676</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.31809361</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.167528634438</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.27322497</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.178269153551</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.25632653</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.181906876288</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.21698817</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.191114666374</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.1653346</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.202352619114</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.10455809</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.217588339862</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.05018124</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.229145318181</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.03592397</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.233012904857</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.97233277</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.248508870906</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.93031405</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.258174268732</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.84108949</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.27920194574</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.8340255</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.281088284592</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.8271312</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.282969221005</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.81314486</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.286713772984</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.75584446</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.299608418784</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.7494918</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.301419927783</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.74242062</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.303222943864</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.67780378</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.317307420087</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.64374772</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.324093931834</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.56284172</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.340171591776</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.48892331</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.353379417987</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.43340728</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.362700840726</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.35531672</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.374398904813</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.33393699</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.3775089799</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.3121618</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.380425262678</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.25809971</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.385657258719</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.23704049</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.387964160737</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.21246026</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.390059672672</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.20521723</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.39071057452</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.16498678</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.393602615166</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.09945784</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.396948572009</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.06626491</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.398019148061</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.0204</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.398862340139</span>
+<span class="n">solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.0204</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.398862340139</span>
+<span class="n">Ideal</span><span class="p">:</span> <span class="mf">0.398939082483</span>
+<span class="n">Difference</span><span class="p">:</span> <span class="o">-</span><span class="mf">7.67423442817e-05</span>
+<span class="n">Elapsed</span><span class="p">:</span> <span class="mf">0.0307440757751</span>
+</pre></div>
+</div>
+<div class="figure">
+<img src="../_images/normal_hill_climb.svg" /></div>
+<p>Now a <a class="reference internal" href="../qualities/normalsimulation.html#optimization-simulations-needle-in-haystack"><span class="std std-ref">Needle in a Haystack</span></a> case.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">IN_PWEAVE</span><span class="p">:</span>
+    <span class="c1"># make the target different so we know the data changed</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="c1">#simulator.functions = [lambda x: 10 * x + 5]</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">candidate</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">simulator</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+    <span class="n">climber</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="n">candidate</span>
+
+    <span class="n">stop</span><span class="o">.</span><span class="n">_end_time</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">stop</span><span class="o">.</span><span class="n">ideal_value</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span>
+
+    <span class="c1"># this takes forever, make it lenient</span>
+    <span class="n">tweak</span> <span class="o">=</span> <span class="n">UniformConvolution</span><span class="p">(</span><span class="n">half_range</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                               <span class="n">lower_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_start</span><span class="p">,</span>
+                               <span class="n">upper_bound</span><span class="o">=</span><span class="n">simulator</span><span class="o">.</span><span class="n">domain_end</span><span class="p">)</span>
+
+    <span class="n">xytweak</span> <span class="o">=</span> <span class="n">XYTweak</span><span class="p">(</span><span class="n">tweak</span><span class="p">)</span>
+
+    <span class="n">stop</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+    <span class="n">climber</span><span class="o">.</span><span class="n">tweak</span> <span class="o">=</span> <span class="n">xytweak</span>
+    <span class="nb">print</span> <span class="s2">&quot;Ideal: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">ideal_solution</span><span class="p">)</span>
+    <span class="n">run_climber</span><span class="p">(</span><span class="n">climber</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Ideal</span><span class="p">:</span> <span class="mf">0.396948572009</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.62657216</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0134913210327</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.95458758</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.0718182846986</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.41627596</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.16009085669</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">1.21895343</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.217588339862</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.33365222</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.375194313756</span>
+<span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.20613894</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.396948572009</span>
+<span class="n">solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.20613894</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">0.396948572009</span>
+<span class="n">Ideal</span><span class="p">:</span> <span class="mf">0.396948572009</span>
+<span class="n">Difference</span><span class="p">:</span> <span class="mf">0.0</span>
+<span class="n">Elapsed</span><span class="p">:</span> <span class="mf">0.00237393379211</span>
+</pre></div>
+</div>
+<div class="figure">
+<img src="../_images/needle_haystack_hill_climb.svg" /></div>
+<p>Running this code can be either very fast (less than a second) or very slow (never reaches the end before timing out). I&#8217;m not going to bother trying it on the harder data-sets.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exhaustive Search &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="Optimizers" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Exhaustive Search</a><ul>
+<li><a class="reference internal" href="#exhaustive-search-constants">Exhaustive Search Constants</a></li>
+<li><a class="reference internal" href="#exhaustive-search-implementation">Exhaustive Search Implementation</a><ul>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
+<li><a class="reference internal" href="#the-call">The Call</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-exhaustivesearchbuilder">The ExhaustiveSearchBuilder</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/optimizers/exhaustivesearch.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="exhaustive-search">
+<h1>Exhaustive Search<a class="headerlink" href="#exhaustive-search" title="Permalink to this headline">¶</a></h1>
+<p>This is an exhaustive grid-search.</p>
+<div class="section" id="exhaustive-search-constants">
+<h2>Exhaustive Search Constants<a class="headerlink" href="#exhaustive-search-constants" title="Permalink to this headline">¶</a></h2>
+<p>These are constants to make building the ExhaustiveSearch object less error-prone.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ExhaustiveSearchConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1"># configuration options</span>
+    <span class="n">minima_option</span> <span class="o">=</span> <span class="s1">&#39;minima&#39;</span>
+    <span class="n">maxima_option</span> <span class="o">=</span> <span class="s1">&#39;maxima&#39;</span>
+    <span class="n">increments_option</span> <span class="o">=</span> <span class="s1">&#39;increments&#39;</span>
+    <span class="n">datatype_option</span> <span class="o">=</span> <span class="s1">&#39;datatype&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exhaustive-search-implementation">
+<h2>Exhaustive Search Implementation<a class="headerlink" href="#exhaustive-search-implementation" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-bb775655da2be439c30f24a8adc9649758b943a5.png" alt="BaseComponent &lt;|-- ExhaustiveSearch
+ExhaustiveSearch o- XYSolution
+ExhaustiveSearch o- numpy.array" />
+</p>
+<span class="target" id="module-tuna.optimizers.exhaustivesearch"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ExhaustiveSearch</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ExhaustiveSearch.check_rep</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ExhaustiveSearch.close</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ExhaustiveSearch.carry</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ExhaustiveSearch.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="constructor">
+<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
+<p>The constructor takes five required arguments and one optional argument.</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">ExhaustiveSearch Arguments</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Argument</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">minima</span></code></td>
+<td>numpy array</td>
+<td>lowest-allowed coordinates</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">maxima</span></code></td>
+<td>numpy array</td>
+<td>highest-allowed coordinates</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">increment</span></code></td>
+<td>numpy array</td>
+<td>step-sizes for coordinate changes</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">quality</span></code></td>
+<td>Object</td>
+<td>jude of the quality of candidate solutions</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">solutions</span></code></td>
+<td>writeable object</td>
+<td>place to write outcome of candidate</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">observers</span></code></td>
+<td>callable object</td>
+<td>receiver of best solution found</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-call">
+<h3>The Call<a class="headerlink" href="#the-call" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">__call__</span></code> method is the main way to use the ExhaustiveSearch optimizer.</p>
+<img alt="../_images/exhaustive_search_call.png" src="../_images/exhaustive_search_call.png" />
+</div>
+</div>
+<div class="section" id="the-exhaustivesearchbuilder">
+<h2>The ExhaustiveSearchBuilder<a class="headerlink" href="#the-exhaustivesearchbuilder" title="Permalink to this headline">¶</a></h2>
+<p>This is a builder of exhaustive searches.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-8d7e5c41c260dab564478c9f28d0fcf9265552f0.png" alt="ExhaustiveSearchBuilder o- ExhaustiveSearch
+ExhaustiveSearchBuilder o- ConfigurationMap
+ExhaustiveSearchBuilder.product" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ExhaustiveSearchBuilder</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ExhaustiveSearchBuilder.product</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Random Restarts With Simulated Table Data &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../../index.html" />
+    <link rel="up" title="Hill Climbing With Random Restarts" href="index.html" />
+    <link rel="next" title="Simulated Annealing Examples" href="../simulated_annealing/index.html" />
+    <link rel="prev" title="Hill Climbing With Random Restarts" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Random Restarts With Simulated Table Data</a><ul>
+<li><a class="reference internal" href="#problem">Problem</a></li>
+<li><a class="reference internal" href="#the-simulation-data">The Simulation Data</a><ul>
+<li><a class="reference internal" href="#data-plots">Data Plots</a></li>
+<li><a class="reference internal" href="#summary-statistics">Summary Statistics</a></li>
+<li><a class="reference internal" href="#the-neighborhood">The Neighborhood</a><ul>
+<li><a class="reference internal" href="#maximum-neighborhood">Maximum Neighborhood</a></li>
+<li><a class="reference internal" href="#minimum-neighborhood">Minimum Neighborhood</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pseudocode-for-random-restarts">Pseudocode for Random Restarts</a></li>
+<li><a class="reference internal" href="#gaussian-convolution">Gaussian Convolution</a></li>
+<li><a class="reference internal" href="#sample-configuration-file">Sample Configuration File</a><ul>
+<li><a class="reference internal" href="#tuna-section">TUNA Section</a></li>
+<li><a class="reference internal" href="#default-section">DEFAULT Section</a></li>
+<li><a class="reference internal" href="#modules-section">MODULES Section</a></li>
+<li><a class="reference internal" href="#randomrestarts-section">RandomRestarts Section</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-outcome">The Outcome</a><ul>
+<li><a class="reference internal" href="#how-many-times-did-it-find-the-maximum-bandwidth-location">How many times did it find the maximum-bandwidth location?</a></li>
+<li><a class="reference internal" href="#how-many-times-did-it-do-well-enough">How many times did it do well enough?</a></li>
+<li><a class="reference internal" href="#how-well-did-it-typically-do">How well did it typically do?</a></li>
+<li><a class="reference internal" href="#how-long-were-the-execution-times">How long were the execution times?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Hill Climbing With Random Restarts"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Hill Climbing...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../simulated_annealing/index.html" title="Next Chapter: Simulated Annealing Examples"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Simulated Ann... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../../../_sources/documentation/user/case_studies/random_restarts/random_restarts_full_table.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="random-restarts-with-simulated-table-data">
+<h1>Random Restarts With Simulated Table Data<a class="headerlink" href="#random-restarts-with-simulated-table-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="problem">
+<span id="case-study-random-restarts-table"></span><h2>Problem<a class="headerlink" href="#problem" title="Permalink to this headline">¶</a></h2>
+<p>How can we understand how the <a class="reference internal" href="../../../../optimizers/randomrestarts.html#hill-climbing-random-restarts"><span class="std std-ref">Hill Climbing with Random Restarts</span></a> parameters should be set while trying to optimize device placement on a table and how does it perform relative to the <span class="xref std std-ref">Simulated Annealing</span> optimizer?</p>
+<p>As with the <a class="reference internal" href="../simulated_annealing/simulated_annealing_exhaustive_dataset.html#case-study-annealing-simulated-table"><span class="std std-ref">Simulated Annealing Case Study</span></a>,  we&#8217;ll use data collected by exhaustively sweeping a table and pass this data to the optimizer to see how it performs. Since we did an exhaustive sweep we know what the best and worst cases and we can see how many times the optimizer has to lookup a value to see how good a candidate is before reaching a solution. The count of lookups can then be compared with a <cite>real</cite> iperf session or by estimating the number of seconds each lookup would take.
+.. &#8216;</p>
+</div>
+<div class="section" id="the-simulation-data">
+<h2>The Simulation Data<a class="headerlink" href="#the-simulation-data" title="Permalink to this headline">¶</a></h2>
+<p>This is a duplication of what is in the <a class="reference internal" href="../simulated_annealing/simulated_annealing_exhaustive_dataset.html#case-study-annealing-simulated-table"><span class="std std-ref">Simulated Annealing Case Study</span></a> so if you have already seen it you can jump down to the explanation of <a class="reference internal" href="#case-study-random-restarts-pseudocode"><span class="std std-ref">how the Random-Restarts works</span></a>.</p>
+<p>Alex created the data-set (<a class="reference download internal" href="../../../../_downloads/data_step50.csv" download=""><code class="xref download docutils literal"><span class="pre">download</span></code></a>) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf. The table I&#8217;m referring to is a two-axis table that Cameron created for another project but wasn&#8217;t using (a version of the control code that I modified to run in the tuna is somewhat documented <a class="reference external" href="http://rallion.bitbucket.org/others/xytable/index.html">here</a>).</p>
+<p>The data-file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50 so row 1 (using a zero-based index) maps to y=50 on the physical table). The values in the data are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).</p>
+<div class="section" id="data-plots">
+<h3>Data Plots<a class="headerlink" href="#data-plots" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../../../_images/data_profile1.png"><img alt="../../../../_images/data_profile1.png" src="../../../../_images/data_profile1.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text"><em>Side View</em> (0,0) is at rear-left, (3000,3000) at front right, z-axis is Mbits/second.</span></p>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/data_angled1.png"><img alt="../../../../_images/data_angled1.png" src="../../../../_images/data_angled1.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../../../../_images/contoured1.png"><img alt="../../../../_images/contoured1.png" src="../../../../_images/contoured1.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text">Max-throughput (72.7 Mb/s) at (350, 2550) indicated by intersection of red lines. Min-throughput (0.22 Mb/s) at (1200, 2950) indicated by intersection of blue lines.</span></p>
+</div>
+<p>The contour map gives a somewhat more informative view (a birds-eye view looking down on the table with the higher throughputs indicated by warmer colors and lower throughput indicated by cooler colors).</p>
+<div class="figure" id="id3">
+<a class="reference internal image-reference" href="../../../../_images/best_worst_scatter.png"><img alt="../../../../_images/best_worst_scatter.png" src="../../../../_images/best_worst_scatter.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text">Best and worst throughput locations. Black indicates &lt; 10 Mbits/second. Red indicates &gt; 70 Mbits/second.
+Intersection of red lines indicate best overall location. Intersection of blue lines indicate worst location.</span></p>
+</div>
+<p>The best points appear to have a clear bias toward the left side, and the worst points do appear to be a little denser to the right, but for the most part the worst points appear to be nearly randomly scattered around the table.</p>
+</div>
+<div class="section" id="summary-statistics">
+<h3>Summary Statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils" id="id4">
+<caption><span class="caption-text">Summary Table</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>3721</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>46.0563</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>16.8165</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>0.22</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>36.8</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>49.5</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>59</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>72.7</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/box_plot.png"><img alt="../../../../_images/box_plot.png" src="../../../../_images/box_plot.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>We can see from the box-plot that the data is fairly spread out and left-skewed.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/data_kde.png"><img alt="../../../../_images/data_kde.png" src="../../../../_images/data_kde.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>Looking at the distribution we can see there are two (possibly 3) sub-distributions with a significant amount of data under 10 Mbits/second.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/data_cdf.png"><img alt="../../../../_images/data_cdf.png" src="../../../../_images/data_cdf.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>Looking at the left-hand side of the CDF we can see that there&#8217;s a jump of about 5% very near 0 Mbits/Second and it stays relatively flat until around 20 Mbits/Second so that initial bump in the KDE/Histogram is for data points that are very near 0. We can check the proportion of points that are less than 1 Mbits/second to see.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">total</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flat_data</span><span class="p">))</span>
+<span class="n">less_than_one</span> <span class="o">=</span> <span class="n">flat_data</span><span class="p">[</span><span class="n">flat_data</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">one_to_twenty</span> <span class="o">=</span> <span class="n">flat_data</span><span class="p">[(</span><span class="n">flat_data</span> <span class="o">&gt;=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">flat_data</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p><strong>Less than 1 Mbits/Second:</strong> 0.0468</p>
+<p><strong>From 1 to less than 20 Mbits/Second:</strong> 0.0247</p>
+<p>So about 5% of the data is less than 1 Mbits/second, contributing most of the data points from 0-20 Mbits/second.</p>
+<table border="1" class="docutils" id="id5">
+<caption><span class="caption-text">Binned Fractions</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Values</th>
+<th class="head">Count</th>
+<th class="head">Fraction of Total</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0-9</td>
+<td>219</td>
+<td>0.059</td>
+</tr>
+<tr class="row-odd"><td>10-19</td>
+<td>47</td>
+<td>0.013</td>
+</tr>
+<tr class="row-even"><td>20-29</td>
+<td>297</td>
+<td>0.080</td>
+</tr>
+<tr class="row-odd"><td>30-39</td>
+<td>585</td>
+<td>0.157</td>
+</tr>
+<tr class="row-even"><td>40-49</td>
+<td>745</td>
+<td>0.200</td>
+</tr>
+<tr class="row-odd"><td>50-59</td>
+<td>1006</td>
+<td>0.270</td>
+</tr>
+<tr class="row-even"><td>60-69</td>
+<td>792</td>
+<td>0.213</td>
+</tr>
+<tr class="row-odd"><td>&gt;= 70</td>
+<td>30</td>
+<td>0.008</td>
+</tr>
+</tbody>
+</table>
+<p>If the whole table is searched you would have about a 50-50 chance of getting a value greater than 50 Mbits/second just by randomly picking a location, but less than 1% chance of getting throughput greater than 70 Mbits/Second and a 5% chance of getting less than 1 Mbits/second. Looking at the plot of just the best and worst points above you can see that the best points disappear just before the half way point (from left to right). If we somehow knew in advance that this was always true, we could limit the search to just the left half of the table and improve the chances of finding a location with better values.</p>
+</div>
+<div class="section" id="the-neighborhood">
+<h3>The Neighborhood<a class="headerlink" href="#the-neighborhood" title="Permalink to this headline">¶</a></h3>
+<p>These are the points surrounding the minimum and maximum values for the entire data set. First the neighborhood around the maximum value.</p>
+<div class="section" id="maximum-neighborhood">
+<h4>Maximum Neighborhood<a class="headerlink" href="#maximum-neighborhood" title="Permalink to this headline">¶</a></h4>
+<div class="figure" id="id6">
+<img src="../../../../_images/bad_neighborhood.svg" /><p class="caption"><span class="caption-text">The neighborhood around the best-bandwidth location.</span></p>
+</div>
+<p>The arrows represent a path that a hill climber using a local search might take. The three blue circles are local optima that prevent their neighbors from reaching the global optima (the blue rectangle). Of the sixteen nodes making up the outer ring, eleven fail to reach the global optima and five are able to find it. All of the five successful cases approach the global optima from the top right of the neighborhood. I&#8217;m assuming that the nodes in the outer ring are themselves all reachable but that might not be the case if we looked at the nodes surrounding them.</p>
+</div>
+<div class="section" id="minimum-neighborhood">
+<h4>Minimum Neighborhood<a class="headerlink" href="#minimum-neighborhood" title="Permalink to this headline">¶</a></h4>
+<div class="figure" id="id7">
+<img src="../../../../_images/worst_neighborhood.svg" /><p class="caption"><span class="caption-text">The neighborhood around the worst-bandwidth location.</span></p>
+</div>
+<p>In the case of the worst data point (in the blue rectangle), it occurred near the edge of the table so I left the right most column empty to keep it centered in the figure. Just below the lowest point is another local optima which would trap a hill-climber. The minimum doesn&#8217;t appear to have any real relationship to the data-points around them. It would be interesting to find out why the dead-spots occur.</p>
+</div>
+</div>
+</div>
+<div class="section" id="pseudocode-for-random-restarts">
+<span id="case-study-random-restarts-pseudocode"></span><h2>Pseudocode for Random Restarts<a class="headerlink" href="#pseudocode-for-random-restarts" title="Permalink to this headline">¶</a></h2>
+<p>To get an idea of the parameters that need to be adjusted it might be helpful to understand the basic operation. As you can probably guess by the name, the Hill-Climbing with Random Restarts optimizer is a hill-climber that does a stochastic local search to find the optima but every once in a while jumps to a random location and starts over so that it doesn&#8217;t get trapped in a local optimum. Because it&#8217;s using GaussianConvolution (in this case) this actually kind of happens anyway, but when the local search times are short enough it can be more aggressive about jumping around.</p>
+<div class="figure" id="id8">
+<img src="../../../../_images/random_restarts_pseudocode.svg" /><p class="caption"><span class="caption-text">Pseudocode for the random restart hill-climbing. <em>T</em> is a random (uniform) distribution of local-search times.</span></p>
+</div>
+<p>The meta-heuristic is primarily comprised of two loops. The outer loop generates random candidate solutions (table-positions in this case) and then runs the inner loop. The inner-loop searches locally until it times out or happens to find the ideal solution.</p>
+</div>
+<div class="section" id="gaussian-convolution">
+<h2>Gaussian Convolution<a class="headerlink" href="#gaussian-convolution" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>Tweak</cite> in this case is <a class="reference internal" href="../../../../tweaks/convolutions.html#optimization-tweaks-gaussian"><span class="std std-ref">Gaussian Convolution</span></a>.</p>
+</div>
+<div class="section" id="sample-configuration-file">
+<h2>Sample Configuration File<a class="headerlink" href="#sample-configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>This is a sample configuration file for running this test (and was used to collect the data used later in this document). The main parameters of interest are in the <cite>[RandomRestarts]</cite> section.</p>
+<div class="highlight-ini"><div class="highlight"><pre><span></span>[TUNA]
+hillclimber = RandomRestarts
+
+[MODULES]
+xytable.tableplugin
+
+[DEFAULT]
+config_glob = *.ini
+repetitions = 1000
+subfolder = random_restarts_full_table_scale_1
+
+[table_data]
+component = XYData
+filename= datasources/data_step50.csv
+
+[fake_table]
+# this follows the pattern for plugins --
+# the header has to match what&#39;s in the Optimizers `components` list
+# the component option has to be XYData
+component = FakeTable
+
+# these are all optional
+# &#39;port&#39; is the serial port
+port = alexandria
+
+# speed is some rate at which the table moves
+speed = 666
+
+# initial_sleep is a time to sleep before trying to use the table
+initial_sleep = 1
+
+[RandomRestarts]
+# the name of the class to run
+plugin = RandomRestarts
+
+# components make up the `Quality` calls
+components = fake_table, table_data
+
+# observers are called at the end and given the best solution
+observers = fake_table
+
+# random-restart parameters
+# this sets the boundaries for local-search-times
+maximum_local_time = 10 Seconds
+minimum_local_time = 1 seconds
+
+# change to XYConvolution for the asymmetric 2-space case
+tweak_type = GaussianConvolution
+
+# the lower and upper bounds have to match the inputs for the thing being tested
+number_type = int
+lower_bound = 0
+upper_bound = 60
+
+# location is where the random changes will be centered (0 means equal chance positive or negative)
+# scale is how spread out the changes will be (bigger numbers, more randomness)
+#location = &lt;center of random distribution (default=0)&gt;
+scale = 2
+
+# stopping conditions
+time_limit = 10 Minutes
+ideal_value = 72.7
+
+
+</pre></div>
+</div>
+<p>In this case each local search will run for some random time from 1 to 10 seconds (because this is simulated data not a real trial) and each of the overall tests will be limited to 10 Minutes, with the simulation run 1,000 times (in the worst case this would take a week to finish so I&#8217;m hoping it will do well enough to quit early when it finds a good-enough solution.</p>
+<div class="section" id="tuna-section">
+<h3>TUNA Section<a class="headerlink" href="#tuna-section" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">[TUNA]</span></code> section is a place to list what the plugin sections will be. In this case we&#8217;re telling the <cite>tuna</cite> that there will only be one plugin and the information to configure it will be in a section named <code class="docutils literal"><span class="pre">[RandomRestarts]</span></code>.</p>
+</div>
+<div class="section" id="default-section">
+<h3>DEFAULT Section<a class="headerlink" href="#default-section" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;re going to repeat the simulation 1,000 times and store the data in a folder named <cite>random_restarts_full_table_scale_1</cite> next to the configuration file.
+..&#8217;</p>
+</div>
+<div class="section" id="modules-section">
+<h3>MODULES Section<a class="headerlink" href="#modules-section" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;re simulating the use of Cameron&#8217;s XYTable so we need to tell the <cite>tuna</cite> which module contains the plugin to fake the table&#8217;s operation. This isn&#8217;t needed for the simulation but provides a way to check and see that the <cite>tuna</cite> is calling it the way we expect. The listed module will be imported so the <code class="docutils literal"><span class="pre">xytable</span></code> package has to have been installed for this to work.</p>
+</div>
+<div class="section" id="randomrestarts-section">
+<h3>RandomRestarts Section<a class="headerlink" href="#randomrestarts-section" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">plugin</span> <span class="pre">=</span> <span class="pre">RandomRestarts</span></code> line tells the tuna to load the <cite>RandomRestarts</cite> class.</p>
+<p>The <code class="docutils literal"><span class="pre">components</span> <span class="pre">=</span> <span class="pre">fake_table,</span> <span class="pre">table_data</span></code> line tells the tuna to create components using the <cite>fake_table</cite> and <cite>table_data</cite> section in this configuration files and give it to the RandomRestarts optimizer (wrapped in a <a class="reference internal" href="../../../../components/composite.html#simple-composite"><span class="std std-ref">composite</span></a>). The components will be used to decide how good a location is (they make up the <cite>Quality</cite> function calls shown in the pseudocode). We&#8217;re substituting mocks for a table control object (fake_table) and an iperf object (table_data). <cite>fake_table</cite> will log the calls made to it so we can check that the program is running like we think it should. The <cite>table_data</cite> object will lookup the data that Alex recorded using the table-coordinates it was given and give it back to the optimizer.</p>
+<p>The <code class="docutils literal"><span class="pre">observers</span> <span class="pre">=</span> <span class="pre">fake_table</span></code> line tells the <cite>tuna</cite> to give the optimizer a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.</p>
+<p>The <code class="docutils literal"><span class="pre">location</span></code> and <code class="docutils literal"><span class="pre">scale</span></code> for the  <code class="docutils literal"><span class="pre">GaussianConvolution</span></code> sets <img class="math" src="../../../../_images/math/126e84ba38f7dece5f0ad64e929b9588b20f6440.png" alt="\mu"/> and <img class="math" src="../../../../_images/math/2298cf1485084afe72757a9c8483af49a138d81f.png" alt="\sigma"/> values for the random distribution that the optimizer samples from to generate new candidate solutions to explore. <code class="docutils literal"><span class="pre">number_type</span> <span class="pre">=</span> <span class="pre">integer</span></code> tells it to cast the values to integers (so that the x,y coordinates will be whole numbers not fractions). The data-set is represented as a <img class="math" src="../../../../_images/math/08ca98686ea93bd062f7c8bf757f7a7479bd03d0.png" alt="61 \times 61"/> table so the <code class="docutils literal"><span class="pre">lower_bound</span></code> and <code class="docutils literal"><span class="pre">upper_bound</span></code> represent the indices for the table.</p>
+</div>
+</div>
+<div class="section" id="the-outcome">
+<h2>The Outcome<a class="headerlink" href="#the-outcome" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-many-times-did-it-find-the-maximum-bandwidth-location">
+<h3>How many times did it find the maximum-bandwidth location?<a class="headerlink" href="#how-many-times-did-it-find-the-maximum-bandwidth-location" title="Permalink to this headline">¶</a></h3>
+<p>Using the log file (<cite>tuna.log</cite>) we can see how the operations went. The file itself is large (over a gigabyte) so I&#8217;m going to document what I did but not include the data itself.</p>
+<p>The first order of business was getting the data into a single file. Because I had run the <cite>tuna</cite> before there was old logging in the files that needed to be ignored and since I had put a limit of 1 gigabyte on the files the logger broke the output into two files (&#8216;tuna.log&#8217; and the older &#8216;tuna.log.1&#8217;).</p>
+<p>The first line of the new data contained this string:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">13</span>
+</pre></div>
+</div>
+<p>So I created a new single file using python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;tuna_re.log&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;tuna.log.1&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;2014-08-04 18:43:14&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">break</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;tuna.log&#39;</span><span class="p">):</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To make sure that it ran 1,000 times I grepped how many times the solution the Restarter found was passed to the XYTable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="s2">&quot;RandomRestarter giving solution to&quot;</span> <span class="n">tuna_re</span><span class="o">.</span><span class="n">log</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</pre></div>
+</div>
+<p>Which confirmed that it was run 1,000 times.</p>
+<p>When the <cite>tuna</cite> finds the ideal value (or it exceeds the time limit we set) it outputs &#8220;Stop condition reached&#8221; along with the coordinates and bandwidth found, which look like this example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Stop</span> <span class="n">condition</span> <span class="n">reached</span> <span class="k">with</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span>  <span class="mf">7.</span>  <span class="mf">51.</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">72.7</span>
+</pre></div>
+</div>
+<p>To get the number of cases where 72.7 Mbits/second was found:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Stop.*Output:[[:space:]]*72\.7&quot;</span> tuna_re.log  <span class="p">|</span> wc -l
+</pre></div>
+</div>
+<p>This gives us 801 so it found it 80% of the time, compared to 30% for the Simulated Annealer.</p>
+</div>
+<div class="section" id="how-many-times-did-it-do-well-enough">
+<h3>How many times did it do well enough?<a class="headerlink" href="#how-many-times-did-it-do-well-enough" title="Permalink to this headline">¶</a></h3>
+<p>Picking an arbitrary value of 70 Mbits/second as the lower bound of an acceptable bandwidth, how often did the optimizer exceed this lower bound?</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Quality.*Output:[[:space:]]*7[[:digit:]]&quot;</span> tuna_re.log  <span class="p">|</span> wc -l
+</pre></div>
+</div>
+<p>Gave an output of 1,000. I had to use the sub-string &#8220;Quality Checks&#8221; instead of &#8220;Stop Condition&#8221; because for some reason the message only got printed when the ideal solution was found. I think I didn&#8217;t set a delta so the cases where it timed-out before it reached 72.7 didn&#8217;t create this message (but I have to look into this).</p>
+</div>
+<div class="section" id="how-well-did-it-typically-do">
+<h3>How well did it typically do?<a class="headerlink" href="#how-well-did-it-typically-do" title="Permalink to this headline">¶</a></h3>
+<p>By diverting the output from the previous <cite>grep</cite> search to a file instead of piping it to <cite>wc</cite>, I was able to get the final bandwidths the <cite>tuna</cite> reached (it&#8217;s included in the &#8220;Quality Checks&#8221; line as &#8220;Output:&#8221;):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Quality</span> <span class="n">Checks</span><span class="p">:</span> <span class="mi">1486</span> <span class="n">Solution</span><span class="p">:</span> <span class="n">Inputs</span><span class="p">:</span> <span class="p">[</span>  <span class="mf">7.</span>  <span class="mf">51.</span><span class="p">]</span> <span class="n">Output</span><span class="p">:</span> <span class="mf">72.7</span>
+</pre></div>
+</div>
+<p>I then extracted the (<code class="xref download docutils literal"><span class="pre">bandwidths</span></code>)into another file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;solutions_bandwidths.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Bandwidth</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;full_table_solutions_bandwidths.log&quot;</span><span class="p">):</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span> <span class="p">]))))</span>
+</pre></div>
+</div>
+<p>The lines have invisible formatting characters at the end of them so the bandwidth ended up being the second sub-string from the right even though the log output looks like it should be the last sub-string.</p>
+<p>Now we can get some summary statistics using Pandas.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">bandwidths</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/solutions_bandwidths.csv&#39;</span><span class="p">)</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">bandwidths</span><span class="o">.</span><span class="n">Bandwidth</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id9">
+<caption><span class="caption-text">Bandwidth Solutions Summary</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>1000.00</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>72.55</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>0.31</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>70.60</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>72.70</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>72.70</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>72.70</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>72.70</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/bandwidths_kde.png"><img alt="../../../../_images/bandwidths_kde.png" src="../../../../_images/bandwidths_kde.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>So in the worst case it did 70.6 compared to 70.3 Mbits/second for the SimulatedAnnealing, which might prove sufficient. To get an idea of a reasonable range for the <cite>mean</cite> bandwidth I&#8217;ll use a 99% confidence interval with resampling.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">trials</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bandwidths</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;data/random_restarts_full_table_confidence.pkl&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">bandwidths</span><span class="o">.</span><span class="n">Bandwidth</span><span class="p">,</span>
+                                  <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">trials</span><span class="p">))</span>
+    <span class="c1">#numpy.savez(output, samples=samples)</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">samples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="n">low</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;low high&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">interval</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1">#samples = numpy.load(output)[&#39;samples&#39;]</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>99% Confidence Interval:</strong> (72.510, 72.527)</p>
+<p>So 99% of the time we would expect the mean bandwidth to be between 72.51 Mbits/second and 72.53 Mbits/second.</p>
+</div>
+<div class="section" id="how-long-were-the-execution-times">
+<h3>How long were the execution times?<a class="headerlink" href="#how-long-were-the-execution-times" title="Permalink to this headline">¶</a></h3>
+<p>To get an estimate of the times I&#8217;m going to use the &#8220;<strong>* Starting hillclimber *</strong>&#8221; sub-string to indicate the start of every trial and the &#8220;&#8216;setPosition&#8217; attribute called on railA&#8221; sub-string to indicate the number of times that the table was told to move. First those lines were extracted:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Starting hillclimber\|railA &gt; rail_calls.log&quot;</span>
+</pre></div>
+</div>
+<p>This file is too large to include here, but I created a <a class="reference download internal" href="../../../../_downloads/table_calls.csv" download=""><code class="xref download docutils literal"><span class="pre">csv-file</span></code></a> with the count of the table-calls per-trial:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">table_calls</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;table_calls.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;RailCalls</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;rail_calls.log&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;Starting&#39;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">table_calls</span> <span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_calls</span><span class="p">))</span>
+            <span class="n">table_calls</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="s2">&quot;railA&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">table_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_calls</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This will over-estimate the time because the last call in each trial tells the table to move to the solution that was found without running iperf. So it has to be adjusted by the assumed iperf run-time of 10 seconds per trial (with a total of 1,000 trials).</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">calls</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/table_calls.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id10">
+<caption><span class="caption-text">Table Call Counts Summary</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>1000.000</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>1568.724</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>855.189</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>87.000</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>837.750</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>1612.000</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>2288.000</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>3395.000</td>
+</tr>
+</tbody>
+</table>
+<p>To convert it to a time-per trial I&#8217;ll use:</p>
+<div class="math">
+<p><img src="../../../../_images/math/59e4df7261764af34e5e22db0c87dfba6552310c.png" alt="time \gets (iperf + move) \times count - iperf"/></p>
+</div><p>Where 15 is the assumed run-time per check (iperf + move) in seconds and the last iperf session is subtracted out to reflect the final move of the table to the best solution found. This gives seconds so I&#8217;ll also divide it by 3600 to convert it to hours.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">calls</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span> <span class="o">*</span> <span class="n">calls</span><span class="o">.</span><span class="n">RailCalls</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span><span class="o">/</span><span class="mf">3600.</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id11">
+<caption><span class="caption-text">Execution Times Summary</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>1000.000</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>6.534</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>3.563</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>0.360</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>3.488</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>6.714</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>9.531</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>14.143</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/runtimes_kde_full_table.png"><img alt="../../../../_images/runtimes_kde_full_table.png" src="../../../../_images/runtimes_kde_full_table.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<p>This seems to indicate that the Random Restarts did worse than the Simulated Annealer (which had an estimated min of 0.28, median of 4.2, and max of 5.7). Before concluding this, however, it might be useful to ask when did it first reach the 70 Mbits/Second mark? If this we decide this is good enough, does it make a difference?</p>
+<p>First we need the &#8220;Starting&#8221; lines that indicate the start of a trial and the &#8220;New best solution&#8221; lines that have at least 70 Mbits/second of output:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>grep <span class="s2">&quot;Starting hillclimber\|New.*Output:[[:space:]]*7[[:digit:]]&quot;</span> tuna_re.log &gt; good_enough.log
+</pre></div>
+</div>
+<p>Now we need to save the first line in each trial.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="n">expression</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;Output:\s+(7\d+\.\d)&quot;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;good_enough.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;CallCount,Bandwidth</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">matched</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">calls</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">wating</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;good_enough.log&quot;</span><span class="p">):</span>
+        <span class="n">matched</span> <span class="o">=</span> <span class="n">expression</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">matched</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">waiting</span><span class="p">:</span>
+            <span class="n">calls</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">bandwidth</span> <span class="o">=</span> <span class="n">matched</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;{0},{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">calls</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">))</span>
+            <span class="n">calls</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">waiting</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">continue</span>
+        
+        <span class="k">if</span> <span class="n">matched</span><span class="p">:</span>
+           <span class="k">continue</span>
+        
+        <span class="k">if</span> <span class="s2">&quot;Starting&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">calls</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">waiting</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">continue</span>
+        <span class="n">calls</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;data/good_enough.csv&#39;</span>
+<span class="n">good_enough_data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id12">
+<caption><span class="caption-text">Good Enough Counts and Times</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Count</th>
+<th class="head">Time</th>
+<th class="head">Bandwidth</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>1000.000</td>
+<td>1000.000</td>
+<td>1000.000</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>259.218</td>
+<td>1.080</td>
+<td>70.834</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>162.736</td>
+<td>0.678</td>
+<td>0.678</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>59.000</td>
+<td>0.246</td>
+<td>70.000</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>133.000</td>
+<td>0.554</td>
+<td>70.400</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>212.000</td>
+<td>0.883</td>
+<td>70.500</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>334.250</td>
+<td>1.393</td>
+<td>71.200</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>1098.000</td>
+<td>4.575</td>
+<td>72.700</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/good_enough_runtimes_kde_full_table.png"><img alt="../../../../_images/good_enough_runtimes_kde_full_table.png" src="../../../../_images/good_enough_runtimes_kde_full_table.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

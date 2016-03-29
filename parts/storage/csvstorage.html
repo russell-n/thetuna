@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The CSV Storage &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../index.html" />
+    <link rel="up" title="Storage" href="index.html" />
+    <link rel="next" title="csv.DictWriter.writerow" href="api/csv.DictWriter.writerow.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The CSV Storage</a><ul>
+<li><a class="reference internal" href="#the-csvdictstorage">The CSVDictStorage</a><ul>
+<li><a class="reference internal" href="#role">Role</a></li>
+<li><a class="reference internal" href="#collaborators">Collaborators</a></li>
+<li><a class="reference internal" href="#csvdictstorage-definition">CsvDictStorage Definition</a><ul>
+<li><a class="reference internal" href="#the-constructor">The Constructor</a></li>
+<li><a class="reference internal" href="#the-open-method">The open Method</a></li>
+<li><a class="reference internal" href="#the-writerow-method">The writerow Method</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="api/csv.DictWriter.writerow.html" title="Next Chapter: csv.DictWriter.writerow"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">csv.DictWrite... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/parts/storage/csvstorage.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-csv-storage">
+<h1>The CSV Storage<a class="headerlink" href="#the-csv-storage" title="Permalink to this headline">¶</a></h1>
+<p>Although python already has a csv-writer in order to make be able to drop it into the places where the regular file storage is expected I need to add an adapter around it.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># python standard library</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="k">import</span> <span class="n">DictType</span>
+
+<span class="c1"># the tuna</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="k">import</span> <span class="n">BaseClass</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="k">import</span> <span class="n">TunaError</span>
+<span class="kn">import</span> <span class="nn">tuna.parts.storage.filestorage</span>
+</pre></div>
+</div>
+<div class="section" id="the-csvdictstorage">
+<h2>The CSVDictStorage<a class="headerlink" href="#the-csvdictstorage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="role">
+<h3>Role<a class="headerlink" href="#role" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Maintains file (and file path)</li>
+<li>Writes header to file before beginning data-writing</li>
+<li>adds <cite>writerow</cite> method to the normal storage that takes a dictionary of &#8216;column&#8217;:&#8217;value&#8217; pairs.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="collaborators">
+<h3>Collaborators<a class="headerlink" href="#collaborators" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>csv.DictWriter</li>
+<li>Storage</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="csvdictstorage-definition">
+<h3>CsvDictStorage Definition<a class="headerlink" href="#csvdictstorage-definition" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="the-constructor">
+<h4>The Constructor<a class="headerlink" href="#the-constructor" title="Permalink to this headline">¶</a></h4>
+<p>The constructor accepts three parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>headers</cite>: a list of column headers (required for the DictWriter)</li>
+<li><cite>path</cite>: A string path to save files to (folder-level only, the <cite>open</cite> method takes the filename as an argument)</li>
+<li><cite>storage</cite>: A file-like writeable object</li>
+</ul>
+</div></blockquote>
+<p>Either <cite>path</cite> or <cite>storage</cite> is required, if the <cite>storage</cite> isn&#8217;t given one will be created frome the path.</p>
+</div>
+<div class="section" id="the-open-method">
+<h4>The open Method<a class="headerlink" href="#the-open-method" title="Permalink to this headline">¶</a></h4>
+<p>This follows (more or less) the open method for the regular file-storage in that it returns a copy if itself but with  the storage replaced with a copy that has the filename passed in as an argument and the <code class="docutils literal"><span class="pre">writer</span></code> attribute set to a <code class="docutils literal"><span class="pre">csv.DictWriter</span></code>.</p>
+<p>The Path:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Copy self</li>
+<li>Open file</li>
+<li>Create DictWriter with opened file and self.headers</li>
+<li>Write the headers</li>
+<li>Set copy of self&#8217;s <cite>storage</cite> to opened file</li>
+<li>Set copy of self&#8217;s  <cite>writer</cite> to created DictWriter</li>
+<li>Return copy of self</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="the-writerow-method">
+<h4>The writerow Method<a class="headerlink" href="#the-writerow-method" title="Permalink to this headline">¶</a></h4>
+<p>This is a pass-through to the DictWriter&#8217;s writerow method.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="api/csv.DictWriter.writerow.html#csv.DictWriter.writerow" title="csv.DictWriter.writerow"><code class="xref py py-obj docutils literal"><span class="pre">csv.DictWriter.writerow</span></code></a>(rowdict)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CsvDictStorage</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A storage that writes to csv files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span>
+                 <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        CsvDictStorage constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `path`: path to folder to store output-file in</span>
+<span class="sd">         - `storage`: file-like object to use instead of creating one from &#39;path&#39;</span>
+<span class="sd">         - `headers`: list of column headers in order required</span>
+<span class="sd">        :raises: TunaError if neither `path` nor `storage` given</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CsvDictStorage</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">storage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_writer</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;Path or storage needed.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">storage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A file-storage created from the path (unless passed into constructor)</span>
+
+<span class="sd">        :return: FileStorage</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">tuna</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">filestorage</span><span class="o">.</span><span class="n">FileStorage</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span>
+
+    <span class="nd">@storage</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">storage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_storage</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the storage to what&#39;s passed in</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `new_storage`: Storage instance to give the DictWriter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">new_storage</span>
+        <span class="k">return</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">writer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DictWriter instance (creates it if not set)</span>
+
+<span class="sd">        :postcondition: if dictwriter created, header written to file</span>
+<span class="sd">        :raise: TunaError if not set and storage not writeable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_writer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">closed</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;FileStorage not open&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+            <span class="c1"># assume this is a new file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_writer</span>
+
+
+    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens the filename as a DictWriter</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `filename`: the name of the file to open</span>
+
+<span class="sd">        :postcondition: header written to file</span>
+<span class="sd">        :return: copy of self with open DictWriter as `writer`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_writer</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">open_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># DictWriter doesn&#39;t like keyword arguments</span>
+        <span class="n">new_writer</span><span class="o">.</span><span class="n">_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">open_file</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">new_writer</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">new_writer</span>
+
+    <span class="k">def</span> <span class="nf">writerow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowdict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the row to storage</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `rowdict`: dict whose keys match the headers</span>
+
+<span class="sd">        :raise: TunaError if keys don&#39;t match header or invalid data was passed in.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">rowdict</span><span class="o">=</span><span class="n">rowdict</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;rowdict keys invalid&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">rowdict</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DictType</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;rowdict not `header:data` dict  (</span><span class="si">{0}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rowdict</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">((</span><span class="s2">&quot;key in (</span><span class="si">{0}</span><span class="s2">) not in header (</span><span class="si">{1}</span><span class="s2">) &quot;</span>
+                              <span class="s2">&quot;and non-string in data (</span><span class="si">{2}</span><span class="s2">)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rowdict</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
+                                                                    <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
+                                                                    <span class="n">rowdict</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+            <span class="k">raise</span> <span class="n">TunaError</span><span class="p">(</span><span class="s2">&quot;rowdict keys and values invalid&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">writerows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowdicts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes each dictionary in rowdicts to the csv</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `rowdicts`: iterable collection of dictionaries</span>
+
+<span class="sd">        :raise: TunaError (see writerow)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">rowdict</span> <span class="ow">in</span> <span class="n">rowdicts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">rowdict</span><span class="p">)</span>
+        <span class="k">return</span>
+</pre></div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">CsvDictStorage</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">CsvDictStorage.open</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">CsvDictStorage.writerow</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">CsvDictStorage.writerows</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="plantuml">
+<img src="../../_images/plantuml-2f09d4f772c52bec163dbf477d926bce2f3c22f9.png" alt="BaseClass &lt;|-- CsvDictStorage
+CsvDictStorage : __init__(headers, [[path], storage])
+CsvDictStorage: CsvDictStorage open(filename)
+CsvDictStorage: writerow(rowdict)
+CsvDictStorage: writerows(rowdicts)
+CsvDictStorage: writeheader()" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

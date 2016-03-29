@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exhaustive Search with Simulated Data &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../../index.html" />
+    <link rel="up" title="Exhaustive Grid Search Examples" href="index.html" />
+    <link rel="next" title="Hill Climbing With Random Restarts" href="../random_restarts/index.html" />
+    <link rel="prev" title="Exhaustive Grid Search Examples" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Exhaustive Search with Simulated Data</a><ul>
+<li><a class="reference internal" href="#problem">Problem</a></li>
+<li><a class="reference internal" href="#the-simulation-data">The Simulation Data</a><ul>
+<li><a class="reference internal" href="#data-plots">Data Plots</a></li>
+<li><a class="reference internal" href="#summary-statistics">Summary Statistics</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pseudocode-for-the-grid-search">Pseudocode for the Grid Search</a></li>
+<li><a class="reference internal" href="#sample-configuration-file">Sample Configuration File</a><ul>
+<li><a class="reference internal" href="#tuna-section">TUNA Section</a></li>
+<li><a class="reference internal" href="#default-section">DEFAULT Section</a></li>
+<li><a class="reference internal" href="#modules-section">MODULES Section</a></li>
+<li><a class="reference internal" href="#gridsearch-section">GridSearch Section</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-outcome">The Outcome</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Exhaustive Grid Search Examples"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Exhaustive Gr...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../random_restarts/index.html" title="Next Chapter: Hill Climbing With Random Restarts"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Hill Climbing... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../../../_sources/documentation/user/case_studies/gridsearch/exhaustive_search.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="exhaustive-search-with-simulated-data">
+<h1>Exhaustive Search with Simulated Data<a class="headerlink" href="#exhaustive-search-with-simulated-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="problem">
+<span id="case-study-exhaustive-search-simulated"></span><h2>Problem<a class="headerlink" href="#problem" title="Permalink to this headline">¶</a></h2>
+<p><em>How can we characterize the data as a whole to tune the parameters for the optimizers?</em></p>
+<p>In order to make the optimization work we need to know how to set the parameters that affect whether the optimizer will emphasize <em>exploration</em> or <em>exploitation</em> (will it jump around a lot or will it stick to looking around where it is?). We also need to know a reasonable stopping condition &#8211; setting an ideal value would allow a short-circuit to end the optimization but runs the risk that we&#8217;ve chosen an incorrect ideal value, while setting a time-out runs the risk of either being too short and missing the optimal value or being too long and searching needlessly while delaying moving on to the next phase of the experiment.</p>
+<p>What we&#8217;ll do here is use data collected by exhaustively sweeping a table to see how to do an exhaustive grid search.</p>
+</div>
+<div class="section" id="the-simulation-data">
+<h2>The Simulation Data<a class="headerlink" href="#the-simulation-data" title="Permalink to this headline">¶</a></h2>
+<p>Alex created the data-set (<code class="xref download docutils literal"><span class="pre">download</span></code>) by stepping through the table coordinates (with a step-size of 50) while the table was inside a Faraday cage and measuring throughput using iperf (I don&#8217;t know what the scale of 50 means in human terms, but the annealer doesn&#8217;t need to know either). The file is a csv with the row-indices assumed to be the y-values and the column-indices assumed to the be the x-values (both scaled by the step-size of 50). The values are the iperf bandwidth measurements for the location on the table (the traffic was run downstream for 5 seconds with the TCP window set to 256 K).</p>
+<div class="section" id="data-plots">
+<h3>Data Plots<a class="headerlink" href="#data-plots" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../../../_images/data_profile.png"><img alt="../../../../_images/data_profile.png" src="../../../../_images/data_profile.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text"><em>Side View</em> (0,0) is at rear-left, (3000,3000) at front right, z-axis is Mbits/second.</span></p>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="../../../../_images/data_angled.png"><img alt="../../../../_images/data_angled.png" src="../../../../_images/data_angled.png" style="width: 600.0px; height: 450.0px;" /></a>
+</div>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../../../../_images/contoured.png"><img alt="../../../../_images/contoured.png" src="../../../../_images/contoured.png" style="width: 600.0px; height: 450.0px;" /></a>
+<p class="caption"><span class="caption-text">Max-throughput (72.7 Mb/s) at (350, 2550) indicated by intersection of red lines. Min-throughput (0.22 Mb/s) at (1200, 2950) indicated by intersection of blue lines.</span></p>
+</div>
+</div>
+<div class="section" id="summary-statistics">
+<h3>Summary Statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils" id="id3">
+<caption><span class="caption-text">Summary Table</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Statistic</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>3721</td>
+</tr>
+<tr class="row-odd"><td>mean</td>
+<td>46.0563</td>
+</tr>
+<tr class="row-even"><td>std</td>
+<td>16.8165</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>0.22</td>
+</tr>
+<tr class="row-even"><td>25%</td>
+<td>36.8</td>
+</tr>
+<tr class="row-odd"><td>50%</td>
+<td>49.5</td>
+</tr>
+<tr class="row-even"><td>75%</td>
+<td>59</td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>72.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="pseudocode-for-the-grid-search">
+<h2>Pseudocode for the Grid Search<a class="headerlink" href="#pseudocode-for-the-grid-search" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Get the first candidate solution</p>
+</li>
+<li><p class="first">Make the candidate solution the best solution</p>
+</li>
+<li><p class="first">While the candidate is less or equal to the maximum position:</p>
+<p>3.1. If the candidate is better than the best solution, make the candidate the best solution
+3.2. Increment the candidate position</p>
+</li>
+<li><p class="first">Return the best solution</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="sample-configuration-file">
+<h2>Sample Configuration File<a class="headerlink" href="#sample-configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>This is a sample configuration file for running this test.</p>
+<div class="section" id="tuna-section">
+<h3>TUNA Section<a class="headerlink" href="#tuna-section" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">[TUNA]</span></code> section is a place to list what the plugin sections will be. In this case we&#8217;re telling the <cite>tuna</cite> that there will only be one plugin and the information to configure it will be in a section named <code class="docutils literal"><span class="pre">[GridSearch]</span></code>.</p>
+</div>
+<div class="section" id="default-section">
+<h3>DEFAULT Section<a class="headerlink" href="#default-section" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;re going to repeat the simulation once and store the data in a folder named <cite>grid_search_full_table</cite> next to the configuration file.</p>
+</div>
+<div class="section" id="modules-section">
+<h3>MODULES Section<a class="headerlink" href="#modules-section" title="Permalink to this headline">¶</a></h3>
+<p>In this case we&#8217;re simulating the use of Cameron&#8217;s XYTable so we need to tell the <cite>tuna</cite> which module contains the plugin to fake the table&#8217;s operation. This isn&#8217;t really needed for the simulation but provides a way to check and see that the <cite>tuna</cite> is calling it the way we expect. The listed module will be imported so the <code class="docutils literal"><span class="pre">xytable</span></code> package has to have been installed for this to work.</p>
+</div>
+<div class="section" id="gridsearch-section">
+<h3>GridSearch Section<a class="headerlink" href="#gridsearch-section" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">plugin</span> <span class="pre">=</span> <span class="pre">GridSearch</span></code> line tells the tuna to load the <cite>GridSearch</cite> class.</p>
+<p>The <code class="docutils literal"><span class="pre">components</span> <span class="pre">=</span> <span class="pre">fake_table,</span> <span class="pre">table_data</span></code> line tells the tuna to create components using the <cite>fake_table</cite> and <cite>table_data</cite> section in this configuration and give it to the Simulated Annealer (wrapped in a <a class="reference internal" href="../../../../components/composite.html#simple-composite"><span class="std std-ref">composite</span></a>). The components will be used to decide how good a location is. In this case we&#8217;re substituting mocks for a table control object (fake_table) and an iperf object (table_data). <cite>fake_table</cite> will just log the calls made to it so we can check that the program is running like we think it should. The <cite>table_data</cite> object will lookup the data that Alex recorded using the table-coordinates it was given and give it back to the Simulated Annealer.</p>
+<p>The <code class="docutils literal"><span class="pre">observers</span> <span class="pre">=</span> <span class="pre">fake_table</span></code> line tells the <cite>tuna</cite> to give the <cite>GridSearch</cite> a copy of the table-mock so that it will call it once it stops. This simulates moving the table to the best solution found at the end of an optimization run.</p>
+<p>The <code class="docutils literal"><span class="pre">minima</span> <span class="pre">=</span> <span class="pre">0,0</span></code> means that our miminum values for <cite>x</cite> and <cite>y</cite> are 0. The <code class="docutils literal"><span class="pre">maxima</span> <span class="pre">=</span> <span class="pre">60,60</span></code> means that the maximum values for <cite>x</cite> and <cite>y</cite> are 60. <code class="docutils literal"><span class="pre">increments</span> <span class="pre">=</span> <span class="pre">``</span> <span class="pre">means</span> <span class="pre">that</span> <span class="pre">we'll</span> <span class="pre">be</span> <span class="pre">stepping</span> <span class="pre">through</span> <span class="pre">the</span> <span class="pre">grid</span> <span class="pre">1</span> <span class="pre">at</span> <span class="pre">a</span> <span class="pre">time</span> <span class="pre">(e.g.</span> <span class="pre">&lt;0,0&gt;,</span> <span class="pre">&lt;1,0&gt;,</span> <span class="pre">&lt;2,0&gt;...</span> <span class="pre">&lt;60,60&gt;).</span> <span class="pre">The</span> <span class="pre">``datatype</span> <span class="pre">=</span> <span class="pre">int</span></code> means that the <cite>minima, maxima</cite>, and <cite>increments</cite> will be cast to integers.</p>
+</div>
+</div>
+<div class="section" id="the-outcome">
+<h2>The Outcome<a class="headerlink" href="#the-outcome" title="Permalink to this headline">¶</a></h2>
+<p>Since it searches all the points the best-point will always be found and given to the FakeTable. The data has 3,721 cells so if we assume that it would take 15 seconds on average to measure each point (10 seconds for iperf, 5 seconds to move), we can estimate the total running time.</p>
+<div class="math">
+<p><img src="../../../../_images/math/f2d7006aa629e85773ec9a629d45ae293ce1dc90.png" alt="RunningTime &amp;= (3721^2 \times 15)/3600\\
+&amp;= \approx 15.5\\"/></p>
+</div><p>So this would take about fifteen and a half hours to finish.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

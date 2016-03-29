@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing The File Storage &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="Testing the Storage" href="index.html" />
+    <link rel="prev" title="Testing the Storage" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Testing The File Storage</a><ul>
+<li><a class="reference internal" href="#testing-open">Testing Open</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Testing the Storage"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Testing the S...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../../_sources/parts/storage/tests/testfilestorage.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="testing-the-file-storage">
+<h1>Testing The File Storage<a class="headerlink" href="#testing-the-file-storage" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorage.test_constructor</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorage.test_write</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorage.test_write_error</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorage.test_writeline</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorage.test_writelines</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorage.test_writeable</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorage.test_close</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PATH</span> <span class="o">=</span> <span class="s1">&#39;ape/call&#39;</span>
+<span class="k">class</span> <span class="nc">TestFileStorage</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Does it set up the name and the BaseStorage parent?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="n">storage</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_write</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_write_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">ApeError</span><span class="p">,</span> <span class="n">storage</span><span class="o">.</span><span class="n">write</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,))</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_writeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">writeline</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="s1">&#39;beta</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_writelines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;gamma delta sigma rho&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span><span class="o">.</span><span class="n">writelines</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_writeable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mocked</span> <span class="o">=</span> <span class="n">mock_open</span><span class="p">()</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ummagumma.txt&#39;</span>
+        <span class="n">full_name</span> <span class="o">=</span> <span class="s1">&#39;test/&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="s1">&#39;test/&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;__builtin__.open&#39;</span><span class="p">,</span> <span class="n">mocked</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">storage</span><span class="o">.</span><span class="n">writeable</span><span class="p">)</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">opened</span><span class="o">.</span><span class="n">writeable</span><span class="p">)</span>
+            <span class="n">opened</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">opened</span><span class="o">.</span><span class="n">writeable</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mock_file</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="n">mock_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">closed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">mock_file</span><span class="o">.</span><span class="n">close</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">closed</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">PATH</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="k">return</span>
+</pre></div>
+</div>
+<div class="section" id="testing-open">
+<h2>Testing Open<a class="headerlink" href="#testing-open" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>overwrite</cite> and <cite>mode</cite> parameters produce eight possible arrangements. The first-column of the table (<cite>File Exists</cite>) means that there is already a file with the same name as the one passed in. The <cite>Final Name</cite> column refers to whether a new file name is created to protect an existing file or not (<cite>filename</cite> means use given name, <cite>mangled</cite> means change it).</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">Open Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">File Exists</th>
+<th class="head">Overwrite</th>
+<th class="head">Append</th>
+<th class="head">Final Name</th>
+<th class="head">Mode</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>filename</td>
+<td>w</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>0</td>
+<td>1</td>
+<td>filename</td>
+<td>a</td>
+</tr>
+<tr class="row-even"><td>0</td>
+<td>1</td>
+<td>0</td>
+<td>filename</td>
+<td>w</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>1</td>
+<td>1</td>
+<td>filename</td>
+<td>a</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>0</td>
+<td>0</td>
+<td>mangled</td>
+<td>w</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>0</td>
+<td>1</td>
+<td>filename</td>
+<td>a</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>1</td>
+<td>0</td>
+<td>filename</td>
+<td>w</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>1</td>
+<td>1</td>
+<td>filename</td>
+<td>a</td>
+</tr>
+</tbody>
+</table>
+<p>The last case is ambiguous &#8211; I&#8217;ll assume that the <em>append</em> mode is what&#8217;s wanted since it&#8217;s the least destructive, but some kind of warning should probably be issued.</p>
+<p>Looking at the table it appears that the only time I actually mangle the file name is if the file exists and neither <em>overwrite</em> nor <em>append</em> are true.</p>
+<div class="math">
+<p><img src="../../../_images/math/a4c16058a4f500ab0ba0d47e9c387b13c806fdf4.png" alt="mangle &amp;= FileExists \land \lnot(Overwrite \lor Append)\\"/></p>
+</div><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorageOpen.test_open</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorageOpen.test_open_file_exists</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PATH</span> <span class="o">=</span> <span class="s1">&#39;ape/call&#39;</span>
+<span class="k">class</span> <span class="nc">TestFileStorageOpen</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mock_file</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Does it open the file normally if the file doesn&#39;t already exist?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mocked</span> <span class="o">=</span> <span class="n">mock_open</span><span class="p">()</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ummagumma.txt&#39;</span>
+        <span class="n">full_name</span> <span class="o">=</span> <span class="s1">&#39;test/&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="s1">&#39;test/&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;__builtin__.open&#39;</span><span class="p">,</span> <span class="n">mocked</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">storage</span><span class="o">.</span><span class="n">closed</span><span class="p">)</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">opened</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">opened</span><span class="o">.</span><span class="n">closed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">opened</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+            <span class="c1"># test append</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+            <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+            <span class="c1">#test over-write</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+            <span class="c1"># test append and over-write</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+            <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">test_open_file_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Does it mangle the file-names at the right times?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mocked</span> <span class="o">=</span> <span class="n">mock_open</span><span class="p">()</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ummagumma.txt&#39;</span>
+
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="s1">&#39;test/&#39;</span><span class="p">)</span>
+        <span class="n">mock_os_listdir</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">mock_os_path_exists</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">mock_os_path_join</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+
+        <span class="n">mock_open_path_exists</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">mock_os_listdir</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ummagumma.txt&#39;</span><span class="p">]</span>
+        <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span> <span class="o">+</span> <span class="n">name</span>
+
+        <span class="n">mock_os_path_join</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">join</span>
+
+        <span class="n">mangled</span> <span class="o">=</span> <span class="s1">&#39;test/ummagumma_0001.txt&#39;</span>
+        <span class="n">un_mangled</span> <span class="o">=</span> <span class="s1">&#39;test/&#39;</span> <span class="o">+</span> <span class="n">name</span>
+
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;__builtin__.open&#39;</span><span class="p">,</span> <span class="n">mocked</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;os.path.join&#39;</span><span class="p">,</span> <span class="n">mock_os_path_join</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;os.path.exists&#39;</span><span class="p">,</span> <span class="n">mock_os_path_exists</span><span class="p">):</span>
+                    <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;os.listdir&#39;</span><span class="p">,</span> <span class="n">mock_os_listdir</span><span class="p">):</span>
+                        <span class="c1"># default behavior</span>
+                        <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                        <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">mangled</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+                        <span class="c1"># append, don&#39;t clobber</span>
+                        <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+                        <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">un_mangled</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+                        <span class="c1"># overwrite, don&#39;t clobber</span>
+                        <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                        <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">un_mangled</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+                        <span class="c1"># append, give warning</span>
+                        <span class="n">storage</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+                        <span class="n">opened</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>
+                                              <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                              <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+                        <span class="n">mocked</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">un_mangled</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+                        <span class="n">storage</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">AMBIGUOUS</span><span class="p">)</span>
+        <span class="k">return</span>
+<span class="c1"># end class TestFileStorageOpen</span>
+</pre></div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TestFileStorageWith.test_with</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

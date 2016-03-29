@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Base Plugin &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Tuna-Plugins" href="index.html" />
+    <link rel="prev" title="The Tuna-Plugins" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Base Plugin</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#class-diagram">Class Diagram</a></li>
+<li><a class="reference internal" href="#public-properties-and-methods">Public Properties and Methods</a><ul>
+<li><a class="reference internal" href="#sections">Sections</a></li>
+<li><a class="reference internal" href="#the-product">The Product</a></li>
+<li><a class="reference internal" href="#the-fetch-config">The Fetch Config</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aggregated-classes">Aggregated Classes</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: The Tuna-Plugins"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; The Tuna-Plugins</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/plugins/base_plugin.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-base-plugin">
+<h1>The Base Plugin<a class="headerlink" href="#the-base-plugin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<span id="tuna-base-plugin"></span><h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>This module contains a <cite>BasePlugin</cite> class that forms the foundation of the <cite>ape</cite> plugin-system. Creating a <cite>BasePlugin</cite> makes it easier to add code as it provides a concrete target for the person adding the code, removes the need for the infrastructure code to be changed when plugins are added, and encourages documentation by providing a built-in online help-interface and auto-included <cite>rst</cite> files.</p>
+<p>In order to create a child of the <cite>BasePlugin</cite> you are required to implement two properties and one method: <code class="docutils literal"><span class="pre">sections</span></code>, <code class="docutils literal"><span class="pre">product</span></code>, and <code class="docutils literal"><span class="pre">fetch_config()</span></code>. The <code class="docutils literal"><span class="pre">sections</span></code> and <code class="docutils literal"><span class="pre">fetch_config</span></code> are for the user-interface while the <code class="docutils literal"><span class="pre">product</span></code> should be the object to run. The <code class="docutils literal"><span class="pre">sections</span></code> can be <code class="docutils literal"><span class="pre">None</span></code> if you do not want the online help, but should otherwise be a dictionary with section-names as keys and content-strings as values. It will be passed to the <a class="reference internal" href="../infrastructure/helppage.html#id1"><span class="std std-ref">HelpPage</span></a> so you should see that if you want to know what will be done with the <code class="docutils literal"><span class="pre">sections</span></code> property. If the ordering is important use a <code class="docutils literal"><span class="pre">collections.OrderedDict</span></code>. The
+<code class="docutils literal"><span class="pre">fetch_config</span></code> is expected to be a method that sends a sample config-file snippet to stdout. I chose stdout rather than to disk because it allows the user to append it to existing files using redirection <code class="docutils literal"><span class="pre">&gt;&gt;</span></code> and it also serves as a prompt for those who just need to remember what the configuration should look like (I also had problems with users accidentally clobbering their configurations by pulling sample files). The <code class="docutils literal"><span class="pre">product</span></code> should be the built-object for the code to run (only the <code class="docutils literal"><span class="pre">__call__</span></code> method will be used so that has to be implemented on the <code class="docutils literal"><span class="pre">product</span></code>). When the child-plugin is implemented, it will be passed a <a class="reference internal" href="../infrastructure/configurationmap.html#configuration-map"><span class="std std-ref">ConfigurationMap</span></a> that will provide data-types pulled from whatever configuration file it was given for the plugin to use in configuring the product.</p>
+<p>The <span class="xref std std-ref">QuarterMaster</span> looks for child-classes of the <cite>BasePlugin</cite> when deciding what is a valid plugin, so besides defining an implementation expectation for the new plugin, the <cite>BasePlugin</cite> also provides the means for inclusion in the <cite>ape</cite> (even if you drop a module in this folder, if nothing in it is a child of the <cite>BasePlugin</cite> it will be ignored). To check if it contains a <cite>BasePlugin</cite> the module has to be imported so be careful with globals and imports.</p>
+<p>The <cite>BasePlugin</cite> class and the <code class="docutils literal"><span class="pre">plugins</span></code> package also provides the foundation for user help. As noted above, the <code class="docutils literal"><span class="pre">sections</span></code> and <code class="docutils literal"><span class="pre">fetch_config</span></code> are meant for online help and in addition to this the <code class="docutils literal"><span class="pre">index.pnw</span></code> file contains code to include any <code class="docutils literal"><span class="pre">rst</span></code> files in the <code class="docutils literal"><span class="pre">plugins</span></code> directory so adding documentation files here will add the text to the documentation when it is regenerated:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Pweave</span> <span class="n">index</span><span class="o">.</span><span class="n">pnw</span>
+</pre></div>
+</div>
+<p>To summarize, the <cite>BasePlugin</cite> is the main way to add code that will be exposed to the end user.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">I have had a lot of problems troubleshooting when I accidentally name plugin-class the same thing as (one of) the class(es) it&#8217;s building &#8211; the re-definition of the name will wipe out your imported name. Don&#8217;t do it. (e.g. don&#8217;t create a plugin named Sample that builds a class named Sample as its product.)</p>
+</div>
+</div>
+<div class="section" id="class-diagram">
+<span id="base-plugin-class-diagram"></span><h2>Class Diagram<a class="headerlink" href="#class-diagram" title="Permalink to this headline">¶</a></h2>
+<p>This is an (idealized) class diagram (see below for an auto-generated one).</p>
+<p class="plantuml">
+<img src="../_images/plantuml-cabe7105cb96cb025900faa5d6fbd56405524143.png" alt="BaseClass &lt;|-- BasePlugin
+BaseClass : logger
+BasePlugin : configuration
+BasePlugin o- HelpPage
+BasePlugin : sections
+BasePlugin : product
+BasePlugin : help(width)
+BasePlugin : fetch_config()
+BasePlugin : section_header" />
+</p>
+</div>
+<div class="section" id="public-properties-and-methods">
+<h2>Public Properties and Methods<a class="headerlink" href="#public-properties-and-methods" title="Permalink to this headline">¶</a></h2>
+<p>The following are the public propeties and methods. The <code class="docutils literal"><span class="pre">help_page</span></code> and <code class="docutils literal"><span class="pre">help()</span></code> are the only implemented attributes, the rest need to be implemented by the inheriting classes.</p>
+<div class="section" id="sections">
+<h3>Sections<a class="headerlink" href="#sections" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>sections</cite> are a dictionary used by the help-page to create the screen-output. By defining this dictionary you are defining what the user will see when they enter:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ape</span> <span class="n">help</span> <span class="o">&lt;</span><span class="n">plugin</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-product">
+<h3>The Product<a class="headerlink" href="#the-product" title="Permalink to this headline">¶</a></h3>
+<p>This is the built object that client code will call. To make the interface uniform it is assumed that all parameters have been set and none will be passed to the __call__() method.</p>
+</div>
+<div class="section" id="the-fetch-config">
+<h3>The Fetch Config<a class="headerlink" href="#the-fetch-config" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>fetch_config</cite> method used to copy an example configuration file to the current working directory (thus its name). Since each plugin can provide its own sample, I decided that they should instead output them to standard out. Thus the user could do something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ape</span> <span class="n">fetch</span> <span class="o">&gt;</span> <span class="n">ape</span><span class="o">.</span><span class="n">ini</span>
+<span class="n">ape</span> <span class="n">fetch</span> <span class="n">IperfSession</span> <span class="o">&gt;&gt;</span> <span class="n">ape</span><span class="o">.</span><span class="n">ini</span>
+</pre></div>
+</div>
+<p>And so on to add to a configuration file without clobbering the old one. Additionally, the ConfigurationMap looks for a <cite>config_glob</cite> option in the APE section so the other configuration files could be put in a seaparate file and shared by other APE configurations.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BasePlugin</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BasePlugin.sections</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BasePlugin.help_page</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BasePlugin.help</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BasePlugin.product</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">BasePlugin.fetch_config</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="aggregated-classes">
+<h2>Aggregated Classes<a class="headerlink" href="#aggregated-classes" title="Permalink to this headline">¶</a></h2>
+<p>These are the classes that the BasePlugin uses.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseClass.logger</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">HelpPage</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">HelpPage.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

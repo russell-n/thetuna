@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Data Qualities &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Components" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Data Qualities</a><ul>
+<li><a class="reference internal" href="#the-xydata-quality">The XYData Quality</a></li>
+<li><a class="reference internal" href="#the-xydata-builder">The XYData Builder</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/components/dataquality.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-data-qualities">
+<h1>The Data Qualities<a class="headerlink" href="#the-data-qualities" title="Permalink to this headline">¶</a></h1>
+<p>These are classes meant to be dropped into place where <cite>Quality</cite> classes are called. They take csv-files, convert them to arrays and return matching output values based on indices of the arrays.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">XYDataConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants for builders of the XYData class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">filename_option</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span>
+    <span class="n">delimiter_option</span> <span class="o">=</span> <span class="s1">&#39;delimiter&#39;</span>
+    <span class="n">skiprows_option</span> <span class="o">=</span> <span class="s1">&#39;skiprows&#39;</span>
+    <span class="n">usecols_option</span> <span class="o">=</span> <span class="s1">&#39;usecols&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="the-xydata-quality">
+<h2>The XYData Quality<a class="headerlink" href="#the-xydata-quality" title="Permalink to this headline">¶</a></h2>
+<p>This class takes a filename and reads it in as an array. The constructor parameters are based on the <cite>numpy.loadtxt</cite> parameters.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-ea72e41337d386b45ac7502009be65bda04ba146.png" alt="BaseComponent &lt;|-- XYData" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">XYDataQuality</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">XYDataQuality.data</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">XYDataQuality.__call__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">XYDataQuality.check_rep</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">XYDataQuality.close</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CONFIGURATION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">[XYData]</span>
+<span class="s2"># this follows the pattern for plugins --</span>
+<span class="s2"># the header has to match what&#39;s in the Optimizers `components` list</span>
+<span class="s2"># the component option has to be XYData</span>
+<span class="s2">component = XYData</span>
+
+<span class="s2"># filename is required, everything else has defaults</span>
+<span class="s2">filename = &lt;path to data file&gt;</span>
+<span class="s2">delimiter = &lt;column separator (default= &#39;,&#39;)</span>
+<span class="s2">skiprows = &lt;number of rows to skip (default=0)</span>
+<span class="s2">usecols = &lt;index-list of columns to use (default=all)&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The XYData component is a stand-in that converts a delimited file to a nump</span>
+<span class="s2">y array. It is meant to be used as a `quality` measurement class so expects</span>
+<span class="s2"> its calls to be passed an object with `inputs` and `output` attributes. It</span>
+<span class="s2"> will look up the value in the array using the `inputs` value (so they have</span>
+<span class="s2"> to be valid x and y indices) and set the output.  It also keeps a `quality</span>
+<span class="s2">_checks` attribute that is incremented for each call so the number of check</span>
+<span class="s2">s can be measured to estimate how long the optimizer would run if it were e</span>
+<span class="s2">xploring the space that created the data set using an actual call to get th</span>
+<span class="s2">e output (e.g. how many calls to iperf the optimizer would make).</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>To match the older-code the call has to expect an object of the form:</p>
+<p class="plantuml">
+<img src="../_images/plantuml-6c70391743bad5d4b850f33e9b24faef1877d01b.png" alt="Data : inputs
+Data : output" />
+</p>
+<p>If the output is not set it sets it using the inputs and returns the output. It also maintains a count of all the calls made (<cite>self.quality_checks</cite>) so that the efficiency can be double-checked.</p>
+</div>
+<div class="section" id="the-xydata-builder">
+<h2>The XYData Builder<a class="headerlink" href="#the-xydata-builder" title="Permalink to this headline">¶</a></h2>
+<p>A convenience class for building <cite>XYData</cite> objects. It implements the plugin interface so the help and list sub-commands can use it.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-f765b72b88a2196c3d61aa14a7ee6aab9e3ef91d.png" alt="BasePlugin &lt;|-- XYDataBuilder" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">XYData</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">XYData.product</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

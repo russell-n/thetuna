@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The OatBran &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Infrastructure" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The OatBran</a><ul>
+<li><a class="reference internal" href="#formal-definition">Formal Definition</a></li>
+<li><a class="reference internal" href="#groups">Groups</a></li>
+<li><a class="reference internal" href="#quantifiers">Quantifiers</a></li>
+<li><a class="reference internal" href="#character-classes">Character Classes</a></li>
+<li><a class="reference internal" href="#boundaries">Boundaries</a></li>
+<li><a class="reference internal" href="#common-patterns">Common Patterns</a></li>
+<li><a class="reference internal" href="#numbers">Numbers</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/infrastructure/oatbran.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="module-tuna.infrastructure.oatbran">
+<span id="the-oatbran"></span><h1>The OatBran<a class="headerlink" href="#module-tuna.infrastructure.oatbran" title="Permalink to this headline">¶</a></h1>
+<p>Oat Bran helps with regular expressions. Names are uppercased to avoid keyword clashes</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># the class-based expressions are mostly for organization</span>
+<span class="c1"># but sometimes they&#39;re just too clunky</span>
+<span class="n">LEFT_BRACKET</span> <span class="o">=</span> <span class="s1">&#39;[&#39;</span>
+<span class="n">RIGHT_BRACKET</span> <span class="o">=</span> <span class="s1">&#39;]&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="formal-definition">
+<span id="ape-oatbran-formal-definition"></span><h2>Formal Definition<a class="headerlink" href="#formal-definition" title="Permalink to this headline">¶</a></h2>
+<p>These are the basic building blocks of regular expressions.</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">Formal Definition</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Symbol</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>empty_string</td>
+<td><img class="math" src="../_images/math/f348c73e654151e416e3c525b2ff7803590754ce.png" alt="\varepsilon"/></td>
+</tr>
+<tr class="row-odd"><td>alternative (OR)</td>
+<td><img class="math" src="../_images/math/5e3ef4453df42b6f064b6e54ba6914ecaca6a4e9.png" alt="|"/></td>
+</tr>
+<tr class="row-even"><td>kleene_star</td>
+<td><img class="math" src="../_images/math/0b8f66a848c851c882bd816037c9c5859ca75570.png" alt="*"/></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FormalDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The basic operators and elements of a regular expression</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">empty_string</span> <span class="o">=</span> <span class="s1">&#39;^$&#39;</span>
+    <span class="n">alternative</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+    <span class="n">OR</span> <span class="o">=</span> <span class="n">alternative</span>
+    <span class="n">kleene_star</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="groups">
+<span id="ape-oatbran-groups"></span><h2>Groups<a class="headerlink" href="#groups" title="Permalink to this headline">¶</a></h2>
+<p>Besides the basic use of grouping with parentheses (to explicitly apply operations to multiple characters, for example), the Group hold perl (<cite>(?&lt;expression&gt;)</cite>) and python (<cite>(?P&lt;expression&gt;)</cite>) group-extensions. Since parentheses have to be symmetric these are applied as methods rather than strings that are added to other strings.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Group</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Group.group</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Group.named</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Group.not_followed_by</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Group.not_preceded_by</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Group.preceded_by</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Group.followed_by</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="quantifiers">
+<span id="ape-oatbran-quantifiers"></span><h2>Quantifiers<a class="headerlink" href="#quantifiers" title="Permalink to this headline">¶</a></h2>
+<p>Quantifiers are used to describe repetitions of patterns. The <cite>zero_or_more</cite> quantifier is an alias for the <cite>FormalDefinition.kleene_star</cite>. Although I usually think of these as suffixes, the exact and m-to-n versions need braces so the quantifiers are applied as methods to make their use uniform. I use the string <cite>format</cite> method so they will not raise errors if passed non-strings as patterns.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Quantifier</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Quantifier.one_or_more</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Quantifier.zero_or_more</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Quantifier.zero_or_one</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Quantifier.exactly</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Quantifier.m_to_n</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="character-classes">
+<span id="ape-oatbran-character-classes"></span><h2>Character Classes<a class="headerlink" href="#character-classes" title="Permalink to this headline">¶</a></h2>
+<p>A helper with character classes (stuff put in square-brackets (&#8216;[]&#8217;)). There are some similar patterns in other classes. I tried to put single characters in this class (e.g. digit) and multiple characters or those with quantifiers in other classes (e.g. digits or optional_digits).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CharacterClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to help with character classes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="n">alpha_num</span> <span class="o">=</span> <span class="s2">r&quot;\w&quot;</span>
+    <span class="n">alpha_nums</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">alpha_num</span><span class="p">)</span>
+    <span class="n">digit</span> <span class="o">=</span> <span class="s1">r&#39;\d&#39;</span>
+    <span class="n">non_digit</span> <span class="o">=</span> <span class="s1">r&#39;\D&#39;</span>
+    <span class="n">non_zero_digit</span> <span class="o">=</span> <span class="s2">r&quot;[1-9]&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">character_class</span><span class="p">(</span><span class="n">characters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a character class from the expression</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `characters`: string to convert to a class</span>
+
+<span class="sd">        :return: expression to match any character in expression</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">{e}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">characters</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">not_in</span><span class="p">(</span><span class="n">characters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a complement character class</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `characters`: characters to not match</span>
+
+<span class="sd">        :return: expression to match any character not in expression</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;[^</span><span class="si">{e}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">characters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="boundaries">
+<span id="ape-oatbran-boundaries"></span><h2>Boundaries<a class="headerlink" href="#boundaries" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Boundaries</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Boundaries.word</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Boundaries.string</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Boundaries</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to hold boundaries for expressions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="n">string_start</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span>
+    <span class="n">string_end</span> <span class="o">=</span> <span class="s2">&quot;$&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">word</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds word boundaries to the word</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `word`: string to add word boundaries to</span>
+
+<span class="sd">        :return: string (raw) with word boundaries on both ends</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">r&quot;\b</span><span class="si">{e}</span><span class="s2">\b&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">word</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds boundaries to only match an entire string</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `string`: string to add boundaries to</span>
+
+<span class="sd">        :return: expression that only matches an entire line of text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">r&quot;^</span><span class="si">{e}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="common-patterns">
+<span id="ape-oatbran-common-patterns"></span><h2>Common Patterns<a class="headerlink" href="#common-patterns" title="Permalink to this headline">¶</a></h2>
+<p>These are pattens that I use a lot but I could not think of where to put them.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CommonPatterns</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The common patterns that were leftover</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1">#anything and everything</span>
+    <span class="n">anything</span> <span class="o">=</span> <span class="s2">r&quot;.&quot;</span>
+    <span class="n">everything</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">anything</span><span class="p">)</span>
+    <span class="n">letter</span> <span class="o">=</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="n">characters</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span>
+<span class="p">)</span>
+    <span class="n">letters</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    <span class="n">optional_letters</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    <span class="n">space</span> <span class="o">=</span> <span class="s1">r&#39;\s&#39;</span>
+    <span class="n">spaces</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+    <span class="n">optional_spaces</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+    <span class="n">not_space</span> <span class="o">=</span> <span class="s1">r&#39;\S&#39;</span>
+    <span class="n">not_spaces</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">not_space</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="numbers">
+<span id="ape-oatbran-numbers"></span><h2>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h2>
+<p>The numbers are broken up into types based on those listed <a class="reference external" href="http://mathworld.wolfram.com/CountingNumber.html">here</a>. I was originally using the more <a class="reference external" href="http://en.wikipedia.org/wiki/List_of_types_of_numbers">traditional number types</a> but I keep forgetting which ones have zero in them so I will work with just positive/negative, non-positive/non-negative, and integer/real.</p>
+<table border="1" class="docutils" id="id2">
+<caption><span class="caption-text">Numbers</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Symbol</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>positive_integer</td>
+<td><img class="math" src="../_images/math/949c706c3f35474927311ab580e7106647408db0.png" alt="1,2,\ldots"/></td>
+<td><img class="math" src="../_images/math/6fc40882d011289bd4ddf77d890ae4f5d2878fee.png" alt="\mathbb{Z}^+"/></td>
+</tr>
+<tr class="row-odd"><td>non_negative_integer</td>
+<td><img class="math" src="../_images/math/4365ba883e7df101b4c9ab69f2637ecbe93e7d45.png" alt="0,1,\ldots"/></td>
+<td><img class="math" src="../_images/math/8c7a73446b40923c3b937a9770b450ea6bd4d8ac.png" alt="\mathbb{Z}^*"/></td>
+</tr>
+<tr class="row-even"><td>non_positive_integer</td>
+<td><img class="math" src="../_images/math/4a122ef6a23e040d7be2edb0063bf4e3b003f43e.png" alt="0, -1, -2,\ldots"/></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>integer</td>
+<td>positive, negative, 0</td>
+<td><img class="math" src="../_images/math/5fdff137bc42a8949aa1b49bbb9418c4bd6f4230.png" alt="\mathbb{Z}"/></td>
+</tr>
+<tr class="row-even"><td>real_number</td>
+<td>Positive,negative, 0</td>
+<td><img class="math" src="../_images/math/858dca350c68cd6e22d70cf4324efbc875002ef2.png" alt="\mathbb{R}"/></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The integers are allowed to match even when surrounded by punctuation. This makes it okay for sentences and csvs, etc. but means that if given a floating point number it will match the substring to the left of the decimal point (e.g. 10.00213 will match 10).</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Along with the previous warning it should be noted that <cite>nonnegative_integer</cite> extracts the non-negative portion, it does not ignore negative integers. So if you have -300, the match will be 300. This may change once I start using this, but for now that is the behavior (useful for extracting ranges, maybe &#8211; nonnegative_integer + &#8216;-&#8216; + nonnegative_integer):</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><cite>real</cite> is treated as a super-set that matches floats or integers.</p>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Numbers</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to hold number-related expressions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="n">decimal_point</span> <span class="o">=</span> <span class="s1">r&#39;\.&#39;</span>
+    <span class="n">single_digit</span> <span class="o">=</span> <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="n">digits</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="n">two_digits</span> <span class="o">=</span> <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">CharacterC</span>
+<span class="n">lass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="n">one_hundreds</span> <span class="o">=</span> <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s2">&quot;1&quot;</span> <span class="o">+</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">optional_digits</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="c1"># python considers string-start and whitespace to be different lengths</span>
+    <span class="c1"># so to avoid &#39;.&#39; (which is a word-boundary character) and use line-sta</span>
+<span class="c1">#rts and ends</span>
+    <span class="c1"># and whitespace requires four alternatives</span>
+    <span class="n">START_PREFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">preceded_by</span><span class="p">(</span><span class="n">Boundaries</span><span class="o">.</span><span class="n">string_start</span><span class="p">)</span>
+    <span class="n">END_SUFFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">followed_by</span><span class="p">(</span><span class="n">Boundaries</span><span class="o">.</span><span class="n">string_end</span><span class="p">)</span>
+    <span class="n">SPACE_PREFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">preceded_by</span><span class="p">(</span><span class="n">CommonPatterns</span><span class="o">.</span><span class="n">space</span><span class="p">)</span>
+    <span class="n">SPACE_SUFFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">followed_by</span><span class="p">(</span><span class="n">CommonPatterns</span><span class="o">.</span><span class="n">space</span><span class="p">)</span>
+    <span class="c1"># Zero</span>
+    <span class="n">ZERO</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="p">(</span><span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+            <span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+            <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+            <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span><span class="p">)</span>
+    <span class="c1"># positive integer</span>
+    <span class="n">z_plus</span> <span class="o">=</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">optional_digits</span>
+    <span class="n">positive_integer</span> <span class="o">=</span> <span class="p">(</span><span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinitio</span>
+<span class="n">n</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                        <span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinit</span>
+<span class="n">ion</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                        <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinitio</span>
+<span class="n">n</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                        <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span> <span class="p">)</span>
+
+    <span class="n">nonnegative_integer</span> <span class="o">=</span> <span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">optional_digits</span>
+<span class="o">+</span>
+                           <span class="s1">r&#39;\b&#39;</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                            <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+    <span class="c1"># this disqualifies leading decimal points but not zeros</span>
+    <span class="n">integer</span> <span class="o">=</span> <span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">not_preceded_by</span><span class="p">(</span><span class="n">decimal_point</span><span class="p">)</span> <span class="o">+</span>
+                               <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_one</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="o">+</span>
+                               <span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">optional_dig</span>
+<span class="n">its</span> <span class="o">+</span>
+                               <span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                               <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+
+    <span class="n">real</span> <span class="o">=</span> <span class="p">(</span><span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_one</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span> <span class="o">+</span> <span class="n">optional_digits</span> <span class="o">+</span>
+            <span class="n">decimal_point</span> <span class="o">+</span> <span class="n">optional_digits</span> <span class="o">+</span>
+            <span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span> <span class="n">integer</span><span class="p">)</span>
+
+    <span class="n">HEX</span> <span class="o">=</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span>
+    <span class="n">hexadecimal</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">HEX</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Networking.octet</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

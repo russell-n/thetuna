@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.optimizers.simulatedannealing &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.optimizers.simulatedannealing</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># python standard library</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna.components.component</span> <span class="kn">import</span> <span class="n">BaseComponent</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">BaseClass</span><span class="p">,</span> <span class="n">ConfigurationError</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">LOG_TIMESTAMP</span>
+
+
+<span class="n">ANNEALING_SOLUTIONS</span> <span class="o">=</span> <span class="s2">&quot;annealing_solutions.csv&quot;</span>
+
+
+<div class="viewcode-block" id="SimulatedAnnealer"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.SimulatedAnnealer.html#tuna.optimizers.simulatedannealing.SimulatedAnnealer">[docs]</a><span class="k">class</span> <span class="nc">SimulatedAnnealer</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    a Simulated Annealer optimizer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SimulatedAnnealer.__init__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.SimulatedAnnealer.html#tuna.optimizers.simulatedannealing.SimulatedAnnealer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temperatures</span><span class="p">,</span> <span class="n">tweak</span><span class="p">,</span> <span class="n">quality</span><span class="p">,</span> <span class="n">candidate</span><span class="p">,</span> <span class="n">stop_condition</span><span class="p">,</span>
+                 <span class="n">solution_storage</span><span class="p">,</span> <span class="n">observers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        SimulatedAnnealer Constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `temperatures`: a generator of temperatures</span>
+<span class="sd">         - `tweak`: callable that tweaks the best solution so far</span>
+<span class="sd">         - `quality`: Quality checker for candidates</span>
+<span class="sd">         - `candidate`: initial candidate solution</span>
+<span class="sd">         - `stop_condition`: a condition to decide to prematurely stop</span>
+<span class="sd">         - `solution_storage`: an writeable object to send values to</span>
+<span class="sd">         - `observers`: a composite that takes the best solution as its argument</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimulatedAnnealer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperatures</span> <span class="o">=</span> <span class="n">temperatures</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tweak</span> <span class="o">=</span> <span class="n">tweak</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality</span> <span class="o">=</span> <span class="n">quality</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">candidate</span> <span class="o">=</span> <span class="n">candidate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">candidate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_condition</span> <span class="o">=</span> <span class="n">stop_condition</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span> <span class="o">=</span> <span class="n">solution_storage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observers</span> <span class="o">=</span> <span class="n">observers</span>
+
+        <span class="c1"># sets have constant-time set-membership lookups</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabu</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Current candidate solution</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidate</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweak</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span>
+
+    <span class="nd">@solution.setter</span>
+    <span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candidate</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the solution</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">candidate</span>
+        <span class="k">return</span>
+
+<div class="viewcode-block" id="SimulatedAnnealer.check_rep"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.SimulatedAnnealer.check_rep.html#tuna.optimizers.simulatedannealing.SimulatedAnnealer.check_rep">[docs]</a>    <span class="k">def</span> <span class="nf">check_rep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        should validate the parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="SimulatedAnnealer.close"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.SimulatedAnnealer.close.html#tuna.optimizers.simulatedannealing.SimulatedAnnealer.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        closes the quality and solutions&#39; storage and resets the solution to None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="SimulatedAnnealer.reset"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.SimulatedAnnealer.reset.html#tuna.optimizers.simulatedannealing.SimulatedAnnealer.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Resetting the annealing parts&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabu</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperatures</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_condition</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="SimulatedAnnealer.__call__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.SimulatedAnnealer.__call__.html#tuna.optimizers.simulatedannealing.SimulatedAnnealer.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runs the optimization</span>
+
+<span class="sd">        :return: last best solution found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># this is an attempt to allow this to run repeatedly</span>
+        <span class="c1"># the solutions can&#39;t be a list anymore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="c1"># prime the data with the first candidate</span>
+        <span class="n">solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solution</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="s2">&quot;Initial Best Solution: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solution</span><span class="p">))</span>
+        
+        <span class="c1"># avoid repeating the same test-spot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabu</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">inputs</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Time,Checks,Solution</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">LOG_TIMESTAMP</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;{0},1,{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">solution</span><span class="p">)</span>
+           
+        <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;First Candidate: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solution</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">temperature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperatures</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_condition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="s1">&#39;Stop condition reached with solution: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">))</span>
+                <span class="k">break</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Temperature: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">temperature</span><span class="p">))</span>
+            <span class="n">candidate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweak</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+
+            <span class="c1"># this needs to be smarter -- what if the space is exhausted?</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Searching for a candidate not in the tabu space&quot;</span><span class="p">)</span>
+            <span class="k">while</span> <span class="nb">str</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabu</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_condition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">):</span>
+                <span class="n">candidate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweak</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trying candidate: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">candidate</span><span class="p">))</span>
+
+            <span class="n">quality_difference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+            
+            <span class="c1"># since the candidate is checked to see if it&#39;s in the tabu list</span>
+            <span class="c1"># before checking its quality, only the inputs are added to the tabu list</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabu</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">inputs</span><span class="p">))</span>
+            
+            <span class="k">if</span> <span class="p">(</span><span class="n">quality_difference</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span>
+                <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">quality_difference</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">temperature</span><span class="p">))):</span>
+                <span class="n">solution</span> <span class="o">=</span> <span class="n">candidate</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Candidate &#39;{0}&#39; new local solution&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solution</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">):</span>
+                <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">LOG_TIMESTAMP</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;{0},{1},{2}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">quality_checks</span><span class="p">,</span> <span class="n">solution</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">solutions</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="s2">&quot;New Best Solution: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="n">solution</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="s2">&quot;Quality Checks: {0} Solution: {1} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">quality_checks</span><span class="p">,</span>
+                                                                     <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">observers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># this is for users of the solution</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="s2">&quot;SimulatedAnnealer giving solution to &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">observers</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">observers</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">solution</span></div></div>
+<span class="c1"># SimulatedAnnealer    </span>
+
+
+<div class="viewcode-block" id="TemperatureGenerator"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TemperatureGenerator.html#tuna.optimizers.simulatedannealing.TemperatureGenerator">[docs]</a><span class="k">class</span> <span class="nc">TemperatureGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to generate temperature drops for the annealing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TemperatureGenerator.__init__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TemperatureGenerator.html#tuna.optimizers.simulatedannealing.TemperatureGenerator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TemperatureGenerator constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `start`: starting temperature</span>
+<span class="sd">         - `stop`: stopping temperature</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span> <span class="o">=</span> <span class="n">schedule</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="TemperatureGenerator.__iter__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TemperatureGenerator.__iter__.html#tuna.optimizers.simulatedannealing.TemperatureGenerator.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates decreasing temperatures</span>
+
+<span class="sd">        :yield: next temperature in the schedule</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+        <span class="k">while</span> <span class="n">temperature</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">temperature</span>
+            <span class="n">temperature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+        <span class="k">return</span></div></div>
+<span class="c1"># end class TemperatureGenerator    </span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span><span class="p">:</span>
+    <span class="c1"># third-party</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;figures/geometric_plot.png&#39;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.99</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="mf">0.95</span>
+
+    <span class="n">t_0</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">t_0</span> <span class="o">*</span> <span class="n">alpha</span><span class="o">**</span><span class="n">t</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">t_0</span> <span class="o">*</span> <span class="n">a2</span><span class="o">**</span><span class="n">t</span>
+
+    <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">axe</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;alpha=0.99&#39;</span><span class="p">)</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;alpha=0.95&#39;</span><span class="p">)</span>
+
+    <span class="n">axe</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature&quot;</span><span class="p">)</span>
+    <span class="n">axe</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&quot;.. figure:: &quot;</span> <span class="o">+</span> <span class="n">output</span>
+
+
+<div class="viewcode-block" id="TimeTemperatureGenerator"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.html#tuna.optimizers.simulatedannealing.TimeTemperatureGenerator">[docs]</a><span class="k">class</span> <span class="nc">TimeTemperatureGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Generator of temperatures using repetitions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TimeTemperatureGenerator.__init__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.html#tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TimeTemperatureGenerator constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `start`: starting temperature (T_0)</span>
+<span class="sd">         - `stop: stopping temperature</span>
+<span class="sd">         - `alpha`: constant value used by the schedule</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="TimeTemperatureGenerator.schedule"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.schedule.html#tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.schedule">[docs]</a>    <span class="k">def</span> <span class="nf">schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method that returns the next temperature</span>
+
+<span class="sd">        increments self.time and returns next time in geometric progression</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">+=</span> <span class="mi">1</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span></div>
+
+<div class="viewcode-block" id="TimeTemperatureGenerator.__iter__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.__iter__.html#tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterator to yield temperatures</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">temperature</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">temperature</span>
+            <span class="n">temperature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">()</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="TimeTemperatureGenerator.close"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.html#tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the time to -1 so the iterator can be re-used</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__iter__</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
+
+<div class="viewcode-block" id="TimeTemperatureGenerator.reset"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.html#tuna.optimizers.simulatedannealing.TimeTemperatureGenerator.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Does the same thing as close</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__iter__</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Start: {0}, Stop: {1}, Alpha: {2}, Current Time: {3}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                                                                             <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span>
+                                                                             <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
+                                                                             <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span></div>
+<span class="c1"># end TimeTemperatureGenerator    </span>
+
+
+<span class="c1"># this is for clients so the strings are consistent</span>
+<span class="k">class</span> <span class="nc">TimeTemperatureGeneratorConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1"># the config file needs to be wordier</span>
+    <span class="c1"># so the option-names are longer</span>
+    <span class="c1"># options</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="s1">&#39;start_temperature&#39;</span>
+    <span class="n">stop</span> <span class="o">=</span> <span class="s1">&#39;stop_temperature&#39;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="s1">&#39;alpha_temperature&#39;</span>
+
+
+<div class="viewcode-block" id="TimeTemperatureGeneratorBuilder"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGeneratorBuilder.html#tuna.optimizers.simulatedannealing.TimeTemperatureGeneratorBuilder">[docs]</a><span class="k">class</span> <span class="nc">TimeTemperatureGeneratorBuilder</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds the TimeTemperatureGenerator from a dictionary</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TimeTemperatureGeneratorBuilder.__init__"><a class="viewcode-back" href="../../../optimizers/api/tuna.optimizers.simulatedannealing.TimeTemperatureGeneratorBuilder.html#tuna.optimizers.simulatedannealing.TimeTemperatureGeneratorBuilder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TimeTemperatureGeneratorBuilder constructor</span>
+<span class="sd">        </span>
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configuration`: a configuration map</span>
+<span class="sd">         - `section`: name of section with options</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TimeTemperatureGeneratorBuilder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="n">section</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A built time-temperature generator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">constants</span> <span class="o">=</span> <span class="n">TimeTemperatureGeneratorConstants</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="n">TimeTemperatureGenerator</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                                                <span class="n">option</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">start</span><span class="p">),</span>
+                                                         <span class="n">stop</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                                               <span class="n">option</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">stop</span><span class="p">),</span>
+                                                         <span class="n">alpha</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+                                                                                <span class="n">option</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">alpha</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Missing Option: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s2">&quot;Unable to build the TimeTemperatureGenerator with &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="s2">&quot;Temperature values must be castable to floats&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s2">&quot;Unable to build the TimeTemperatureGenerator with &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

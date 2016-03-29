@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Convolutions &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="Tweaks" href="index.html" />
+    <link rel="prev" title="Tweaks" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Convolutions</a><ul>
+<li><a class="reference internal" href="#uniform-convolution">Uniform Convolution</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#gaussian-convolution">Gaussian Convolution</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-gaussian-convolution-builder">A Gaussian Convolution Builder</a></li>
+<li><a class="reference internal" href="#xy-convolution">XY Convolution</a></li>
+<li><a class="reference internal" href="#an-xy-convolution-builder">An XY Convolution Builder</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Tweaks"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tweaks</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tweaks/convolutions.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-convolutions">
+<h1>The Convolutions<a class="headerlink" href="#the-convolutions" title="Permalink to this headline">¶</a></h1>
+<p>These are convolutions to <cite>tweak</cite> the candidate solutions when optimizing.</p>
+<div class="section" id="uniform-convolution">
+<span id="optimization-tweaks-uniform"></span><h2>Uniform Convolution<a class="headerlink" href="#uniform-convolution" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">UniformConvolution</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">UniformConvolution.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>It uses numpy&#8217;s <code class="docutils literal"><span class="pre">random.uniform</span></code> function as well as it&#8217;s <code class="docutils literal"><span class="pre">clip</span></code> method.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/random.html#random.uniform" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">random.uniform</span></code></a></td>
+<td>Get a random number in the range [a, b) or [a, b] depending on rounding.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">clip</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="gaussian-convolution">
+<span id="optimization-tweaks-gaussian"></span><h2>Gaussian Convolution<a class="headerlink" href="#gaussian-convolution" title="Permalink to this headline">¶</a></h2>
+<p>This samples from a normal distribution instead of a uniform one. It will tend to make very small changes but occasionally make very large ones <a class="reference internal" href="../documentation/developer/references.html#eom" id="id1">[EOM]</a>. Most of what it does looks the same as the UniformConvolution except with different variable or function names but I thought that keeping them separate would make it easier to remember the parameters.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">GaussianConvolution</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">GaussianConvolution.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>From numpy:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random.normal</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="a-gaussian-convolution-builder">
+<h2>A Gaussian Convolution Builder<a class="headerlink" href="#a-gaussian-convolution-builder" title="Permalink to this headline">¶</a></h2>
+<p>This is a class to build a GaussianConvolution from a configuration map.</p>
+<span class="target" id="module-tuna.tweaks.convolutions"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">GaussianConvolutionBuilder</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">GaussianConvolutionBuilder.product</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="xy-convolution">
+<span id="tweaks-xyconvolution"></span><h2>XY Convolution<a class="headerlink" href="#xy-convolution" title="Permalink to this headline">¶</a></h2>
+<p>The gaussian convolution assumes that the upper bounds for each entry in the vector is the same. This is a tweak to set asymmetric bounds.</p>
+<span class="target" id="module-tuna.tweaks.convolutions"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">XYConvolution</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">XYConvolution.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="an-xy-convolution-builder">
+<span id="tweaks-convolutions-xytweakbuilder"></span><h2>An XY Convolution Builder<a class="headerlink" href="#an-xy-convolution-builder" title="Permalink to this headline">¶</a></h2>
+<p>This is a class to build the XYConvolution from a configuration map.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">XYConvolutionBuilder</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">XYConvolutionBuilder.product</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span><span class="p">:</span>
+    <span class="n">gaussian</span> <span class="o">=</span> <span class="n">GaussianConvolution</span><span class="p">(</span><span class="n">lower_bound</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span>
+                                   <span class="n">upper_bound</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">candidate</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+    <span class="nb">print</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+
+    <span class="c1"># change the candidate, move the mean up, widen the distribution</span>
+    <span class="n">gaussian</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">gaussian</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">candidate</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">gaussian</span><span class="o">.</span><span class="n">number_type</span> <span class="o">=</span> <span class="nb">int</span>
+    <span class="nb">print</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+
+    <span class="c1"># clip the values so it&#39;s right-skewed</span>
+    <span class="n">gaussian</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">gaussian</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="nb">print</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">5.23094215</span>  <span class="mf">6.79860567</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">5</span> <span class="mi">13</span>  <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">5</span>  <span class="mi">5</span> <span class="mi">34</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

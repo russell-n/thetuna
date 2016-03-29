@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Countdown &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../index.html" />
+    <link rel="up" title="Countdown" href="index.html" />
+    <link rel="prev" title="Countdown" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Countdown</a><ul>
+<li><a class="reference internal" href="#the-timetracker">The TimeTracker</a><ul>
+<li><a class="reference internal" href="#responsibilities">Responsibilities</a></li>
+<li><a class="reference internal" href="#the-model">The Model</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-countdowntimer">The CountdownTimer</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Countdown"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Countdown</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/parts/countdown/countdown.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-countdown">
+<h1>The Countdown<a class="headerlink" href="#the-countdown" title="Permalink to this headline">¶</a></h1>
+<p>The Countdown Timers are meant to be used by the composites and components to keep track of elapsed (and sometimes remaining) time. The <a class="reference internal" href="#tuna-parts-countdown-timetracker"><span class="std std-ref">Time Tracker</span></a> is used to keep track of how long execution is taking. This is meant primarily for someone wanting to estimate future times by looking at past logs. The <a class="reference internal" href="#tuna-parts-countdown-countdowntimer"><span class="std std-ref">CountDown Timer</span></a> also keeps track of execution time but is meant to also keep track of whether the composite should repeat or not (based on remaining repetitions or time).</p>
+<div class="section" id="the-timetracker">
+<span id="tuna-parts-countdown-timetracker"></span><h2>The TimeTracker<a class="headerlink" href="#the-timetracker" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="responsibilities">
+<h3>Responsibilities<a class="headerlink" href="#responsibilities" title="Permalink to this headline">¶</a></h3>
+<p>The TimeTracker:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Tracks start time, stop time, elapsed times</li>
+<li>Logs min, Q1, median, Q3, max elapsed times</li>
+<li>Returns True when running and False when stopped at __call__</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="the-model">
+<h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+<p class="plantuml">
+<img src="../../_images/plantuml-c926c99f99c45636f0ae26c9111926939372960a.png" alt="BaseClass &lt;|-- TimeTracker
+TimeTracker : Bool __call__()
+TimeTracker : start
+TimeTracker : elapsed_times
+TimeTracker : __init__(log_level)" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTracker.__init__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTracker.log</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTracker.append</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTracker.percentile</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTracker.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The expected way to use the TimeTracker is as a sentinal in a while loop:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># assumes self.t is a TimeTracker instance</span>
+    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">():</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<p>This would append a timedelta of about 1 second to the TimeTracker&#8217;s times array everytime <code class="docutils literal"><span class="pre">run</span></code> is called, and log the current elapsed time and the basic running statistics (which in this case shouldn&#8217;t show any variance)</p>
+</div>
+</div>
+<div class="section" id="the-countdowntimer">
+<span id="tuna-parts-countdown-countdowntimer"></span><h2>The CountdownTimer<a class="headerlink" href="#the-countdowntimer" title="Permalink to this headline">¶</a></h2>
+<p>The CountdownTimer is an extension of the TimeTracker that takes a <cite>repetitions</cite> value and decrements it on each call, returning True until it is less than or equal to 0.</p>
+<p>I am also supporting time-outs (setting a total time or an end-time). The <code class="docutils literal"><span class="pre">total_time</span></code> should be a timedelta while the <code class="docutils literal"><span class="pre">end_time</span></code> should be a datetime (or something that acts like it). This adds a bit of complication so I&#8217;ve chosen a hierarchy where the end-time takes first precedence (if you reach the time quit even if there&#8217;s more repetitions or time), and the total-time take precedence over the repetitions.</p>
+<p>To decide on the behavior of the CountdownTimer you set a combination of the three parameters. In the following table 0 means the attribute is None and 1 means it was set to an appropriate value.</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">CountdownTimer Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><code class="docutils literal"><span class="pre">end_time</span></code></th>
+<th class="head"><code class="docutils literal"><span class="pre">total_time</span></code></th>
+<th class="head"><code class="docutils literal"><span class="pre">repetitions</span></code></th>
+<th class="head">Interpretation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>time_remains always False (check-rep should fail)</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>0</td>
+<td>1</td>
+<td>Only repetitions are used</td>
+</tr>
+<tr class="row-even"><td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Run for the amount of time given</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>1</td>
+<td>1</td>
+<td>Use repetitions but quit if out of time</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>0</td>
+<td>0</td>
+<td>Run until the end-time is reached</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>0</td>
+<td>1</td>
+<td>Use repetitions but quit if end-time is reached</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>1</td>
+<td>0</td>
+<td>Use total-time but quit if end-time is reached</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>1</td>
+<td>1</td>
+<td>Use repetitions but quit if total-time or end-time run out</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because I decrement after the start-time is set, this will always return True on the first call (it assumes you want at least one repetition).</p>
+</div>
+<p class="plantuml">
+<img src="../../_images/plantuml-98ee989b3ef18045ff12b67bf98eb935c73fad31.png" alt="TimeTracker &lt;|-- CountdownTimer
+CountdownTimer : __call__()" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">CountdownTimer</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Feature: DummyClass logs calls made to it &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Feature: DummyClass logs calls made to it</a><ul>
+<li><a class="reference internal" href="#scenario-dummyclass-set-up-to-use-debug-logging">Scenario: DummyClass set up to use debug logging</a></li>
+<li><a class="reference internal" href="#scenario-dummyclass-set-up-to-use-debug-logging-and-getattr-called">Scenario: DummyClass set up to use debug logging and getattr called</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../../../_sources/parts/dummy/tests/steps/dummysteps.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="feature-dummyclass-logs-calls-made-to-it">
+<h1>Feature: DummyClass logs calls made to it<a class="headerlink" href="#feature-dummyclass-logs-calls-made-to-it" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-gherkin"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> DummyClass logs calls made to it</span>
+<span class="nf">    In order to get a better idea of what the code is doing</span>
+<span class="nf">    As a developer of tuna-code</span>
+<span class="nf">    I want a class that can be injected into the runtime to log calls to it</span>
+
+<span class="k">Scenario:</span><span class="nf"> DummyClass set up to use debug logging and called</span>
+<span class="k">    Given </span><span class="nf">the DummyClass is created with &quot;</span><span class="s">debug</span><span class="nf">&quot; level logging</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the DummyClass is called</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">it will log the call and arguments to the &quot;</span><span class="s">debug</span><span class="nf">&quot; logger</span>
+
+<span class="k">Scenario:</span><span class="nf"> DummyClass set up to use debug logging and getattr called</span>
+<span class="k">    Given </span><span class="nf">the DummyClass is created with &quot;</span><span class="s">debug</span><span class="nf">&quot; level logging</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the DummyClass getattr is called</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">it will log the arguments to the &quot;</span><span class="s">debug</span><span class="nf">&quot; logger</span>
+
+
+<span class="k">Scenario:</span><span class="nf"> DummyClass set up to use info logging and called</span>
+<span class="k">    Given </span><span class="nf">the DummyClass is created with &quot;</span><span class="s">info</span><span class="nf">&quot; level logging</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the DummyClass is called</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">it will log the call and arguments to the &quot;</span><span class="s">info</span><span class="nf">&quot; logger</span>
+
+<span class="k">Scenario:</span><span class="nf"> DummyClass set up to use info logging and getattr called</span>
+<span class="k">    Given </span><span class="nf">the DummyClass is created with &quot;</span><span class="s">info</span><span class="nf">&quot; level logging</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the DummyClass getattr is called</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">it will log the arguments to the &quot;</span><span class="s">info</span><span class="nf">&quot; logger</span>
+</pre></div>
+</div>
+<div class="section" id="scenario-dummyclass-set-up-to-use-debug-logging">
+<h2>Scenario: DummyClass set up to use debug logging<a class="headerlink" href="#scenario-dummyclass-set-up-to-use-debug-logging" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s1">&#39;the DummyClass is created with &quot;</span><span class="si">{level}</span><span class="s1">&quot; level logging&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="s1">&#39;a o e&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">dummy</span> <span class="o">=</span> <span class="n">DummyClass</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;logging.Logger.</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">level</span><span class="p">),</span> <span class="n">context</span><span class="o">.</span><span class="n">log</span><span class="p">):</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">dummy</span><span class="o">.</span><span class="n">log</span>
+    <span class="k">return</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the DummyClass is called&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">call_dummy</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">dummy</span><span class="p">(</span><span class="o">*</span><span class="n">context</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s1">&#39;it will log the call and arguments to the &quot;</span><span class="si">{level}</span><span class="s1">&quot; logger&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">check_debug</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="n">call</span><span class="p">(</span><span class="n">CALLED</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">thing</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">dummy</span><span class="o">.</span><span class="n">identifier</span><span class="p">)),</span>
+                <span class="n">call</span><span class="p">(</span><span class="n">ARGS</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">args</span><span class="p">)),</span>
+                <span class="n">call</span><span class="p">(</span><span class="n">KWARGS</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">kwargs</span><span class="p">))]</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">dummy</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">mock_calls</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">expected</span><span class="p">))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-dummyclass-set-up-to-use-debug-logging-and-getattr-called">
+<h2>Scenario: DummyClass set up to use debug logging and getattr called<a class="headerlink" href="#scenario-dummyclass-set-up-to-use-debug-logging-and-getattr-called" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the DummyClass getattr is called&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">gettattr_call</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="s2">&quot;aaoeusnth&quot;</span>
+    <span class="nb">getattr</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">dummy</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">attribute</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s1">&#39;it will log the arguments to the &quot;</span><span class="si">{level}</span><span class="s1">&quot; logger&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">check_level_arguments</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="n">call</span><span class="p">(</span><span class="n">CALLED_ON</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span>
+                     <span class="n">thing</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">dummy</span><span class="o">.</span><span class="n">identifier</span><span class="p">))]</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">mock_calls</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">expected</span><span class="p">))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

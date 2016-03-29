@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Stop Conditions &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Parts" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Stop Conditions</a><ul>
+<li><a class="reference internal" href="#stop-condition-constants">Stop Condition Constants</a></li>
+<li><a class="reference internal" href="#the-stop-condition">The Stop Condition</a></li>
+<li><a class="reference internal" href="#stop-condition-with-ideal-value-check">Stop Condition with Ideal-Value Check</a></li>
+<li><a class="reference internal" href="#the-stop-condition-generator">The Stop Condition Generator</a></li>
+<li><a class="reference internal" href="#stopconditiongenerator-builder">StopConditionGenerator Builder</a></li>
+<li><a class="reference internal" href="#stopcondition-builder">StopCondition Builder</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/parts/stopcondition.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-stop-conditions">
+<h1>The Stop Conditions<a class="headerlink" href="#the-stop-conditions" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># python standard library</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="k">import</span> <span class="n">BaseClass</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="k">import</span> <span class="n">ConfigurationError</span>
+</pre></div>
+</div>
+<p>The Stop Conditions are callable objects used by the optimizers to decide when to stop.</p>
+<div class="section" id="stop-condition-constants">
+<h2>Stop Condition Constants<a class="headerlink" href="#stop-condition-constants" title="Permalink to this headline">¶</a></h2>
+<p>Constants for the Stop Conditions.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">StopConditionConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1"># options</span>
+    <span class="n">ideal</span> <span class="o">=</span> <span class="s1">&#39;ideal_value&#39;</span>
+    <span class="n">time_limit</span> <span class="o">=</span> <span class="s1">&#39;time_limit&#39;</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="s1">&#39;end_time&#39;</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="s1">&#39;delta&#39;</span>
+    <span class="n">default_delta</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">maximum_time</span> <span class="o">=</span> <span class="s1">&#39;maximum_local_time&#39;</span>
+    <span class="n">minimum_time</span> <span class="o">=</span> <span class="s1">&#39;minimum_local_time&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-stop-condition">
+<span id="optimization-components-stopcondition"></span><h2>The Stop Condition<a class="headerlink" href="#the-stop-condition" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-64b926aa0fb386ae775eb74e35bc1f0084b38135.png" alt="StopCondition : end_time
+StopCondition : time_limit
+StopCondition : __call__(solution)" />
+</p>
+<span class="target" id="module-tuna.parts.stopcondition"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopCondition</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopCondition.time_limit</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopCondition.end_time</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopCondition.__call__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopCondition.reset</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="stop-condition-with-ideal-value-check">
+<span id="optimization-components-stopcondition-ideal"></span><h2>Stop Condition with Ideal-Value Check<a class="headerlink" href="#stop-condition-with-ideal-value-check" title="Permalink to this headline">¶</a></h2>
+<p>The algorithms given in <a class="reference internal" href="../documentation/developer/references.html#eom" id="id1">[EOM]</a> use two conditions for stopping &#8211; either reaching the ideal optimization point or running out of time. I&#8217;m assuming that in most cases running out of time is the actual limit that will be used, but for the cases where a threshold is known, the StopConditionIdeal will check both the values and the time.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-55cfe08fbc311738ab25373e37b807a1ff4e8b1a.png" alt="StopCondition &lt;|-- StopConditionIdeal" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionIdeal</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionIdeal.__call__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the call method for the StopConditionIdeal compares the candididate solution to the ideal value using a &#8216;&gt;=&#8217; inequality, so if solutions are objects instead of numbers they have to be able to have the inequality operations defined (e.g. <code class="docutils literal"><span class="pre">__eq__</span></code>, <code class="docutils literal"><span class="pre">__gte__</span></code>, etc.).</p>
+</div>
+</div>
+<div class="section" id="the-stop-condition-generator">
+<span id="optimization-components-stopcondition-generator"></span><h2>The Stop Condition Generator<a class="headerlink" href="#the-stop-condition-generator" title="Permalink to this headline">¶</a></h2>
+<p>The StopConditionGenerator creates StopConditions (Ideal) with random end-times.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-44bc1dc238d3210ce212a05871a1805ce8904b48.png" alt="StopConditionGenerator o- StopCondition
+StopConditionGenerator o- StopConditionIdeal" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGenerator</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGenerator.random_function</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGenerator.end_time</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGenerator.stop_condition</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGenerator.global_stop_condition</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGenerator.__iter__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The StopConditionGenerator generates StopConditions. The first time it generates one it will set the end_time based on the <cite>time_limit</cite> unless it was already set. This way it won&#8217;t exceed the maximum time. Each StopCondition will get a different time-out that&#8217;s randomly generated based on the <code class="docutils literal"><span class="pre">time_limit</span></code> and <code class="docutils literal"><span class="pre">minimum_time</span></code>.</p>
+<table border="1" class="docutils" id="id2">
+<caption><span class="caption-text">StopConditionGenerator Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">time_limit</span></code></td>
+<td>Seconds to generate stop-conditions</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">maximum_time</span></code></td>
+<td>Upper-bound for the amount of time each StopCondition will run</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">minimum_time</span></code></td>
+<td>Lower-bound for the amount of time each StopCondition will run</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">end_time</span></code></td>
+<td>c-time to stop generation</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">ideal</span></code></td>
+<td>If set the conditions will stop when the test value is close enough to it</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">delta</span></code></td>
+<td>Difference from ideal for stop-condition</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">use_singleton</span></code></td>
+<td>If True use same stop-condition object (but change the time-outs)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">random_function</span></code></td>
+<td>Function to use instead of random.uniform to get time-outs</td>
+</tr>
+</tbody>
+</table>
+<p>Right now the times are generated uniformly, so the expected call will be <code class="docutils literal"><span class="pre">random.uniform(minimum_time,</span> <span class="pre">time_limit)</span></code>. If you want to use a different function you can pass it into the constructor, so long as it can be called with the same values.</p>
+<p>The <code class="docutils literal"><span class="pre">use_singleton</span></code> is a little misleading &#8211; the <code class="docutils literal"><span class="pre">StopConditionGenerator</span></code> stores the object but creating a new <code class="docutils literal"><span class="pre">StopConditionGenerator</span></code> will create a new StopCondition so it&#8217;s not a True singleton.</p>
+<p>Although you could pull the <cite>stop_condition</cite> property to get new stop-conditions, the intention is to use it as and iterator. Let&#8217;s assume you have a StopConditionGenerator object named <cite>stop_generator</cite>, then the way to used it might be something like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">stop_condition</span> <span class="ow">in</span> <span class="n">stop_generator</span><span class="p">:</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">stop_condition</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
+        <span class="n">new_candidate</span> <span class="o">=</span> <span class="n">Tweak</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">Quality</span><span class="p">(</span><span class="n">new_candidate</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Quality</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
+            <span class="n">candidate</span> <span class="o">=</span> <span class="n">new_candidate</span>
+<span class="k">return</span> <span class="n">candidate</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stopconditiongenerator-builder">
+<h2>StopConditionGenerator Builder<a class="headerlink" href="#stopconditiongenerator-builder" title="Permalink to this headline">¶</a></h2>
+<p>A builder of StopConditionGenerators.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-7fc88f91feb1bc2bc831ab07983a67235c37b9e1.png" alt="BaseClass &lt;|-- StopConditionGeneratorBuilder
+StopConditionGeneratorBuilder o- ConfigurationMap
+StopConditionGeneratorBuilder o- StopConditionGenerator" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGeneratorBuilder</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionGeneratorBuilder.product</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="stopcondition-builder">
+<h2>StopCondition Builder<a class="headerlink" href="#stopcondition-builder" title="Permalink to this headline">¶</a></h2>
+<p>A builder of stop-conditions.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionBuilder</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">StopConditionBuilder.product</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

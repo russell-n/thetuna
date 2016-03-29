@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.plugins.simulatedannealing &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.plugins.simulatedannealing</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># python standard library</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="c1"># third-party</span>
+<span class="c1"># this is for testing only</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># this package</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure</span> <span class="kn">import</span> <span class="n">singletons</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">GLOBAL_NAME</span>
+<span class="kn">from</span> <span class="nn">base_plugin</span> <span class="kn">import</span> <span class="n">BasePlugin</span>
+<span class="kn">from</span> <span class="nn">tuna.parts.storage.storageadapter</span> <span class="kn">import</span> <span class="n">StorageAdapter</span>
+<span class="kn">from</span> <span class="nn">tuna.parts.storage.nullstorage</span> <span class="kn">import</span> <span class="n">NullStorage</span>
+
+<span class="kn">from</span> <span class="nn">tuna.optimizers.simulatedannealing</span> <span class="kn">import</span> <span class="n">SimulatedAnnealer</span>
+<span class="kn">from</span> <span class="nn">tuna.optimizers.simulatedannealing</span> <span class="kn">import</span> <span class="n">TimeTemperatureGeneratorConstants</span>
+<span class="kn">from</span> <span class="nn">tuna.parts.stopcondition</span> <span class="kn">import</span> <span class="n">StopConditionBuilder</span>
+<span class="kn">from</span> <span class="nn">tuna.optimizers.simulatedannealing</span> <span class="kn">import</span> <span class="n">TimeTemperatureGeneratorBuilder</span>
+<span class="kn">from</span> <span class="nn">tuna.tweaks.convolutions</span> <span class="kn">import</span> <span class="n">GaussianConvolutionBuilder</span>
+<span class="kn">from</span> <span class="nn">tuna.tweaks.convolutions</span> <span class="kn">import</span> <span class="n">GaussianConvolutionConstants</span>
+<span class="kn">from</span> <span class="nn">tuna.tweaks.convolutions</span> <span class="kn">import</span> <span class="n">XYConvolutionBuilder</span>
+<span class="kn">from</span> <span class="nn">tuna.tweaks.convolutions</span> <span class="kn">import</span> <span class="n">XYConvolutionConstants</span>
+
+<span class="kn">from</span> <span class="nn">tuna.parts.stopcondition</span> <span class="kn">import</span> <span class="n">StopConditionConstants</span>
+<span class="kn">from</span> <span class="nn">tuna.parts.xysolution</span> <span class="kn">import</span> <span class="n">XYTweak</span><span class="p">,</span> <span class="n">XYSolution</span>
+<span class="kn">from</span> <span class="nn">tuna.qualities.qualitycomposite</span> <span class="kn">import</span> <span class="n">QualityCompositeBuilder</span>
+<span class="kn">from</span> <span class="nn">tuna.components.composite</span> <span class="kn">import</span> <span class="n">SimpleCompositeBuilder</span>
+
+
+
+<span class="n">in_pweave</span> <span class="o">=</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span>
+
+
+<span class="n">ANNEALINGSECTION</span> <span class="o">=</span> <span class="s1">&#39;Annealing&#39;</span>
+<span class="n">CONFIGURATION</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;[{section}]</span>
+<span class="s1"># since the plugin is specified, the section-name </span>
+<span class="s1"># just has to match an option in the TUNA section</span>
+<span class="s1">plugin = SimulatedAnnealing</span>
+
+<span class="s1"># to assess how things went, set store_output to a filename and it will</span>
+<span class="s1"># save the solutions found to it (comma-separated)</span>
+<span class="s1"># store_output = annealing_solutions_{{{{timestamp}}}}.csv</span>
+
+<span class="s1"># the components are the things that are given the input values</span>
+<span class="s1"># to get the output values (e.g. a component that measures iperf)</span>
+<span class="s1"># to see the known components use `tuna list -c`</span>
+<span class="s1"># the names in the list are meant to match a section header in the</span>
+<span class="s1"># configuration file so can be arbitrary</span>
+<span class="s1"># each section needs a &#39;component=&lt;component&gt;&#39; line </span>
+<span class="s1">components = &lt;comma-separated list of sections with component options&gt;</span>
+
+<span class="s1"># observers will be called once after the annealing is done</span>
+<span class="s1"># they will be called passing in the best solution found</span>
+<span class="s1"># like the components, each section needs a &#39;component = &lt;component&gt;&#39; line</span>
+<span class="s1"># observers = &lt;comma-separated list of sections with observer-component options&gt;</span>
+
+<span class="s1"># annealing parameters</span>
+<span class="s1">{start} = &lt;starting temperature (should be high)&gt;</span>
+<span class="s1">{stop} = &lt;stopping temperature (should be around 0)&gt;</span>
+<span class="s1"># alpha closer to 1 means slower descent</span>
+<span class="s1">{alpha} = &lt;change constant (0 &lt; alpha &lt; 1)&gt;</span>
+
+<span class="s1"># input parameters</span>
+<span class="s1"># these are for the random number generator</span>
+<span class="s1"># the default convolution assumes the same bounds for all entries in the vector</span>
+<span class="s1"># change to XYConvolution for the asymmettric 2-space case</span>
+<span class="s1">#tweak_type = &lt;type of convolution&gt;</span>
+
+<span class="s1"># the lower and upper bounds have to match the inputs for the thing being tested</span>
+<span class="s1">{num_type} = &lt;input number type (int or float)&gt;</span>
+<span class="s1">{low} = &lt;allowed lower bound for inputs&gt;</span>
+<span class="s1">{upper} = &lt;allowed upper bound for inputs&gt;</span>
+
+<span class="s1"># location is where the random changes will be centered (0 means equal chance positive or negative)</span>
+<span class="s1"># scale is how spread out the changes will be (bigger numbers, more randomness)</span>
+<span class="s1">{location} = &lt;center of random distribution (default={loc_default})&gt;</span>
+<span class="s1">{scale} = &lt;spread of random distribution (default={scale_default})&gt;</span>
+
+<span class="s1"># stopping conditions</span>
+<span class="s1">{end} = &lt;time to stop trying to improve (any reasonable time-stamp)&gt;</span>
+<span class="s1">{time_limit} = &lt;amount of time to try (if end_time not given)&gt;</span>
+<span class="s1">{ideal} = &lt;stop if this value is reached&gt;</span>
+<span class="s1">{delta} = &lt;difference from ideal to tolerate (default={delta_default})&gt;</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">ANNEALINGSECTION</span><span class="p">,</span>
+           <span class="n">start</span><span class="o">=</span><span class="n">TimeTemperatureGeneratorConstants</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+           <span class="n">stop</span><span class="o">=</span><span class="n">TimeTemperatureGeneratorConstants</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span>
+           <span class="n">alpha</span><span class="o">=</span><span class="n">TimeTemperatureGeneratorConstants</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
+           <span class="n">num_type</span><span class="o">=</span><span class="n">GaussianConvolutionConstants</span><span class="o">.</span><span class="n">number_type</span><span class="p">,</span>
+           <span class="n">location</span><span class="o">=</span><span class="n">GaussianConvolutionConstants</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+           <span class="n">loc_default</span><span class="o">=</span><span class="n">GaussianConvolutionConstants</span><span class="o">.</span><span class="n">location_default</span><span class="p">,</span>
+           <span class="n">low</span><span class="o">=</span><span class="n">GaussianConvolutionConstants</span><span class="o">.</span><span class="n">lower_bound</span><span class="p">,</span>
+           <span class="n">upper</span><span class="o">=</span><span class="n">GaussianConvolutionConstants</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">,</span>
+           <span class="n">scale</span><span class="o">=</span><span class="n">GaussianConvolutionConstants</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span>
+           <span class="n">scale_default</span><span class="o">=</span><span class="n">GaussianConvolutionConstants</span><span class="o">.</span><span class="n">scale_default</span><span class="p">,</span>
+
+            <span class="n">end</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
+            <span class="n">time_limit</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">time_limit</span><span class="p">,</span>
+            <span class="n">ideal</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">ideal</span><span class="p">,</span>
+            <span class="n">delta</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span>
+            <span class="n">delta_default</span><span class="o">=</span><span class="n">StopConditionConstants</span><span class="o">.</span><span class="n">default_delta</span><span class="p">)</span>
+
+
+<span class="n">output_documentation</span> <span class="o">=</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__builtin__&#39;</span>
+
+
+<div class="viewcode-block" id="SimulatedAnnealing"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.simulatedannealing.SimulatedAnnealing.html#tuna.plugins.simulatedannealing.SimulatedAnnealing">[docs]</a><span class="k">class</span> <span class="nc">SimulatedAnnealing</span><span class="p">(</span><span class="n">BasePlugin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simulated annealing plugin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SimulatedAnnealing.__init__"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.simulatedannealing.SimulatedAnnealing.html#tuna.plugins.simulatedannealing.SimulatedAnnealing.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        SimulatedAnnealing plugin Constructor</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimulatedAnnealing</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tweak</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">storage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A storage for solutions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                              <span class="n">option</span><span class="o">=</span><span class="s1">&#39;store_output&#39;</span><span class="p">,</span>
+                                              <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">storage</span> <span class="o">=</span> <span class="n">singletons</span><span class="o">.</span><span class="n">get_filestorage</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">GLOBAL_NAME</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">StorageAdapter</span><span class="p">(</span><span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">NullStorage</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span>                
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tweak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An object to &#39;tweak&#39; the candidate solution</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tweak</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">tweak_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                <span class="n">option</span><span class="o">=</span><span class="s1">&#39;tweak_type&#39;</span><span class="p">,</span>
+                                                <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                <span class="n">default</span><span class="o">=</span><span class="s1">&#39;gaussianconvolution&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">tweak_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;xy&#39;</span><span class="p">):</span>
+                <span class="n">tweak</span> <span class="o">=</span> <span class="n">XYConvolutionBuilder</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                         <span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tweak</span> <span class="o">=</span> <span class="n">GaussianConvolutionBuilder</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                               <span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tweak</span> <span class="o">=</span> <span class="n">XYTweak</span><span class="p">(</span><span class="n">tweak</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tweak</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An ordered dictionary for the HelpPage</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">bold</span> <span class="o">=</span> <span class="s1">&#39;{bold}&#39;</span>
+            <span class="n">reset</span> <span class="o">=</span> <span class="s1">&#39;{reset}&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SimulatedAnnealing&#39;</span>
+            <span class="n">bold_name</span> <span class="o">=</span> <span class="n">bold</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="n">reset</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{blue}&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="n">reset</span> <span class="o">+</span> <span class="s1">&#39; -- simulated annealing optimizer&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bold_name</span> <span class="o">+</span> <span class="s1">&#39; Runs a simulated annealing optimizer.&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s2">&quot;Configuration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CONFIGURATION</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Files&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__file__</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the SimulatedAnnealing product</span>
+
+<span class="sd">        To allow repeated running the SimulatedAnnealer is created anew every time</span>
+
+<span class="sd">        :precondition: self.configuration is a configuration map</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                   <span class="n">optional</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Building the Simulated Annealer with: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+
+        <span class="n">temperatures</span> <span class="o">=</span> <span class="n">TimeTemperatureGeneratorBuilder</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                                       <span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">QualityCompositeBuilder</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                          <span class="n">section_header</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+
+        <span class="n">observers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span> <span class="s1">&#39;observers&#39;</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">observers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">observers</span> <span class="o">=</span> <span class="n">SimpleCompositeBuilder</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                               <span class="n">section_header</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                               <span class="n">option</span><span class="o">=</span><span class="s1">&#39;observers&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+            <span class="c1"># make it so they do something with the last solution even though target.output is set</span>
+            <span class="k">for</span> <span class="n">observer</span> <span class="ow">in</span> <span class="n">observers</span><span class="p">:</span>
+                <span class="n">observer</span><span class="o">.</span><span class="n">always</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="n">candidate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_list</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                <span class="n">option</span><span class="o">=</span><span class="s1">&#39;candidate&#39;</span><span class="p">,</span>
+                                                <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="c1"># this needs to be made smarter</span>
+        <span class="k">if</span> <span class="n">candidate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">candidate</span> <span class="o">=</span> <span class="n">XYSolution</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">candidate</span><span class="p">]))</span>
+
+        <span class="n">stop_condition</span> <span class="o">=</span> <span class="n">StopConditionBuilder</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                                  <span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">)</span><span class="o">.</span><span class="n">product</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="n">SimulatedAnnealer</span><span class="p">(</span><span class="n">temperatures</span><span class="o">=</span><span class="n">temperatures</span><span class="p">,</span>
+                                          <span class="n">tweak</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tweak</span><span class="p">,</span>
+                                          <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span>
+                                          <span class="n">candidate</span><span class="o">=</span><span class="n">candidate</span><span class="p">,</span>
+                                          <span class="n">solution_storage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span>
+                                          <span class="n">stop_condition</span><span class="o">=</span><span class="n">stop_condition</span><span class="p">,</span>
+                                          <span class="n">observers</span><span class="o">=</span><span class="n">observers</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span>
+        
+<div class="viewcode-block" id="SimulatedAnnealing.fetch_config"><a class="viewcode-back" href="../../../plugins/api/tuna.plugins.simulatedannealing.SimulatedAnnealing.fetch_config.html#tuna.plugins.simulatedannealing.SimulatedAnnealing.fetch_config">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints example configuration to stdout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span> <span class="n">CONFIGURATION</span></div></div>
+<span class="c1"># end class SimulatedAnnealing</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.components.iperfquality &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.components.iperfquality</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># python standard library</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="c1"># third party</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># tuna</span>
+<span class="kn">from</span> <span class="nn">component</span> <span class="kn">import</span> <span class="n">BaseComponent</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">ConfigurationError</span>
+<span class="kn">from</span> <span class="nn">tuna.plugins.base_plugin</span> <span class="kn">import</span> <span class="n">BasePlugin</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure</span> <span class="kn">import</span> <span class="n">singletons</span>
+<span class="kn">from</span> <span class="nn">tuna.parts.storage.nullstorage</span> <span class="kn">import</span> <span class="n">NullStorage</span>
+<span class="kn">from</span> <span class="nn">tuna.commands.iperf.iperf</span> <span class="kn">import</span> <span class="n">IperfConfiguration</span><span class="p">,</span> <span class="n">IperfClass</span>
+<span class="kn">from</span> <span class="nn">tuna.commands.iperf.sumparser</span> <span class="kn">import</span> <span class="n">SumParser</span>
+<span class="kn">from</span> <span class="nn">tuna</span> <span class="kn">import</span> <span class="n">GLOBAL_NAME</span>
+<span class="kn">from</span> <span class="nn">tuna.hosts.host</span> <span class="kn">import</span> <span class="n">TheHost</span><span class="p">,</span> <span class="n">HostConfiguration</span>
+
+
+<span class="k">class</span> <span class="nc">IperfDataConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants for builders of the XYData class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">store_output_option</span> <span class="o">=</span> <span class="s1">&#39;store_output&#39;</span>
+    <span class="n">repetitions_option</span> <span class="o">=</span> <span class="s1">&#39;iperf_repetitions&#39;</span>
+    <span class="n">direction_option</span> <span class="o">=</span> <span class="s1">&#39;direction&#39;</span>
+    <span class="n">client_section_option</span> <span class="o">=</span> <span class="s1">&#39;client_section&#39;</span>
+    <span class="n">server_section_option</span> <span class="o">=</span> <span class="s1">&#39;server_section&#39;</span>
+    <span class="n">aggregator_option</span> <span class="o">=</span> <span class="s1">&#39;aggregator&#39;</span>
+    <span class="n">use_sums_option</span> <span class="o">=</span> <span class="s1">&#39;use_sums&#39;</span>
+
+
+<span class="n">CONFIGURATION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">[IperfData]</span>
+<span class="s2"># this follows the pattern for plugins --</span>
+<span class="s2"># the header has to match what&#39;s in the `components` list</span>
+<span class="s2"># the component option has to be &#39;Iperf&#39;</span>
+<span class="s2">component = Iperf</span>
+
+<span class="s2"># to shorten this section the configuration</span>
+<span class="s2"># for the client (DUT) and server (Traffic PC)</span>
+<span class="s2"># are broken out so you have to indicate their</span>
+<span class="s2"># section names here (this is case-sensitive)</span>
+<span class="s2">client_section = DUT</span>
+<span class="s2">server_section = TPC</span>
+
+<span class="s2"># if store output is set to true, save the raw iperf files</span>
+<span class="s2">#store_output = True</span>
+
+<span class="s2"># if use_sums is True, don&#39;t re-add the threads, use the summed lines</span>
+<span class="s2"># use_sums = True</span>
+
+<span class="s2"># the iperf output has to be reduced to a single number</span>
+<span class="s2"># the default is to take the median of all outputs</span>
+<span class="s2"># for something else change it (only max, min, mean, median, or sum for now)</span>
+<span class="s2"># this affects both the value returned with each iperf session</span>
+<span class="s2"># and how the sessions are aggregated if you use more than 1 repetition</span>
+<span class="s2">#aggregator = sum</span>
+
+<span class="s2"># if you suspect there&#39;s variation, it might make sense to run it multiple times</span>
+<span class="s2"># This sets how many times to re-run iperf before trying another solution</span>
+<span class="s2"># I&#39;m not sure if this is more effective than running longer instead</span>
+<span class="s2"># iperf_repetitions = 1</span>
+
+<span class="s2"># direction can be anything that starts with &#39;u&#39; (for upstream only),</span>
+<span class="s2"># &#39;d&#39; (downstream only), or &#39;b&#39; (both)</span>
+<span class="s2"># I have no idea how to interpret the best location if you measure both, though</span>
+<span class="s2"># &#39;upstream&#39; means DUT -&gt; Server</span>
+<span class="s2"># &#39;downstream&#39; means SERVER -&gt; DUT</span>
+<span class="s2">direction = downstream</span>
+
+<span class="s2"># iperf settings</span>
+<span class="s2"># these can be any long-form iperf options (without the dashes)</span>
+<span class="s2"># so looking at the iperf man page (or `iperf -h`) will give you the valid options</span>
+<span class="s2"># note that in some cases iperf uses shortenings (e.g. `len` vs `length`)</span>
+<span class="s2"># Any option not given will use the iperf defaults</span>
+<span class="s2"># parallel = 4</span>
+
+<span class="s2"># if the option takes no settings, use True to turn on</span>
+<span class="s2"># udp = True</span>
+
+<span class="s2"># but note that udp isn&#39;t well tested</span>
+<span class="s2"># also the --client &lt;hostname&gt; and --server options are set using the</span>
+<span class="s2"># DUT and Server info so don&#39;t set them</span>
+
+<span class="s2">[DUT]</span>
+<span class="s2"># this is an example for the connection to the dut</span>
+<span class="s2"># the section header has to match what&#39;s declared in the</span>
+<span class="s2"># iperf section</span>
+
+<span class="s2"># the connection_type can be ssh or telnet</span>
+<span class="s2">connection_type = ssh</span>
+<span class="s2">control_ip = 192.168.10.50</span>
+<span class="s2">test_ip = 192.168.20.50</span>
+<span class="s2">username = tester</span>
+
+<span class="s2"># password is optional if host-keys are set up and you are using ssh</span>
+
+<span class="s2"># password = testlabs</span>
+
+<span class="s2"># the &#39;prefix&#39; will be prepended to all commands sent to the device</span>
+<span class="s2"># the main uses are adding &#39;adb shell&#39; or path-directories</span>
+<span class="s2"># because these two cases are different (`adb shell` is space separated from commands</span>
+<span class="s2"># while setting a PATH has to be semi-colon separated) the prefix is added as-is</span>
+<span class="s2"># it&#39;s up to the user to create a sensible one</span>
+<span class="s2"># it looks funny with the &#39;=&#39; but everything to the right of the first &#39;=&#39; is</span>
+<span class="s2"># read as a string</span>
+
+<span class="s2"># prefix = PATH=/opt/wifi:$PATH; adb shell</span>
+
+<span class="s2"># timeout is amount of time to allow a command to run before giving up</span>
+<span class="s2"># because timeouts raise an error, this should only be used for </span>
+<span class="s2"># problematic devices</span>
+<span class="s2"># timeout = 1 minute 30 seconds</span>
+
+<span class="s2"># operating-system is currently just an identifier </span>
+<span class="s2"># operating_system = linux</span>
+
+<span class="s2"># These are the subset of parameters that I thought necessary</span>
+<span class="s2"># if you need to add more and you know it&#39;s supported by</span>
+<span class="s2"># paramiko or telnet&#39;s constructors you should be able to add it</span>
+<span class="s2"># e.g. if you know there is a &#39;port&#39; parameter you can set it:</span>
+<span class="s2"># port = 52686</span>
+
+<span class="s2">[TPC]</span>
+<span class="s2"># this is basically configured the same way as the client-section</span>
+<span class="s2">connection_type = ssh</span>
+<span class="s2">control_ip = 192.168.10.50</span>
+<span class="s2">test_ip = 192.168.20.50</span>
+<span class="s2">username = tester</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The Iperf quality metric runs iperf and returns the median bandwidth to the optimizer that calls it. </span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="n">FILE_FORMAT</span> <span class="o">=</span> <span class="s2">&quot;input_{inputs}_rep_{repetition}.iperf&quot;</span>
+
+<div class="viewcode-block" id="IperfMetric"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.IperfMetric.html#tuna.components.iperfquality.IperfMetric">[docs]</a><span class="k">class</span> <span class="nc">IperfMetric</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An aggregator of iperf output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="IperfMetric.__init__"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.IperfMetric.html#tuna.components.iperfquality.IperfMetric.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directions</span><span class="p">,</span> <span class="n">iperf</span><span class="p">,</span> <span class="n">repetitions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">aggregator</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        IperfMetric constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `repetititons`: number of times to repeat iperf test</span>
+<span class="sd">         - `directions`: iterable collection of iperf directions</span>
+<span class="sd">         - `iperf`: a built IperfClass object</span>
+<span class="sd">         - `aggregator`: callable to reduce iperf outputs to one value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IperfMetric</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="o">=</span> <span class="n">repetitions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directions</span> <span class="o">=</span> <span class="n">directions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iperf</span> <span class="o">=</span> <span class="n">iperf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span> <span class="o">=</span> <span class="n">aggregator</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">aggregator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        callable to reduce multiple outputs to one value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">median</span>            
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span>
+
+<div class="viewcode-block" id="IperfMetric.__call__"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.IperfMetric.__call__.html#tuna.components.iperfquality.IperfMetric.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The main interface returns aggregate value for iperf output</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `target`: object with `inputs` and `output`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">outcomes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">output</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">repetition</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="s2">&quot;Iperf Repetition {0} of {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repetition</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">:</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="n">FILE_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repetition</span><span class="o">=</span><span class="n">repetition</span><span class="p">,</span>
+                                                  <span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">target</span><span class="o">.</span><span class="n">inputs</span><span class="p">]))</span>
+                    <span class="n">outcomes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iperf</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>            
+            <span class="n">target</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregator</span><span class="p">(</span><span class="n">outcomes</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="s2">&quot;{0} of {1} iperf repetitions: {2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aggregator</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                                                                        <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span><span class="p">,</span>
+                                                                        <span class="n">target</span><span class="o">.</span><span class="n">output</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">target</span><span class="o">.</span><span class="n">output</span></div>
+
+<div class="viewcode-block" id="IperfMetric.check_rep"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.IperfMetric.html#tuna.components.iperfquality.IperfMetric.check_rep">[docs]</a>    <span class="k">def</span> <span class="nf">check_rep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the given constructor parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span><span class="p">)</span> <span class="ow">is</span> <span class="n">IntType</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">repetitions</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aggregator</span><span class="p">,</span> <span class="s1">&#39;__call__&#39;</span><span class="p">)</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="IperfMetric.close"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.IperfMetric.html#tuna.components.iperfquality.IperfMetric.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This doesn&#39;t do anything</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span></div></div>
+<span class="c1"># end IperfMetric            </span>
+
+
+<div class="viewcode-block" id="Iperf"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.Iperf.html#tuna.components.iperfquality.Iperf">[docs]</a><span class="k">class</span> <span class="nc">Iperf</span><span class="p">(</span><span class="n">BasePlugin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds IperfMetric objects from configuration-maps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Iperf.__init__"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.Iperf.html#tuna.components.iperfquality.Iperf.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iperf constructor</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `configuration`: configuration map</span>
+<span class="sd">         - `section`: name of section with needed options</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Iperf</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iperf</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_configuration</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_parser</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">aggregator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A callable to aggregate iperf values</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">aggregator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                <span class="n">option</span><span class="o">=</span><span class="n">IperfDataConstants</span><span class="o">.</span><span class="n">aggregator_option</span><span class="p">,</span>
+                                                <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">aggregator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">aggregators</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="s2">&quot;min max sum mean median&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span>
+                                       <span class="p">[</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="nb">sum</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">]))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span> <span class="o">=</span> <span class="n">aggregators</span><span class="p">[</span><span class="n">aggregator</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregator</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">iperf_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        IperfParser or SumParser (depending on configuration)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_parser</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_boolean</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                              <span class="n">option</span><span class="o">=</span><span class="n">IperfDataConstants</span><span class="o">.</span><span class="n">use_sums_option</span><span class="p">,</span>
+                                              <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                              <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">interval</span> <span class="o">=</span> <span class="mi">10</span>
+                <span class="n">threads</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">client_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;interval&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">interval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">client_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;interval&#39;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">client_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">interval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">client_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">client_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parallel&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">threads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">client_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parallel&#39;</span><span class="p">)</span>
+                        
+                <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_parser</span> <span class="o">=</span> <span class="n">SumParser</span><span class="p">(</span><span class="n">expected_interval</span><span class="o">=</span><span class="n">interval</span><span class="p">,</span>
+                                               <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_parser</span>
+
+
+    <span class="k">def</span> <span class="nf">host_builder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="n">configuration</span> <span class="o">=</span> <span class="n">HostConfiguration</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                                     <span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">TheHost</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">control_ip</span><span class="p">,</span>
+                         <span class="n">test_interface</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">test_ip</span><span class="p">,</span>
+                        <span class="n">username</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                        <span class="n">timeout</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+                        <span class="n">prefix</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span>
+                        <span class="n">operating_system</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">operating_system</span><span class="p">,</span>
+                        <span class="n">connection_type</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">connection_type</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">configuration</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">client</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Host object for the traffic-PC</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                             <span class="n">option</span><span class="o">=</span><span class="n">IperfDataConstants</span><span class="o">.</span><span class="n">server_section_option</span><span class="p">,</span>
+                                             <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">host_builder</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span>
+        
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Host object for the DUT</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                    <span class="n">option</span><span class="o">=</span><span class="n">IperfDataConstants</span><span class="o">.</span><span class="n">client_section_option</span><span class="p">,</span>
+                                                    <span class="n">optional</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">host_builder</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">storage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        storage object (file or null)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">store_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_boolean</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                          <span class="n">option</span><span class="o">=</span><span class="n">IperfDataConstants</span><span class="o">.</span><span class="n">store_output_option</span><span class="p">,</span>
+                                              <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                              <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">store_output</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">singletons</span><span class="o">.</span><span class="n">get_filestorage</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">GLOBAL_NAME</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">NullStorage</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">iperf_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iperf configuration object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_configuration</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_configuration</span>  <span class="o">=</span> <span class="n">IperfConfiguration</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+                                                            <span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iperf_configuration</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">iperf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        iperf class object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iperf</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_iperf</span> <span class="o">=</span> <span class="n">IperfClass</span><span class="p">(</span><span class="n">dut</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span>
+                                     <span class="n">traffic_server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">,</span>
+                                     <span class="n">client_settings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">client_settings</span><span class="p">,</span>
+                                     <span class="n">server_settings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">server_settings</span><span class="p">,</span>
+                                     <span class="n">storage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span>
+                                     <span class="n">parser</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iperf_parser</span><span class="p">,</span>
+                                     <span class="n">aggregator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">aggregator</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iperf</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A built Iperf object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">repetitions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">section_header</span><span class="p">,</span>
+                                                 <span class="n">option</span><span class="o">=</span><span class="n">IperfDataConstants</span><span class="o">.</span><span class="n">repetitions_option</span><span class="p">,</span>
+                                                 <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                 <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">directions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iperf_configuration</span><span class="o">.</span><span class="n">direction</span>
+            <span class="k">if</span> <span class="n">directions</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">):</span>
+                <span class="n">directions</span> <span class="o">=</span> <span class="s1">&#39;upstream downstream&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">directions</span> <span class="o">=</span> <span class="p">[</span><span class="n">directions</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product</span> <span class="o">=</span> <span class="n">IperfMetric</span><span class="p">(</span><span class="n">repetitions</span><span class="o">=</span><span class="n">repetitions</span><span class="p">,</span>
+                                   <span class="n">directions</span><span class="o">=</span><span class="n">directions</span><span class="p">,</span>
+                                   <span class="n">iperf</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iperf</span><span class="p">,</span>
+                                   <span class="n">aggregator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">aggregator</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An ordered dictionary for the HelpPage</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">bold</span> <span class="o">=</span> <span class="s1">&#39;{bold}&#39;</span>
+            <span class="n">reset</span> <span class="o">=</span> <span class="s1">&#39;{reset}&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Iperf&#39;</span>
+            <span class="n">bold_name</span> <span class="o">=</span> <span class="n">bold</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="n">reset</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{blue}&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="n">reset</span> <span class="o">+</span> <span class="s1">&#39; -- A component for optimizer plugins&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bold_name</span> <span class="o">+</span> <span class="n">DESCRIPTION</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s2">&quot;Configuration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CONFIGURATION</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span><span class="p">[</span><span class="s1">&#39;Files&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__file__</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sections</span>
+
+<div class="viewcode-block" id="Iperf.fetch_config"><a class="viewcode-back" href="../../../components/api/tuna.components.iperfquality.Iperf.html#tuna.components.iperfquality.Iperf.fetch_config">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        prints sample configuration to the scree</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span> <span class="n">CONFIGURATION</span>
+        <span class="k">return</span></div></div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

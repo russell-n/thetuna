@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Simulated Annealing Optimizer &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="Optimizers" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Simulated Annealing Optimizer</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#simulated-annealer">Simulated Annealer</a></li>
+<li><a class="reference internal" href="#temperature-generator">Temperature Generator</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#timetemperaturegenerator-builder">TimeTemperatureGenerator Builder</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/optimizers/simulatedannealing.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-simulated-annealing-optimizer">
+<h1>The Simulated Annealing Optimizer<a class="headerlink" href="#the-simulated-annealing-optimizer" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ANNEALING_SOLUTIONS</span> <span class="o">=</span> <span class="s2">&quot;annealing_solutions.csv&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="background">
+<span id="optimization-optimizers-simulatedannealing-background"></span><h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>This optimizer uses <cite>simulated annealing</cite>, an nature-based approach that uses the annealing process as its model. In annealing, the rate at which a metal is allowed to cool is controlled so that the quality of the metal can be determined. If the metal is cooled rapidly it becomes hard and brittle as the molecules are pulled together tightly by the sudden drop in temperature. If the metal is cooled slowly, it becomes smoother and more pliable as the molecules are given time to arrange themselves in a uniform lattice.</p>
+<p>The optimizer simulates annealing by starting with a high &#8216;temperature&#8217; which causes it to explore more and then as it cools down it begins to slow its exploration. Specifically, it calculates an entropy value based on the difference between the new candidate and the previous solution and the temperature and then generates a random number which, if it is less that the entropy value, causes the learner to accept the new candidate even if it doesn&#8217;t do as well as the previous solution.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The class itself is called <cite>SimulatedAnnealer</cite> so that I can call the plugin <cite>SimulatedAnnealing</cite></p>
+</div>
+<div class="math">
+<p><img src="../_images/math/4e49199418abc8e7f05d9f9875ff120eacc9ea5e.png" alt="entropy = e^{\frac{Quality(C) - Quality(S)}{t}}\\"/></p>
+</div></div>
+<div class="section" id="simulated-annealer">
+<span id="optimization-optimizers-simulatedannealing"></span><h2>Simulated Annealer<a class="headerlink" href="#simulated-annealer" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-8f18278426e3ad885321cac78bc9267e9e693035.png" alt="BaseComponent &lt;|-- SimulatedAnnealer" />
+</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">SimulatedAnnealer</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">SimulatedAnnealer.__call__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">SimulatedAnnealer.solution</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">SimulatedAnnealer.check_rep</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">SimulatedAnnealer.close</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">SimulatedAnnealer.reset</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="temperature-generator">
+<span id="optimization-optimizers-simulatedannealing-temperaturegenerator"></span><h2>Temperature Generator<a class="headerlink" href="#temperature-generator" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TemperatureGenerator</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TemperatureGenerator.__iter__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>In the algorithm for simulated annealing the temperature drop is called the <em>temperature schedule</em>. In the simplest case this can be linear, although if the model is meant to be closer to nature it would need to slow its cooling as it progresses. This generator, then is meant to be a way for the user of the annealer to define how the temperature changes without having to change the annealer itself.</p>
+<p>The TemperatureGenerator assumes that the next temperature is a function of the current temperature, which allows for linear transformations.</p>
+<div class="math">
+<p><img src="../_images/math/ba6921c1c429ad8c541ee0bc63cef9fda3a1123a.png" alt="T' \gets T - \delta T\\"/></p>
+</div><p>Or something similar. The TimeTemperatureGenerator instead assumes that the transformations will be a function of the starting temperature (<img class="math" src="../_images/math/19065cca1578b64f0167444335e4c0e48376634d.png" alt="T_0"/>) and the time (number of repetitions so far). This makes it easier to do a geometric schedule like the following.</p>
+<div class="math">
+<p><img src="../_images/math/9cadbbed00cf754a6f8862206c2d3b7a94742e40.png" alt="T(t) \gets T_0 \alpha^t\\"/></p>
+</div><p>Where <img class="math" src="../_images/math/d360912114c6fb1046600e022c791fbf3b1c4a72.png" alt="0 &lt; \alpha &lt; 1"/> and <img class="math" src="../_images/math/19065cca1578b64f0167444335e4c0e48376634d.png" alt="T_0"/> is the starting temperature. To figure out how many repetitions there are you take the ratio of the logs of the parameters.</p>
+<div class="math">
+<p><img src="../_images/math/27f49deee0403ff4e3c02a5855b1b09c2fa3af23.png" alt="repetitions &amp;= \frac{\ln{\frac{t_f}{t_0}}}{\ln{\alpha}}\\
+            &amp;= \frac{\ln{t_f}- \ln{t_0}}{\ln{\alpha}}\\"/></p>
+</div><p>The repetitions themselves might not be particularly useful, but if you have an estimate of how long each quality-check will take, then you can estimate a total running time by multiplying the quality-check length by the number of repetitions. As an example of what I mean, suppose that the quality-check involved moving a device and then running iperf.</p>
+<div class="math">
+<p><img src="../_images/math/299b1ccc5d00571e99f8a70bacfbce35d3dbdac3.png" alt="RunTime &amp;= \frac{\ln{t_f}- \ln{t_0}}{\ln{\alpha}} \times (MoveTime + IperfTime)\\"/></p>
+</div><p><img class="math" src="../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> should be fairly close to 1 if you want it to cool slowly or close to 0 if you want it to cool quickly.</p>
+<p>To make this work the schedule has to make use of the start time so it will be created as a method instead of a parameter. It will use the geometric progression shown above. If you want to change it monkey patch the <cite>schedule</cite> method.</p>
+<div class="figure">
+<img alt="../_images/geometric_plot.png" src="../_images/geometric_plot.png" />
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTemperatureGenerator</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTemperatureGenerator.schedule</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTemperatureGenerator.__iter__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Since it has an alpha value the schedule could be overridden to make a linear descent as well.</p>
+<div class="math">
+<p><img src="../_images/math/d72c22b4af124cc6a4063d33e5e5fd578dfcd47d.png" alt="T \gets T_0 - \alpha t\\"/></p>
+</div><p>Where <img class="math" src="../_images/math/19065cca1578b64f0167444335e4c0e48376634d.png" alt="T_0"/> is the start temperature (the intercept) and <img class="math" src="../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> is the rate of change (slope).</p>
+</div>
+<div class="section" id="timetemperaturegenerator-builder">
+<h2>TimeTemperatureGenerator Builder<a class="headerlink" href="#timetemperaturegenerator-builder" title="Permalink to this headline">¶</a></h2>
+<p>As a starting point, I&#8217;ll assume the TimeTemperatureGenerator with the default schedule is being used.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># this is for clients so the strings are consistent</span>
+<span class="k">class</span> <span class="nc">TimeTemperatureGeneratorConstants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1"># the config file needs to be wordier</span>
+    <span class="c1"># so the option-names are longer</span>
+    <span class="c1"># options</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="s1">&#39;start_temperature&#39;</span>
+    <span class="n">stop</span> <span class="o">=</span> <span class="s1">&#39;stop_temperature&#39;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="s1">&#39;alpha_temperature&#39;</span>
+</pre></div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTemperatureGeneratorBuilder</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TimeTemperatureGeneratorBuilder.product</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

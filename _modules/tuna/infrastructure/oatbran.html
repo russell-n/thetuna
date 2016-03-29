@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tuna.infrastructure.oatbran &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="tuna" href="../../tuna.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for tuna.infrastructure.oatbran</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+
+<span class="c1"># the class-based expressions are mostly for organization</span>
+<span class="c1"># but sometimes they&#39;re just too clunky</span>
+<span class="n">LEFT_BRACKET</span> <span class="o">=</span> <span class="s1">&#39;[&#39;</span>
+<span class="n">RIGHT_BRACKET</span> <span class="o">=</span> <span class="s1">&#39;]&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">FormalDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The basic operators and elements of a regular expression</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">empty_string</span> <span class="o">=</span> <span class="s1">&#39;^$&#39;</span>
+    <span class="n">alternative</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+    <span class="n">OR</span> <span class="o">=</span> <span class="n">alternative</span>
+    <span class="n">kleene_star</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+
+
+<div class="viewcode-block" id="Group"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Group.html#tuna.infrastructure.oatbran.Group">[docs]</a><span class="k">class</span> <span class="nc">Group</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The Group helps with regular expression groups</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Group.group"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Group.group.html#tuna.infrastructure.oatbran.Group.group">[docs]</a>    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a grouped expression</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `expression`: the regular expression to group</span>
+<span class="sd">        :return: uncompiled group expression for e</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;({e})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">expression</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Group.named"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Group.named.html#tuna.infrastructure.oatbran.Group.named">[docs]</a>    <span class="k">def</span> <span class="nf">named</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a named group</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `name`: name to give the group</span>
+<span class="sd">         - `expression`: expression to use in the group</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;(?P&lt;{n}&gt;{e})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                     <span class="n">e</span><span class="o">=</span><span class="n">expression</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Group.followed_by"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Group.followed_by.html#tuna.infrastructure.oatbran.Group.followed_by">[docs]</a>    <span class="k">def</span> <span class="nf">followed_by</span><span class="p">(</span><span class="n">suffix</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the expression to match if followed by the suffix</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;(?={0})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Group.not_followed_by"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Group.not_followed_by.html#tuna.infrastructure.oatbran.Group.not_followed_by">[docs]</a>    <span class="k">def</span> <span class="nf">not_followed_by</span><span class="p">(</span><span class="n">suffix</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a (perl) negative lookahead expression</span>
+
+<span class="sd">        e.g. &#39;alpha(?!beta)&#39; matches &#39;alpha&#39; and &#39;alphagamma&#39;, not &#39;alphabeta&#39;</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">           - `suffix`: suffix to avoid matching</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;(?!{s})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Group.preceded_by"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Group.preceded_by.html#tuna.infrastructure.oatbran.Group.preceded_by">[docs]</a>    <span class="k">def</span> <span class="nf">preceded_by</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a look-behind expression</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `prefix`: an expression of fixed-order (no quantifiers or alternatives of different length)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;(?&lt;={0})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span></div>
+    
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Group.not_preceded_by"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Group.not_preceded_by.html#tuna.infrastructure.oatbran.Group.not_preceded_by">[docs]</a>    <span class="k">def</span> <span class="nf">not_preceded_by</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a (perl) negative look behind expression</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `prefix`: expression to group</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;(?&lt;!{e})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Quantifier"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Quantifier.html#tuna.infrastructure.oatbran.Quantifier">[docs]</a><span class="k">class</span> <span class="nc">Quantifier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to hold cardinality helpers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Quantifier.one_or_more"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Quantifier.one_or_more.html#tuna.infrastructure.oatbran.Quantifier.one_or_more">[docs]</a>    <span class="k">def</span> <span class="nf">one_or_more</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the one-or-more quantifier to the end of the pattern.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;{0}+&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>    </div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Quantifier.zero_or_one"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Quantifier.zero_or_one.html#tuna.infrastructure.oatbran.Quantifier.zero_or_one">[docs]</a>    <span class="k">def</span> <span class="nf">zero_or_one</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the zero-or-one quantifier to the pattern</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;{0}?&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Quantifier.exactly"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Quantifier.exactly.html#tuna.infrastructure.oatbran.Quantifier.exactly">[docs]</a>    <span class="k">def</span> <span class="nf">exactly</span><span class="p">(</span><span class="n">repetitions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates suffix to match source repeated exactly n times</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `repetitions`: number of times pattern has to repeat to match</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;{{{0}}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repetitions</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Quantifier.zero_or_more"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Quantifier.zero_or_more.html#tuna.infrastructure.oatbran.Quantifier.zero_or_more">[docs]</a>    <span class="k">def</span> <span class="nf">zero_or_more</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the kleene star to the pattern</span>
+
+<span class="sd">        :return: pattern*</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;{0}*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Quantifier.m_to_n"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Quantifier.m_to_n.html#tuna.infrastructure.oatbran.Quantifier.m_to_n">[docs]</a>    <span class="k">def</span> <span class="nf">m_to_n</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a repetition ranges suffix {m,n}</span>
+<span class="sd">        </span>
+<span class="sd">        :param:</span>
+
+<span class="sd">        - `m`: the minimum required number of matches</span>
+<span class="sd">        - `n`: the maximum number of  matches</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;{{{m},{n}}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CharacterClass"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.CharacterClass.html#tuna.infrastructure.oatbran.CharacterClass">[docs]</a><span class="k">class</span> <span class="nc">CharacterClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to help with character classes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="n">alpha_num</span> <span class="o">=</span> <span class="s2">r&quot;\w&quot;</span>
+    <span class="n">alpha_nums</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">alpha_num</span><span class="p">)</span>
+    <span class="n">digit</span> <span class="o">=</span> <span class="s1">r&#39;\d&#39;</span>
+    <span class="n">non_digit</span> <span class="o">=</span> <span class="s1">r&#39;\D&#39;</span>
+    <span class="n">non_zero_digit</span> <span class="o">=</span> <span class="s2">r&quot;[1-9]&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="CharacterClass.character_class"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.CharacterClass.character_class.html#tuna.infrastructure.oatbran.CharacterClass.character_class">[docs]</a>    <span class="k">def</span> <span class="nf">character_class</span><span class="p">(</span><span class="n">characters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a character class from the expression</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `characters`: string to convert to a class</span>
+
+<span class="sd">        :return: expression to match any character in expression</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;[{e}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">characters</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="CharacterClass.not_in"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.CharacterClass.not_in.html#tuna.infrastructure.oatbran.CharacterClass.not_in">[docs]</a>    <span class="k">def</span> <span class="nf">not_in</span><span class="p">(</span><span class="n">characters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a complement character class</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `characters`: characters to not match</span>
+
+<span class="sd">        :return: expression to match any character not in expression</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;[^{e}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">characters</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Boundaries"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Boundaries.html#tuna.infrastructure.oatbran.Boundaries">[docs]</a><span class="k">class</span> <span class="nc">Boundaries</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to hold boundaries for expressions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="n">string_start</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span>
+    <span class="n">string_end</span> <span class="o">=</span> <span class="s2">&quot;$&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Boundaries.word"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Boundaries.word.html#tuna.infrastructure.oatbran.Boundaries.word">[docs]</a>    <span class="k">def</span> <span class="nf">word</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds word boundaries to the word</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `word`: string to add word boundaries to</span>
+
+<span class="sd">        :return: string (raw) with word boundaries on both ends</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">r&quot;\b{e}\b&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">word</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Boundaries.string"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Boundaries.string.html#tuna.infrastructure.oatbran.Boundaries.string">[docs]</a>    <span class="k">def</span> <span class="nf">string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds boundaries to only match an entire string</span>
+
+<span class="sd">        :param:</span>
+
+<span class="sd">         - `string`: string to add boundaries to</span>
+
+<span class="sd">        :return: expression that only matches an entire line of text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">r&quot;^{e}$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">string</span><span class="p">)</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">CommonPatterns</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The common patterns that were leftover</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1">#anything and everything</span>
+    <span class="n">anything</span> <span class="o">=</span> <span class="s2">r&quot;.&quot;</span>
+    <span class="n">everything</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">anything</span><span class="p">)</span>
+    <span class="n">letter</span> <span class="o">=</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="n">characters</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">)</span>
+    <span class="n">letters</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    <span class="n">optional_letters</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    <span class="n">space</span> <span class="o">=</span> <span class="s1">r&#39;\s&#39;</span>
+    <span class="n">spaces</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+    <span class="n">optional_spaces</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+    <span class="n">not_space</span> <span class="o">=</span> <span class="s1">r&#39;\S&#39;</span>
+    <span class="n">not_spaces</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">not_space</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Numbers"><a class="viewcode-back" href="../../../infrastructure/api/tuna.infrastructure.oatbran.Numbers.html#tuna.infrastructure.oatbran.Numbers">[docs]</a><span class="k">class</span> <span class="nc">Numbers</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to hold number-related expressions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    
+    <span class="n">decimal_point</span> <span class="o">=</span> <span class="s1">r&#39;\.&#39;</span>
+    <span class="n">single_digit</span> <span class="o">=</span> <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="n">digits</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="n">two_digits</span> <span class="o">=</span> <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="n">one_hundreds</span> <span class="o">=</span> <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s2">&quot;1&quot;</span> <span class="o">+</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">optional_digits</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_more</span><span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span><span class="p">)</span>
+    <span class="c1"># python considers string-start and whitespace to be different lengths</span>
+    <span class="c1"># so to avoid &#39;.&#39; (which is a word-boundary character) and use line-starts and ends</span>
+    <span class="c1"># and whitespace requires four alternatives</span>
+    <span class="n">START_PREFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">preceded_by</span><span class="p">(</span><span class="n">Boundaries</span><span class="o">.</span><span class="n">string_start</span><span class="p">)</span>
+    <span class="n">END_SUFFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">followed_by</span><span class="p">(</span><span class="n">Boundaries</span><span class="o">.</span><span class="n">string_end</span><span class="p">)</span>
+    <span class="n">SPACE_PREFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">preceded_by</span><span class="p">(</span><span class="n">CommonPatterns</span><span class="o">.</span><span class="n">space</span><span class="p">)</span>
+    <span class="n">SPACE_SUFFIX</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">followed_by</span><span class="p">(</span><span class="n">CommonPatterns</span><span class="o">.</span><span class="n">space</span><span class="p">)</span>
+    <span class="c1"># Zero</span>
+    <span class="n">ZERO</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="p">(</span><span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+            <span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+            <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+            <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">ZERO</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span><span class="p">)</span>
+    <span class="c1"># positive integer</span>
+    <span class="n">z_plus</span> <span class="o">=</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">optional_digits</span>
+    <span class="n">positive_integer</span> <span class="o">=</span> <span class="p">(</span><span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                        <span class="n">START_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                        <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">END_SUFFIX</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span>
+                        <span class="n">SPACE_PREFIX</span> <span class="o">+</span> <span class="n">z_plus</span> <span class="o">+</span> <span class="n">SPACE_SUFFIX</span> <span class="p">)</span>
+
+    <span class="n">nonnegative_integer</span> <span class="o">=</span> <span class="p">(</span><span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">optional_digits</span> <span class="o">+</span>
+                           <span class="s1">r&#39;\b&#39;</span> <span class="o">+</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span> 
+                            <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+    <span class="c1"># this disqualifies leading decimal points but not zeros</span>
+    <span class="n">integer</span> <span class="o">=</span> <span class="p">(</span><span class="n">Group</span><span class="o">.</span><span class="n">not_preceded_by</span><span class="p">(</span><span class="n">decimal_point</span><span class="p">)</span> <span class="o">+</span>
+                               <span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_one</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="o">+</span> 
+                               <span class="n">CharacterClass</span><span class="o">.</span><span class="n">non_zero_digit</span> <span class="o">+</span> <span class="n">optional_digits</span> <span class="o">+</span>
+                               <span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span> 
+                               <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+
+    <span class="n">real</span> <span class="o">=</span> <span class="p">(</span><span class="n">Quantifier</span><span class="o">.</span><span class="n">zero_or_one</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="o">+</span> 
+            <span class="n">CharacterClass</span><span class="o">.</span><span class="n">digit</span> <span class="o">+</span> <span class="n">optional_digits</span> <span class="o">+</span>
+            <span class="n">decimal_point</span> <span class="o">+</span> <span class="n">optional_digits</span> <span class="o">+</span> 
+            <span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span> <span class="o">+</span> <span class="n">integer</span><span class="p">)</span>
+    
+    <span class="n">HEX</span> <span class="o">=</span> <span class="n">CharacterClass</span><span class="o">.</span><span class="n">character_class</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span>
+    <span class="n">hexadecimal</span> <span class="o">=</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">one_or_more</span><span class="p">(</span><span class="n">HEX</span><span class="p">)</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">Networking</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Holds expressions to help with networking-related text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">octet</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">expression</span><span class="o">=</span><span class="n">FormalDefinition</span><span class="o">.</span><span class="n">OR</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">Numbers</span><span class="o">.</span><span class="n">single_digit</span><span class="p">,</span>
+                                                             <span class="n">Numbers</span><span class="o">.</span><span class="n">two_digits</span><span class="p">,</span>
+                                                             <span class="n">Numbers</span><span class="o">.</span><span class="n">one_hundreds</span><span class="p">,</span>
+                                                             <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s2">&quot;2[0-4][0-9]&quot;</span><span class="p">),</span>
+                                                             <span class="n">Boundaries</span><span class="o">.</span><span class="n">word</span><span class="p">(</span><span class="s2">&quot;25[0-5]&quot;</span><span class="p">)]))</span>
+
+    <span class="n">dot</span> <span class="o">=</span> <span class="n">Numbers</span><span class="o">.</span><span class="n">decimal_point</span>
+
+    <span class="n">ip_address</span> <span class="o">=</span> <span class="n">dot</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">octet</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">hex_pair</span> <span class="o">=</span>  <span class="n">Numbers</span><span class="o">.</span><span class="n">HEX</span> <span class="o">+</span> <span class="n">Quantifier</span><span class="o">.</span><span class="n">exactly</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">mac_address</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">hex_pair</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span>
+
+
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

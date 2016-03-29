@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Feature: Command execution and data extraction &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../../index.html" />
+    <link rel="up" title="Feature Tests" href="index.html" />
+    <link rel="next" title="Feature: A SummaryQuery runs commnads multiple times and saves a summary statistic for each command" href="summaryqueryfeature.html" />
+    <link rel="prev" title="Feature Tests" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Feature: Command execution and data extraction</a><ul>
+<li><a class="reference internal" href="#background-a-command-is-created">Background: A command is created</a></li>
+<li><a class="reference internal" href="#scenario-single-data-group">Scenario: Single data group</a></li>
+<li><a class="reference internal" href="#scenario-multiple-data-groups">Scenario: Multiple data groups</a></li>
+<li><a class="reference internal" href="#scenario-no-matches-are-found">Scenario: No matches are found</a></li>
+<li><a class="reference internal" href="#scenario-matches-are-found-but-no-groups">Scenario: Matches are found but no groups</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Feature Tests"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Feature Tests</span>
+    </a>
+  </li>
+  <li>
+    <a href="summaryqueryfeature.html" title="Next Chapter: Feature: A SummaryQuery runs commnads multiple times and saves a summary statistic for each command"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Feature: A Su... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../../_sources/commands/tests/steps/commandfeature.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="feature-command-execution-and-data-extraction">
+<h1>Feature: Command execution and data extraction<a class="headerlink" href="#feature-command-execution-and-data-extraction" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-gherkin"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> Command execution and data extraction</span>
+
+<span class="k">Background:</span><span class="nf"> A command is created </span>
+<span class="k">    Given </span><span class="nf">a command is created with a mocked connection</span>
+
+<span class="k">Scenario:</span><span class="nf"> Single data group</span>
+<span class="k">    Given </span><span class="nf">the user identified one group in the data expression</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the command is executed</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">the call will return a single data-value</span>
+
+<span class="k">Scenario:</span><span class="nf"> Multiple data groups</span>
+<span class="k">    Given </span><span class="nf">the user identified multiple groups in the data expression</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the command is executed</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">the call will return all the groups as data</span>
+
+<span class="k">Scenario:</span><span class="nf"> No matches are found</span>
+<span class="k">    Given </span><span class="nf">the user creates a data_expression that doesn&#39;t match any output</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the command is executed</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">the call will return not_available</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">the logger will warn the user</span>
+
+<span class="k">Scenario:</span><span class="nf"> Matches are found but no groups </span>
+<span class="k">    Given </span><span class="nf">the user&#39;s data_expression doesn&#39;t have any groups that match output</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">the command is executed and checked with the output</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">a TunaError is raised</span>
+</pre></div>
+</div>
+<div class="section" id="background-a-command-is-created">
+<h2>Background: A command is created<a class="headerlink" href="#background-a-command-is-created" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;a command is created with a mocked connection&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">setup_command</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">command_string</span> <span class="o">=</span> <span class="s2">&quot;adb shell iw dev wlan0 link&quot;</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">TheCommand</span><span class="p">(</span><span class="n">connection</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">connection</span><span class="p">,</span>
+                                 <span class="n">command</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">command_string</span><span class="p">,</span>
+                                 <span class="n">data_expression</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">logger</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-single-data-group">
+<h2>Scenario: Single data group<a class="headerlink" href="#scenario-single-data-group" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;the user identified one group in the data expression&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">command_creation</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">data_expression</span> <span class="o">=</span> <span class="s2">r&quot;signal:\s*(-\d+)\s+dBm&quot;</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">data_expression</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">data_expression</span>
+    <span class="k">return</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the command is executed&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">command_execution</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">stdout</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Connected to 10:bd:18:ce:01:42 (on wlan0)</span>
+<span class="s2">            SSID: allionguest-2.4</span>
+<span class="s2">            freq: 2437</span>
+<span class="s2">            signal: -62 dBm</span>
+<span class="s2">            tx bitrate: 58.5 MBit/s&quot;&quot;&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">exec_command</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">data_actual</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;the call will return a single data-value&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">single_date</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">data_expected</span> <span class="o">=</span> <span class="s1">&#39;-62&#39;</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">data_actual</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">data_expected</span><span class="p">))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-multiple-data-groups">
+<h2>Scenario: Multiple data groups<a class="headerlink" href="#scenario-multiple-data-groups" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;the user identified multiple groups in the data expression&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">setup_multiple_groups</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">data_expression</span> <span class="o">=</span> <span class="s2">&quot;bitrate:\s*(\d+\.\d+)\s+[KM]*Bit/s|signal:\s*(-\d+)\s+dBm&quot;</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">data_expression</span> <span class="o">=</span> <span class="n">data_expression</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;the call will return all the groups as data&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">check_multiple_groups</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="s2">&quot;-62,58.5&quot;</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">data_actual</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">expected</span><span class="p">))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-no-matches-are-found">
+<h2>Scenario: No matches are found<a class="headerlink" href="#scenario-no-matches-are-found" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;the user creates a data_expression that doesn&#39;t match any output&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">bad_expression</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">data_expression</span> <span class="o">=</span> <span class="s2">&quot;zvwmaoeusnthlr;cgqjk&quot;</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">data_expression</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">data_expression</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;the call will return not_available&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">not_available</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">not_available</span><span class="p">,</span> <span class="n">equal_to</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">data_actual</span><span class="p">))</span>
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;the logger will warn the user&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">log_warning</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">CommandConstants</span><span class="o">.</span><span class="n">command_warning</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">data_expression</span><span class="p">,</span>
+                                                                                      <span class="n">context</span><span class="o">.</span><span class="n">command_string</span><span class="p">))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scenario-matches-are-found-but-no-groups">
+<h2>Scenario: Matches are found but no groups<a class="headerlink" href="#scenario-matches-are-found-but-no-groups" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;the user&#39;s data_expression doesn&#39;t have any groups that match output&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">no_groups</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">data_expression</span> <span class="o">=</span> <span class="s2">&quot;signal: | tx bitrate:&quot;</span>
+    <span class="k">return</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="s2">&quot;the command is executed and checked with the output&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">do_nothing</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">stdout</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Connected to 10:bd:18:ce:01:42 (on wlan0)</span>
+<span class="s2">            SSID: allionguest-2.4</span>
+<span class="s2">            freq: 2437</span>
+<span class="s2">            signal: -62 dBm</span>
+<span class="s2">            tx bitrate: 58.5 MBit/s&quot;&quot;&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">exec_command</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="s2">&quot;a TunaError is raised&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">raise_error</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">assert_that</span><span class="p">(</span><span class="n">calling</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">command</span><span class="p">),</span> <span class="n">raises</span><span class="p">(</span><span class="n">TunaError</span><span class="p">))</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Poller Class &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="Commands" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Poller Class</a><ul>
+<li><a class="reference internal" href="#id1">The Poller Class</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-run">The Run</a></li>
+<li><a class="reference internal" href="#the-pollerenum">The PollerEnum</a></li>
+<li><a class="reference internal" href="#the-pollerconfiguration">The PollerConfiguration</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-configuration">Example Configuration</a></li>
+<li><a class="reference internal" href="#the-poller-builder">The Poller Builder</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/commands/poller.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-poller-class">
+<h1>The Poller Class<a class="headerlink" href="#the-poller-class" title="Permalink to this headline">¶</a></h1>
+<p id="poller-class">To accomodate the almost arbitrary ways to get device-state information from a device, a general <cite>Poller</cite> class was created to let user&#8217;s specify commands to send to the device and regular expressions to extract information from their output. This is related to the <a class="reference internal" href="query.html#query-class"><span class="std std-ref">Query</span></a> but is intended to run continuously in the background, calling the command(s) at periodic intervals.</p>
+<div class="section" id="id1">
+<h2>The Poller Class<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p class="plantuml">
+<img src="../_images/plantuml-624b4a183808a232b7867197749a16f2ad3189b0.png" alt="BaseClass &lt;|-- Poller
+Poller : File output_file
+Poller : SSHClient connection
+Poller : List fields
+Poller : Dict commands
+Poller : Dict expressions
+Poller : DictWriter writer
+Poller : String not_available
+Poller : __call__()
+Poller o- csv.DictWriter
+Poller o- client
+Poller o- TheCommand" />
+</p>
+<span class="target" id="module-tuna"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseClass</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-tuna.commands.poller"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.timer</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.output_file</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.writer</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.close</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.run_once</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.run</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.__call__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.check_rep</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Poller.__del__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-tuna.commands.command"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TheCommand</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-tuna.parts.eventtimer"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">EventTimer</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">wait</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-run">
+<h2>The Run<a class="headerlink" href="#the-run" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>run_once</cite> method builds a dictionary of data output from the Poller&#8217;s commands. It always starts by adding a timestamp before calling each command. After calling each command once it writes the output as a row in the (csv) output-file.</p>
+</div>
+<div class="section" id="the-pollerenum">
+<h2>The PollerEnum<a class="headerlink" href="#the-pollerenum" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of the enum is to make it easier to troubleshoot errors due to misspellings and provide an interface for users of this module to get the string constants they might need.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PollerEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="c1"># special options</span>
+    <span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;delimiter&#39;</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="s1">&#39;interval&#39;</span>
+    <span class="n">not_available</span> <span class="o">=</span> <span class="s1">&#39;not_available&#39;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span>
+    <span class="n">trap_errors</span> <span class="o">=</span> <span class="s1">&#39;trap_errors&#39;</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="s1">&#39;connection&#39;</span>
+    <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;plugin&#39;</span>
+    <span class="n">component</span> <span class="o">=</span> <span class="s1">&#39;component&#39;</span>
+    <span class="n">timeout</span> <span class="o">=</span> <span class="s1">&#39;timeout&#39;</span>
+
+    <span class="c1"># reserved names</span>
+    <span class="n">reserved</span> <span class="o">=</span> <span class="p">[</span><span class="n">delimiter</span><span class="p">,</span> <span class="n">not_available</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span>
+                <span class="n">interval</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span>
+                <span class="n">trap_errors</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">plugin</span><span class="p">,</span> <span class="n">component</span><span class="p">]</span>
+
+    <span class="c1"># defaults</span>
+    <span class="n">default_delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span>
+    <span class="n">default_not_available</span> <span class="o">=</span> <span class="s1">&#39;NA&#39;</span>
+    <span class="n">default_filename</span> <span class="o">=</span> <span class="s1">&#39;poller_data.csv&#39;</span>
+    <span class="n">default_interval</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">default_trap_errors</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">default_timeout</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-pollerconfiguration">
+<span id="poller-configuration"></span><h2>The PollerConfiguration<a class="headerlink" href="#the-pollerconfiguration" title="Permalink to this headline">¶</a></h2>
+<p>The PollerConfiguration is used by the PollerBuilder to build the Poller. It takes a ConfigParser-like object and a section name and builds the parameters the PollerBuilder needs for the Poller.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-164f836a8826aedd5b97bce2222c70eede8284bf.png" alt="BaseConfiguration &lt;|-- PollerConfiguration
+PollerConfiguration : String delimiter
+PollerConfiguration : List fields
+PollerConfiguration : List commands" />
+</p>
+<span class="target" id="module-tuna"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseConfiguration</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-tuna.commands.poller"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.delimiter</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.interval</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.not_available</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.fields</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.commands</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.expressions</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.filename</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerConfiguration.timeout</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils" id="id2">
+<caption><span class="caption-text">PollerConfiguration defaults</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">value</th>
+<th class="head">default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>delimiter</td>
+<td>,</td>
+</tr>
+<tr class="row-odd"><td>not_available</td>
+<td>NA</td>
+</tr>
+<tr class="row-even"><td>interval</td>
+<td>1 Second</td>
+</tr>
+<tr class="row-odd"><td>filename</td>
+<td>query.csv</td>
+</tr>
+<tr class="row-even"><td>timout</td>
+<td>10 Seconds</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example-configuration">
+<h2>Example Configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">EXAMPLE_CONFIGURATION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;# these are arbitrary commands that will be call</span>
+<span class="s2">ed in a thread</span>
+<span class="s2"># it&#39;s original use-case is to get RSSI and other monitoring information</span>
+<span class="s2"># but since it&#39;s free-form you can pass in whatever you like</span>
+
+<span class="s2"># delimiter separating command and expression</span>
+<span class="s2"># this is provided so that if the command or expression has a comma in it</span>
+<span class="s2"># you can use an alternative</span>
+
+<span class="s2">#delimiter =  </span><span class="si">{delimiter}</span><span class="s2"></span>
+
+<span class="s2"># the interval is the amount of time between calling the commands</span>
+<span class="s2"># if it&#39;s longer than a minute you can use words (e.g. day, hour)</span>
+<span class="s2"># but not months (that&#39;s too hard to calculate) if you don&#39;t use a</span>
+<span class="s2"># word it&#39;s assumed to be seconds</span>
+<span class="s2"># interval = </span><span class="si">{interval}</span><span class="s2"></span>
+
+<span class="s2"># the timeout is the readline timeout</span>
+
+<span class="s2"># if you want to specify a filename set the filename option</span>
+<span class="s2"># filename = </span><span class="si">{filename}</span><span class="s2"></span>
+
+<span class="s2"># to change the readline timeout</span>
+<span class="s2"># timeout = </span><span class="si">{timeout}</span><span class="s2"></span>
+
+<span class="s2"># to have it crash instead of trap socket errors</span>
+<span class="s2"># trap_errors = </span><span class="si">{trap_errors}</span><span class="s2"></span>
+
+<span class="s2"># everything else is of the format:</span>
+<span class="s2"># &lt;column-header&gt; = &lt;command&gt;&lt;delimiter&gt;&lt;regular expression&gt;</span>
+<span class="s2"># the column-header will be used in the csv-file</span>
+<span class="s2"># the regular expression has to have a group &#39;()&#39; or it will raise an error</span>
+<span class="s2">#</span>
+
+<span class="s2">#rssi = iwconfig wlan0,Signal\slevel=(-\d+\sdBm)</span>
+<span class="s2">#noise = wl noise, (.*)</span>
+<span class="s2">#bitrate = iwconfig wlan0, Bit\sRate=(\d+\.\d\sMb/s)</span>
+<span class="s2">#counters = wl counters, (rxcrsglitch [0-9]* )</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delimiter</span><span class="o">=</span><span class="n">PollerEnum</span><span class="o">.</span><span class="n">default_delimiter</span><span class="p">,</span>
+           <span class="n">timeout</span><span class="o">=</span><span class="n">PollerEnum</span><span class="o">.</span><span class="n">default_timeout</span><span class="p">,</span>
+           <span class="n">filename</span><span class="o">=</span><span class="n">PollerEnum</span><span class="o">.</span><span class="n">default_filename</span><span class="p">,</span>
+           <span class="n">trap_errors</span><span class="o">=</span><span class="n">PollerEnum</span><span class="o">.</span><span class="n">default_trap_errors</span><span class="p">,</span>
+           <span class="n">interval</span><span class="o">=</span><span class="n">PollerEnum</span><span class="o">.</span><span class="n">default_interval</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-poller-builder">
+<h2>The Poller Builder<a class="headerlink" href="#the-poller-builder" title="Permalink to this headline">¶</a></h2>
+<p>This is a first builder. The intent is that for each high-level component there will be a <cite>Class - Configuration - Builder</cite> troika. Each builder should know how to build its object, but defer to another builder if it needs something that is not unique to it.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Configurations map config-files to parameters needed to build a component</li>
+<li>Builders map configurations and built-objects to built components</li>
+</ul>
+</div></blockquote>
+<p>Given a connection to a device, a PollerConfiguration object and a file-like storage, the PollerBuilder will build a poller as its product.</p>
+<p class="plantuml">
+<img src="../_images/plantuml-9cf85c8a84e4ff16f4c6cb69d61567775950ee34.png" alt="PollerBuilder : ThePoller product
+PollerBuilder : TheHost connection
+PollerBuilder : PollerConfiguration configuration
+PollerBuilder : FileStorage storage" />
+</p>
+<span class="target" id="module-tuna.commands.poller"></span><table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerBuilder</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerBuilder.product</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PollerBuilder.commands</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

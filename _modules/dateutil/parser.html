@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dateutil.parser &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/processing.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">The Main Entry Point</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infrastructure/index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for dateutil.parser</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding:iso-8859-1 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module offers a generic date/time string parser which is able to parse</span>
+<span class="sd">most known formats to represent a date and/or time.</span>
+
+<span class="sd">This module attempts to be forgiving with regards to unlikely input formats,</span>
+<span class="sd">returning a datetime object even for dates which are ambiguous. If an element</span>
+<span class="sd">of a date/time stamp is omitted, the following rules are applied:</span>
+<span class="sd">- If AM or PM is left unspecified, a 24-hour clock is assumed, however, an hour</span>
+<span class="sd">  on a 12-hour clock (``0 &lt;= hour &lt;= 12``) *must* be specified if AM or PM is</span>
+<span class="sd">  specified.</span>
+<span class="sd">- If a time zone is omitted, a timezone-naive datetime is returned.</span>
+
+<span class="sd">If any other elements are missing, they are taken from the</span>
+<span class="sd">:class:`datetime.datetime` object passed to the parameter ``default``. If this</span>
+<span class="sd">results in a day number exceeding the valid number of days per month, the</span>
+<span class="sd">value falls back to the end of the month.</span>
+
+<span class="sd">Additional resources about date/time string formats can be found below:</span>
+
+<span class="sd">- `A summary of the international standard date and time notation</span>
+<span class="sd">  &lt;http://www.cl.cam.ac.uk/~mgk25/iso-time.html&gt;`_</span>
+<span class="sd">- `W3C Date and Time Formats &lt;http://www.w3.org/TR/NOTE-datetime&gt;`_</span>
+<span class="sd">- `Time Formats (Planetary Rings Node) &lt;http://pds-rings.seti.org/tools/time_formats.html&gt;`_</span>
+<span class="sd">- `CPAN ParseDate module</span>
+<span class="sd">  &lt;http://search.cpan.org/~muir/Time-modules-2013.0912/lib/Time/ParseDate.pm&gt;`_</span>
+<span class="sd">- `Java SimpleDateFormat Class</span>
+<span class="sd">  &lt;https://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html&gt;`_</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">monthrange</span><span class="p">,</span> <span class="n">isleap</span>
+
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">text_type</span><span class="p">,</span> <span class="n">binary_type</span><span class="p">,</span> <span class="n">integer_types</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">relativedelta</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tz</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;parse&quot;</span><span class="p">,</span> <span class="s2">&quot;parserinfo&quot;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">_timelex</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1"># Fractional seconds are sometimes split by a comma</span>
+    <span class="n">_split_decimal</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;([\.,])&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instream</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instream</span><span class="p">,</span> <span class="n">binary_type</span><span class="p">):</span>
+            <span class="n">instream</span> <span class="o">=</span> <span class="n">instream</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instream</span><span class="p">,</span> <span class="n">text_type</span><span class="p">):</span>
+            <span class="n">instream</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">instream</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">instream</span> <span class="o">=</span> <span class="n">instream</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">charstack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokenstack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eof</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">get_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function breaks the time string into lexical units (tokens), which</span>
+<span class="sd">        can be parsed by the parser. Lexical units are demarcated by changes in</span>
+<span class="sd">        the character set, so any continuous string of letters is considered</span>
+<span class="sd">        one unit, any continuous string of numbers is considered one unit.</span>
+
+<span class="sd">        The main complication arises from the fact that dots (&#39;.&#39;) can be used</span>
+<span class="sd">        both as separators (e.g. &quot;Sep.20.2009&quot;) or decimal points (e.g.</span>
+<span class="sd">        &quot;4:30:21.447&quot;). As such, it is necessary to read the full context of</span>
+<span class="sd">        any dot-separated strings before breaking it into tokens; as such, this</span>
+<span class="sd">        function maintains a &quot;token stack&quot;, for when the ambiguous context</span>
+<span class="sd">        demands that multiple tokens be parsed at once.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenstack</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenstack</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">seenletters</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">eof</span><span class="p">:</span>
+            <span class="c1"># We only realize that we&#39;ve reached the end of a token when we</span>
+            <span class="c1"># find a character that&#39;s not part of the current token - since</span>
+            <span class="c1"># that character may be part of the next token, it&#39;s stored in the</span>
+            <span class="c1"># charstack.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">charstack</span><span class="p">:</span>
+                <span class="n">nextchar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">charstack</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">nextchar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">nextchar</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">:</span>
+                    <span class="n">nextchar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">nextchar</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">eof</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">state</span><span class="p">:</span>
+                <span class="c1"># First character of the token - determines if we&#39;re starting</span>
+                <span class="c1"># to parse a word, a number or something else.</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="n">nextchar</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isword</span><span class="p">(</span><span class="n">nextchar</span><span class="p">):</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnum</span><span class="p">(</span><span class="n">nextchar</span><span class="p">):</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">isspace</span><span class="p">(</span><span class="n">nextchar</span><span class="p">):</span>
+                    <span class="n">token</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+                    <span class="k">break</span>  <span class="c1"># emit token</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>  <span class="c1"># emit token</span>
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
+                <span class="c1"># If we&#39;ve already started reading a word, we keep reading</span>
+                <span class="c1"># letters until we find something that&#39;s not part of a word.</span>
+                <span class="n">seenletters</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isword</span><span class="p">(</span><span class="n">nextchar</span><span class="p">):</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                <span class="k">elif</span> <span class="n">nextchar</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;a.&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">charstack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nextchar</span><span class="p">)</span>
+                    <span class="k">break</span>  <span class="c1"># emit token</span>
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+                <span class="c1"># If we&#39;ve already started reading a number, we keep reading</span>
+                <span class="c1"># numbers until we find something that doesn&#39;t fit.</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnum</span><span class="p">(</span><span class="n">nextchar</span><span class="p">):</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                <span class="k">elif</span> <span class="n">nextchar</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span> <span class="ow">or</span> <span class="p">(</span><span class="n">nextchar</span> <span class="o">==</span> <span class="s1">&#39;,&#39;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">):</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;0.&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">charstack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nextchar</span><span class="p">)</span>
+                    <span class="k">break</span>  <span class="c1"># emit token</span>
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;a.&#39;</span><span class="p">:</span>
+                <span class="c1"># If we&#39;ve seen some letters and a dot separator, continue</span>
+                <span class="c1"># parsing, and the tokens will be broken up later.</span>
+                <span class="n">seenletters</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">if</span> <span class="n">nextchar</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">isword</span><span class="p">(</span><span class="n">nextchar</span><span class="p">):</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnum</span><span class="p">(</span><span class="n">nextchar</span><span class="p">)</span> <span class="ow">and</span> <span class="n">token</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;0.&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">charstack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nextchar</span><span class="p">)</span>
+                    <span class="k">break</span>  <span class="c1"># emit token</span>
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;0.&#39;</span><span class="p">:</span>
+                <span class="c1"># If we&#39;ve seen at least one dot separator, keep going, we&#39;ll</span>
+                <span class="c1"># break up the tokens later.</span>
+                <span class="k">if</span> <span class="n">nextchar</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnum</span><span class="p">(</span><span class="n">nextchar</span><span class="p">):</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">isword</span><span class="p">(</span><span class="n">nextchar</span><span class="p">)</span> <span class="ow">and</span> <span class="n">token</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+                    <span class="n">token</span> <span class="o">+=</span> <span class="n">nextchar</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;a.&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">charstack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nextchar</span><span class="p">)</span>
+                    <span class="k">break</span>  <span class="c1"># emit token</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;a.&#39;</span><span class="p">,</span> <span class="s1">&#39;0.&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">seenletters</span> <span class="ow">or</span> <span class="n">token</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span>
+                                       <span class="n">token</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39;.,&#39;</span><span class="p">)):</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_decimal</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="k">if</span> <span class="n">tok</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tokenstack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;0.&#39;</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">token</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_token</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+
+        <span class="k">return</span> <span class="n">token</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__next__</span><span class="p">()</span>  <span class="c1"># Python 2.x support</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">cls</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">isword</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">nextchar</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Whether or not the next character is part of a word &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">nextchar</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">isnum</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">nextchar</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Whether the next character is part of a number &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">nextchar</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">isspace</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">nextchar</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Whether the next character is whitespace &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">nextchar</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">_resultbase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__slots__</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classname</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__slots__</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">classname</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+                    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__slots__</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">parserinfo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class which handles what inputs are accepted. Subclass this to customize</span>
+<span class="sd">    the language and acceptable values for each parameter.</span>
+
+<span class="sd">    :param dayfirst:</span>
+<span class="sd">            Whether to interpret the first value in an ambiguous 3-integer date</span>
+<span class="sd">            (e.g. 01/05/09) as the day (``True``) or month (``False``). If</span>
+<span class="sd">            ``yearfirst`` is set to ``True``, this distinguishes between YDM</span>
+<span class="sd">            and YMD. Default is ``False``.</span>
+
+<span class="sd">    :param yearfirst:</span>
+<span class="sd">            Whether to interpret the first value in an ambiguous 3-integer date</span>
+<span class="sd">            (e.g. 01/05/09) as the year. If ``True``, the first number is taken</span>
+<span class="sd">            to be the year, otherwise the last number is taken to be the year.</span>
+<span class="sd">            Default is ``False``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># m from a.m/p.m, t from ISO T separator</span>
+    <span class="n">JUMP</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;ad&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;of&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;st&quot;</span><span class="p">,</span> <span class="s2">&quot;nd&quot;</span><span class="p">,</span> <span class="s2">&quot;rd&quot;</span><span class="p">,</span> <span class="s2">&quot;th&quot;</span><span class="p">]</span>
+
+    <span class="n">WEEKDAYS</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Monday&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Tuesday&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Wednesday&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Thursday&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Friday&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Saturday&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Sun&quot;</span><span class="p">,</span> <span class="s2">&quot;Sunday&quot;</span><span class="p">)]</span>
+    <span class="n">MONTHS</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Jan&quot;</span><span class="p">,</span> <span class="s2">&quot;January&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Feb&quot;</span><span class="p">,</span> <span class="s2">&quot;February&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Mar&quot;</span><span class="p">,</span> <span class="s2">&quot;March&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Apr&quot;</span><span class="p">,</span> <span class="s2">&quot;April&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;June&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;July&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Aug&quot;</span><span class="p">,</span> <span class="s2">&quot;August&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Sep&quot;</span><span class="p">,</span> <span class="s2">&quot;Sept&quot;</span><span class="p">,</span> <span class="s2">&quot;September&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Oct&quot;</span><span class="p">,</span> <span class="s2">&quot;October&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Nov&quot;</span><span class="p">,</span> <span class="s2">&quot;November&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Dec&quot;</span><span class="p">,</span> <span class="s2">&quot;December&quot;</span><span class="p">)]</span>
+    <span class="n">HMS</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;hours&quot;</span><span class="p">),</span>
+           <span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">,</span> <span class="s2">&quot;minutes&quot;</span><span class="p">),</span>
+           <span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">,</span> <span class="s2">&quot;seconds&quot;</span><span class="p">)]</span>
+    <span class="n">AMPM</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;am&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;pm&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">)]</span>
+    <span class="n">UTCZONE</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;UTC&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">]</span>
+    <span class="n">PERTAIN</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;of&quot;</span><span class="p">]</span>
+    <span class="n">TZOFFSET</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dayfirst</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">yearfirst</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_jump</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">JUMP</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_weekdays</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WEEKDAYS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_months</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MONTHS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HMS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ampm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AMPM</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_utczone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">UTCZONE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pertain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PERTAIN</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dayfirst</span> <span class="o">=</span> <span class="n">dayfirst</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yearfirst</span> <span class="o">=</span> <span class="n">yearfirst</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_year</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span><span class="o">.</span><span class="n">tm_year</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_century</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_year</span> <span class="o">//</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lst</span><span class="p">):</span>
+        <span class="n">dct</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">dct</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dct</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">return</span> <span class="n">dct</span>
+
+    <span class="k">def</span> <span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_jump</span>
+
+    <span class="k">def</span> <span class="nf">weekday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weekdays</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">month</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_months</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">hms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hms</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">ampm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ampm</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">pertain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pertain</span>
+
+    <span class="k">def</span> <span class="nf">utczone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utczone</span>
+
+    <span class="k">def</span> <span class="nf">tzoffset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utczone</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">TZOFFSET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">convertyear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">century_specified</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">century_specified</span><span class="p">:</span>
+            <span class="n">year</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_century</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">year</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_year</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_year</span><span class="p">:</span>
+                    <span class="n">year</span> <span class="o">+=</span> <span class="mi">100</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">year</span> <span class="o">-=</span> <span class="mi">100</span>
+        <span class="k">return</span> <span class="n">year</span>
+
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+        <span class="c1"># move to info</span>
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">year</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convertyear</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">century_specified</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="o">==</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="o">=</span> <span class="s2">&quot;UTC&quot;</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">utczone</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">tzname</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+
+<span class="k">class</span> <span class="nc">_ymd</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tzstr</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">century_specified</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tzstr</span> <span class="o">=</span> <span class="n">tzstr</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">token_could_be_year</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="o">==</span> <span class="n">year</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">find_potential_year_tokens</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">tokens</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">_ymd</span><span class="o">.</span><span class="n">token_could_be_year</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">year</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">find_probable_year_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        attempt to deduce if a pre 100 year was lost</span>
+<span class="sd">         due to padded zeros being taken off</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">potential_year_tokens</span> <span class="o">=</span> <span class="n">_ymd</span><span class="o">.</span><span class="n">find_potential_year_tokens</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">potential_year_tokens</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">potential_year_tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">index</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">century_specified</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">elif</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">century_specified</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">resolve_ymd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mstridx</span><span class="p">,</span> <span class="n">yearfirst</span><span class="p">,</span> <span class="n">dayfirst</span><span class="p">):</span>
+        <span class="n">len_ymd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">len_ymd</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;More than three YMD values&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">len_ymd</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">mstridx</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">len_ymd</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="c1"># One member, or two members with a month string</span>
+            <span class="k">if</span> <span class="n">mstridx</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">month</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">mstridx</span><span class="p">]</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="n">mstridx</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">len_ymd</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">mstridx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">:</span>
+                    <span class="n">year</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">day</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">len_ymd</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Two members with numbers</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">:</span>
+                <span class="c1"># 99-01</span>
+                <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">:</span>
+                <span class="c1"># 01-99</span>
+                <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">elif</span> <span class="n">dayfirst</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">:</span>
+                <span class="c1"># 13-01</span>
+                <span class="n">day</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># 01-13</span>
+                <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="k">elif</span> <span class="n">len_ymd</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="c1"># Three members</span>
+            <span class="k">if</span> <span class="n">mstridx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">elif</span> <span class="n">mstridx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">31</span> <span class="ow">or</span> <span class="p">(</span><span class="n">yearfirst</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">31</span><span class="p">):</span>
+                    <span class="c1"># 99-Jan-01</span>
+                    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># 01-Jan-01</span>
+                    <span class="c1"># Give precendence to day-first, since</span>
+                    <span class="c1"># two-digit years is usually hand-written.</span>
+                    <span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="bp">self</span>
+
+            <span class="k">elif</span> <span class="n">mstridx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="c1"># WTF!?</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">:</span>
+                    <span class="c1"># 01-99-Jan</span>
+                    <span class="n">day</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># 99-01-Jan</span>
+                    <span class="n">year</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="bp">self</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">31</span> <span class="ow">or</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">find_probable_year_index</span><span class="p">(</span><span class="n">_timelex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tzstr</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> \
+                   <span class="p">(</span><span class="n">yearfirst</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">12</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">31</span><span class="p">):</span>
+                    <span class="c1"># 99-01-01</span>
+                    <span class="k">if</span> <span class="n">dayfirst</span><span class="p">:</span>
+                        <span class="n">year</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="bp">self</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">12</span> <span class="ow">or</span> <span class="p">(</span><span class="n">dayfirst</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">):</span>
+                    <span class="c1"># 13-01-01</span>
+                    <span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># 01-13-01</span>
+                    <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span>
+
+
+<span class="k">class</span> <span class="nc">parser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span> <span class="ow">or</span> <span class="n">parserinfo</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ignoretz</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">tzinfos</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the date/time string into a :class:`datetime.datetime` object.</span>
+
+<span class="sd">        :param timestr:</span>
+<span class="sd">            Any date/time string using the supported formats.</span>
+
+<span class="sd">        :param default:</span>
+<span class="sd">            The default datetime object, if this is a datetime object and not</span>
+<span class="sd">            ``None``, elements specified in ``timestr`` replace elements in the</span>
+<span class="sd">            default object.</span>
+
+<span class="sd">        :param ignoretz:</span>
+<span class="sd">            If set ``True``, time zones in parsed strings are ignored and a</span>
+<span class="sd">            naive :class:`datetime.datetime` object is returned.</span>
+
+<span class="sd">        :param tzinfos:</span>
+<span class="sd">            Additional time zone names / aliases which may be present in the</span>
+<span class="sd">            string. This argument maps time zone names (and optionally offsets</span>
+<span class="sd">            from those time zones) to time zones. This parameter can be a</span>
+<span class="sd">            dictionary with timezone aliases mapping time zone names to time</span>
+<span class="sd">            zones or a function taking two parameters (``tzname`` and</span>
+<span class="sd">            ``tzoffset``) and returning a time zone.</span>
+
+<span class="sd">            The timezones to which the names are mapped can be an integer</span>
+<span class="sd">            offset from UTC in minutes or a :class:`tzinfo` object.</span>
+
+<span class="sd">            .. doctest::</span>
+<span class="sd">               :options: +NORMALIZE_WHITESPACE</span>
+
+<span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span>
+<span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span>
+<span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -10800, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span>
+<span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span>
+<span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -10800))</span>
+<span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span>
+<span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span>
+<span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span>
+
+<span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span>
+
+<span class="sd">        :param **kwargs:</span>
+<span class="sd">            Keyword arguments as passed to ``_parse()``.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            Returns a :class:`datetime.datetime` object or, if the</span>
+<span class="sd">            ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span>
+<span class="sd">            first element being a :class:`datetime.datetime` object, the second</span>
+<span class="sd">            a tuple containing the fuzzy tokens.</span>
+
+<span class="sd">        :raises ValueError:</span>
+<span class="sd">            Raised for invalid or unknown string format, if the provided</span>
+<span class="sd">            :class:`tzinfo` is not in a valid format, or if an invalid date</span>
+<span class="sd">            would be created.</span>
+
+<span class="sd">        :raises OverflowError:</span>
+<span class="sd">            Raised if the parsed date exceeds the largest valid C integer on</span>
+<span class="sd">            your system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">effective_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                                      <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">effective_dt</span> <span class="o">=</span> <span class="n">default</span>
+
+        <span class="n">res</span><span class="p">,</span> <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown string format&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;String does not contain a date.&quot;</span><span class="p">)</span>
+
+        <span class="n">repl</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;minute&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">,</span> <span class="s2">&quot;microsecond&quot;</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">repl</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">if</span> <span class="s1">&#39;day&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">repl</span><span class="p">:</span>
+            <span class="c1"># If the default day exceeds the last day of the month, fall back to</span>
+            <span class="c1"># the end of the month.</span>
+            <span class="n">cyear</span> <span class="o">=</span> <span class="n">default</span><span class="o">.</span><span class="n">year</span> <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">year</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">res</span><span class="o">.</span><span class="n">year</span>
+            <span class="n">cmonth</span> <span class="o">=</span> <span class="n">default</span><span class="o">.</span><span class="n">month</span> <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">month</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">res</span><span class="o">.</span><span class="n">month</span>
+            <span class="n">cday</span> <span class="o">=</span> <span class="n">default</span><span class="o">.</span><span class="n">day</span> <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">day</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">res</span><span class="o">.</span><span class="n">day</span>
+
+            <span class="k">if</span> <span class="n">cday</span> <span class="o">&gt;</span> <span class="n">monthrange</span><span class="p">(</span><span class="n">cyear</span><span class="p">,</span> <span class="n">cmonth</span><span class="p">)[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">repl</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">monthrange</span><span class="p">(</span><span class="n">cyear</span><span class="p">,</span> <span class="n">cmonth</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">default</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">**</span><span class="n">repl</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">weekday</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">day</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">+</span><span class="n">relativedelta</span><span class="o">.</span><span class="n">relativedelta</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">weekday</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ignoretz</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tzinfos</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Callable</span><span class="p">)</span> <span class="ow">or</span>
+                    <span class="n">tzinfos</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="ow">in</span> <span class="n">tzinfos</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tzinfos</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Callable</span><span class="p">):</span>
+                    <span class="n">tzdata</span> <span class="o">=</span> <span class="n">tzinfos</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">tzname</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tzdata</span> <span class="o">=</span> <span class="n">tzinfos</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">tzname</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tzdata</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">):</span>
+                    <span class="n">tzinfo</span> <span class="o">=</span> <span class="n">tzdata</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tzdata</span><span class="p">,</span> <span class="n">text_type</span><span class="p">):</span>
+                    <span class="n">tzinfo</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">tzstr</span><span class="p">(</span><span class="n">tzdata</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tzdata</span><span class="p">,</span> <span class="n">integer_types</span><span class="p">):</span>
+                    <span class="n">tzinfo</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">tzoffset</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">tzname</span><span class="p">,</span> <span class="n">tzdata</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Offset must be tzinfo subclass, &quot;</span>
+                                     <span class="s2">&quot;tz string, or int offset.&quot;</span><span class="p">)</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tzinfo</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="ow">in</span> <span class="n">time</span><span class="o">.</span><span class="n">tzname</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="o">.</span><span class="n">tzlocal</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="o">.</span><span class="n">tzutc</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="o">.</span><span class="n">tzoffset</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">tzname</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fuzzy_with_tokens&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">skipped_tokens</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">class</span> <span class="nc">_result</span><span class="p">(</span><span class="n">_resultbase</span><span class="p">):</span>
+        <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">,</span> <span class="s2">&quot;microsecond&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;tzname&quot;</span><span class="p">,</span> <span class="s2">&quot;tzoffset&quot;</span><span class="p">,</span> <span class="s2">&quot;ampm&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestr</span><span class="p">,</span> <span class="n">dayfirst</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">yearfirst</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fuzzy</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+               <span class="n">fuzzy_with_tokens</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private method which performs the heavy lifting of parsing, called from</span>
+<span class="sd">        ``parse()``, which passes on its ``kwargs`` to this function.</span>
+
+<span class="sd">        :param timestr:</span>
+<span class="sd">            The string to parse.</span>
+
+<span class="sd">        :param dayfirst:</span>
+<span class="sd">            Whether to interpret the first value in an ambiguous 3-integer date</span>
+<span class="sd">            (e.g. 01/05/09) as the day (``True``) or month (``False``). If</span>
+<span class="sd">            ``yearfirst`` is set to ``True``, this distinguishes between YDM</span>
+<span class="sd">            and YMD. If set to ``None``, this value is retrieved from the</span>
+<span class="sd">            current :class:`parserinfo` object (which itself defaults to</span>
+<span class="sd">            ``False``).</span>
+
+<span class="sd">        :param yearfirst:</span>
+<span class="sd">            Whether to interpret the first value in an ambiguous 3-integer date</span>
+<span class="sd">            (e.g. 01/05/09) as the year. If ``True``, the first number is taken</span>
+<span class="sd">            to be the year, otherwise the last number is taken to be the year.</span>
+<span class="sd">            If this is set to ``None``, the value is retrieved from the current</span>
+<span class="sd">            :class:`parserinfo` object (which itself defaults to ``False``).</span>
+
+<span class="sd">        :param fuzzy:</span>
+<span class="sd">            Whether to allow fuzzy parsing, allowing for string like &quot;Today is</span>
+<span class="sd">            January 1, 2047 at 8:21:00AM&quot;.</span>
+
+<span class="sd">        :param fuzzy_with_tokens:</span>
+<span class="sd">            If ``True``, ``fuzzy`` is automatically set to True, and the parser</span>
+<span class="sd">            will return a tuple where the first element is the parsed</span>
+<span class="sd">            :class:`datetime.datetime` datetimestamp and the second element is</span>
+<span class="sd">            a tuple containing the portions of the string which were ignored:</span>
+
+<span class="sd">            .. doctest::</span>
+
+<span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span>
+<span class="sd">                &gt;&gt;&gt; parse(&quot;Today is January 1, 2047 at 8:21:00AM&quot;, fuzzy_with_tokens=True)</span>
+<span class="sd">                (datetime.datetime(2047, 1, 1, 8, 21), (u&#39;Today is &#39;, u&#39; &#39;, u&#39;at &#39;))</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">fuzzy_with_tokens</span><span class="p">:</span>
+            <span class="n">fuzzy</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span>
+
+        <span class="k">if</span> <span class="n">dayfirst</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dayfirst</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">dayfirst</span>
+
+        <span class="k">if</span> <span class="n">yearfirst</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">yearfirst</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">yearfirst</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span><span class="p">()</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">_timelex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">timestr</span><span class="p">)</span>         <span class="c1"># Splits the timestr into tokens</span>
+
+        <span class="c1"># keep up with the last token skipped so we can recombine</span>
+        <span class="c1"># consecutively skipped tokens (-2 for when i begins at 0).</span>
+        <span class="n">last_skipped_token_i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+        <span class="n">skipped_tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># year/month/day list</span>
+            <span class="n">ymd</span> <span class="o">=</span> <span class="n">_ymd</span><span class="p">(</span><span class="n">timestr</span><span class="p">)</span>
+
+            <span class="c1"># Index of the month string in ymd</span>
+            <span class="n">mstridx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+            <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span><span class="p">:</span>
+
+                <span class="c1"># Check if it&#39;s a number</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">value_repr</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value_repr</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
+
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="c1"># Token is a number</span>
+                    <span class="n">len_li</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ymd</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">len_li</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">len_l</span> <span class="ow">or</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;:&#39;</span> <span class="ow">and</span>
+                                                  <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">))):</span>
+                        <span class="c1"># 19990101T23[59]</span>
+                        <span class="n">s</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+
+                        <span class="k">if</span> <span class="n">len_li</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+
+                    <span class="k">elif</span> <span class="n">len_li</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">or</span> <span class="p">(</span><span class="n">len_li</span> <span class="o">&gt;</span> <span class="mi">6</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">):</span>
+                        <span class="c1"># YYMMDD or HHMMSS[.ss]</span>
+                        <span class="n">s</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">ymd</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                            <span class="c1">#ymd.append(info.convertyear(int(s[:2])))</span>
+
+                            <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+                            <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+                            <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># 19990101T235959[.59]</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">=</span> <span class="n">_parsems</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
+
+                    <span class="k">elif</span> <span class="n">len_li</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">):</span>
+                        <span class="c1"># YYYYMMDD</span>
+                        <span class="n">s</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+                        <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+                        <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span>
+
+                        <span class="k">if</span> <span class="n">len_li</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">12</span><span class="p">])</span>
+
+                            <span class="k">if</span> <span class="n">len_li</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">12</span><span class="p">:])</span>
+
+                    <span class="k">elif</span> <span class="p">((</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span>
+                          <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span>
+                           <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)):</span>
+
+                        <span class="c1"># HH[ ]h or MM[ ]m or SS[.ss][ ]s</span>
+                        <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="n">idx</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                                <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">:</span>
+                                    <span class="n">res</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">))</span>
+
+                            <span class="k">elif</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                                <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">:</span>
+                                    <span class="n">res</span><span class="o">.</span><span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">))</span>
+
+                            <span class="k">elif</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">=</span> \
+                                    <span class="n">_parsems</span><span class="p">(</span><span class="n">value_repr</span><span class="p">)</span>
+
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">len_l</span> <span class="ow">or</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                                <span class="k">break</span>
+
+                            <span class="c1"># 12h00</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">value_repr</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value_repr</span><span class="p">)</span>
+                            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                                <span class="k">break</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                                <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span><span class="p">:</span>
+                                    <span class="n">newidx</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                                    <span class="k">if</span> <span class="n">newidx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                                        <span class="n">idx</span> <span class="o">=</span> <span class="n">newidx</span>
+
+                    <span class="k">elif</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">and</span>
+                          <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
+                        <span class="c1"># X h MM or X m SS</span>
+                        <span class="n">idx</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">hms</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+
+                        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                            <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">))</span>
+                            <span class="k">elif</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">=</span> \
+                                    <span class="n">_parsems</span><span class="p">(</span><span class="n">value_repr</span><span class="p">)</span>
+                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">elif</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;:&#39;</span><span class="p">:</span>
+                        <span class="c1"># HH:MM[:SS[.ss]]</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="mi">1</span><span class="p">))</span>
+
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;:&#39;</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">=</span> <span class="n">_parsems</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+
+                    <span class="k">elif</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">):</span>
+                        <span class="n">sep</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value_repr</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">jump</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="c1"># 01-01[-01]</span>
+                                <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                                <span class="c1"># 01-Jan[-01]</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">month</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                                    <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                                    <span class="k">assert</span> <span class="n">mstridx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+                                    <span class="n">mstridx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ymd</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+                                <span class="k">else</span><span class="p">:</span>
+                                    <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">sep</span><span class="p">:</span>
+                                <span class="c1"># We have three members</span>
+                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">month</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                                    <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                                    <span class="n">mstridx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ymd</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+                                    <span class="k">assert</span> <span class="n">mstridx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+                                <span class="k">else</span><span class="p">:</span>
+                                    <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">len_l</span> <span class="ow">or</span> <span class="n">info</span><span class="o">.</span><span class="n">jump</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                        <span class="k">if</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">ampm</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="c1"># 12 am</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                            <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">12</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">ampm</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">+=</span> <span class="mi">12</span>
+                            <span class="k">elif</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">12</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">ampm</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="mi">0</span>
+
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># Year, month or day</span>
+                            <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">info</span><span class="o">.</span><span class="n">ampm</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+
+                        <span class="c1"># 12am</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">12</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">ampm</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">+=</span> <span class="mi">12</span>
+                        <span class="k">elif</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">12</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">ampm</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="n">fuzzy</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check weekday</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">weekday</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">weekday</span> <span class="o">=</span> <span class="n">value</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check month name</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">month</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="k">assert</span> <span class="n">mstridx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">mstridx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ymd</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">):</span>
+                            <span class="c1"># Jan-01[-99]</span>
+                            <span class="n">sep</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                            <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">sep</span><span class="p">:</span>
+                                <span class="c1"># Jan-01-99</span>
+                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                                <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="k">elif</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span>
+                              <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">pertain</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])):</span>
+                            <span class="c1"># Jan of 01</span>
+                            <span class="c1"># In this case, 01 is clearly year</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">])</span>
+                            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                                <span class="c1"># Wrong guess</span>
+                                <span class="k">pass</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="c1"># Convert it here to become unambiguous</span>
+                                <span class="n">ymd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">convertyear</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">4</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check am/pm</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">ampm</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="c1"># For fuzzy parsing, &#39;a&#39; or &#39;am&#39; (both valid English words)</span>
+                    <span class="c1"># may erroneously trigger the AM/PM flag. Deal with that</span>
+                    <span class="c1"># here.</span>
+                    <span class="n">val_is_ampm</span> <span class="o">=</span> <span class="bp">True</span>
+
+                    <span class="c1"># If there&#39;s already an AM/PM flag, this one isn&#39;t one.</span>
+                    <span class="k">if</span> <span class="n">fuzzy</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">ampm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">val_is_ampm</span> <span class="o">=</span> <span class="bp">False</span>
+
+                    <span class="c1"># If AM/PM is found and hour is not, raise a ValueError</span>
+                    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">fuzzy</span><span class="p">:</span>
+                            <span class="n">val_is_ampm</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No hour specified with &#39;</span> <span class="o">+</span>
+                                             <span class="s1">&#39;AM or PM flag.&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">:</span>
+                        <span class="c1"># If AM/PM is found, it&#39;s a 12 hour clock, so raise </span>
+                        <span class="c1"># an error for invalid range</span>
+                        <span class="k">if</span> <span class="n">fuzzy</span><span class="p">:</span>
+                            <span class="n">val_is_ampm</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid hour specified for &#39;</span> <span class="o">+</span>
+                                             <span class="s1">&#39;12-hour clock.&#39;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">val_is_ampm</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">+=</span> <span class="mi">12</span>
+                        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">12</span><span class="p">:</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="mi">0</span>
+
+                        <span class="n">res</span><span class="o">.</span><span class="n">ampm</span> <span class="o">=</span> <span class="n">value</span>
+
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check for a timezone name</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">5</span> <span class="ow">and</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span>
+                        <span class="ow">not</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span>
+                             <span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">]):</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">tzoffset</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">tzname</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="c1"># Check for something like GMT+3, or BRST+3. Notice</span>
+                    <span class="c1"># that it doesn&#39;t mean &quot;I am 3 hours after GMT&quot;, but</span>
+                    <span class="c1"># &quot;my time +3 is GMT&quot;. If found, we reverse the</span>
+                    <span class="c1"># logic so that timezone parsing code will get it</span>
+                    <span class="c1"># right.</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">):</span>
+                        <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span><span class="p">]</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">=</span> <span class="bp">None</span>
+                        <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">utczone</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">tzname</span><span class="p">):</span>
+                            <span class="c1"># With something like GMT+3, the timezone</span>
+                            <span class="c1"># is *not* GMT.</span>
+                            <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="o">=</span> <span class="bp">None</span>
+
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check for a numbered timezone</span>
+                <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">hour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">):</span>
+                    <span class="n">signal</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span><span class="p">]</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">len_li</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                    <span class="k">if</span> <span class="n">len_li</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="c1"># -0300</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">:])</span><span class="o">*</span><span class="mi">60</span>
+                    <span class="k">elif</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;:&#39;</span><span class="p">:</span>
+                        <span class="c1"># -03:00</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">60</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                    <span class="k">elif</span> <span class="n">len_li</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="c1"># -[0]3</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="n">res</span><span class="o">.</span><span class="n">tzoffset</span> <span class="o">*=</span> <span class="n">signal</span>
+
+                    <span class="c1"># Look for a timezone name between parenthesis</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span>
+                        <span class="n">info</span><span class="o">.</span><span class="n">jump</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;)&#39;</span> <span class="ow">and</span>
+                        <span class="mi">3</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">5</span> <span class="ow">and</span>
+                        <span class="ow">not</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+                             <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">]):</span>
+                        <span class="c1"># -0300 (BRST)</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">tzname</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">4</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check jumps</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">jump</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">or</span> <span class="n">fuzzy</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+                <span class="k">if</span> <span class="n">last_skipped_token_i</span> <span class="o">==</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># recombine the tokens</span>
+                    <span class="n">skipped_tokens</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># just append</span>
+                    <span class="n">skipped_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">last_skipped_token_i</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># Process year/month/day</span>
+            <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">ymd</span><span class="o">.</span><span class="n">resolve_ymd</span><span class="p">(</span><span class="n">mstridx</span><span class="p">,</span> <span class="n">yearfirst</span><span class="p">,</span> <span class="n">dayfirst</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">year</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">century_specified</span> <span class="o">=</span> <span class="n">ymd</span><span class="o">.</span><span class="n">century_specified</span>
+
+            <span class="k">if</span> <span class="n">month</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">month</span>
+
+            <span class="k">if</span> <span class="n">day</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="n">day</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">AssertionError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="n">fuzzy_with_tokens</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">skipped_tokens</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="bp">None</span>
+
+<span class="n">DEFAULTPARSER</span> <span class="o">=</span> <span class="n">parser</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../infrastructure/api/dateutil.parser.parse.html#dateutil.parser.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="n">parserinfo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Parse a string in one of the supported formats, using the</span>
+<span class="sd">    ``parserinfo`` parameters.</span>
+
+<span class="sd">    :param timestr:</span>
+<span class="sd">        A string containing a date/time stamp.</span>
+
+<span class="sd">    :param parserinfo:</span>
+<span class="sd">        A :class:`parserinfo` object containing parameters for the parser.</span>
+<span class="sd">        If ``None``, the default arguments to the :class:`parserinfo`</span>
+<span class="sd">        constructor are used.</span>
+
+<span class="sd">    The ``**kwargs`` parameter takes the following keyword arguments:</span>
+
+<span class="sd">    :param default:</span>
+<span class="sd">        The default datetime object, if this is a datetime object and not</span>
+<span class="sd">        ``None``, elements specified in ``timestr`` replace elements in the</span>
+<span class="sd">        default object.</span>
+
+<span class="sd">    :param ignoretz:</span>
+<span class="sd">        If set ``True``, time zones in parsed strings are ignored and a naive</span>
+<span class="sd">        :class:`datetime` object is returned.</span>
+
+<span class="sd">    :param tzinfos:</span>
+<span class="sd">            Additional time zone names / aliases which may be present in the</span>
+<span class="sd">            string. This argument maps time zone names (and optionally offsets</span>
+<span class="sd">            from those time zones) to time zones. This parameter can be a</span>
+<span class="sd">            dictionary with timezone aliases mapping time zone names to time</span>
+<span class="sd">            zones or a function taking two parameters (``tzname`` and</span>
+<span class="sd">            ``tzoffset``) and returning a time zone.</span>
+
+<span class="sd">            The timezones to which the names are mapped can be an integer</span>
+<span class="sd">            offset from UTC in minutes or a :class:`tzinfo` object.</span>
+
+<span class="sd">            .. doctest::</span>
+<span class="sd">               :options: +NORMALIZE_WHITESPACE</span>
+
+<span class="sd">                &gt;&gt;&gt; from dateutil.parser import parse</span>
+<span class="sd">                &gt;&gt;&gt; from dateutil.tz import gettz</span>
+<span class="sd">                &gt;&gt;&gt; tzinfos = {&quot;BRST&quot;: -10800, &quot;CST&quot;: gettz(&quot;America/Chicago&quot;)}</span>
+<span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 BRST&quot;, tzinfos=tzinfos)</span>
+<span class="sd">                datetime.datetime(2012, 1, 19, 17, 21, tzinfo=tzoffset(u&#39;BRST&#39;, -10800))</span>
+<span class="sd">                &gt;&gt;&gt; parse(&quot;2012-01-19 17:21:00 CST&quot;, tzinfos=tzinfos)</span>
+<span class="sd">                datetime.datetime(2012, 1, 19, 17, 21,</span>
+<span class="sd">                                  tzinfo=tzfile(&#39;/usr/share/zoneinfo/America/Chicago&#39;))</span>
+
+<span class="sd">            This parameter is ignored if ``ignoretz`` is set.</span>
+
+<span class="sd">    :param dayfirst:</span>
+<span class="sd">        Whether to interpret the first value in an ambiguous 3-integer date</span>
+<span class="sd">        (e.g. 01/05/09) as the day (``True``) or month (``False``). If</span>
+<span class="sd">        ``yearfirst`` is set to ``True``, this distinguishes between YDM and</span>
+<span class="sd">        YMD. If set to ``None``, this value is retrieved from the current</span>
+<span class="sd">        :class:`parserinfo` object (which itself defaults to ``False``).</span>
+
+<span class="sd">    :param yearfirst:</span>
+<span class="sd">        Whether to interpret the first value in an ambiguous 3-integer date</span>
+<span class="sd">        (e.g. 01/05/09) as the year. If ``True``, the first number is taken to</span>
+<span class="sd">        be the year, otherwise the last number is taken to be the year. If</span>
+<span class="sd">        this is set to ``None``, the value is retrieved from the current</span>
+<span class="sd">        :class:`parserinfo` object (which itself defaults to ``False``).</span>
+
+<span class="sd">    :param fuzzy:</span>
+<span class="sd">        Whether to allow fuzzy parsing, allowing for string like &quot;Today is</span>
+<span class="sd">        January 1, 2047 at 8:21:00AM&quot;.</span>
+
+<span class="sd">    :param fuzzy_with_tokens:</span>
+<span class="sd">        If ``True``, ``fuzzy`` is automatically set to True, and the parser</span>
+<span class="sd">        will return a tuple where the first element is the parsed</span>
+<span class="sd">        :class:`datetime.datetime` datetimestamp and the second element is</span>
+<span class="sd">        a tuple containing the portions of the string which were ignored:</span>
+
+<span class="sd">        .. doctest::</span>
+
+<span class="sd">            &gt;&gt;&gt; from dateutil.parser import parse</span>
+<span class="sd">            &gt;&gt;&gt; parse(&quot;Today is January 1, 2047 at 8:21:00AM&quot;, fuzzy_with_tokens=True)</span>
+<span class="sd">            (datetime.datetime(2011, 1, 1, 8, 21), (u&#39;Today is &#39;, u&#39; &#39;, u&#39;at &#39;))</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">        Returns a :class:`datetime.datetime` object or, if the</span>
+<span class="sd">        ``fuzzy_with_tokens`` option is ``True``, returns a tuple, the</span>
+<span class="sd">        first element being a :class:`datetime.datetime` object, the second</span>
+<span class="sd">        a tuple containing the fuzzy tokens.</span>
+
+<span class="sd">    :raises ValueError:</span>
+<span class="sd">        Raised for invalid or unknown string format, if the provided</span>
+<span class="sd">        :class:`tzinfo` is not in a valid format, or if an invalid date</span>
+<span class="sd">        would be created.</span>
+
+<span class="sd">    :raises OverflowError:</span>
+<span class="sd">        Raised if the parsed date exceeds the largest valid C integer on</span>
+<span class="sd">        your system.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">parserinfo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">parser</span><span class="p">(</span><span class="n">parserinfo</span><span class="p">)</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DEFAULTPARSER</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">timestr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">_tzparser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">class</span> <span class="nc">_result</span><span class="p">(</span><span class="n">_resultbase</span><span class="p">):</span>
+
+        <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;stdabbr&quot;</span><span class="p">,</span> <span class="s2">&quot;stdoffset&quot;</span><span class="p">,</span> <span class="s2">&quot;dstabbr&quot;</span><span class="p">,</span> <span class="s2">&quot;dstoffset&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span>
+
+        <span class="k">class</span> <span class="nc">_attr</span><span class="p">(</span><span class="n">_resultbase</span><span class="p">):</span>
+            <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;yday&quot;</span><span class="p">,</span> <span class="s2">&quot;jyday&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repr</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">_resultbase</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attr</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attr</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tzstr</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span><span class="p">()</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">_timelex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tzstr</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">len_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span><span class="p">:</span>
+                <span class="c1"># BRST+3[BRDT[+2]]</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                                         <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="s2">&quot;0123456789:,-+&quot;</span><span class="p">]:</span>
+                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">stdabbr</span><span class="p">:</span>
+                        <span class="n">offattr</span> <span class="o">=</span> <span class="s2">&quot;stdoffset&quot;</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">stdabbr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">offattr</span> <span class="o">=</span> <span class="s2">&quot;dstoffset&quot;</span>
+                        <span class="n">res</span><span class="o">.</span><span class="n">dstabbr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">])</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">j</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span>
+                                       <span class="s2">&quot;0123456789&quot;</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">):</span>
+                            <span class="c1"># Yes, that&#39;s right.  See the TZ variable</span>
+                            <span class="c1"># documentation.</span>
+                            <span class="n">signal</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span><span class="p">]</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">signal</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                        <span class="n">len_li</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="n">len_li</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                            <span class="c1"># -0300</span>
+                            <span class="nb">setattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">offattr</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span>
+                                                   <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">:])</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">signal</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;:&#39;</span><span class="p">:</span>
+                            <span class="c1"># -03:00</span>
+                            <span class="nb">setattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">offattr</span><span class="p">,</span>
+                                    <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">signal</span><span class="p">)</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                        <span class="k">elif</span> <span class="n">len_li</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+                            <span class="c1"># -[0]3</span>
+                            <span class="nb">setattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">offattr</span><span class="p">,</span>
+                                    <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span><span class="o">*</span><span class="n">signal</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="bp">None</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">dstabbr</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">len_l</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;;&#39;</span><span class="p">:</span>
+                        <span class="n">l</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span>
+
+                <span class="k">assert</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;,&#39;</span>
+
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">len_l</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="mi">8</span> <span class="o">&lt;=</span> <span class="n">l</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">9</span> <span class="ow">and</span>
+                  <span class="ow">not</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;,&#39;</span>
+                       <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;0123456789&quot;</span><span class="p">]):</span>
+                <span class="c1"># GMT0BST,3,0,30,3600,10,0,26,7200[,3600]</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">end</span><span class="p">):</span>
+                    <span class="n">x</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                    <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">*-</span><span class="mi">1</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                    <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">week</span> <span class="o">=</span> <span class="n">value</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">weekday</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                    <span class="n">x</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">):</span>
+                        <span class="n">signal</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;+&quot;</span><span class="p">]</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">signal</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">dstoffset</span> <span class="o">=</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">stdoffset</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="o">*</span><span class="n">signal</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="ow">and</span>
+                  <span class="ow">not</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;J&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">)</span>
+                       <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;0123456789&quot;</span><span class="p">]):</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">end</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;J&#39;</span><span class="p">:</span>
+                        <span class="c1"># non-leap year day (1 based)</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">jyday</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span>
+                        <span class="c1"># month[-.]week[-.]weekday</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">assert</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">week</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">week</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                            <span class="n">x</span><span class="o">.</span><span class="n">week</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">assert</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">weekday</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># year day (zero based)</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">yday</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span>
+
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="c1"># start time</span>
+                        <span class="n">len_li</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="n">len_li</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                            <span class="c1"># -0300</span>
+                            <span class="n">x</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">:])</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;:&#39;</span><span class="p">:</span>
+                            <span class="c1"># -03:00</span>
+                            <span class="n">x</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">60</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                            <span class="k">if</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">len_l</span> <span class="ow">and</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;:&#39;</span><span class="p">:</span>
+                                <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                                <span class="n">x</span><span class="o">.</span><span class="n">time</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="k">elif</span> <span class="n">len_li</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+                            <span class="c1"># -[0]3</span>
+                            <span class="n">x</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="bp">None</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">assert</span> <span class="n">i</span> <span class="o">==</span> <span class="n">len_l</span> <span class="ow">or</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;,&#39;</span>
+
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="k">assert</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">len_l</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">AssertionError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">res</span>
+
+
+<span class="n">DEFAULTTZPARSER</span> <span class="o">=</span> <span class="n">_tzparser</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_parsetz</span><span class="p">(</span><span class="n">tzstr</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">DEFAULTTZPARSER</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">tzstr</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_parsems</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parse a I[.F] seconds value into (seconds, microseconds).&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)[:</span><span class="mi">6</span><span class="p">])</span>
+
+
+<span class="c1"># vim:ts=4:sw=4:et</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

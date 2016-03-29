@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Singletons &mdash; The Tuna 2014.07.10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.07.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/processing.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="The Tuna 2014.07.10 documentation" href="../index.html" />
+    <link rel="up" title="The Infrastructure" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          The Tuna</a>
+        <span class="navbar-text navbar-version pull-left"><b>2014.07.10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/developer/index.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/user/index.html">User Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../log_setter.html">Log Setter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">The Main Entry Point</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../clients/index.html">Client Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../components/index.html">The Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explorations/index.html">Explorations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosts/index.html">Hosts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimizers/index.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">The Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">The Tuna-Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qualities/index.html">Quality Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tweaks/index.html">Tweaks</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">The Singletons</a><ul>
+<li><a class="reference internal" href="#setting-up">Setting Up</a></li>
+<li><a class="reference internal" href="#get-composite">Get Composite</a></li>
+<li><a class="reference internal" href="#get-filestorage">Get FileStorage</a></li>
+<li><a class="reference internal" href="#refresh">Refresh</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/infrastructure/singletons.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="the-singletons">
+<h1>The Singletons<a class="headerlink" href="#the-singletons" title="Permalink to this headline">¶</a></h1>
+<p>This is a module to hold singletons. The (initial) problem it is trying to solve is the need for the plugins to be able to share a common composite without knowing about each other. In earlier incarnations of the <a class="reference external" href="http://rallion.bitbucket.org/hortators/ape/index.html">APE</a> I did something similar by having the <em>hortator</em> hold an object for others to share, but this ended up making the <em>hortator</em> large and complicated. The particular first-use will be for watchers which will be registered with a <a class="reference internal" href="../components/composite.html#composite-class"><span class="std std-ref">Composite</span></a> <span class="xref std std-ref">Singleton</span>.</p>
+<div class="section" id="setting-up">
+<h2>Setting Up<a class="headerlink" href="#setting-up" title="Permalink to this headline">¶</a></h2>
+<p>The first thing to create is the <cite>singletons</cite> dictionary. I originally thought that it would be a <cite>name</cite>: object mapping but I think now it should be a <cite>name</cite>:{<cite>category</cite>:object} mapping so that categories of objects can share the same singleton. I am also creating a <cite>SingletonEnum</cite> to hold the string names for the types of singleton (the <cite>name</cite> in the previous sentence) so that any code that needs to refer to them can do so using dot-notation.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># the singletons will be kept in this dictionary</span>
+<span class="n">singletons</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SingletonEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A holder for singleton names</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">composite</span> <span class="o">=</span> <span class="s1">&#39;composite&#39;</span>
+    <span class="n">filestorage</span> <span class="o">=</span> <span class="s1">&#39;filestorage&#39;</span>
+</pre></div>
+</div>
+<span class="target" id="module-tuna.infrastructure.singletons"></span></div>
+<div class="section" id="get-composite">
+<h2>Get Composite<a class="headerlink" href="#get-composite" title="Permalink to this headline">¶</a></h2>
+<p>The Composite Singleton can be retrieved via the <code class="docutils literal"><span class="pre">get_composite</span></code> method. It takes a name to register the composite being retrieved so that multiple composites can be created (e.g. one composite for watchers, one for tests). Because I&#8217;m re-using the <a class="reference internal" href="../components/composite.html#composite-class"><span class="std std-ref">Composite</span></a> meant to create the Ape&#8217;s infrastructure the composite singleton&#8217;s need to have an exception and error-message passed in. To avoid interfering with the infrastructure&#8217;s error-handling I&#8217;m going to use a <span class="xref std std-ref">DontCatchError</span> by default so that the Composite will crash if any of its components crashes. In the case of threaded components, this won&#8217;t work, of course, but we&#8217;ll se how it goes.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_composite</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="get-filestorage">
+<h2>Get FileStorage<a class="headerlink" href="#get-filestorage" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">get_filestorage</span></code> function gets a <span class="xref std std-ref">FileStorage</span> object. The intention is for each Operator Composite to set the path of the File Storage before creating its components, then each of the plugins can just open a file using the singleton. This creates a little bit of a different case from the composites in that if sub-groups are used they are going to need to copy the original file-storage and change its path (assuming the path will be different, which is the only case that I can think of where sub-groups might be useful).</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_filestorage</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="refresh">
+<h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">refresh</span></code> function clears the <code class="docutils literal"><span class="pre">singletons</span></code> dictionary. It is meant to be called whenever a new operation is created so that the objects from previous operations aren&#8217;t still being held by the singletons. Since I don&#8217;t have a use-case for selectively destroying singletons it clears all of them, but you could selectively delete types or categories:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tuna.infrastructure.singletons</span> <span class="k">import</span> <span class="n">singletons</span><span class="p">,</span> <span class="n">SingletonEnum</span>
+<span class="kn">from</span> <span class="nn">tuna.infrastructure.singletons</span> <span class="k">import</span> <span class="n">refresh</span>
+
+<span class="n">enum</span> <span class="o">=</span> <span class="n">SingletonEnum</span>
+
+<span class="c1"># delete a sub-category called &#39;test&#39;</span>
+
+<span class="k">del</span> <span class="n">singletons</span><span class="p">[</span><span class="n">enum</span><span class="o">.</span><span class="n">composite</span><span class="p">][</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+
+<span class="c1"># delete all the composites</span>
+
+<span class="k">del</span> <span class="n">singletons</span><span class="p">[</span><span class="n">enum</span><span class="o">.</span><span class="n">composite</span><span class="p">]</span>
+
+<span class="c1"># delete all the singletons</span>
+
+<span class="n">refresh</span><span class="p">()</span>
+</pre></div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">refresh</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, russell nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
